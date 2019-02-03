@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'onboard',
     loadChildren: './pages/onboard/onboard.module#OnboardPageModule'
+  },
+  {
+    path: 'signup-email',
+    loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule'
   }
 ];
 @NgModule({

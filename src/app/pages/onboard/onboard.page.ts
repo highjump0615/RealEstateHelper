@@ -43,6 +43,6 @@ export class OnboardPage implements OnInit {
    * go to log in page
    */
   gotoLoginPage() {
-    this.router.navigate(['login']);
+    this.router.navigate(['signup-email']);
   }
 }

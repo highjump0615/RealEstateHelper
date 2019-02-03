@@ -13,6 +13,8 @@
 :root {
   --font-size-label: 10pt;
   --font-size-button: 10pt;
+
+  font-size: 10pt;
 }
 
 
@@ -67,4 +69,17 @@ ion-button[full] {
 }
 ion-button[square] {
   --border-radius: 0;
+}
+
+// header
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+  }
+}
+
+// disabled
+.inactive {
+  opacity: 0.6;
 }

@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SIGN UP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="container">
+    <!-- signup input -->
+    <div class="flex-column">
+      <div class="flex-column nm-center dv-input">
+        <span
+          style="margin-top: 40px"
+        >Sign In Through</span>
+
+        <!--social buttons-->
+        <div class="dv-social">
+          <ion-img
+            src="../../assets/imgs/but_fb.png">
+          </ion-img>
+          <ion-img
+            src="../../assets/imgs/but_google.png">
+          </ion-img>
+        </div>
+
+        <span
+          style="margin: 30px"
+        >or</span>
+      </div>
+
+      <!-- input email -->
+      <div class="half-full flex-column input-wrapper">
+        <ion-input
+          placeholder="Enter your email"
+          type="email"
+        ></ion-input>
+
+        <!-- checkboxes -->
+        <div class="flex-column">
+          <app-check-box
+            text="Valid email"
+            [enabled]="false">
+          </app-check-box>
+          <app-check-box
+            text="Not in Use"
+            [enabled]="false">
+          </app-check-box>
+        </div>
+      </div>
+    </div>
+
+    <!-- buttons -->
+    <div class="flex-column">
+
+      <div class="half-full">
+        <ion-button
+          expand="full"
+        >Next</ion-button>
+      </div>
+
+      <!-- sign in -->
+      <ion-button
+        class="but-signin"
+        fill="clear"
+        (click)="onButSignin($event)">
+        Already have an account? Click here to Sign In
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>
