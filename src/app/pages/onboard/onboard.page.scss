@@ -1,0 +1,41 @@
+
+.slide-content span {
+  font-size: 12pt;
+  line-height: 1.5;
+  color: var(--ion-color-primary-contrast);
+}
+
+.slide-content {
+  .dv-img {
+    display: flex;
+    align-items: center;
+    flex: 3;
+  }
+
+  .dv-text {
+    flex: 2;
+  }
+}
+
+.img-logo {
+  width: 157px;
+}
+
+ion-slides {
+  height: 100%;
+
+  //
+  // slider bullets
+  //
+
+  // color
+  /deep/ .swiper-pagination-bullet {
+    background: var(--ion-color-primary-contrast) !important;
+  }
+
+  // position
+  /deep/ .swiper-pagination-bullets {
+    bottom: 10% !important;
+  }
+
+}

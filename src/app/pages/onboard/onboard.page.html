@@ -1,0 +1,97 @@
+<ion-header>
+</ion-header>
+
+<ion-content class="blue-bg" padding>
+
+  <div ion-fixed class="container">
+    <!-- slider -->
+    <div class="flex-fill">
+      <ion-slides
+        pager
+        #slides>
+        <ion-slide>
+          <div class="container slide-content">
+            <div class="dv-img nm-center">
+              <!-- logo image -->
+              <img
+                src="../assets/imgs/onboard1_icon.png"
+                class="img-logo" />
+            </div>
+            <div class="dv-text ">
+              <!-- label -->
+              <span>“A platform for your <br>
+                <b>EXCLUSIVE</b> listings and buyers.”</span>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="container slide-content">
+            <div class="dv-img nm-center">
+              <!-- logo image -->
+              <img
+                src="../assets/imgs/onboard2_icon.png"
+                class="img-logo" />
+            </div>
+            <div class="dv-text ">
+              <!-- label -->
+              <span>“Create client profiles in App:<br>
+                Connect with other agent’s<br>
+                <b>SELLERS</b> and <b>BUYERS</b>.”</span>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="container slide-content">
+            <div class="dv-img nm-center">
+              <!-- logo image -->
+              <img
+                src="../assets/imgs/onboard3_icon.png"
+                class="img-logo" />
+            </div>
+            <div class="dv-text ">
+              <!-- label -->
+              <span>“Get instant notification of new<br>
+                matches and updates.”</span>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="container slide-content">
+            <div class="dv-img nm-center">
+              <!-- logo image -->
+              <img
+                src="../assets/imgs/onboard4_icon.png"
+                class="img-logo" />
+            </div>
+            <div class="dv-text ">
+              <!-- label -->
+              <span>“Use the data in this app<br>
+                as a exclusive <b>LISTING</b> and <b>BRA</b> tool.”</span>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <!-- buttons -->
+    <div
+      class="nm-center"
+      style="width: 70%; height: 160px;">
+      <ion-button
+        fill="outline"
+        full square
+        (click)="onButNext($event)">
+        Next
+      </ion-button>
+      <ion-button
+        fill="clear"
+        (click)="onButSkip($event)">
+        Skip
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>
