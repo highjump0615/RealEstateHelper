@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'signup-email',
     loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule'
+  },
+  {
+    path: 'signup-password',
+    loadChildren: './pages/signup/signup-password/signup-password.module#SignupPasswordPageModule'
   }
 ];
 @NgModule({

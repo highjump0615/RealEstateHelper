@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup-email',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupEmailPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  onButNext($event: MouseEvent) {
+    this.router.navigate(['signup-password']);
+  }
 }

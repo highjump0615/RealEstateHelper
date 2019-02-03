@@ -1,3 +1,5 @@
+@import '../signup';
+
 .container {
   justify-content: space-between;
 }
@@ -14,6 +16,7 @@
   margin-top: 30px;
   ion-img {
     width: 60px;
+    height: 60px;
 
     &:not(:first-child) {
       margin-left: 40px;
@@ -21,24 +24,6 @@
   }
 }
 
-.half-full {
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
-.input-wrapper {
-  ion-input {
-    font-size: 10pt;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 14px;
-  }
-
-  app-check-box {
-    &:not(:first-child) {
-      margin-top: 4px;
-    }
-  }
-}
 
 .but-signin {
   font-size: 10pt;
