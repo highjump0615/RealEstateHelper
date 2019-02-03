@@ -1,5 +1,7 @@
 {
   "name": "Reconnect",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
