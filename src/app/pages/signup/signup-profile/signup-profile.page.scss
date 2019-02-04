@@ -1,0 +1,43 @@
+@import '../signup';
+
+/deep/ app-image-uploader {
+  width: 110px;
+
+  .dv-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  .container {
+    background-color: var(--color-gray);
+
+    ion-icon {
+      font-size: 50pt;
+      color: var(--color-gray-dark);
+    }
+  }
+}
+
+.dv-profile-photo {
+  flex: 1;
+}
+
+.dv-data {
+  flex: 2;
+
+  .input-wrapper {
+  }
+
+  .dv-buttons {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+ion-input {
+  margin-bottom: 0 !important;
+  flex: none;
+}
+

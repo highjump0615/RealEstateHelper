@@ -1,14 +1,18 @@
 import {NgModule} from '@angular/core';
 import {CheckBoxComponent} from "./check-box/check-box.component";
 import {IonicModule} from "@ionic/angular";
+import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import {CommonModule} from "@angular/common";
 
 const COMPONENTS = [
-  CheckBoxComponent
+  CheckBoxComponent,
+  ImageUploaderComponent
 ];
 
 @NgModule({
   imports: [
-    IonicModule
+    IonicModule,
+    CommonModule
   ],
   declarations: [
     ...COMPONENTS

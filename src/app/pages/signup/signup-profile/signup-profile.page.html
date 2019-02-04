@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>SIGN UP</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <!-- upload image -->
+    <div class="dv-profile-photo flex-column half-full nm-center">
+      <app-image-uploader
+        desc="Add profile photo"
+        #imageProfile>
+        <div class="container flex-c-row nm-center">
+          <ion-icon
+            class="nm-center"
+            name="add"></ion-icon>
+        </div>
+      </app-image-uploader>
+    </div>
+
+    <!-- input data -->
+    <div class="dv-data half-full flex-column">
+      <div class="input-wrapper flex-column">
+        <ion-input
+          placeholder="Agent Name"
+        ></ion-input>
+        <ion-input
+          placeholder="Agent Phone Number"
+          type="phone"
+        ></ion-input>
+        <ion-input
+          placeholder="Agent Email Address"
+          type="email"
+        ></ion-input>
+        <ion-input
+          placeholder="Brokerage Name"
+        ></ion-input>
+        <ion-input
+          placeholder="Brokerage Phone Number"
+          type="phone"
+        ></ion-input>
+        <ion-input
+          placeholder="Brokerage Address"
+        ></ion-input>
+      </div>
+
+      <!-- buttons -->
+      <div class="flex-column dv-buttons">
+        <ion-button
+          expand="full"
+          (click)="onButNext($event)"
+        >Next</ion-button>
+
+        <!-- go back -->
+        <ion-button
+          class="but-signin"
+          fill="clear"
+          (click)="onButBack($event)">
+          Go Back
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

@@ -14,5 +14,6 @@ export class SignupPasswordPage implements OnInit {
   }
 
   onButDone($event: MouseEvent) {
+    this.router.navigate(['signup-profile']);
   }
 }
