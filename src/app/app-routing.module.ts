@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule'
+  },
+  {
+    path: 'forget',
+    loadChildren: './pages/forget/forget.module#ForgetPageModule'
   }
 ];
 @NgModule({

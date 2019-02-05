@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>FORGOT PASSWORD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="container">
+    <!-- input -->
+    <div class="flex-column half-full">
+      <!-- password -->
+      <div class="flex-column input-wrapper">
+        <ion-input
+          placeholder="Enter your email"
+          type="email"
+        ></ion-input>
+
+        <!-- checkboxes -->
+        <div class="flex-column">
+          <app-check-box
+            text="Registered email"
+            [enabled]="false">
+          </app-check-box>
+        </div>
+      </div>
+    </div>
+
+    <!-- buttons -->
+    <div class="half-full">
+      <ion-button
+        expand="full"
+        (click)="onButSubmit($event)"
+      >Submit</ion-button>
+    </div>
+
+  </div>
+
+</ion-content>
