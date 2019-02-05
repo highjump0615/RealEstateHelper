@@ -16,4 +16,8 @@ export class LoginPage implements OnInit {
   onButForget($event: MouseEvent) {
     this.router.navigate(['forget']);
   }
+
+  onButLogin($event: MouseEvent) {
+    this.router.navigate(['home']);
+  }
 }

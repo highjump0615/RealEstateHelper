@@ -1,0 +1,77 @@
+ion-tab-bar {
+  box-shadow: 0 0 10px #bbb;
+}
+
+.dv-icon {
+  width: 26px;
+  height: 26px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+ion-tab-button {
+  &:not(:last-child) {
+    border-right: 1px #d6d6d6 solid;
+  }
+}
+
+ion-tab-button[tab="home"] {
+  .dv-icon {
+    background-image: url('../../../assets/imgs/tab_home.png');
+  }
+
+  &[aria-selected=true] {
+    .dv-icon {
+      background-image: url('../../../assets/imgs/tab_home_selected.png');
+    }
+  }
+}
+
+ion-tab-button[tab="matches"] {
+  .dv-icon {
+    background-image: url('../../../assets/imgs/tab_matches.png');
+  }
+
+  &[aria-selected=true] {
+    .dv-icon {
+      background-image: url('../../../assets/imgs/tab_matches_selected.png');
+    }
+  }
+}
+
+ion-tab-button[tab="favourites"] {
+  .dv-icon {
+    background-image: url('../../../assets/imgs/tab_favourites.png');
+  }
+
+  &[aria-selected=true] {
+    .dv-icon {
+      background-image: url('../../../assets/imgs/tab_favourites_selected.png');
+    }
+  }
+}
+
+ion-tab-button[tab="chat"] {
+  .dv-icon {
+    background-image: url('../../../assets/imgs/tab_chat.png');
+  }
+
+  &[aria-selected=true] {
+    .dv-icon {
+      background-image: url('../../../assets/imgs/tab_chat_selected.png');
+    }
+  }
+}
+
+ion-tab-button[tab="notifications"] {
+  .dv-icon {
+    background-image: url('../../../assets/imgs/tab_notifications.png');
+  }
+
+  &[aria-selected=true] {
+    .dv-icon {
+      background-image: url('../../../assets/imgs/tab_notifications_selected.png');
+    }
+  }
+}
