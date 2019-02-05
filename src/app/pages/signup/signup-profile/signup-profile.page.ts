@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-signup-profile',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupProfilePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public navCtrl: NavController
+  ) {
+  }
 
   ngOnInit() {
   }
 
+  onButBack($event: MouseEvent) {
+    // back to prev page
+    this.navCtrl.pop();
+  }
 }

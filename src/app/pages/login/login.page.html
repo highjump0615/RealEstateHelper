@@ -1,0 +1,58 @@
+<ion-header>
+</ion-header>
+
+<ion-content class="blue-bg" padding>
+
+  <div class="container">
+    <!-- logo -->
+    <div class="flex-c-row dv-logo nm-center">
+      <img src="../../../assets/icon/icon.png" />
+    </div>
+
+    <!-- inputs -->
+    <div class="dv-input flex-column">
+      <div class="input-wrapper">
+        <ion-input
+          placeholder="Email"
+          type="email"
+        ></ion-input>
+
+        <ion-input
+          placeholder="Password"
+          type="password"
+        ></ion-input>
+      </div>
+
+      <!-- forget button -->
+      <ion-button
+        fill="clear"
+        color="secondary"
+        size="small"
+        (click)="onButForget($event)">
+        Forgot password?
+      </ion-button>
+
+      <!-- login button -->
+      <ion-button
+        fill="outline"
+        color="secondary"
+        full square
+        style="margin-top: 30px;"
+        (click)="onButLogin($event)">
+        Log In
+      </ion-button>
+
+      <!--social buttons-->
+      <div class="dv-social flex-c-row">
+        <ion-img
+          src="../../assets/imgs/but_fb.png">
+        </ion-img>
+        <ion-img
+          src="../../assets/imgs/but_google.png">
+        </ion-img>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

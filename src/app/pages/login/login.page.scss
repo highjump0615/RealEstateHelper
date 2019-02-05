@@ -1,0 +1,39 @@
+.dv-logo {
+  flex: 2;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.dv-input {
+  flex: 3;
+}
+
+.container {
+  > div {
+    width: 80%;
+    align-self: center;
+  }
+}
+
+.input-wrapper {
+  ion-input {
+    color: var(--ion-color-primary-contrast);
+    border-bottom: 1px solid var(--ion-color-secondary);
+  }
+}
+
+.dv-social {
+  flex: 1;
+  justify-content: center;
+  ion-img {
+    width: 60px;
+    height: 60px;
+
+    &:not(:first-child) {
+      margin-left: 40px;
+    }
+  }
+}

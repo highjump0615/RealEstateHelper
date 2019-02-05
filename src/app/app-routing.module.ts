@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'signup-profile',
     loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+  },
+  {
+    path: 'login',
+    loadChildren: './pages/login/login.module#LoginPageModule'
   }
 ];
 @NgModule({

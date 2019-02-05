@@ -16,4 +16,9 @@ export class SignupEmailPage implements OnInit {
   onButNext($event: MouseEvent) {
     this.router.navigate(['signup-password']);
   }
+
+  onButSignin($event: MouseEvent) {
+    // go to login page
+    this.router.navigate(['login']);
+  }
 }
