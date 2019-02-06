@@ -1,0 +1,38 @@
+ion-card {
+  margin: 6px 14px 0 14px;
+
+  &:first-child {
+    margin-top: 14px;
+  }
+
+  &:last-child {
+    margin-bottom: 16px;
+  }
+}
+
+.dv-icon {
+  width: 22px;
+
+  ion-icon {
+    font-size: 16pt;
+  }
+}
+
+ion-card-content {
+  padding: 16px;
+
+  color: var(--ion-color-primary);
+  font-size: 10pt;
+
+  .sp-msg {
+    font-weight: bold;
+    flex: 1;
+    margin: 0 10px;
+    font-size: 9pt;
+  }
+
+  .sp-time {
+    color: var(--color-gray-dark);
+    font-size: 8pt;
+  }
+}

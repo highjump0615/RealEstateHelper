@@ -1,9 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>notifications</ion-title>
+    <ion-title>NOTIFICATIONS</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ion-card
+    class="ca-buyer"
+    *ngFor="let nt of notifications">
+    <ion-card-content>
+      <div class="flex-c-row">
+        <!-- image -->
+        <div class="dv-icon">
+          <img
+            *ngIf="nt.type == 0"
+            src="../../../assets/imgs/tab_matches_selected.png">
+          <ion-icon
+            *ngIf="nt.type == 1"
+            name="pricetag">
+          </ion-icon>
+          <ion-icon
+            *ngIf="nt.type == 2"
+            name="md-time">
+          </ion-icon>
+        </div>
+
+        <!-- message -->
+        <span
+          class="sp-msg"
+        >Claire tagged you in a post</span>
+
+        <!-- time -->
+        <span
+          class="sp-time"
+        >July 29 | 10:00AM</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
