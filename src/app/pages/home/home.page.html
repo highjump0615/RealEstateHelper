@@ -1,9 +1,85 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <!-- user photo -->
+    <ion-buttons slot="start">
+      <ion-img src="../../../assets/imgs/default_user.png">
+      </ion-img>
+    </ion-buttons>
+
+    <ion-title>R.E.CONNECT</ion-title>
+
+    <!-- settings -->
+    <ion-buttons slot="end">
+      <ion-button color="light">
+        <ion-icon
+          slot="icon-only"
+          name="settings">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- search -->
+  <ion-toolbar class="tb-search">
+    <ion-button
+      expand="block"
+      shape="round"
+      color="light">
+      Refine Search
+    </ion-button>
+  </ion-toolbar>
+
+  <!-- profile buttons -->
+  <ion-toolbar class="tb-profile">
+    <div class="flex-row">
+      <ion-button
+        fill="clear"
+        color="secondary">
+        My Profiles
+      </ion-button>
+      <ion-button
+        fill="clear"
+        color="secondary">
+        Add Profile
+      </ion-button>
+    </div>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-list>
+    <ion-item
+      *ngFor="let i of [1,2,3,4,5,6]">
+      <div class="flex-row">
+        <!-- image -->
+        <ion-thumbnail>
+          <img src="../../../assets/imgs/default_img.png">
+        </ion-thumbnail>
+
+        <div class="flex-column dv-info">
+          <!-- title -->
+          <span
+            class="sp-title"
+          >New three bedroom, one level duplex home</span>
+
+          <!-- price -->
+          <span
+            class="sp-price"
+          >$399,000.00</span>
+
+          <!-- address -->
+          <span
+            class="sp-address"
+          >83 Iskoot Crescent, Whitehorse, Canada</span>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+          >0.3 miles away</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
