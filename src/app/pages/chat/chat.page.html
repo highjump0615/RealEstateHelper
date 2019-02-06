@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chat</ion-title>
+    <ion-title>CHAT</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let i of [1,2,3,4,5,6]"
+      (click)="onItemClick()">
+      <div class="flex-row full-width">
+        <!-- user photo -->
+        <ion-thumbnail>
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-thumbnail>
+
+        <div class="dv-content">
+          <!-- message -->
+          <span>I recently sold a property down lorem ipsum lorem lorem lorem</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

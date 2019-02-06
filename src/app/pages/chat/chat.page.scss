@@ -1,0 +1,28 @@
+ion-item {
+  > div {
+    padding: 12px 12px 12px 0;
+    align-items: center;
+  }
+
+  font-size: 10pt;
+
+  ion-thumbnail {
+    width: 48px;
+    height: 48px;
+    --border-radius: 50px;
+    margin-right: 18px;
+  }
+
+  .dv-content {
+    flex: 1;
+    overflow: hidden;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      width: 100%;
+    }
+  }
+}
