@@ -1,3 +1,4 @@
+
 ion-buttons[slot="start"] {
   ion-img {
     margin-left: 8px;
@@ -15,25 +16,6 @@ ion-buttons[slot="start"] {
     font-size: inherit;
   }
 }
-
-.tb-profile {
-  --padding-bottom: 0;
-  --padding-top: 0;
-  --padding-start: 0;
-  --padding-end: 0;
-
-  border-top: 1px var(--ion-color-secondary) solid;
-
-  ion-button {
-    flex: 1;
-    margin: 0;
-
-    &:not(:last-child) {
-      border-right: 1px var(--ion-color-secondary) solid;
-    }
-  }
-}
-
 
 ion-content {
   ion-item {

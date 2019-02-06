@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchesPage implements OnInit {
 
+  PAGE_BUYER = 0;
+  PAGE_SELLER = 1;
+
+  currentPage = this.PAGE_BUYER;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onPageChanged(page: number) {
+    this.currentPage = page;
+  }
 }

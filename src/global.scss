@@ -73,16 +73,41 @@ ion-button[full] {
 ion-button[square] {
   --border-radius: 0;
 }
+ion-button[no-border] {
+  --border-width: 0;
+}
 
 // header
 ion-header {
+  background-color: var(--ion-color-primary);
+
   ion-toolbar {
     --background: var(--ion-color-primary);
     --color: var(--ion-color-primary-contrast);
   }
+
+  .dv-segment {
+    border-top: 1px var(--ion-color-secondary) solid;
+
+    ion-button {
+      flex: 1;
+      margin: 0;
+      background-color: transparent !important;
+
+      &:not(:last-child) {
+        border-right: 1px var(--ion-color-secondary) solid;
+      }
+    }
+  }
+
 }
 
 // disabled
 .inactive {
   opacity: 0.6;
+}
+
+.round {
+  border-radius: 300px !important;
+  overflow: hidden;
 }
