@@ -111,3 +111,8 @@ ion-header {
   border-radius: 300px !important;
   overflow: hidden;
 }
+
+// prevent button uppercase
+ion-button {
+  text-transform: none;
+}
