@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseSegmentPage} from "../base-segment.page";
 import {AlertController} from "@ionic/angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-client',
@@ -10,7 +11,8 @@ import {AlertController} from "@ionic/angular";
 export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   constructor(
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router
   ) {
     super();
   }
@@ -44,5 +46,9 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  onButAddProfile() {
+    this.router.navigate(['expiry1']);
   }
 }

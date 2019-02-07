@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>PROFILE EXPIRY</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="container">
+    <div class="dv-notice flex-row nm-center-items">
+      <!-- border frame -->
+      <div class="dv-frame">
+      </div>
+
+      <div class="dv-content flex-column">
+        <span
+          class="sp-title"
+        >Dear John</span>
+        <span
+          class="sp-notice"
+        >“All client names and contact information about your client is for your use only. Other users will only be given contact information to contact you, the agent.”</span>
+        <span
+          class="sp-footer"
+        >-R.E.connect</span>
+      </div>
+    </div>
+
+    <!-- next button -->
+    <ion-button
+      [routerLink]="['/expiry2']"
+      class="m-0 with-shadow"
+      expand="block"
+      square
+    >Next</ion-button>
+  </div>
+
+</ion-content>

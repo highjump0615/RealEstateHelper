@@ -62,6 +62,14 @@ const routes: Routes = [
   {
     path: 'profile-client',
     loadChildren: './pages/profile-client/profile-client.module#ProfileClientPageModule'
+  },
+  {
+    path: 'expiry1',
+    loadChildren: './pages/expiry/expiry1/expiry1.module#Expiry1PageModule'
+  },
+  {
+    path: 'expiry2',
+    loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule'
   }
 ];
 @NgModule({
