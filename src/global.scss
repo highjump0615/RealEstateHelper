@@ -66,6 +66,12 @@
   text-align: center;
 }
 
+.nm-center-items {
+  justify-content: center !important;
+  text-align: center;
+  align-items: center;
+}
+
 // buttons
 ion-button[full] {
   width: 100%;
@@ -115,4 +121,11 @@ ion-header {
 // prevent button uppercase
 ion-button {
   text-transform: none;
+}
+
+//
+// shadow
+//
+.with-shadow {
+  box-shadow: 0 3px 30px var(--ion-color-primary);
 }

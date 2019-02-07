@@ -1,0 +1,68 @@
+ion-buttons[slot="end"] {
+  ion-img {
+    width: 20px;
+  }
+}
+
+.dv-agent {
+  flex: 3;
+  position: relative;
+  justify-content: center;
+
+  .dv-bg {
+    background-image: url('../../../assets/imgs/default_img.png');
+    filter: blur(5px);
+  }
+
+  .img-shadow,
+  .dv-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dv-info {
+    z-index: 1;
+    color: var(--ion-color-primary-contrast);
+
+    ion-thumbnail {
+      --border-radius: 100%;
+      width: 114px;
+      height: 114px;
+    }
+
+    .sp-name {
+      margin-top: 20px;
+      margin-bottom: 14px;
+    }
+  }
+}
+
+.sp-name {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+ion-icon {
+  font-size: 14pt;
+  margin-right: 4px;
+}
+
+.dv-brokerage {
+  flex: 2;
+
+  .dv-info {
+    .sp-name {
+      margin-bottom: 6px;
+    }
+
+    .dv-address,
+    .dv-phone {
+      color: #777777;
+    }
+  }
+}
+
+.bt-client-profile {
+  margin: 0;
+}

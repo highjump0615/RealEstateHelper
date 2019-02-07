@@ -2,8 +2,10 @@
   <ion-toolbar>
     <!-- user photo -->
     <ion-buttons slot="start">
-      <ion-img src="../../../assets/imgs/default_user.png">
-      </ion-img>
+      <a [routerLink]="['/profile']">
+        <ion-img src="../../../assets/imgs/default_user.png">
+        </ion-img>
+      </a>
     </ion-buttons>
 
     <ion-title>R.E.CONNECT</ion-title>

@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>MY PROFILE</ion-title>
+
+    <!-- edit -->
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-img
+          src="../../../assets/imgs/profile_edit.png"
+          slot="icon-only">
+        </ion-img>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <!-- agent info -->
+    <div
+      class="dv-agent flex-c-row">
+
+      <!-- background image -->
+      <div class="dv-bg">
+      </div>
+      <img
+        class="img-shadow"
+        src="../../../assets/imgs/profile_shadow_bg.png">
+
+      <!-- info -->
+      <div class="flex-column dv-info nm-center-items">
+        <!-- photo -->
+        <ion-thumbnail>
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-thumbnail>
+
+        <!-- name -->
+        <span
+          class="sp-name"
+        >John Hill</span>
+
+        <!-- email -->
+        <div class="flex-c-row dv-email">
+          <ion-icon name="mail"></ion-icon>
+          <span>johnH@gmail.com</span>
+        </div>
+
+        <!-- phone -->
+        <div class="flex-c-row dv-phone">
+          <ion-icon name="call"></ion-icon>
+          <span>613-222-0124</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- brokerage info -->
+    <div class="dv-brokerage flex-c-row nm-center-items">
+      <!-- info -->
+      <div class="flex-column dv-info nm-center-items">
+        <!-- title -->
+        <span
+          class="sp-name"
+        >Golden Investments</span>
+
+        <!-- address -->
+        <div class="flex-c-row dv-address">
+          <ion-icon name="pin"></ion-icon>
+          <span>2300 Cherry Bridge , Canada</span>
+        </div>
+
+        <!-- phone -->
+        <div class="flex-c-row dv-phone">
+          <ion-icon name="call"></ion-icon>
+          <span>613-222-0124</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- client profile button -->
+    <ion-button
+      class="bt-client-profile with-shadow"
+      expand="block"
+      square
+    >Client Profiles</ion-button>
+  </div>
+
+</ion-content>

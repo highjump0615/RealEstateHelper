@@ -35,11 +35,30 @@ const routes: Routes = [
     path: 'forget',
     loadChildren: './pages/forget/forget.module#ForgetPageModule'
   },
-  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
-  { path: 'chat', loadChildren: './pages/chat/chat.module#ChatPageModule' },
-  { path: 'favourites', loadChildren: './pages/favourites/favourites.module#FavouritesPageModule' },
-  { path: 'matches', loadChildren: './pages/matches/matches.module#MatchesPageModule' },
-  { path: 'notifications', loadChildren: './pages/notifications/notifications.module#NotificationsPageModule' }
+  {
+    path: 'home',
+    loadChildren: './pages/home/home.module#HomePageModule'
+  },
+  {
+    path: 'chat',
+    loadChildren: './pages/chat/chat.module#ChatPageModule'
+  },
+  {
+    path: 'favourites',
+    loadChildren: './pages/favourites/favourites.module#FavouritesPageModule'
+  },
+  {
+    path: 'matches',
+    loadChildren: './pages/matches/matches.module#MatchesPageModule'
+  },
+  {
+    path: 'notifications',
+    loadChildren: './pages/notifications/notifications.module#NotificationsPageModule'
+  },
+  {
+    path: 'profile',
+    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+  }
 ];
 @NgModule({
   imports: [
