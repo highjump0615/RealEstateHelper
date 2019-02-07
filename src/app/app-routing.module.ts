@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: './pages/profile/profile.module#ProfilePageModule'
+  },
+  {
+    path: 'profile-client',
+    loadChildren: './pages/profile-client/profile-client.module#ProfileClientPageModule'
   }
 ];
 @NgModule({

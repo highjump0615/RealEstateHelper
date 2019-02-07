@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>CLIENT PROFILES</ion-title>
+  </ion-toolbar>
+
+  <!-- segments -->
+  <div class="flex-row dv-segment">
+    <ion-button
+      [fill]="currentPage == PAGE_BUYER ? 'solid' : 'outline'"
+      square
+      no-border
+      color="secondary"
+      (click)="onPageChanged(PAGE_BUYER)">
+      Buyer Profiles
+    </ion-button>
+    <ion-button
+      [fill]="currentPage == PAGE_SELLER ? 'solid' : 'outline'"
+      square
+      no-border
+      color="secondary"
+      (click)="onPageChanged(PAGE_SELLER)">
+      Seller Profiles
+    </ion-button>
+  </div>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let i of [1,2,3,4,5,6]">
+      <div class="flex-row full-width">
+        <!-- photo -->
+        <ion-thumbnail
+          class="round">
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-thumbnail>
+
+        <!-- info -->
+        <div class="flex-column dv-info">
+          <!-- name -->
+          <span
+            class="sp-name"
+          >Andrew Smith</span>
+          <span
+            class="sp-address"
+          >2896 Holly Street Rome, Canada</span>
+        </div>
+
+        <!-- distance -->
+        <span
+          class="sp-distance"
+        >0.2 km away</span>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+
+</ion-content>
