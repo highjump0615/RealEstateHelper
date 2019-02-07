@@ -31,32 +31,41 @@
 <ion-content>
 
   <ion-list>
-    <ion-item
+    <ion-item-sliding
       *ngFor="let i of [1,2,3,4,5,6]">
-      <div class="flex-row full-width">
-        <!-- photo -->
-        <ion-thumbnail
-          class="round">
-          <img src="../../../assets/imgs/default_user.png">
-        </ion-thumbnail>
+      <ion-item>
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <img src="../../../assets/imgs/default_user.png">
+          </ion-thumbnail>
 
-        <!-- info -->
-        <div class="flex-column dv-info">
-          <!-- name -->
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >Andrew Smith</span>
+            <span
+              class="sp-address"
+            >2896 Holly Street Rome, Canada</span>
+          </div>
+
+          <!-- distance -->
           <span
-            class="sp-name"
-          >Andrew Smith</span>
-          <span
-            class="sp-address"
-          >2896 Holly Street Rome, Canada</span>
+            class="sp-distance"
+          >0.2 km away</span>
         </div>
+      </ion-item>
 
-        <!-- distance -->
-        <span
-          class="sp-distance"
-        >0.2 km away</span>
-      </div>
-    </ion-item>
+      <!-- remove button -->
+      <ion-item-options>
+        <ion-item-option
+          (click)="onButRemove()"
+        >Remove</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-fab-button>
