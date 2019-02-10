@@ -32,7 +32,7 @@ export class OnboardPage implements OnInit {
   }
 
   /**
-   * skipe button
+   * skip button
    * @param event
    */
   onButSkip(event) {

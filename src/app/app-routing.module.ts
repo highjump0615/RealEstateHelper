@@ -78,6 +78,10 @@ const routes: Routes = [
   {
     path: 'filter-search',
     loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule'
+  },
+  {
+    path: 'location',
+    loadChildren: './pages/location/location.module#LocationPageModule'
   }
 ];
 @NgModule({
