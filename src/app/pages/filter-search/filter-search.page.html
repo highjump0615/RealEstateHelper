@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>FILTER SEARCH</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="flex-column">
+    <!-- search for-->
+    <div class="dv-input-with-title flex-column">
+      <ion-label>Search For:</ion-label>
+
+      <ion-radio-group
+        class="flex-c-row"
+        [(ngModel)]="target">
+        <!-- checkbox -->
+        <ion-item
+          lines="none"
+          class="it-checkbox">
+          <ion-label>Buyer</ion-label>
+          <ion-radio
+            slot="start"
+            mode="md"
+            color="secondary"
+            [value]="TARGET_BUYER"
+          ></ion-radio>
+        </ion-item>
+        <ion-item
+          lines="none"
+          class="it-checkbox">
+          <ion-label>Seller</ion-label>
+          <ion-radio
+            slot="start"
+            mode="md"
+            color="secondary"
+            [value]="TARGET_SELLER"
+          ></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+
+    <!-- location -->
+    <div class="dv-filter-input flex-c-row mt-10">
+      <!-- icon -->
+      <ion-icon name="search"></ion-icon>
+      <ion-input
+        placeholder="Enter Location"
+      ></ion-input>
+    </div>
+
+    <!-- distance -->
+    <ion-range
+      min="0"
+      max="20"
+      pin
+      mode="md"
+      color="secondary"
+      [(ngModel)]="distance">
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">20 km</ion-label>
+    </ion-range>
+
+    <!-- price range -->
+    <div class="dv-input-with-title flex-column">
+      <ion-label>Price Range</ion-label>
+
+      <!-- minimum -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Minimum Price"
+          type="number"
+        ></ion-input>
+      </div>
+
+      <!-- maximum -->
+      <div class="dv-filter-input flex-c-row">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Maximum Price"
+          type="number"
+        ></ion-input>
+      </div>
+    </div>
+
+    <!-- house size -->
+    <div class="dv-input-with-title flex-column mt-14">
+      <ion-label>House Size</ion-label>
+
+      <!-- minimum -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Minimum House Size (in square feet)"
+          type="number"
+        ></ion-input>
+      </div>
+
+      <!-- maximum -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Maximum House Size (in square feet)"
+          type="number"
+        ></ion-input>
+      </div>
+    </div>
+
+    <!-- bedrooms -->
+    <div class="dv-input-with-title flex-column mt-14">
+      <ion-label>Bedrooms</ion-label>
+
+      <!-- minimum -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Minimum number of Bedrooms"
+          type="number"
+        ></ion-input>
+      </div>
+
+      <!-- maximum -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Maximum number of Bedrooms"
+          type="number"
+        ></ion-input>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+  >Search</ion-button>
+</ion-footer>

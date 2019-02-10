@@ -74,6 +74,10 @@ const routes: Routes = [
   {
     path: 'profile-add',
     loadChildren: './pages/profile-add/profile-add.module#ProfileAddPageModule'
+  },
+  {
+    path: 'filter-search',
+    loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule'
   }
 ];
 @NgModule({

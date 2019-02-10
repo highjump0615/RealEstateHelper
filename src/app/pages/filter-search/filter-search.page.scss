@@ -1,0 +1,48 @@
+.dv-input-with-title {
+  > ion-label {
+    font-weight: 600;
+    color: var(--color-gray-text);
+    margin-bottom: 10px;
+  }
+}
+
+ion-radio-group {
+  width: 60%;
+  align-self: center;
+}
+
+.it-checkbox {
+  flex: 1;
+
+  --min-height: auto;
+
+  ion-radio {
+    margin-right: 10px;
+  }
+
+  ion-label {
+    font-size: 10pt;
+    color: var(--color-gray-text);
+  }
+}
+
+.dv-filter-input {
+  background-color: #efefef;
+  border-radius: 30px;
+
+  ion-icon {
+    margin-left: 10px;
+    font-size: 14pt;
+    color: var(--color-gray-dark);
+  }
+
+  ion-input,
+  ion-textarea {
+    margin-left: 10px;
+  }
+}
+
+ion-range {
+  padding: 10px 0;
+  color: var(--color-gray-text);
+}
