@@ -1,0 +1,92 @@
+.dv-photo-wrapper {
+  width: 100%;
+  height: 170px;
+  position: relative;
+  justify-content: center;
+
+  .dv-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--color-gray-dark);
+  }
+}
+
+/deep/ app-image-uploader {
+  z-index: 1;
+
+  .dv-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    overflow: hidden;
+
+    box-shadow: 0 4px 10px 0 gray;
+  }
+
+  .container {
+    background-color: var(--color-gray);
+
+    ion-icon {
+      font-size: 50pt;
+      color: var(--color-gray-dark);
+    }
+  }
+}
+
+.dv-profile-input {
+  background-color: #eee;
+  box-shadow: inset 0 0 5px 0 var(--color-gray-dark);
+
+  ion-icon {
+    margin-left: 10px;
+    font-size: 14pt;
+    color: var(--color-gray-text);
+  }
+
+  ion-input,
+  ion-textarea {
+    margin-left: 10px;
+  }
+}
+.dv-profile-input-text {
+  ion-icon {
+    margin-top: 8px;
+  }
+}
+
+.dv-budget {
+  .dv-profile-input {
+    flex: 1;
+
+    &:first-child {
+      margin-right: 6px;
+    }
+  }
+}
+
+.dv-input-with-title {
+  margin-top: 16px;
+
+  ion-label {
+    font-weight: bold;
+  }
+
+  .dv-profile-input {
+    margin-top: 6px;
+  }
+}
+
+.it-checkbox {
+  --min-height: auto;
+
+  ion-checkbox {
+    --size: 14px;
+  }
+
+  ion-label {
+    font-size: 10pt;
+    color: var(--color-gray-text);
+  }
+}

@@ -70,6 +70,10 @@ const routes: Routes = [
   {
     path: 'expiry2',
     loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule'
+  },
+  {
+    path: 'profile-add',
+    loadChildren: './pages/profile-add/profile-add.module#ProfileAddPageModule'
   }
 ];
 @NgModule({
