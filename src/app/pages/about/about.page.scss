@@ -1,0 +1,21 @@
+.dv-header {
+  background: var(--ion-color-primary);
+  padding: 28px;
+
+  img {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 12px;
+  }
+
+  ion-label {
+    color: var(--ion-color-primary-contrast);
+    font-weight: bold;
+    font-size: 12pt;
+  }
+}
+
+.dv-info {
+  padding: 0 16px;
+  font-weight: 600;
+}
