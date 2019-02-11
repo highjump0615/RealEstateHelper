@@ -4,16 +4,29 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>MY PROFILE</ion-title>
+    <ion-title>{{ userId ? 'AGENT ' : 'MY '}}PROFILE</ion-title>
 
-    <!-- edit -->
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-img
-          src="../../../assets/imgs/profile_edit.png"
-          slot="icon-only">
-        </ion-img>
+
+      <!-- report -->
+      <ion-button
+        color="light"
+        *ngIf="userId; else butEdit">
+        <ion-icon
+          slot="icon-only"
+          name="flag">
+        </ion-icon>
       </ion-button>
+
+      <!-- edit -->
+      <ng-template #butEdit>
+        <ion-button>
+          <ion-img
+            src="../../../assets/imgs/profile_edit.png"
+            slot="icon-only">
+          </ion-img>
+        </ion-button>
+      </ng-template>
     </ion-buttons>
 
   </ion-toolbar>
@@ -84,6 +97,7 @@
 
     <!-- client profile button -->
     <ion-button
+      *ngIf="!userId"
       [routerLink]="['/profile-client']"
       class="m-0 with-shadow"
       expand="block"

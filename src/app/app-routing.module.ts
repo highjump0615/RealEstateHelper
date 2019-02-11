@@ -60,6 +60,10 @@ const routes: Routes = [
     loadChildren: './pages/profile/profile.module#ProfilePageModule'
   },
   {
+    path: 'profile/:id',
+    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+  },
+  {
     path: 'profile-client',
     loadChildren: './pages/profile-client/profile-client.module#ProfileClientPageModule'
   },
