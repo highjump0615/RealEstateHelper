@@ -12,7 +12,9 @@
 
     <!-- settings -->
     <ion-buttons slot="end">
-      <ion-button color="light">
+      <ion-button
+        color="light"
+        [routerLink]="['/settings']">
         <ion-icon
           slot="icon-only"
           name="settings">
@@ -36,12 +38,14 @@
   <div class="flex-row dv-segment">
     <ion-button
       fill="clear"
-      color="secondary">
+      color="secondary"
+      [routerLink]="['/profile-client']">
       My Profiles
     </ion-button>
     <ion-button
       fill="clear"
-      color="secondary">
+      color="secondary"
+      [routerLink]="['/profile-add']">
       Add Profile
     </ion-button>
   </div>
@@ -51,6 +55,8 @@
 <ion-content>
   <ion-list>
     <ion-item
+      button
+      detail="false"
       *ngFor="let i of [1,2,3,4,5,6]"
       (click)="onProperyItem()">
       <div class="flex-row">
