@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertController} from "@ionic/angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-match-property',
@@ -9,14 +10,18 @@ import {AlertController} from "@ionic/angular";
 export class MatchPropertyPage implements OnInit {
 
   constructor(
-    public alertController: AlertController
+    public alertController: AlertController,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-  onButDelete() {
+  onButDelete(event) {
     this.presentDeleteConfirm();
+
+    event.stopPropagation();
+    return false;
   }
 
   async presentDeleteConfirm() {
@@ -41,5 +46,19 @@ export class MatchPropertyPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  onProperty(event) {
+    this.router.navigate(['/property']);
+
+    event.stopPropagation();
+    return false;
+  }
+
+  goToLocation(event) {
+    this.router.navigate(['/location']);
+
+    event.stopPropagation();
+    return false;
   }
 }
