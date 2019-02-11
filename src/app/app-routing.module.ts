@@ -95,7 +95,8 @@ const routes: Routes = [
     path: 'share',
     loadChildren: './pages/share/share.module#SharePageModule'
   },
-  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' }
+  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
+  { path: 'feedback', loadChildren: './pages/feedback/feedback.module#FeedbackPageModule' }
 ];
 @NgModule({
   imports: [
