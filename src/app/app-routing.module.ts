@@ -111,7 +111,14 @@ const routes: Routes = [
     path: 'profile-buyer',
     loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule'
   },
-  { path: 'profile-seller', loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule' }
+  {
+    path: 'profile-seller',
+    loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule'
+  },
+  {
+    path: 'note-add',
+    loadChildren: './pages/note-add/note-add.module#NoteAddPageModule'
+  }
 ];
 @NgModule({
   imports: [
