@@ -36,26 +36,6 @@ const routes: Routes = [
     loadChildren: './pages/forget/forget.module#ForgetPageModule'
   },
   {
-    path: 'home',
-    loadChildren: './pages/home/home.module#HomePageModule'
-  },
-  {
-    path: 'chat',
-    loadChildren: './pages/chat/chat.module#ChatPageModule'
-  },
-  {
-    path: 'favourites',
-    loadChildren: './pages/favourites/favourites.module#FavouritesPageModule'
-  },
-  {
-    path: 'matches',
-    loadChildren: './pages/matches/matches.module#MatchesPageModule'
-  },
-  {
-    path: 'notifications',
-    loadChildren: './pages/notifications/notifications.module#NotificationsPageModule'
-  },
-  {
     path: 'profile',
     loadChildren: './pages/profile/profile.module#ProfilePageModule'
   },
@@ -113,7 +93,11 @@ const routes: Routes = [
   },
   {
     path: 'match-property',
-    loadChildren: './pages/match-property/match-property.module#MatchPropertyPageModule'
+    loadChildren: './pages/match/match-property/match-property.module#MatchPropertyPageModule'
+  },
+  {
+    path: 'match-buyer',
+    loadChildren: './pages/match/match-buyer/match-buyer.module#MatchBuyerPageModule'
   }
 ];
 @NgModule({

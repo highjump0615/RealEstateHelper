@@ -164,3 +164,19 @@ ion-button {
   background-color: var(--color-gray);
 }
 
+//
+// popover
+//
+ion-popover {
+  --width: auto !important;
+  --ion-safe-area-right: 16px;
+
+  .popover-content {
+    background: transparent !important;
+    margin-top: -14px;
+  }
+
+  .popover-arrow {
+    display: none !important;
+  }
+}

@@ -21,7 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../matches/matches.module#MatchesPageModule'
+            loadChildren: '../match/matches/matches.module#MatchesPageModule'
           }
         ]
       },

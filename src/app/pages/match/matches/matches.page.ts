@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseSegmentPage} from '../base-segment.page';
+import {BaseSegmentPage} from '../../base-segment.page';
 
 @Component({
   selector: 'app-matches',

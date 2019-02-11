@@ -1,0 +1,49 @@
+.dv-header {
+  background: #89b7e0;
+  padding: 42px;
+
+  color: var(--ion-color-primary);
+
+  .lb-name {
+    font-weight: bold;
+    font-size: 14pt;
+    margin-bottom: 6px;
+  }
+}
+
+.sp-title {
+  color: var(--color-gray-dark);
+  font-weight: bold;
+  margin: 14px;
+}
+
+ion-card {
+  margin: 6px 14px 0 14px;
+
+  &:last-child {
+    margin-bottom: 16px;
+  }
+
+  ion-card-content {
+    padding: 16px;
+
+    .dv-index {
+      color: var(--color-gray-text);
+      font-size: 8pt;
+      align-items: center;
+
+      img {
+        width: 14px;
+        height: 10px;
+      }
+
+      span {
+        margin-left: 6px;
+      }
+    }
+
+    .dv-content {
+      margin-top: 6px;
+    }
+  }
+}
