@@ -106,6 +106,10 @@ const routes: Routes = [
   {
     path: 'expiry-profile',
     loadChildren: './pages/expiry/expiry-profile/expiry-profile.module#ExpiryProfilePageModule'
+  },
+  {
+    path: 'profile-buyer',
+    loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule'
   }
 ];
 @NgModule({

@@ -1,0 +1,157 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>BUYER PROFILE</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex-column">
+    <!-- user info -->
+    <div
+      class="dv-user flex-c-row">
+
+      <!-- background image -->
+      <div class="dv-bg">
+      </div>
+      <img
+        class="img-shadow"
+        src="../../../../assets/imgs/profile_shadow_bg.png">
+
+      <!-- info -->
+      <div class="flex-column dv-info nm-center-items">
+        <!-- photo -->
+        <ion-avatar>
+          <img src="../../../../assets/imgs/default_user.png">
+        </ion-avatar>
+
+        <!-- name -->
+        <span
+          class="sp-name"
+        >John Hill</span>
+
+        <!-- email -->
+        <div class="flex-c-row dv-email">
+          <ion-icon name="mail"></ion-icon>
+          <span>johnH@gmail.com</span>
+        </div>
+
+        <!-- phone -->
+        <div class="flex-c-row">
+          <ion-icon name="call"></ion-icon>
+          <span>613-222-0124</span>
+        </div>
+
+        <!-- price -->
+        <div class="flex-c-row">
+          <ion-icon name="cash"></ion-icon>
+          <span>$399,000.00</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- property info -->
+    <div class="dv-property flex-column" padding>
+      <!-- description -->
+      <div class="dv-desc-with-title">
+        <span
+          class="sp-title"
+        >Property Description</span>
+        <p>
+          A one level duplex house plan that has a traditional exterior
+          with gable roofs. The exterior must accented with shake siding
+          in the front gable along with stone based columns at the entry
+          porch.
+        </p>
+      </div>
+
+      <!-- location -->
+      <div class="dv-desc-with-title mt-14">
+        <span
+          class="sp-title"
+        >Desired Location</span>
+        <p>Holly Street Rome, Canada</p>
+      </div>
+
+      <!-- separator -->
+      <div class="dv-separator mt-14"></div>
+
+      <!-- style -->
+      <div class="dv-item">
+        <span>Style</span>
+        <span>Two-Storey</span>
+      </div>
+
+      <!-- type -->
+      <div class="dv-item">
+        <span>Type</span>
+        <span>Duplex</span>
+      </div>
+
+      <!-- size -->
+      <div class="dv-item">
+        <span>House Size</span>
+        <span>650 Sq.ft</span>
+      </div>
+
+      <!-- bedrooms -->
+      <div class="dv-item">
+        <span>Number of Bedrooms</span>
+        <span>5</span>
+      </div>
+
+      <!-- bathrooms -->
+      <div class="dv-item">
+        <span>Number of Bathrooms</span>
+        <span>5</span>
+      </div>
+
+      <!-- garage -->
+      <div class="dv-item">
+        <span>Garage Type</span>
+        <span>Single</span>
+      </div>
+
+      <!-- basement -->
+      <div class="dv-item">
+        <span>Basement</span>
+        <span>Yes, Unfinished</span>
+      </div>
+
+      <!-- lot -->
+      <div class="dv-item">
+        <span>Lot Size</span>
+        <span>10000 Sq.ft</span>
+      </div>
+
+      <!-- frontage -->
+      <div class="dv-item">
+        <span>Lot Frontage</span>
+        <span>Two-Storey</span>
+      </div>
+
+      <!-- status -->
+      <div class="dv-item">
+        <span>Construction Status</span>
+        <span>New</span>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+  <!-- client profile button -->
+  <ion-button
+    [routerLink]="['/note-add']"
+    class="m-0 with-shadow"
+    expand="block"
+    square
+  >Add Notes</ion-button>
+</ion-footer>

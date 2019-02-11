@@ -186,3 +186,16 @@ ion-item.no-padding {
   --padding-start: 0;
   --padding-end: 0;
 }
+
+.dv-item {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 11pt;
+
+  display: flex;
+  justify-content: space-between;
+
+  span:first-child {
+    color: var(--color-gray-dark);
+  }
+}

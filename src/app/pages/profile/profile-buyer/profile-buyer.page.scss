@@ -1,0 +1,48 @@
+.dv-user {
+  position: relative;
+  justify-content: center;
+
+  .dv-bg {
+    background-size: 100%;
+    background-image: url('../../../../assets/imgs/default_img.png');
+    filter: blur(5px);
+  }
+
+  .img-shadow,
+  .dv-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dv-info {
+    padding: 36px;
+    z-index: 1;
+    color: var(--ion-color-primary-contrast);
+
+    ion-avatar {
+      width: 106px;
+      height: 106px;
+    }
+
+    .sp-name {
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+ion-icon {
+  font-size: 14pt;
+  margin-right: 4px;
+}
+
+.dv-desc-with-title {
+  .sp-title {
+    font-weight: bold;
+  }
+
+  p {
+    margin: 10px 0 0 0;
+  }
+}
