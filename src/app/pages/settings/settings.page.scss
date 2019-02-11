@@ -1,0 +1,24 @@
+ion-card {
+  margin: 0;
+
+  &:not(:first-child) {
+    margin-top: 6px;
+  }
+
+  ion-item {
+    font-size: 10pt;
+    color: var(--color-gray-text);
+
+    ion-icon {
+      font-size: 14pt;
+      color: var(--ion-color-primary);
+    }
+  }
+
+  ion-item[color="danger"] {
+    ion-icon {
+      color: var(--ion-color-primary-contrast);
+    }
+  }
+}
+

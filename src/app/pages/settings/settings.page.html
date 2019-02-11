@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <!-- Renew my Profiles -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="md-time"
+        slot="start"></ion-icon>
+      <ion-label>Renew my Profiles(s)</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Subscribe -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="ios-checkmark-circle"
+        slot="start"></ion-icon>
+      <ion-label>Subscribe</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Notification Settings -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="notifications"
+        slot="start"></ion-icon>
+      <ion-label>Notification Settings</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Share App -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="md-share"
+        slot="start"></ion-icon>
+      <ion-label>Share App</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- About the App -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="information-circle"
+        slot="start"></ion-icon>
+      <ion-label>About the App</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Rate App -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="star"
+        slot="start"></ion-icon>
+      <ion-label>Rate App</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Send Feedback -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="alert"
+        slot="start"></ion-icon>
+      <ion-label>Send Feedback</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Security Settings -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail>
+      <ion-icon
+        name="lock"
+        slot="start"></ion-icon>
+      <ion-label>Security Settings</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Sign out -->
+  <ion-card
+    id="cd-signout">
+    <ion-item
+      lines="none"
+      color="danger"
+      detail
+      (click)="onSignout()">
+      <ion-icon
+        name="log-out"
+        slot="start"></ion-icon>
+      <ion-label>Sign out</ion-label>
+    </ion-item>
+  </ion-card>
+
+</ion-content>
