@@ -8,8 +8,11 @@
 
   <ion-list>
     <ion-item
+      button
+      detail="false"
       *ngFor="let i of [1,2,3,4,5,6]"
-      (click)="onItemClick()">
+      (click)="onItemClick()"
+      [routerLink]="['/message']">
       <div class="flex-row full-width">
         <!-- user photo -->
         <ion-thumbnail>

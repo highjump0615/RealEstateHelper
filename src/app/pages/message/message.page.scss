@@ -1,0 +1,48 @@
+ion-footer {
+  > div {
+    background: #f9f9f9;
+    border-top: 1px solid var(--color-gray);
+  }
+
+  .dv-input {
+    margin: 8px 0 8px 10px;
+    border: 1px solid var(--color-gray);
+    border-radius: 4px;
+
+    flex: 1;
+
+    /deep/ input {
+      padding: 6px !important;
+    }
+  }
+}
+
+ion-item {
+  --padding-end: 16px;
+
+  > div {
+    padding: 14px 0;
+    align-items: center;
+  }
+
+  font-size: 10pt;
+
+  ion-avatar {
+    width: 48px;
+    height: 48px;
+    margin-right: 18px;
+  }
+
+  .dv-content {
+    flex: 1;
+
+    .sp-name {
+      font-size: 11pt;
+      color: var(--color-gray-dark);
+    }
+    .sp-msg {
+      margin-top: 4px;
+    }
+  }
+}
+

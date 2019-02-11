@@ -98,7 +98,8 @@ const routes: Routes = [
   {
     path: 'match-buyer',
     loadChildren: './pages/match/match-buyer/match-buyer.module#MatchBuyerPageModule'
-  }
+  },
+  { path: 'message', loadChildren: './pages/message/message.module#MessagePageModule' }
 ];
 @NgModule({
   imports: [

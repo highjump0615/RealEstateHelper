@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>CHAT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item
+      *ngFor="let i of [1,2,3]">
+      <div class="flex-row full-width">
+        <!-- user photo -->
+        <ion-avatar>
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-avatar>
+
+        <div class="dv-content flex-column">
+          <!-- user name -->
+          <span
+            class="sp-name"
+          >Anna Clay</span>
+          <!-- message -->
+          <span
+            class="sp-msg"
+          >I am interested in selling my home and would like to know what is involved.</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <div class="flex-c-row">
+    <!-- input -->
+    <div class="dv-input">
+      <ion-input
+        placeholder="Type Here..."
+      ></ion-input>
+    </div>
+
+    <!-- send button -->
+    <ion-button
+      fill="clear"
+      size="small"
+    >Send</ion-button>
+  </div>
+</ion-footer>
