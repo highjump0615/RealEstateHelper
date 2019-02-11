@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>MATCHED PROPERTIES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- client info -->
+  <div
+    class="flex-row dv-header nm-center-items">
+    <div class="flex-column">
+      <ion-label
+        class="lb-name"
+      >Andrew Smith</ion-label>
+      <ion-label>Holly Street Rome, Canada</ion-label>
+    </div>
+  </div>
+
+  <div class="flex-column">
+    <!-- count -->
+    <span
+      class="sp-title nm-center"
+    >9 Matched Properties</span>
+
+    <!-- property item -->
+    <ion-card
+      class="ca-buyer"
+      *ngFor="let data of [1,2,3,4,5,6]; let i = index">
+      <ion-card-content>
+        <div class="flex-column">
+          <!-- index -->
+          <div class="flex-row dv-index">
+            <img src="../../../assets/imgs/ic_match_gray.png">
+            <span>Match {{i+1}}</span>
+          </div>
+
+          <div
+            class="flex-row dv-content">
+            <!-- image -->
+            <div class="dv-image">
+              <ion-thumbnail>
+                <img src="../../../assets/imgs/default_img.png">
+              </ion-thumbnail>
+            </div>
+
+            <div class="flex-column dv-info">
+              <!-- username -->
+              <span
+                class="sp-name"
+              >Anna Clay</span>
+
+              <!-- address -->
+              <span
+                class="sp-address"
+              >83 Iskoot Crescent, Whitehorse, Canada</span>
+
+              <!-- distance -->
+              <span
+                class="sp-distance"
+              >0.3 miles away</span>
+            </div>
+          </div>
+
+          <!-- delete button -->
+          <ion-button
+            class="bt-delete"
+            fill="clear"
+            (click)="onButDelete()">
+            <ion-img
+              slot="icon-only"
+              src="../../../assets/imgs/but_delete_match.png">
+            </ion-img>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+</ion-content>

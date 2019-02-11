@@ -110,6 +110,10 @@ const routes: Routes = [
   {
     path: 'subscribe',
     loadChildren: './pages/subscription/subscription.module#SubscriptionPageModule'
+  },
+  {
+    path: 'match-property',
+    loadChildren: './pages/match-property/match-property.module#MatchPropertyPageModule'
   }
 ];
 @NgModule({
