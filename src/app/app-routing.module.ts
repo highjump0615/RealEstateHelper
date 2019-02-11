@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'profile-client',
-    loadChildren: './pages/profile-client/profile-client.module#ProfileClientPageModule'
+    loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule'
   },
   {
     path: 'expiry1',
@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: 'profile-add',
-    loadChildren: './pages/profile-add/profile-add.module#ProfileAddPageModule'
+    loadChildren: './pages/profile/profile-add/profile-add.module#ProfileAddPageModule'
   },
   {
     path: 'filter-search',
@@ -99,8 +99,14 @@ const routes: Routes = [
     path: 'match-buyer',
     loadChildren: './pages/match/match-buyer/match-buyer.module#MatchBuyerPageModule'
   },
-  { path: 'message', loadChildren: './pages/message/message.module#MessagePageModule' },
-  { path: 'expiry-profile', loadChildren: './pages/expiry/expiry-profile/expiry-profile.module#ExpiryProfilePageModule' }
+  {
+    path: 'message',
+    loadChildren: './pages/message/message.module#MessagePageModule'
+  },
+  {
+    path: 'expiry-profile',
+    loadChildren: './pages/expiry/expiry-profile/expiry-profile.module#ExpiryProfilePageModule'
+  }
 ];
 @NgModule({
   imports: [
