@@ -18,8 +18,11 @@ export class FavouritesPage extends BaseSegmentPage implements OnInit {
   ngOnInit() {
   }
 
-  onButDelete() {
+  onButDelete(event) {
     this.presentDeleteConfirm();
+
+    event.stopPropagation();
+    return false;
   }
 
   async presentDeleteConfirm() {

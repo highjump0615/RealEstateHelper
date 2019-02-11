@@ -31,45 +31,51 @@
     <ion-card
       class="ca-buyer"
       *ngFor="let i of [1,2,3,4,5,6]">
-      <ion-card-content>
-        <div class="flex-row">
-          <!-- image -->
-          <ion-thumbnail>
-            <img src="../../../assets/imgs/default_img.png">
-          </ion-thumbnail>
+      <ion-item
+        class="no-padding"
+        button
+        detail="false"
+        [routerLink]="['/property']">
+        <ion-card-content class="full-width">
+          <div class="flex-row">
+            <!-- image -->
+            <ion-thumbnail>
+              <img src="../../../assets/imgs/default_img.png">
+            </ion-thumbnail>
 
-          <div class="dv-info">
-            <div class="flex-column dv-info-content">
-              <!-- title -->
-              <span
-                class="sp-title"
-              >New three bedroom, one level duplex home</span>
+            <div class="dv-info">
+              <div class="flex-column dv-info-content">
+                <!-- title -->
+                <span
+                  class="sp-title"
+                >New three bedroom, one level duplex home</span>
 
-              <!-- address -->
-              <span
-                class="sp-address"
-              >83 Iskoot Crescent, Whitehorse, Canada</span>
+                <!-- address -->
+                <span
+                  class="sp-address"
+                >83 Iskoot Crescent, Whitehorse, Canada</span>
 
-              <!-- distance -->
-              <span
-                class="sp-distance"
-              >0.3 miles away</span>
+                <!-- distance -->
+                <span
+                  class="sp-distance"
+                >0.3 miles away</span>
+              </div>
+
+              <!-- delete button -->
+              <ion-button
+                class="bt-delete"
+                fill="clear"
+                color="danger"
+                (click)="onButDelete($event)">
+                <ion-icon
+                  slot="icon-only"
+                  name="trash">
+                </ion-icon>
+              </ion-button>
             </div>
-
-            <!-- delete button -->
-            <ion-button
-              class="bt-delete"
-              fill="clear"
-              color="danger"
-              (click)="onButDelete()">
-              <ion-icon
-                slot="icon-only"
-                name="trash">
-              </ion-icon>
-            </ion-button>
           </div>
-        </div>
-      </ion-card-content>
+        </ion-card-content>
+      </ion-item>
     </ion-card>
   </div>
 
@@ -78,40 +84,46 @@
     <ion-card
       class="ca-seller"
       *ngFor="let i of [1,2,3,4,5,6]">
-      <ion-card-content>
-        <div class="flex-row">
-          <div class="dv-info">
-            <div class="flex-column dv-info-content">
-              <!-- title -->
-              <span
-                class="sp-title"
-              >Andrew Smith</span>
+      <ion-item
+        class="no-padding"
+        button
+        detail="false"
+        [routerLink]="['/profile/asdf']">
+        <ion-card-content class="full-width">
+          <div class="flex-row">
+            <div class="dv-info">
+              <div class="flex-column dv-info-content">
+                <!-- title -->
+                <span
+                  class="sp-title"
+                >Andrew Smith</span>
 
-              <!-- address -->
-              <span
-                class="sp-address"
-              >83 Iskoot Crescent, Whitehorse, Canada</span>
+                <!-- address -->
+                <span
+                  class="sp-address"
+                >83 Iskoot Crescent, Whitehorse, Canada</span>
 
-              <!-- distance -->
-              <span
-                class="sp-distance"
-              >0.3 miles away</span>
+                <!-- distance -->
+                <span
+                  class="sp-distance"
+                >0.3 miles away</span>
+              </div>
             </div>
-          </div>
 
-          <!-- delete button -->
-          <ion-button
-            class="bt-delete"
-            fill="clear"
-            color="danger"
-            (click)="onButDelete()">
-            <ion-icon
-              slot="icon-only"
-              name="trash">
-            </ion-icon>
-          </ion-button>
-        </div>
-      </ion-card-content>
+            <!-- delete button -->
+            <ion-button
+              class="bt-delete"
+              fill="clear"
+              color="danger"
+              (click)="onButDelete($event)">
+              <ion-icon
+                slot="icon-only"
+                name="trash">
+              </ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-item>
     </ion-card>
   </div>
 
