@@ -110,7 +110,8 @@ const routes: Routes = [
   {
     path: 'profile-buyer',
     loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule'
-  }
+  },
+  { path: 'profile-seller', loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule' }
 ];
 @NgModule({
   imports: [
