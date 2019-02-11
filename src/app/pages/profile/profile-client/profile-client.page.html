@@ -30,10 +30,56 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list
+    *ngIf="currentPage == PAGE_BUYER">
     <ion-item-sliding
       *ngFor="let i of [1,2,3,4,5,6]">
-      <ion-item>
+      <ion-item
+        button
+        detail="false"
+        [routerLink]="['/profile-buyer']">
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <img src="../../../../assets/imgs/default_user.png">
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >Andrew Smith</span>
+            <span
+              class="sp-address"
+            >2896 Holly Street Rome, Canada</span>
+          </div>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+
+      <!-- remove button -->
+      <ion-item-options>
+        <ion-item-option
+          (click)="onButRemove()"
+        >Remove</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list
+    *ngIf="currentPage == PAGE_SELLER">
+    <ion-item-sliding
+      *ngFor="let i of [1,2,3,4,5,6]">
+      <ion-item
+        button
+        detail="false"
+        [routerLink]="['/profile-seller']">
         <div class="flex-row full-width">
           <!-- photo -->
           <ion-thumbnail

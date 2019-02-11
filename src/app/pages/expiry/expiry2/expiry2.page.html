@@ -10,31 +10,32 @@
 
 <ion-content>
 
-  <div class="container">
-    <div class="dv-notice flex-row nm-center-items">
-      <!-- border frame -->
-      <div class="dv-frame">
-      </div>
-
-      <div class="dv-content flex-column">
-        <span
-          class="sp-title"
-        >Dear John</span>
-        <span
-          class="sp-notice"
-        >“Buyer and Seller listings are active for 90 days. After 90 days, the listing will be inactivated unless extended by the agent.”</span>
-        <span
-          class="sp-footer"
-        >-R.E.connect</span>
-      </div>
+  <div class="dv-notice flex-row nm-center-items">
+    <!-- border frame -->
+    <div class="dv-frame">
     </div>
 
-    <!-- next button -->
-    <ion-button
-      class="m-0 with-shadow"
-      expand="block"
-      square
-    >Add Profile</ion-button>
+    <div class="dv-content flex-column">
+      <span
+        class="sp-title"
+      >Dear John</span>
+      <span
+        class="sp-notice"
+      >“Buyer and Seller listings are active for 90 days. After 90 days, the listing will be inactivated unless extended by the agent.”</span>
+      <span
+        class="sp-footer"
+      >-R.E.connect</span>
+    </div>
   </div>
 
 </ion-content>
+
+<ion-footer>
+  <!-- next button -->
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+    [routerLink]="['/profile-add']"
+  >Add Profile</ion-button>
+</ion-footer>
