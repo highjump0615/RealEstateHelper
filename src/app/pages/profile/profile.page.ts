@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,8 @@ export class ProfilePage implements OnInit {
   userId = '';
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.userId = this.route.snapshot.params['id'];
   }
@@ -19,4 +20,7 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
   }
 
+  onButEdit() {
+    this.router.navigate(['signup-profile', 'asdf']);
+  }
 }

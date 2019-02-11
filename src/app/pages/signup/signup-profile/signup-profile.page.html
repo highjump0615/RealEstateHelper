@@ -4,7 +4,7 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>SIGN UP</ion-title>
+    <ion-title>{{userId ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -54,10 +54,11 @@
         <ion-button
           expand="full"
           (click)="onButNext($event)"
-        >Next</ion-button>
+        >{{userId ? 'Save' : 'Next'}}</ion-button>
 
-        <!-- go back -->
+        <!-- go back, show in sign up only -->
         <ion-button
+          *ngIf="!userId"
           class="but-signin"
           fill="clear"
           (click)="onButBack($event)">

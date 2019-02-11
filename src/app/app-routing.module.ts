@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
   },
   {
+    path: 'signup-profile/:id',
+    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+  },
+  {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule'
   },

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-signup-profile',
@@ -8,9 +9,13 @@ import {NavController} from '@ionic/angular';
 })
 export class SignupProfilePage implements OnInit {
 
+  userId = '';
+
   constructor(
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private route: ActivatedRoute,
   ) {
+    this.userId = this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
