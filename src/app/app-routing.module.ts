@@ -82,6 +82,10 @@ const routes: Routes = [
   {
     path: 'location',
     loadChildren: './pages/location/location.module#LocationPageModule'
+  },
+  {
+    path: 'property',
+    loadChildren: './pages/property/property.module#PropertyPageModule'
   }
 ];
 @NgModule({

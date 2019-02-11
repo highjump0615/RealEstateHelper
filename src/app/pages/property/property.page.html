@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>PROPERTY DETAILS</ion-title>
+
+    <!-- settings -->
+    <ion-buttons slot="end">
+      <ion-button color="light">
+        <ion-icon
+          slot="icon-only"
+          name="md-open">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="flex-column">
+    <div class="dv-slide">
+      <ion-slides
+        pager
+        #slides>
+        <ion-slide
+          *ngFor="let i of [1,2,3]">
+          <img
+            src="../../../assets/imgs/default_img.png"
+            class="img-logo" />
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div
+      class="flex-column"
+      padding>
+      <div class="flex-row dv-title">
+        <!-- title -->
+        <span class="sp-title"
+        >New three bedroom, one level duplex home</span>
+
+        <!-- date -->
+        <span class="sp-date"
+        >July, 25, 2018</span>
+      </div>
+
+      <!-- price -->
+      <span class="sp-price"
+      >$399,000.00</span>
+
+      <!-- address -->
+      <span class="sp-address"
+      >83 Iskoot Crescent, Whitehorse, Canada</span>
+
+      <!-- description -->
+      <span class="sp-desc"
+      >This one level duplex house plan has a traditional exterior with gable roofs. The exterior is accented with shake siding in the front gable along with stone based columns at the entry porch.</span>
+
+      <!-- separator -->
+      <div class="dv-separator mt-14"></div>
+
+      <!-- style -->
+      <div class="dv-item">
+        <span>Style</span>
+        <span>Two-Storey</span>
+      </div>
+
+      <!-- type -->
+      <div class="dv-item">
+        <span>Type</span>
+        <span>Duplex</span>
+      </div>
+
+      <!-- size -->
+      <div class="dv-item">
+        <span>House Size</span>
+        <span>650 Sq.ft</span>
+      </div>
+
+      <!-- bedrooms -->
+      <div class="dv-item">
+        <span>Number of Bedrooms</span>
+        <span>5</span>
+      </div>
+
+      <!-- bathrooms -->
+      <div class="dv-item">
+        <span>Number of Bathrooms</span>
+        <span>5</span>
+      </div>
+
+      <!-- garage -->
+      <div class="dv-item">
+        <span>Garage Type</span>
+        <span>Single</span>
+      </div>
+
+      <!-- basement -->
+      <div class="dv-item">
+        <span>Basement</span>
+        <span>Yes, Unfinished</span>
+      </div>
+
+      <!-- lot -->
+      <div class="dv-item">
+        <span>Lot Size</span>
+        <span>10000 Sq.ft</span>
+      </div>
+
+      <!-- frontage -->
+      <div class="dv-item">
+        <span>Lot Frontage</span>
+        <span>Two-Storey</span>
+      </div>
+
+      <!-- status -->
+      <div class="dv-item">
+        <span>Construction Status</span>
+        <span>New</span>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+  >Contact Agent</ion-button>
+</ion-footer>
