@@ -106,6 +106,10 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: './pages/about/about.module#AboutPageModule'
+  },
+  {
+    path: 'subscribe',
+    loadChildren: './pages/subscription/subscription.module#SubscriptionPageModule'
   }
 ];
 @NgModule({

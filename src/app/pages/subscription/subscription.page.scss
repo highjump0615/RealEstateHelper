@@ -1,0 +1,28 @@
+ion-footer {
+  ion-button {
+    position: relative;
+  }
+}
+
+.dv-agree {
+  .it-checkbox {
+    width: fit-content;
+
+    ion-checkbox {
+      --size: 16px;
+    }
+
+    ion-label {
+      font-size: 12pt;
+      color: var(--color-gray-text);
+    }
+  }
+
+  box-shadow: 0 0 12px var(--color-gray-dark);
+}
+
+ion-content {
+  div {
+    padding: 0 16px;
+  }
+}
