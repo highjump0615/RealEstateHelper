@@ -31,43 +31,50 @@
     <ion-card
       class="ca-buyer"
       *ngFor="let data of [1,2,3,4,5,6]; let i = index">
-      <ion-card-content>
-        <div class="flex-column">
-          <!-- index -->
-          <div class="flex-row dv-index">
-            <img src="../../../../assets/imgs/ic_match_gray.png">
-            <span>Match {{i+1}}</span>
+      <ion-item
+        class="no-padding"
+        button
+        detail="false"
+        [routerLink]="['/profile/asdf']">
+        <ion-card-content
+          class="full-width">
+          <div class="flex-column">
+            <!-- index -->
+            <div class="flex-row dv-index">
+              <img src="../../../../assets/imgs/ic_match_gray.png">
+              <span>Match {{i+1}}</span>
+            </div>
+
+            <div class="flex-column dv-info">
+              <!-- username -->
+              <span
+                class="sp-name"
+              >Anna Clay</span>
+
+              <!-- address -->
+              <span
+                class="sp-address"
+              >83 Iskoot Crescent, Whitehorse, Canada</span>
+
+              <!-- distance -->
+              <span
+                class="sp-distance"
+              >0.3 miles away</span>
+            </div>
           </div>
 
-          <div class="flex-column dv-info">
-            <!-- username -->
-            <span
-              class="sp-name"
-            >Anna Clay</span>
-
-            <!-- address -->
-            <span
-              class="sp-address"
-            >83 Iskoot Crescent, Whitehorse, Canada</span>
-
-            <!-- distance -->
-            <span
-              class="sp-distance"
-            >0.3 miles away</span>
-          </div>
-        </div>
-
-        <!-- more button -->
-        <ion-button
-          class="bt-more"
-          fill="clear"
-          (click)="onButMore($event)">
-          <ion-icon
-            slot="icon-only"
-            name="ios-more">
-          </ion-icon>
-        </ion-button>
-      </ion-card-content>
+          <!-- more button -->
+          <ion-button
+            class="bt-more"
+            fill="clear"
+            (click)="onButMore($event)">
+            <ion-icon
+              slot="icon-only"
+              name="ios-more">
+            </ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-item>
     </ion-card>
 
   </div>

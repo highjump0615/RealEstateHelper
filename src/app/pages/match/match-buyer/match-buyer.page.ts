@@ -19,6 +19,9 @@ export class MatchBuyerPage implements OnInit {
 
   onButMore(event) {
     this.presentPopover(event);
+
+    event.stopPropagation();
+    return false;
   }
 
   async presentPopover(ev: any) {
@@ -49,7 +52,8 @@ export class MatchBuyerPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            // close popover
+            this.popoverCtrl.dismiss();
           }
         }, {
           text: 'OK',
