@@ -99,7 +99,8 @@ const routes: Routes = [
     path: 'match-buyer',
     loadChildren: './pages/match/match-buyer/match-buyer.module#MatchBuyerPageModule'
   },
-  { path: 'message', loadChildren: './pages/message/message.module#MessagePageModule' }
+  { path: 'message', loadChildren: './pages/message/message.module#MessagePageModule' },
+  { path: 'expiry-profile', loadChildren: './pages/expiry/expiry-profile/expiry-profile.module#ExpiryProfilePageModule' }
 ];
 @NgModule({
   imports: [

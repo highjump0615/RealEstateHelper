@@ -180,3 +180,9 @@ ion-popover {
     display: none !important;
   }
 }
+
+// ion item
+ion-item.no-padding {
+  --padding-start: 0;
+  --padding-end: 0;
+}
