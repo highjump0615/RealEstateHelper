@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>SHARE PROPERTY</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="dv-input-with-title">
+    <!-- title -->
+    <ion-label>Send to</ion-label>
+
+    <div class="dv-profile-input flex-row">
+      <ion-input
+        placeholder="Enter Email Address"
+        type="email"
+      ></ion-input>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+    (click)="onButShare()"
+  >Share</ion-button>
+</ion-footer>
+

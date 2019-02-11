@@ -86,6 +86,10 @@ const routes: Routes = [
   {
     path: 'property',
     loadChildren: './pages/property/property.module#PropertyPageModule'
+  },
+  {
+    path: 'share',
+    loadChildren: './pages/share/share.module#SharePageModule'
   }
 ];
 @NgModule({
