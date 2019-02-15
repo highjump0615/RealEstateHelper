@@ -1,13 +1,23 @@
 import { Component, OnInit } from '@angular/core';
+import {Keyboard} from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.page.html',
-  styleUrls: ['./message.page.scss'],
+  styleUrls: ['./message.page.scss']
 })
 export class MessagePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private keyboard: Keyboard
+  ) {
+    keyboard.setResizeMode('native');
+  }
+
+  ionViewDidLeave() {
+    alert('adsf');
+    this.keyboard.setResizeMode('');
+  }
 
   ngOnInit() {
   }

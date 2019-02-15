@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseSegmentPage} from "../../base-segment.page";
 import {AlertController} from "@ionic/angular";
+import {KeyboardService} from "../../../services/keyboard.service";
 
 @Component({
   selector: 'app-profile-add',
@@ -11,7 +12,8 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   isAddressVisible = false;
 
   constructor(
-    public alertController: AlertController
+    public alertController: AlertController,
+    private kbService: KeyboardService
   ) {
     super();
   }
