@@ -10,7 +10,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <div
+    class="container"
+    [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
     <!-- upload image -->
     <div class="dv-profile-photo flex-column half-full nm-center">
       <app-image-uploader

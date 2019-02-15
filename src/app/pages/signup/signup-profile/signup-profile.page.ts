@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {KeyboardService} from "../../../services/keyboard.service";
 
 @Component({
   selector: 'app-signup-profile',
@@ -14,6 +15,7 @@ export class SignupProfilePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private route: ActivatedRoute,
+    private kbService: KeyboardService
   ) {
     this.userId = this.route.snapshot.params['id'];
   }

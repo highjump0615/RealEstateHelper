@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {KeyboardService} from "../../../services/keyboard.service";
 
 @Component({
   selector: 'app-signup-email',
@@ -8,12 +9,16 @@ import {Router} from "@angular/router";
 })
 export class SignupEmailPage implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
   onButNext($event: MouseEvent) {
+    console.log('asdf');
+
     this.router.navigate(['signup-password']);
   }
 
