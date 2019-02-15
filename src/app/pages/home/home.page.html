@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar
+    color="primary">
     <!-- user photo -->
     <ion-buttons slot="start">
       <a [routerLink]="['/profile']">
@@ -24,7 +25,9 @@
   </ion-toolbar>
 
   <!-- search -->
-  <ion-toolbar class="tb-search">
+  <ion-toolbar
+    class="tb-search"
+    color="primary">
     <ion-button
       [routerLink]="['/filter-search']"
       expand="block"
