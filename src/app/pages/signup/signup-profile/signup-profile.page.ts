@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-import {ActivatedRoute, Router} from "@angular/router";
-import {KeyboardService} from "../../../services/keyboard.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {KeyboardService} from '../../../services/keyboard.service';
 
 @Component({
   selector: 'app-signup-profile',
@@ -15,6 +15,7 @@ export class SignupProfilePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private route: ActivatedRoute,
+    private router: Router,
     private kbService: KeyboardService
   ) {
     this.userId = this.route.snapshot.params['id'];
@@ -26,5 +27,14 @@ export class SignupProfilePage implements OnInit {
   onButBack($event: MouseEvent) {
     // back to prev page
     this.navCtrl.pop();
+  }
+
+  onButNext($event: MouseEvent) {
+    if (this.userId) {
+      // update profile
+    } else {
+      // sign up
+      this.router.navigate(['home']);
+    }
   }
 }
