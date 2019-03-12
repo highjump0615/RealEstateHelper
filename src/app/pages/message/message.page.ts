@@ -15,7 +15,6 @@ export class MessagePage implements OnInit {
   }
 
   ionViewDidLeave() {
-    alert('adsf');
     this.keyboard.setResizeMode('');
   }
 

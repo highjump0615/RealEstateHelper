@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {KeyboardService} from "../../../services/keyboard.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup-email',

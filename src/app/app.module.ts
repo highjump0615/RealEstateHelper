@@ -9,10 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
+import {TabsPage} from './pages/tabs/tabs.page';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TabsPage
   ],
   entryComponents: [],
   imports: [

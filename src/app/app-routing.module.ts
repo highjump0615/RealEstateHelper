@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {TabsPage} from './pages/tabs/tabs.page';
 
 const routes: Routes = [
   {
@@ -8,7 +9,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'tabs',
+    component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule'
   },
   {
