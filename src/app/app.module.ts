@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 import {TabsPage} from './pages/tabs/tabs.page';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {TabsPage} from './pages/tabs/tabs.page';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,

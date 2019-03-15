@@ -4,11 +4,6 @@ import {TabsPage} from './pages/tabs/tabs.page';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'onboard',
-    pathMatch: 'full'
-  },
-  {
     path: 'tabs',
     component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule'

@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-onboard',
@@ -8,9 +9,14 @@ import {Router} from '@angular/router';
 })
 export class OnboardPage implements OnInit {
 
+  static KEY_SHOWN = 'onboard_shown';
+
   @ViewChild('slides') slides;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private storage: Storage
+  ) { }
 
   ngOnInit() {
   }
@@ -43,6 +49,9 @@ export class OnboardPage implements OnInit {
    * go to log in page
    */
   gotoLoginPage() {
+    // set onboard flag
+    this.storage.set(OnboardPage.KEY_SHOWN, true);
+
     this.router.navigate(['signup-email']);
   }
 }
