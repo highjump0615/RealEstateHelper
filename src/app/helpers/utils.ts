@@ -18,6 +18,26 @@ export class Utils {
     return re.test(String(email).toLowerCase());
   }
 
+  //
+  // string manipulation
+  //
+  static stringContainUppercase(str) {
+    return str.toLowerCase() !== str;
+  }
+
+  static stringContainLowercase(str) {
+    return str.toUpperCase() !== str;
+  }
+
+  static stringContainNumber(str) {
+    return str.match(/\d+/g);
+  }
+
+  static stringContainLetter(str) {
+    return str.match(/[a-z]/i);
+  }
+
+
   static toStringAgo(timestamp) {
     const time = moment(timestamp);
 

@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {TabsPage} from './pages/tabs/tabs.page';
+import {AuthGuard} from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'tabs/home',
+    pathMatch: 'full'
+  },
+  {
     path: 'tabs',
     component: TabsPage,
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule'
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'onboard',

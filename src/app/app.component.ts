@@ -16,8 +16,6 @@ import {User} from './models/user';
 })
 export class AppComponent {
 
-  static KEY_USER = 'current_user';
-
   homePage = 'onboard';
 
   constructor(
@@ -38,52 +36,8 @@ export class AppComponent {
     }
 
     this.platform.ready().then(() => {
-      // set current user from session storage
-      this.storage.get(AppComponent.KEY_USER)
-        .then((val) => {
-          if (val) {
-            this.auth.user = new User().deserialize(val);
-
-            this.homePage = 'tabs/home';
-            this.finalizeInit();
-
-            return;
-          }
-
-          this.showOnboard();
-        })
-        .catch((err) => {
-          console.log(err);
-
-          this.showOnboard();
-        });
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
-  }
-
-  showOnboard() {
-    //
-    // check onbaord shown status
-    //
-    this.storage.get(OnboardPage.KEY_SHOWN)
-      .then((shown) => {
-        if (shown) {
-          this.homePage = 'signup-email';
-        }
-
-        this.finalizeInit();
-      })
-      .catch((err) => {
-        console.log(err);
-
-        this.finalizeInit();
-      });
-  }
-
-  finalizeInit() {
-    // go to home page
-    this.router.navigate([this.homePage]);
-
-    this.statusBar.styleDefault();
-    this.splashScreen.hide();
   }
 }
