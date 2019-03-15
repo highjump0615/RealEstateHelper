@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
-import {KeyboardService} from '../../../services/keyboard.service';
+import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 
 @Component({
   selector: 'app-signup-profile',
