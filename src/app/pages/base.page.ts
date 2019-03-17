@@ -32,7 +32,7 @@ export class BasePage {
       buttons: [{
         text: 'OK',
         handler: () => {
-          if (onOk()) {
+          if (onOk) {
             onOk();
           }
         }

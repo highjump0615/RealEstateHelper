@@ -58,11 +58,15 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+    loadChildren: './pages/profile/profile.module#ProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile/:id',
-    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+    loadChildren: './pages/profile/profile.module#ProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-client',
