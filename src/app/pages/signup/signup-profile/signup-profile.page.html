@@ -5,7 +5,7 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{userId ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
+    <ion-title>{{auth.user ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,6 +20,7 @@
       <!-- upload image -->
       <div class="dv-profile-photo flex-column half-full nm-center">
         <app-image-uploader
+          [imgUrl]="auth.user?.photoUrl"
           desc="Add profile photo"
           #imageProfile>
           <div class="container flex-c-row nm-center">
@@ -79,14 +80,14 @@
           <ion-button
             expand="full"
             type="submit"
-          >{{userId ? 'Save' : 'Next'}}</ion-button>
+          >{{auth.user ? 'Save' : 'Next'}}</ion-button>
 
           <!-- go back, show in sign up only -->
           <ion-button
-            *ngIf="!userId"
+            *ngIf="!auth.user"
             class="but-signin"
             fill="clear"
-            (click)="onButBack($event)">
+            (click)="onButBack()">
             Go Back
           </ion-button>
         </div>

@@ -15,8 +15,6 @@ import {FirebaseManager} from '../../../helpers/firebase-manager';
 })
 export class SignupProfilePage extends BasePage implements OnInit {
 
-  userId = '';
-
   email = '';
   password = '';
 
@@ -39,23 +37,34 @@ export class SignupProfilePage extends BasePage implements OnInit {
   ) {
     super(loadingCtrl, alertCtrl);
 
-    this.userId = this.route.snapshot.params['id'];
-
     this.email = this.route.snapshot.paramMap.get('email');
     this.password = this.route.snapshot.paramMap.get('password');
+
+    if (auth.user) {
+      // set user info
+      this.name = auth.user.name;
+      this.email = auth.user.email;
+      this.phone = auth.user.phone;
+      this.nameBkg = auth.user.nameBkg;
+      this.phoneBkg = auth.user.phoneBkg;
+      this.addressBkg = auth.user.addressBkg;
+    }
   }
 
   ngOnInit() {
   }
 
-  onButBack($event: MouseEvent) {
+  onButBack() {
     // back to prev page
     this.navCtrl.pop();
   }
 
   signinForm() {
-    if (this.userId) {
+
+    if (this.auth.user) {
       // update profile
+      this.uploadImageAndSetupUserInfo(this.doneCallback);
+
     } else {
       //
       // do signup
@@ -93,6 +102,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
   uploadImageAndSetupUserInfo(completion: (any?) => void) {
 
     if (this.uploadPhoto.picture) {
+      this.showLoadingView();
+
       // upload photo
       const user = this.auth.user;
       const path = 'users/' + user.id + '.png';
@@ -138,8 +149,9 @@ export class SignupProfilePage extends BasePage implements OnInit {
   }
 
   doneCallback = () => {
-    if (this.userId) {
+    if (this.auth.user) {
       // save profile
+      this.onButBack();
 
       return;
     }
