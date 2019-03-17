@@ -15,11 +15,13 @@
         <ion-input
           placeholder="Email"
           type="email"
+          [(ngModel)]="email"
         ></ion-input>
 
         <ion-input
           placeholder="Password"
           type="password"
+          [(ngModel)]="password"
         ></ion-input>
       </div>
 
@@ -38,6 +40,7 @@
         color="secondary"
         full square
         style="margin-top: 30px;"
+        [disabled]="!(email.length > 0 && password.length > 0)"
         (click)="onButLogin($event)">
         Log In
       </ion-button>

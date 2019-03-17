@@ -33,6 +33,22 @@ export class AuthService {
     });
   }
 
+  signIn(email: string, password: string): Promise<FUser> {
+    // do login
+    return FirebaseManager.auth().signInWithEmailAndPassword(
+      email,
+      password
+    ).then((res) => {
+      console.log(res);
+
+      if (!res.user) {
+        return Promise.reject(new Error('User not found'));
+      }
+
+      return Promise.resolve(res.user);
+    });
+  }
+
   updateCurrentUser() {
     // save user to session storage
     this.storage.set(AuthService.KEY_USER, this.user);
