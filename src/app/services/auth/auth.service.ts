@@ -49,6 +49,11 @@ export class AuthService {
     });
   }
 
+  resetPassword(email) {
+    // do login
+    return FirebaseManager.auth().sendPasswordResetEmail(email);
+  }
+
   updateCurrentUser() {
     // save user to session storage
     this.storage.set(AuthService.KEY_USER, this.user);

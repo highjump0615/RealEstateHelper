@@ -18,13 +18,15 @@
         <ion-input
           placeholder="Enter your email"
           type="email"
+          [(ngModel)]="email"
+          (ionChange)="onChangeEmail()"
         ></ion-input>
 
         <!-- checkboxes -->
         <div class="flex-column">
           <app-check-box
             text="Registered email"
-            [enabled]="false">
+            [enabled]="isExisting">
           </app-check-box>
         </div>
       </div>
@@ -35,6 +37,7 @@
       <ion-button
         expand="full"
         (click)="onButSubmit($event)"
+        [disabled]="!isExisting"
       >Submit</ion-button>
     </div>
 

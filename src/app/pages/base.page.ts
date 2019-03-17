@@ -25,11 +25,18 @@ export class BasePage {
     }
   }
 
-  async presentAlert(title, msg) {
+  async presentAlert(title, msg, onOk?: (any?) => void) {
     const alert = await this.alertCtrl.create({
       header: title,
       message: msg,
-      buttons: ['OK']
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          if (onOk()) {
+            onOk();
+          }
+        }
+      }]
     });
 
     await alert.present();
