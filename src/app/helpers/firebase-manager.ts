@@ -37,7 +37,7 @@ export class FirebaseManager {
       .credential(token);
   }
 
-  static uploadImageTo(path, imgData, completion: (string?, error?) => void) {
+  uploadImageTo(path, imgData, completion: (string?, error?) => void) {
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(path);
 

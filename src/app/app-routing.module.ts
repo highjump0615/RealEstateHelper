@@ -13,6 +13,7 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+    data: {needUser: true},
     canActivate: [AuthGuard]
   },
   {
@@ -21,27 +22,39 @@ const routes: Routes = [
   },
   {
     path: 'signup-email',
-    loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule'
+    loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-password',
-    loadChildren: './pages/signup/signup-password/signup-password.module#SignupPasswordPageModule'
+    loadChildren: './pages/signup/signup-password/signup-password.module#SignupPasswordPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-profile',
-    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-profile/:id',
-    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule'
+    loadChildren: './pages/login/login.module#LoginPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'forget',
-    loadChildren: './pages/forget/forget.module#ForgetPageModule'
+    loadChildren: './pages/forget/forget.module#ForgetPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
