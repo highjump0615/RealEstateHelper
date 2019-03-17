@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {Utils} from '../../../helpers/utils';
-import {ApiService} from "../../../sercices/api/api.service";
+import {ApiService} from '../../../sercices/api/api.service';
 
 @Component({
   selector: 'app-signup-email',

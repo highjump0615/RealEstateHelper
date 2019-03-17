@@ -98,7 +98,9 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: './pages/settings/settings.module#SettingsPageModule'
+    loadChildren: './pages/settings/settings.module#SettingsPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'feedback',

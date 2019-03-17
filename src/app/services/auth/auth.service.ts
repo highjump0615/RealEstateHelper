@@ -37,4 +37,14 @@ export class AuthService {
     // save user to session storage
     this.storage.set(AuthService.KEY_USER, this.user);
   }
+
+  signOut() {
+    // clear current user
+    FirebaseManager.getInstance().signOut();
+
+    // clear storage
+    this.storage.remove(AuthService.KEY_USER);
+
+    this.user = null;
+  }
 }

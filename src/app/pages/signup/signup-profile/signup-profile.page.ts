@@ -49,9 +49,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
   }
 
   onButBack($event: MouseEvent) {
-    this.router.navigate(['/tabs/home']);
     // back to prev page
-    // this.navCtrl.pop();
+    this.navCtrl.pop();
   }
 
   signinForm() {
