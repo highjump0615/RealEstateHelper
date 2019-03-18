@@ -77,9 +77,7 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_NAME] = this.name;
     dict[User.FIELD_EMAIL] = this.email;
     dict[User.FIELD_PHONE] = this.phone;
-    if (this.photoUrl) {
-      dict[User.FIELD_PHOTO] = this.photoUrl;
-    }
+    this.addDictItem(dict, User.FIELD_PHOTO, this.photoUrl);
 
     dict[User.FIELD_NAME_BKG] = this.nameBkg;
     dict[User.FIELD_PHONE_BKG] = this.phoneBkg;
