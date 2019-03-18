@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseSegmentPage} from "../../base-segment.page";
-import {AlertController} from "@ionic/angular";
-import {KeyboardService} from "../../../services/keyboard/keyboard.service";
+import {BaseSegmentPage} from '../../base-segment.page';
+import {AlertController} from '@ionic/angular';
+import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 
 @Component({
   selector: 'app-profile-add',
