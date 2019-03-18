@@ -27,4 +27,8 @@ export class FilterSearchPage implements OnInit {
     // go to map page
     this.router.navigate(['location']);
   }
+
+  onFocusLot() {
+    console.log('asdf');
+  }
 }

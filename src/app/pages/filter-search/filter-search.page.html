@@ -50,6 +50,7 @@
       <ion-icon name="search"></ion-icon>
       <ion-input
         placeholder="Enter Location"
+        readonly
         (ionFocus)="onFocusLocation()"
       ></ion-input>
     </div>
@@ -129,14 +130,61 @@
           type="number"
         ></ion-input>
       </div>
+    </div>
 
-      <!-- maximum -->
+    <!-- bathrooms -->
+    <div class="dv-input-with-title flex-column mt-14">
+      <ion-label>Bathrooms</ion-label>
+
+      <!-- minimum -->
       <div class="dv-filter-input flex-c-row mb-6">
         <!-- icon -->
         <ion-icon name="search"></ion-icon>
         <ion-input
-          placeholder="Maximum number of Bedrooms"
+          placeholder="Minimum number of Bathrooms"
           type="number"
+        ></ion-input>
+      </div>
+    </div>
+
+    <!-- lot size -->
+    <div class="dv-input-with-title flex-column mt-14">
+      <ion-label>Lot Size</ion-label>
+
+      <!-- frontage -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Lot frontage in feet"
+          type="number"
+          readonly
+          (ionFocus)="onFocusLot()"
+        ></ion-input>
+      </div>
+      <!-- depth -->
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="search"></ion-icon>
+        <ion-input
+          placeholder="Lot depth in feet"
+          type="number"
+          readonly
+          (ionFocus)="onFocusLot()"
+        ></ion-input>
+      </div>
+    </div>
+
+    <!-- date -->
+    <div class="dv-input-with-title flex-column mt-14">
+      <ion-label>Date Posted</ion-label>
+
+      <div class="dv-filter-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="calendar"></ion-icon>
+        <ion-input
+          placeholder="Date Posted"
+          type="date"
         ></ion-input>
       </div>
     </div>
