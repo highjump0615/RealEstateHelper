@@ -20,7 +20,6 @@
       <!-- upload image -->
       <div class="dv-profile-photo flex-column half-full nm-center">
         <app-image-uploader
-          [imgUrl]="auth.user?.photoUrl"
           desc="Add profile photo"
           #imageProfile>
           <div class="container flex-c-row nm-center">
@@ -80,11 +79,11 @@
           <ion-button
             expand="full"
             type="submit"
-          >{{auth.user ? 'Save' : 'Next'}}</ion-button>
+          >{{userId ? 'Save' : 'Next'}}</ion-button>
 
           <!-- go back, show in sign up only -->
           <ion-button
-            *ngIf="!auth.user"
+            *ngIf="!userId"
             class="but-signin"
             fill="clear"
             (click)="onButBack()">

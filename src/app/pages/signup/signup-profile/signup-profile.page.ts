@@ -29,7 +29,7 @@ export class SignupProfilePage implements OnInit {
     this.navCtrl.pop();
   }
 
-  onButNext($event: MouseEvent) {
+  signinForm() {
     if (this.userId) {
       // update profile
     } else {
