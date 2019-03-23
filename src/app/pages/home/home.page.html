@@ -4,7 +4,9 @@
     <!-- user photo -->
     <ion-buttons slot="start">
       <a [routerLink]="['/profile']">
-        <img src="../../../assets/imgs/default_user.png" />
+        <img
+          class="img-user"
+          [src]="auth.user.photoUrl ? auth.user.photoUrl : '../../../assets/imgs/default_user.png'" />
       </a>
     </ion-buttons>
 

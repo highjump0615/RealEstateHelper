@@ -5,71 +5,95 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{userId ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
+    <ion-title>{{auth.user ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div
-    class="container"
-    [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
-    <!-- upload image -->
-    <div class="dv-profile-photo flex-column half-full nm-center">
-      <app-image-uploader
-        desc="Add profile photo"
-        #imageProfile>
-        <div class="container flex-c-row nm-center">
-          <ion-icon
-            class="nm-center"
-            name="add"></ion-icon>
+  <form
+    (ngSubmit)="signinForm()"
+    class="width-100 height-100"
+    ngNativeValidate>
+    <div
+      class="container"
+      [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
+      <!-- upload image -->
+      <div class="dv-profile-photo flex-column half-full nm-center">
+        <app-image-uploader
+          [imgUrl]="auth.user?.photoUrl"
+          desc="Add profile photo"
+          #imageProfile>
+          <div class="container flex-c-row nm-center">
+            <ion-icon
+              class="nm-center"
+              name="add"></ion-icon>
+          </div>
+        </app-image-uploader>
+      </div>
+
+      <!-- input data -->
+      <div class="dv-data half-full flex-column">
+        <div class="input-wrapper flex-column">
+          <ion-input
+            placeholder="Agent Name"
+            [(ngModel)]="name"
+            name="name"
+            required
+          ></ion-input>
+          <ion-input
+            placeholder="Agent Phone Number"
+            type="tel"
+            [(ngModel)]="phone"
+            name="phone"
+            required
+          ></ion-input>
+          <ion-input
+            placeholder="Agent Email Address"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          ></ion-input>
+          <ion-input
+            placeholder="Brokerage Name"
+            name="nameBkg"
+            [(ngModel)]="nameBkg"
+            required
+          ></ion-input>
+          <ion-input
+            placeholder="Brokerage Phone Number"
+            type="tel"
+            name="phoneBkg"
+            [(ngModel)]="phoneBkg"
+            required
+          ></ion-input>
+          <ion-input
+            placeholder="Brokerage Address"
+            name="addressBkg"
+            [(ngModel)]="addressBkg"
+            required
+          ></ion-input>
         </div>
-      </app-image-uploader>
-    </div>
 
-    <!-- input data -->
-    <div class="dv-data half-full flex-column">
-      <div class="input-wrapper flex-column">
-        <ion-input
-          placeholder="Agent Name"
-        ></ion-input>
-        <ion-input
-          placeholder="Agent Phone Number"
-          type="phone"
-        ></ion-input>
-        <ion-input
-          placeholder="Agent Email Address"
-          type="email"
-        ></ion-input>
-        <ion-input
-          placeholder="Brokerage Name"
-        ></ion-input>
-        <ion-input
-          placeholder="Brokerage Phone Number"
-          type="phone"
-        ></ion-input>
-        <ion-input
-          placeholder="Brokerage Address"
-        ></ion-input>
-      </div>
+        <!-- buttons -->
+        <div class="flex-column dv-buttons">
+          <ion-button
+            expand="full"
+            type="submit"
+          >{{auth.user ? 'Save' : 'Next'}}</ion-button>
 
-      <!-- buttons -->
-      <div class="flex-column dv-buttons">
-        <ion-button
-          expand="full"
-          (click)="onButNext($event)"
-        >{{userId ? 'Save' : 'Next'}}</ion-button>
-
-        <!-- go back, show in sign up only -->
-        <ion-button
-          *ngIf="!userId"
-          class="but-signin"
-          fill="clear"
-          (click)="onButBack($event)">
-          Go Back
-        </ion-button>
+          <!-- go back, show in sign up only -->
+          <ion-button
+            *ngIf="!auth.user"
+            class="but-signin"
+            fill="clear"
+            (click)="onButBack()">
+            Go Back
+          </ion-button>
+        </div>
       </div>
 
     </div>
-  </div>
+  </form>
 
 </ion-content>

@@ -1,5 +1,5 @@
 <input type="file"
-       accept="image/*"
+       accept="image/*;capture=camera"
        (change)="onFileSelected($event)"
        #file />
 
@@ -7,7 +7,8 @@
   <div
     class="nm-center dv-photo"
     (click)="file.click()">
-    <ng-content *ngIf="!picture"></ng-content>
+
+    <ng-content *ngIf="!(picture || imgUrl)"></ng-content>
 
     <img *ngIf="picture; else default"
          class="content"
@@ -16,7 +17,10 @@
     <!-- show default image only if content is empty -->
     <ng-template
       #default>
-      <img class="photo" *ngIf="defaultImg" [src]="defaultImg" />
+      <img
+        class="photo"
+        *ngIf="imgUrl"
+        [src]="imgUrl" />
     </ng-template>
 
   </div>

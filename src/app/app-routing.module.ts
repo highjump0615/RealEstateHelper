@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {TabsPage} from './pages/tabs/tabs.page';
+import {AuthGuard} from './guards/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'onboard',
+    redirectTo: 'tabs/home',
     pathMatch: 'full'
   },
   {
     path: 'tabs',
     component: TabsPage,
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule'
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'onboard',
@@ -19,35 +22,51 @@ const routes: Routes = [
   },
   {
     path: 'signup-email',
-    loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule'
+    loadChildren: './pages/signup/signup-email/signup-email.module#SignupEmailPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-password',
-    loadChildren: './pages/signup/signup-password/signup-password.module#SignupPasswordPageModule'
+    loadChildren: './pages/signup/signup-password/signup-password.module#SignupPasswordPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-profile',
-    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup-profile/:id',
-    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule'
+    loadChildren: './pages/signup/signup-profile/signup-profile.module#SignupProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule'
+    loadChildren: './pages/login/login.module#LoginPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'forget',
-    loadChildren: './pages/forget/forget.module#ForgetPageModule'
+    loadChildren: './pages/forget/forget.module#ForgetPageModule',
+    data: {needUser: false},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+    loadChildren: './pages/profile/profile.module#ProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile/:id',
-    loadChildren: './pages/profile/profile.module#ProfilePageModule'
+    loadChildren: './pages/profile/profile.module#ProfilePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-client',
@@ -83,7 +102,9 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: './pages/settings/settings.module#SettingsPageModule'
+    loadChildren: './pages/settings/settings.module#SettingsPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'feedback',

@@ -30,6 +30,14 @@
   background-size: cover;
 }
 
+// styles
+.width-100 {
+  width: 100%;
+}
+.height-100 {
+  height: 100%;
+}
+
 
 .container {
   display: flex;
@@ -139,6 +147,9 @@ ion-button {
 .mb-14 {
   margin-bottom: 14px;
 }
+.mt-6 {
+  margin-top: 6px;
+}
 .mt-10 {
   margin-top: 10px;
 }
@@ -189,4 +200,10 @@ ion-item.no-padding {
   span:first-child {
     color: var(--color-gray-dark);
   }
+}
+
+
+// user photo
+.img-user {
+  background: #cccccc;
 }

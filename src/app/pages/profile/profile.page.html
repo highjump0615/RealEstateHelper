@@ -50,24 +50,30 @@
       <div class="flex-column dv-info nm-center-items">
         <!-- photo -->
         <ion-thumbnail>
-          <img src="../../../assets/imgs/default_user.png">
+          <img
+            class="img-user"
+            [src]="user?.photoUrl ? user?.photoUrl : '../../../assets/imgs/default_user.png'">
         </ion-thumbnail>
 
         <!-- name -->
         <span
           class="sp-name"
-        >John Hill</span>
+        >{{user?.name}}</span>
 
         <!-- email -->
-        <div class="flex-c-row dv-email">
+        <div
+          class="flex-c-row dv-email"
+          *ngIf="user">
           <ion-icon name="mail"></ion-icon>
-          <span>johnH@gmail.com</span>
+          <span>{{user.email}}</span>
         </div>
 
         <!-- phone -->
-        <div class="flex-c-row dv-phone">
+        <div
+          class="flex-c-row dv-phone"
+          *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>613-222-0124</span>
+          <span>{{user.phone}}</span>
         </div>
       </div>
 
@@ -80,18 +86,22 @@
         <!-- title -->
         <span
           class="sp-name"
-        >Golden Investments</span>
+        >{{user?.nameBkg}}</span>
 
         <!-- address -->
-        <div class="flex-c-row dv-address">
+        <div
+          class="flex-c-row dv-address"
+          *ngIf="user">
           <ion-icon name="pin"></ion-icon>
-          <span>2300 Cherry Bridge , Canada</span>
+          <span>{{user.addressBkg}}</span>
         </div>
 
         <!-- phone -->
-        <div class="flex-c-row dv-phone">
+        <div
+          class="flex-c-row dv-phone"
+          *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>613-222-0124</span>
+          <span>{{user.phoneBkg}}</span>
         </div>
       </div>
     </div>
