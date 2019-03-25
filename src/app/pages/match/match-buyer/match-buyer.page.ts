@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController, PopoverController} from "@ionic/angular";
-import {RemoveButtonComponent} from "../../../components/remove-button/remove-button.component";
+import {AlertController, PopoverController} from '@ionic/angular';
+import {RemoveButtonComponent} from '../../../components/remove-button/remove-button.component';
 
 @Component({
   selector: 'app-match-buyer',
@@ -30,7 +30,7 @@ export class MatchBuyerPage implements OnInit {
       componentProps: {
         parent: this
       },
-      event: event,
+      event: ev,
       translucent: true,
       cssClass: 'po-remove'
     });

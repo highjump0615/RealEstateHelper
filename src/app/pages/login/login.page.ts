@@ -5,7 +5,7 @@ import {AlertController, LoadingController, NavController} from '@ionic/angular'
 import {AuthService} from '../../services/auth/auth.service';
 import {Utils} from '../../helpers/utils';
 import {User} from '../../models/user';
-import {ApiService} from '../../sercices/api/api.service';
+import {ApiService} from '../../services/api/api.service';
 
 @Component({
   selector: 'app-login',
