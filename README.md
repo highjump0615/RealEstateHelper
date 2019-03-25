@@ -86,12 +86,14 @@ span {
 }
 ```
 
-<h4 id="keyboard">3.2 Keyboard Problem</h4>
+<h4 id="keyboard">3.2 Keyboard Problem</h4>  
+
 ##### Prevent keyboard resizes content size  
 - iOS  
-```
+```xml
 <preference name="KeyboardResize" value="false" />
-```  
+```
+
 - Android  
 ```
 android:windowSoftInputMode="adjustPan"
