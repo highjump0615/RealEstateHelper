@@ -12,7 +12,7 @@ Real Estate Helper App
  
 ## Techniques 
 Ionic Framework v4.0.0  
-AngularJS v7.2.2  
+Angular v7.2.2  
 ### 1. UI Implementation  
 #### 1.1 Implement UI pages based on Flexbox layout
 #### 1.2 UI layout when keyboard appears  
