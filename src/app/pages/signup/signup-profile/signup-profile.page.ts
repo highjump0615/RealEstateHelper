@@ -24,6 +24,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
   phoneBkg = '';
   addressBkg = '';
 
+  isEdit = false;
+
   @ViewChild('imageProfile') uploadPhoto: ImageUploaderComponent;
 
   constructor(
@@ -48,6 +50,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
       this.nameBkg = auth.user.nameBkg;
       this.phoneBkg = auth.user.phoneBkg;
       this.addressBkg = auth.user.addressBkg;
+
+      this.isEdit = true;
     }
   }
 
@@ -149,7 +153,7 @@ export class SignupProfilePage extends BasePage implements OnInit {
   }
 
   doneCallback = () => {
-    if (this.auth.user) {
+    if (this.isEdit) {
       // save profile
       this.onButBack();
 

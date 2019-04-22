@@ -5,7 +5,7 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{auth.user ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
+    <ion-title>{{isEdit ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -80,11 +80,11 @@
           <ion-button
             expand="full"
             type="submit"
-          >{{auth.user ? 'Save' : 'Next'}}</ion-button>
+          >{{isEdit ? 'Save' : 'Next'}}</ion-button>
 
           <!-- go back, show in sign up only -->
           <ion-button
-            *ngIf="!auth.user"
+            *ngIf="!isEdit"
             class="but-signin"
             fill="clear"
             (click)="onButBack()">
