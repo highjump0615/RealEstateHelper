@@ -34,7 +34,7 @@ export class SignupProfilePage implements OnInit {
       // update profile
     } else {
       // sign up
-      this.router.navigate(['home']);
+      this.router.navigate(['tabs/home']);
     }
   }
 }
