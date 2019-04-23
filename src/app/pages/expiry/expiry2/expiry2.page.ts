@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-expiry2',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Expiry2Page implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
   }

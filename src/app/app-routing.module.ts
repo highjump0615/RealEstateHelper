@@ -74,11 +74,15 @@ const routes: Routes = [
   },
   {
     path: 'expiry1',
-    loadChildren: './pages/expiry/expiry1/expiry1.module#Expiry1PageModule'
+    loadChildren: './pages/expiry/expiry1/expiry1.module#Expiry1PageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry2',
-    loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule'
+    loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-add',
