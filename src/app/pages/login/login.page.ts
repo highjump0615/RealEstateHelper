@@ -18,6 +18,6 @@ export class LoginPage implements OnInit {
   }
 
   onButLogin($event: MouseEvent) {
-    this.router.navigate(['home']);
+    this.router.navigate(['tabs/home']);
   }
 }

@@ -39,57 +39,6 @@
       lines="none">
       <div
         class="flex-row"
-        [routerLink]="['/match-buyer']">
-        <div class="dv-buyer flex-column nm-center">
-          <ion-thumbnail
-            class="round">
-            <img src="../../../../assets/imgs/default_img.png">
-          </ion-thumbnail>
-
-          <!-- address -->
-          <span
-            class="sp-address-buyer"
-          >1263 Derek Drive Akron, Canada</span>
-        </div>
-
-        <div
-          class="dv-match-mark round flex-c-row">
-          <div
-            class="round container">
-            <img
-              class="nm-center"
-              src="../../../../assets/imgs/tab_matches_selected.png">
-          </div>
-        </div>
-
-        <div class="dv-match flex-column nm-center">
-          <!-- number -->
-          <span
-            class="sp-number"
-          >9</span>
-
-          <!-- label -->
-          <span
-            class="sp-label"
-          >Matched Buyers</span>
-        </div>
-      </div>
-    </ion-item>
-
-  </ion-list>
-
-  <ion-list
-    *ngIf="currentPage == PAGE_SELLER">
-    <ion-searchbar
-      mode="ios"
-      placeholder="Search client name"
-    ></ion-searchbar>
-
-    <ion-item
-      *ngFor="let i of [1,2,3,4,5,6]"
-      lines="none">
-      <div
-        class="flex-row"
         [routerLink]="['/match-property']">
         <div class="dv-buyer flex-column nm-center">
           <ion-thumbnail
@@ -127,6 +76,57 @@
           <span
             class="sp-label"
           >Matched Properties</span>
+        </div>
+      </div>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list
+    *ngIf="currentPage == PAGE_SELLER">
+    <ion-searchbar
+      mode="ios"
+      placeholder="Search client name"
+    ></ion-searchbar>
+
+    <ion-item
+      *ngFor="let i of [1,2,3,4,5,6]"
+      lines="none">
+      <div
+        class="flex-row"
+        [routerLink]="['/match-buyer']">
+        <div class="dv-buyer flex-column nm-center">
+          <ion-thumbnail
+            class="round">
+            <img src="../../../../assets/imgs/default_img.png">
+          </ion-thumbnail>
+
+          <!-- address -->
+          <span
+            class="sp-address-buyer"
+          >1263 Derek Drive Akron, Canada</span>
+        </div>
+
+        <div
+          class="dv-match-mark round flex-c-row">
+          <div
+            class="round container">
+            <img
+              class="nm-center"
+              src="../../../../assets/imgs/tab_matches_selected.png">
+          </div>
+        </div>
+
+        <div class="dv-match flex-column nm-center">
+          <!-- number -->
+          <span
+            class="sp-number"
+          >9</span>
+
+          <!-- label -->
+          <span
+            class="sp-label"
+          >Matched Buyers</span>
         </div>
       </div>
     </ion-item>
