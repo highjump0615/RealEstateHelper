@@ -27,105 +27,70 @@
 
 <ion-content>
 
-  <div
+  <ion-list
     *ngIf="currentPage == PAGE_BUYER">
-    <ion-card
-      class="ca-buyer"
-      *ngFor="let i of [1,2,3,4,5,6]">
-      <ion-item
-        class="no-padding"
-        button
-        detail="false"
-        [routerLink]="['/property']">
-        <ion-card-content class="full-width">
-          <div class="flex-row">
-            <!-- image -->
-            <ion-thumbnail>
-              <img src="../../../assets/imgs/default_img.png">
-            </ion-thumbnail>
+    <ion-item
+      button
+      detail="false"
+      *ngFor="let i of [1,2,3,4,5,6]"
+      [routerLink]="['/favourites/properties']">
+      <div class="flex-row full-width">
+        <!-- photo -->
+        <ion-thumbnail
+          class="round">
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-thumbnail>
 
-            <div class="dv-info">
-              <div class="flex-column dv-info-content">
-                <!-- title -->
-                <span
-                  class="sp-title"
-                >New three bedroom, one level duplex home</span>
+        <!-- info -->
+        <div class="flex-column dv-info">
+          <!-- name -->
+          <span
+            class="sp-name"
+          >Andrew Smith</span>
+          <span
+            class="sp-address"
+          >2896 Holly Street Rome, Canada</span>
+        </div>
 
-                <!-- address -->
-                <span
-                  class="sp-address"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
+        <!-- distance -->
+        <span
+          class="sp-distance"
+        >0.2 km away</span>
+      </div>
+    </ion-item>
+ </ion-list>
 
-                <!-- distance -->
-                <span
-                  class="sp-distance"
-                >0.3 miles away</span>
-              </div>
-
-              <!-- delete button -->
-              <ion-button
-                class="bt-delete"
-                fill="clear"
-                color="danger"
-                (click)="onButDelete($event)">
-                <ion-icon
-                  slot="icon-only"
-                  name="trash">
-                </ion-icon>
-              </ion-button>
-            </div>
-          </div>
-        </ion-card-content>
-      </ion-item>
-    </ion-card>
-  </div>
-
-  <div
+  <ion-list
     *ngIf="currentPage == PAGE_SELLER">
-    <ion-card
-      class="ca-seller"
+    <ion-item
+      button
+      detail="false"
+      [routerLink]="['/favourites/buyers']"
       *ngFor="let i of [1,2,3,4,5,6]">
-      <ion-item
-        class="no-padding"
-        button
-        detail="false"
-        [routerLink]="['/profile/asdf']">
-        <ion-card-content class="full-width">
-          <div class="flex-row">
-            <div class="dv-info">
-              <div class="flex-column dv-info-content">
-                <!-- title -->
-                <span
-                  class="sp-title"
-                >Andrew Smith</span>
+      <div class="flex-row full-width">
+        <!-- photo -->
+        <ion-thumbnail
+          class="round">
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-thumbnail>
 
-                <!-- address -->
-                <span
-                  class="sp-address"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
+        <!-- info -->
+        <div class="flex-column dv-info">
+          <!-- name -->
+          <span
+            class="sp-name"
+          >Andrew Smith</span>
+          <span
+            class="sp-address"
+          >2896 Holly Street Rome, Canada</span>
+        </div>
 
-                <!-- distance -->
-                <span
-                  class="sp-distance"
-                >0.3 miles away</span>
-              </div>
-            </div>
-
-            <!-- delete button -->
-            <ion-button
-              class="bt-delete"
-              fill="clear"
-              color="danger"
-              (click)="onButDelete($event)">
-              <ion-icon
-                slot="icon-only"
-                name="trash">
-              </ion-icon>
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-item>
-    </ion-card>
-  </div>
+        <!-- distance -->
+        <span
+          class="sp-distance"
+        >0.2 km away</span>
+      </div>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
