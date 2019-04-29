@@ -132,6 +132,10 @@ const routes: Routes = [
   {
     path: 'favourites/properties',
     loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule'
+  },
+  {
+    path: 'favourites/buyers',
+    loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule'
   }
 ];
 @NgModule({
