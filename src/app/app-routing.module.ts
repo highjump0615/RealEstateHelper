@@ -124,6 +124,10 @@ const routes: Routes = [
   {
     path: 'note-add',
     loadChildren: './pages/note-add/note-add.module#NoteAddPageModule'
+  },
+  {
+    path: 'select-buyer',
+    loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule'
   }
 ];
 @NgModule({

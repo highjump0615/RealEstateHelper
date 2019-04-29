@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Select Buyers</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item
+      button
+      detail="false"
+      *ngFor="let i of [1,2,3,4,5,6]">
+      <div class="flex-row full-width">
+        <!-- user photo -->
+        <ion-avatar>
+          <img src="../../../assets/imgs/default_user.png">
+        </ion-avatar>
+
+        <ion-label>John Hill</ion-label>
+      </div>
+
+      <ion-checkbox slot="start"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+    (click)="onButNext()"
+  >Next</ion-button>
+</ion-footer>
