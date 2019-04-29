@@ -128,6 +128,10 @@ const routes: Routes = [
   {
     path: 'select-buyer',
     loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule'
+  },
+  {
+    path: 'favourites/properties',
+    loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule'
   }
 ];
 @NgModule({
