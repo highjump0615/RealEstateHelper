@@ -23,4 +23,8 @@ export class ProfilePage implements OnInit {
   onButEdit() {
     this.router.navigate(['signup-profile', 'asdf']);
   }
+
+  onButChat() {
+    this.router.navigate(['message']);
+  }
 }
