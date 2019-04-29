@@ -62,56 +62,57 @@
     <form
       padding>
 
+      <!-- name -->
+      <div class="dv-profile-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="person"></ion-icon>
+        <ion-input
+          placeholder="Enter Name"
+        ></ion-input>
+      </div>
+
+      <!-- email -->
+      <div class="dv-profile-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="mail"></ion-icon>
+        <ion-input
+          placeholder="Enter Email Address"
+          type="email"
+        ></ion-input>
+      </div>
+
+      <!-- phone -->
+      <div class="dv-profile-input flex-c-row mb-6">
+        <!-- icon -->
+        <ion-icon name="call"></ion-icon>
+        <ion-input
+          placeholder="Enter Phone Number"
+          type="phone"
+        ></ion-input>
+      </div>
+
+      <!-- budget -->
+      <div class="flex-row dv-budget">
+        <div class="dv-profile-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <ion-input
+            placeholder="Minimum Budget"
+            type="number"
+          ></ion-input>
+        </div>
+        <div class="dv-profile-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <ion-input
+            placeholder="Maximum Budget"
+            type="number"
+          ></ion-input>
+        </div>
+      </div>
+
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
-        <!-- name -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="person"></ion-icon>
-          <ion-input
-            placeholder="Enter Name"
-          ></ion-input>
-        </div>
-
-        <!-- email -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="mail"></ion-icon>
-          <ion-input
-            placeholder="Enter Email Address"
-            type="email"
-          ></ion-input>
-        </div>
-
-        <!-- phone -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="call"></ion-icon>
-          <ion-input
-            placeholder="Enter Phone Number"
-            type="phone"
-          ></ion-input>
-        </div>
-
-        <!-- budget -->
-        <div class="flex-row dv-budget">
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
-            <ion-input
-              placeholder="Minimum Budget"
-              type="number"
-            ></ion-input>
-          </div>
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
-            <ion-input
-              placeholder="Maximum Budget"
-              type="number"
-            ></ion-input>
-          </div>
-        </div>
 
         <!-- property description -->
         <div class="dv-input-with-title mt-14">
@@ -147,44 +148,6 @@
 
       <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
-        <!-- name -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="person"></ion-icon>
-          <ion-input
-            placeholder="Enter Name"
-          ></ion-input>
-        </div>
-
-        <!-- email -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="mail"></ion-icon>
-          <ion-input
-            placeholder="Enter Email Address"
-            type="email"
-          ></ion-input>
-        </div>
-
-        <!-- phone -->
-        <div class="dv-profile-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="call"></ion-icon>
-          <ion-input
-            placeholder="Enter Phone Number"
-            type="phone"
-          ></ion-input>
-        </div>
-
-        <!-- price -->
-        <div class="dv-profile-input flex-c-row mb-14">
-          <!-- icon -->
-          <ion-icon name="cash"></ion-icon>
-          <ion-input
-            placeholder="Enter Price"
-            type="number"
-          ></ion-input>
-        </div>
 
         <!-- separator -->
         <div class="dv-separator mb-14"></div>
