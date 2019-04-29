@@ -43,6 +43,11 @@ export class Property {
     'Assignments'
   ];
 
+  static BASEMENT = [
+    'No',
+    'Yes, Unfinished'
+  ];
+
   //
   // properties
   //

@@ -197,6 +197,7 @@
           placeholder="Style"
           readonly
           (ionFocus)="onFocusStyle()"
+          [value]="getStyles()"
         ></ion-input>
       </div>
 
@@ -208,6 +209,7 @@
           placeholder="Type"
           readonly
           (ionFocus)="onFocusType()"
+          [value]="getTypes()"
         ></ion-input>
       </div>
 
@@ -256,7 +258,10 @@
         <!-- icon -->
         <ion-icon name="construct"></ion-icon>
         <ion-input
+          readonly
+          (ionFocus)="onFocusBasement()"
           placeholder="Basement"
+          [value]="getBasement()"
         ></ion-input>
       </div>
 
@@ -293,6 +298,7 @@
           placeholder="Construction Status"
           readonly
           (ionFocus)="onFocusStatus()"
+          [value]="constStatus"
         ></ion-input>
       </div>
     </form>
