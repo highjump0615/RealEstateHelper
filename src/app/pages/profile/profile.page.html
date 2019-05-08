@@ -62,7 +62,11 @@
           <span
             class="sp-name"
           >{{user?.name}}</span>
-          <ion-icon name="chatbubbles"></ion-icon>
+          <!-- show chat icon for other user -->
+          <ion-icon
+            *ngIf="userId"
+            name="chatbubbles">
+          </ion-icon>
         </div>
 
         <!-- email -->

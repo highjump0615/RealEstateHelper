@@ -36,6 +36,11 @@ export class ProfilePage implements OnInit {
   }
 
   onButChat() {
+    // only available for other user
+    if (!this.userId) {
+      return;
+    }
+
     this.router.navigate(['message']);
   }
 }
