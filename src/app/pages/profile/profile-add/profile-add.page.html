@@ -60,9 +60,7 @@
     </div>
 
     <form
-      padding
-      ngNativeValidate
-      (ngSubmit)="signinForm()">
+      padding>
 
       <!-- name -->
       <div class="dv-profile-input flex-c-row mb-6">
@@ -89,32 +87,32 @@
         <ion-icon name="call"></ion-icon>
         <ion-input
           placeholder="Enter Phone Number"
-          type="tel"
+          type="phone"
         ></ion-input>
+      </div>
+
+      <!-- budget -->
+      <div class="flex-row dv-budget">
+        <div class="dv-profile-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <ion-input
+            placeholder="Minimum Budget"
+            type="number"
+          ></ion-input>
+        </div>
+        <div class="dv-profile-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <ion-input
+            placeholder="Maximum Budget"
+            type="number"
+          ></ion-input>
+        </div>
       </div>
 
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
-
-        <!-- budget -->
-        <div class="flex-row dv-budget">
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
-            <ion-input
-              placeholder="Minimum Budget"
-              type="number"
-            ></ion-input>
-          </div>
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
-            <ion-input
-              placeholder="Maximum Budget"
-              type="number"
-            ></ion-input>
-          </div>
-        </div>
 
         <!-- property description -->
         <div class="dv-input-with-title mt-14">
@@ -150,16 +148,6 @@
 
       <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
-
-        <!-- price -->
-        <div class="dv-profile-input flex-c-row mb-14">
-          <!-- icon -->
-          <ion-icon name="cash"></ion-icon>
-          <ion-input
-            placeholder="Enter Price"
-            type="number"
-          ></ion-input>
-        </div>
 
         <!-- separator -->
         <div class="dv-separator mb-14"></div>
@@ -209,6 +197,7 @@
           placeholder="Style"
           readonly
           (ionFocus)="onFocusStyle()"
+          [value]="getStyles()"
         ></ion-input>
       </div>
 
@@ -220,6 +209,7 @@
           placeholder="Type"
           readonly
           (ionFocus)="onFocusType()"
+          [value]="getTypes()"
         ></ion-input>
       </div>
 
@@ -268,7 +258,10 @@
         <!-- icon -->
         <ion-icon name="construct"></ion-icon>
         <ion-input
+          readonly
+          (ionFocus)="onFocusBasement()"
           placeholder="Basement"
+          [value]="getBasement()"
         ></ion-input>
       </div>
 
@@ -305,6 +298,7 @@
           placeholder="Construction Status"
           readonly
           (ionFocus)="onFocusStatus()"
+          [value]="constStatus"
         ></ion-input>
       </div>
     </form>

@@ -68,18 +68,15 @@ export class SignupProfilePage extends BasePage implements OnInit {
     if (this.auth.user) {
       // update profile
       this.uploadImageAndSetupUserInfo(this.doneCallback);
-
     } else {
       //
       // do signup
       //
       this.showLoadingView();
-
       this.auth.signUp(
         this.email,
         this.password
       ).then((u) => {
-
         this.showLoadingView(false);
 
         // set user
@@ -87,8 +84,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
         userNew.email = this.email;
 
         this.auth.user = userNew;
-
         this.uploadImageAndSetupUserInfo(this.doneCallback);
+
       }).catch((err) => {
         console.log(err);
 
@@ -104,7 +101,6 @@ export class SignupProfilePage extends BasePage implements OnInit {
   }
 
   uploadImageAndSetupUserInfo(completion: (any?) => void) {
-
     if (this.uploadPhoto.picture) {
       this.showLoadingView();
 
@@ -125,6 +121,7 @@ export class SignupProfilePage extends BasePage implements OnInit {
           user.photoUrl = downloadURL;
           this.saveUserInfo(completion);
         });
+
     } else {
       this.saveUserInfo(completion);
     }
@@ -139,7 +136,6 @@ export class SignupProfilePage extends BasePage implements OnInit {
     user.nameBkg = this.nameBkg;
     user.phoneBkg = this.phoneBkg;
     user.addressBkg = this.addressBkg;
-
     user.saveToDatabase();
 
     // save user info to session storage
@@ -156,7 +152,6 @@ export class SignupProfilePage extends BasePage implements OnInit {
     if (this.isEdit) {
       // save profile
       this.onButBack();
-
       return;
     }
 

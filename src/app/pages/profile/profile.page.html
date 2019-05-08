@@ -56,9 +56,14 @@
         </ion-thumbnail>
 
         <!-- name -->
-        <span
-          class="sp-name"
-        >{{user?.name}}</span>
+        <div
+          class="flex-c-row dv-name"
+          (click)="onButChat()">
+          <span
+            class="sp-name"
+          >{{user?.name}}</span>
+          <ion-icon name="chatbubbles"></ion-icon>
+        </div>
 
         <!-- email -->
         <div

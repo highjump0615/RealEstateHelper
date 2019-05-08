@@ -45,6 +45,11 @@ export class Property extends BaseModel implements Deserializable {
     'Assignments'
   ];
 
+  static BASEMENT = [
+    'No',
+    'Yes, Unfinished'
+  ];
+
   //
   // properties
   //

@@ -35,9 +35,13 @@ ion-buttons[slot="end"] {
       height: 114px;
     }
 
-    .sp-name {
+    .dv-name {
       margin-top: 20px;
       margin-bottom: 14px;
+
+      ion-icon {
+        margin-left: 8px;
+      }
     }
   }
 }

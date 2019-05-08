@@ -14,6 +14,11 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
   alertSelect: any;
 
+  styles = [];
+  types = [];
+  basement: number;
+  constStatus = '';
+
   constructor(
     public alertController: AlertController,
     private kbService: KeyboardService
@@ -62,17 +67,29 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     const inputs = [];
     for (const s of Property.STYLES) {
-      inputs.push({
+      const item = {
         type: 'checkbox',
         label: s,
         value: s
-      });
+      };
+
+      // set initial checked
+      if (this.styles.indexOf(s) >= 0) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
     }
 
-    this.presentSelectAlert('Select Style', inputs);
+    this.presentSelectAlert(
+      'Select Style',
+      inputs,
+      (data) => {
+        this.styles = data;
+      });
   }
 
-  async presentSelectAlert(title, inputs) {
+  async presentSelectAlert(title, inputs, onOk = (data) => {}) {
     this.alertSelect = await this.alertController.create({
       header: title,
       inputs: inputs,
@@ -89,6 +106,9 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
           text: 'OK',
           handler: (data) => {
             console.log(data);
+
+            // callback
+            onOk(data);
 
             this.onCloseSelectAlert();
           }
@@ -112,14 +132,26 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     const inputs = [];
     for (const s of Property.TYPES) {
-      inputs.push({
+      const item = {
         type: 'checkbox',
         label: s,
         value: s
-      });
+      };
+
+      // set initial checked
+      if (this.types.indexOf(s) >= 0) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
     }
 
-    this.presentSelectAlert('Select Type', inputs);
+    this.presentSelectAlert(
+      'Select Type',
+      inputs,
+      (data) => {
+        this.types = data;
+      });
   }
 
   onFocusStatus() {
@@ -130,13 +162,74 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     const inputs = [];
     for (const s of Property.STATUSES) {
-      inputs.push({
-        type: 'checkbox',
+      const item = {
+        type: 'radio',
         label: s,
         value: s
-      });
+      };
+
+      // set initial checked
+      if (this.constStatus == s) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
     }
 
-    this.presentSelectAlert('Select Status', inputs);
+    this.presentSelectAlert(
+      'Select Status',
+      inputs,
+      (data) => {
+        this.constStatus = data;
+      });
+  }
+
+  onFocusBasement() {
+    // already opened select alert
+    if (this.alertSelect) {
+      return;
+    }
+
+    const inputs = [];
+    for (let i = Property.BASEMENT.length - 1; i >= 0; i--) {
+      const item = {
+        type: 'radio',
+        label: Property.BASEMENT[i],
+        value: i
+      };
+
+      // set initial checked
+      if (this.basement === i) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
+    }
+
+    this.presentSelectAlert(
+      'Select Basement',
+      inputs,
+      (data) => {
+        this.basement = data;
+      });
+  }
+
+
+  getStyles() {
+    return this.styles.join(', ');
+  }
+
+  getTypes() {
+    return this.types.join(', ');
+  }
+
+  getBasement() {
+    if (this.basement === 1) {
+      return 'Yes, Unfinished';
+    } else if (this.basement === 0) {
+      return 'No';
+    }
+
+    return '';
   }
 }

@@ -149,6 +149,18 @@ const routes: Routes = [
   {
     path: 'note-add',
     loadChildren: './pages/note-add/note-add.module#NoteAddPageModule'
+  },
+  {
+    path: 'select-buyer',
+    loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule'
+  },
+  {
+    path: 'favourites/properties',
+    loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule'
+  },
+  {
+    path: 'favourites/buyers',
+    loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule'
   }
 ];
 @NgModule({

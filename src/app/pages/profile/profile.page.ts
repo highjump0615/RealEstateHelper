@@ -34,4 +34,8 @@ export class ProfilePage implements OnInit {
   onButEdit() {
     this.router.navigate(['signup-profile', this.auth.user.id]);
   }
+
+  onButChat() {
+    this.router.navigate(['message']);
+  }
 }

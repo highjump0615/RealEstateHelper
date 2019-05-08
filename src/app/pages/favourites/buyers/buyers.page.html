@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Favorite Buyers</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card
+    class="ca-seller"
+    *ngFor="let i of [1,2,3,4,5,6]">
+    <ion-item
+      class="no-padding"
+      button
+      detail="false"
+      [routerLink]="['/profile/asdf']">
+      <ion-card-content class="full-width">
+        <div class="flex-row">
+          <div class="dv-info">
+            <div class="flex-column dv-info-content">
+              <!-- title -->
+              <span
+                class="sp-title"
+              >Andrew Smith</span>
+
+              <!-- address -->
+              <span
+                class="sp-address"
+              >83 Iskoot Crescent, Whitehorse, Canada</span>
+
+              <!-- distance -->
+              <span
+                class="sp-distance"
+              >0.3 miles away</span>
+            </div>
+          </div>
+
+        </div>
+      </ion-card-content>
+    </ion-item>
+  </ion-card>
+
+</ion-content>
