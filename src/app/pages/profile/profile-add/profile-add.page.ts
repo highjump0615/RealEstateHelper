@@ -16,8 +16,10 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
   styles = [];
   types = [];
-  basement: number;
+
+  basement =  '';
   constStatus = '';
+  garage = '';
 
   constructor(
     public alertController: AlertController,
@@ -169,7 +171,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       };
 
       // set initial checked
-      if (this.constStatus == s) {
+      if (this.constStatus === s) {
         item['checked'] = true;
       }
 
@@ -191,15 +193,15 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     }
 
     const inputs = [];
-    for (let i = Property.BASEMENT.length - 1; i >= 0; i--) {
+    for (const s of Property.BASEMENT) {
       const item = {
         type: 'radio',
-        label: Property.BASEMENT[i],
-        value: i
+        label: s,
+        value: s
       };
 
       // set initial checked
-      if (this.basement === i) {
+      if (this.basement === s) {
         item['checked'] = true;
       }
 
@@ -207,7 +209,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     }
 
     this.presentSelectAlert(
-      'Select Basement',
+      'Select Garage',
       inputs,
       (data) => {
         this.basement = data;
@@ -223,13 +225,33 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     return this.types.join(', ');
   }
 
-  getBasement() {
-    if (this.basement === 1) {
-      return 'Yes, Unfinished';
-    } else if (this.basement === 0) {
-      return 'No';
+  onFocusGarage() {
+    // already opened select alert
+    if (this.alertSelect) {
+      return;
     }
 
-    return '';
+    const inputs = [];
+    for (const s of Property.GARAGES) {
+      const item = {
+        type: 'radio',
+        label: s,
+        value: s
+      };
+
+      // set initial checked
+      if (this.garage === s) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
+    }
+
+    this.presentSelectAlert(
+      'Select Garage',
+      inputs,
+      (data) => {
+        this.garage = data;
+      });
   }
 }

@@ -30,13 +30,26 @@ export class Property extends BaseModel implements Deserializable {
   static STYLES = [
     'Two-Storey',
     'Bungalow',
-    'Sidesplit'
+    'Sidesplit',
+    'Any',
+    'Other',
   ];
 
   static TYPES = [
     'Townhouse',
     'Semi',
-    'detached'
+    'detached',
+    'Condo',
+    'Other',
+  ];
+
+  static GARAGES = [
+    'Single',
+    '1.5',
+    'Double',
+    'Carport',
+    'None',
+    'Other',
   ];
 
   static STATUSES = [
@@ -46,8 +59,14 @@ export class Property extends BaseModel implements Deserializable {
   ];
 
   static BASEMENT = [
-    'No',
-    'Yes, Unfinished'
+    'Finished',
+    'Unfinished',
+    'Partly Finished',
+    'Rec Room',
+    'Basement Apt.',
+    'Separate Entrance',
+    'No Separate Entrance',
+    'Other',
   ];
 
   //

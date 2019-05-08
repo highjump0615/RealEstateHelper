@@ -62,6 +62,20 @@
     <form
       padding>
 
+      <!-- notice -->
+      <div
+        text-center
+        class="sp-notice mb-6"
+        *ngIf="currentPage == PAGE_BUYER"
+      >Buyers contact information will not be shared with other agents
+      </div>
+      <div
+        text-center
+        class="sp-notice mb-6"
+        *ngIf="currentPage == PAGE_SELLER"
+      >Sellers contact information will not be shared with other agents
+      </div>
+
       <!-- name -->
       <div class="dv-profile-input flex-c-row mb-6">
         <!-- icon -->
@@ -91,41 +105,26 @@
         ></ion-input>
       </div>
 
-      <!-- budget -->
-      <div class="flex-row dv-budget">
-        <div class="dv-profile-input flex-c-row">
-          <!-- icon -->
-          <ion-icon name="cash"></ion-icon>
-          <ion-input
-            placeholder="Minimum Budget"
-            type="number"
-          ></ion-input>
-        </div>
-        <div class="dv-profile-input flex-c-row">
-          <!-- icon -->
-          <ion-icon name="cash"></ion-icon>
-          <ion-input
-            placeholder="Maximum Budget"
-            type="number"
-          ></ion-input>
-        </div>
-      </div>
-
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
 
-        <!-- property description -->
-        <div class="dv-input-with-title mt-14">
-          <!-- title -->
-          <ion-label>Property Description</ion-label>
-
-          <div class="dv-profile-input dv-profile-input-text flex-row">
+        <!-- budget -->
+        <div class="flex-row dv-budget">
+          <div class="dv-profile-input flex-c-row">
             <!-- icon -->
-            <ion-icon name="create"></ion-icon>
-            <ion-textarea
-              placeholder="Enter Description (max 200 characters)"
-              rows="5"
-            ></ion-textarea>
+            <ion-icon name="cash"></ion-icon>
+            <ion-input
+              placeholder="Minimum Price"
+              type="number"
+            ></ion-input>
+          </div>
+          <div class="dv-profile-input flex-c-row">
+            <!-- icon -->
+            <ion-icon name="cash"></ion-icon>
+            <ion-input
+              placeholder="Maximum Price"
+              type="number"
+            ></ion-input>
           </div>
         </div>
 
@@ -148,12 +147,18 @@
 
       <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
-
-        <!-- separator -->
-        <div class="dv-separator mb-14"></div>
+        <!-- price -->
+        <div class="dv-profile-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <ion-input
+            placeholder="Price"
+            type="number"
+          ></ion-input>
+        </div>
 
         <!-- address -->
-        <div class="dv-profile-input flex-c-row">
+        <div class="dv-profile-input flex-c-row mt-14">
           <ion-input
             placeholder="Enter Address"
           ></ion-input>
@@ -249,7 +254,9 @@
         <ion-icon name="car"></ion-icon>
         <ion-input
           placeholder="Garage"
-          type="number"
+          readonly
+          (ionFocus)="onFocusGarage()"
+          [value]="garage"
         ></ion-input>
       </div>
 
@@ -261,7 +268,7 @@
           readonly
           (ionFocus)="onFocusBasement()"
           placeholder="Basement"
-          [value]="getBasement()"
+          [value]="basement"
         ></ion-input>
       </div>
 
@@ -301,6 +308,43 @@
           [value]="constStatus"
         ></ion-input>
       </div>
+
+
+      <!-- buyer content -->
+      <ng-container *ngIf="currentPage == PAGE_BUYER">
+        <!-- property description -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Buyers wants and needs</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="create"></ion-icon>
+            <ion-textarea
+              placeholder="Enter Description (max 200 characters)"
+              rows="5"
+            ></ion-textarea>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- buyer content -->
+      <ng-container *ngIf="currentPage == PAGE_SELLER">
+        <!-- property description -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Description</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="create"></ion-icon>
+            <ion-textarea
+              placeholder="Enter Description (max 200 characters)"
+              rows="5"
+            ></ion-textarea>
+          </div>
+        </div>
+      </ng-container>
     </form>
   </div>
 
