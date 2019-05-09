@@ -9,6 +9,7 @@
     <ion-buttons slot="end">
       <ion-button
         color="light"
+        (click)="onButDone()"
       >DONE</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -27,7 +28,7 @@
       </div>
 
       <app-image-uploader
-        #imageProfile>
+        #imagePhoto>
         <div class="container flex-c-row nm-center">
           <ion-icon
             class="nm-center"
@@ -60,7 +61,9 @@
     </div>
 
     <form
-      padding>
+      padding
+      (ngSubmit)="onSubmit()"
+      #mainForm="ngForm">
 
       <!-- notice -->
       <div
@@ -81,7 +84,9 @@
         <!-- icon -->
         <ion-icon name="person"></ion-icon>
         <ion-input
+          name="name"
           placeholder="Enter Name"
+          [(ngModel)]="name"
         ></ion-input>
       </div>
 
@@ -90,8 +95,10 @@
         <!-- icon -->
         <ion-icon name="mail"></ion-icon>
         <ion-input
+          name="email"
           placeholder="Enter Email Address"
           type="email"
+          [(ngModel)]="email"
         ></ion-input>
       </div>
 
@@ -100,8 +107,10 @@
         <!-- icon -->
         <ion-icon name="call"></ion-icon>
         <ion-input
+          name="phone"
           placeholder="Enter Phone Number"
           type="phone"
+          [(ngModel)]="phone"
         ></ion-input>
       </div>
 
@@ -114,16 +123,20 @@
             <!-- icon -->
             <ion-icon name="cash"></ion-icon>
             <ion-input
+              name="priceMin"
               placeholder="Minimum Price"
               type="number"
+              [(ngModel)]="priceMin"
             ></ion-input>
           </div>
           <div class="dv-profile-input flex-c-row">
             <!-- icon -->
             <ion-icon name="cash"></ion-icon>
             <ion-input
+              name="priceMax"
               placeholder="Maximum Price"
               type="number"
+              [(ngModel)]="priceMax"
             ></ion-input>
           </div>
         </div>
@@ -137,9 +150,11 @@
             <!-- icon -->
             <ion-icon name="pin"></ion-icon>
             <ion-input
+              name="location"
               placeholder="Desired Location"
               readonly
               (ionFocus)="onFocusLocation()"
+              [(ngModel)]="location"
             ></ion-input>
           </div>
         </div>
@@ -152,15 +167,19 @@
           <!-- icon -->
           <ion-icon name="cash"></ion-icon>
           <ion-input
+            name="price"
             placeholder="Price"
             type="number"
+            [(ngModel)]="price"
           ></ion-input>
         </div>
 
         <!-- address -->
         <div class="dv-profile-input flex-c-row mt-14">
           <ion-input
+            name="address"
             placeholder="Enter Address"
+            [(ngModel)]="address"
           ></ion-input>
         </div>
 
@@ -188,7 +207,9 @@
 
           <div class="dv-profile-input flex-row">
             <ion-input
+              name="title"
               placeholder="Enter Title"
+              [(ngModel)]="title"
             ></ion-input>
           </div>
         </div>
@@ -223,8 +244,10 @@
         <!-- icon -->
         <ion-icon name="calculator"></ion-icon>
         <ion-input
+          name="size"
           placeholder="Enter House Size"
           type="number"
+          [(ngModel)]="size"
         ></ion-input>
       </div>
 
@@ -233,8 +256,10 @@
         <!-- icon -->
         <ion-icon name="bed"></ion-icon>
         <ion-input
+          name="bedroom"
           placeholder="Bedrooms"
           type="number"
+          [(ngModel)]="bedroom"
         ></ion-input>
       </div>
 
@@ -243,8 +268,10 @@
         <!-- icon -->
         <ion-icon name="ios-water"></ion-icon>
         <ion-input
+          name="bathroom"
           placeholder="Bathrooms"
           type="number"
+          [(ngModel)]="bathroom"
         ></ion-input>
       </div>
 
@@ -282,8 +309,10 @@
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
           <ion-input
+            name="frontage"
             placeholder="Lot Frontage"
             type="number"
+            [(ngModel)]="frontage"
           ></ion-input>
         </div>
         <!-- depth -->
@@ -291,8 +320,10 @@
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
           <ion-input
+            name="depth"
             placeholder="Lot Depth"
             type="number"
+            [(ngModel)]="depth"
           ></ion-input>
         </div>
       </div>
@@ -321,14 +352,16 @@
             <!-- icon -->
             <ion-icon name="create"></ion-icon>
             <ion-textarea
+              name="desc"
               placeholder="Enter Description (max 200 characters)"
               rows="5"
+              [(ngModel)]="description"
             ></ion-textarea>
           </div>
         </div>
       </ng-container>
 
-      <!-- buyer content -->
+      <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
         <!-- property description -->
         <div class="dv-input-with-title mt-14">
@@ -339,8 +372,10 @@
             <!-- icon -->
             <ion-icon name="create"></ion-icon>
             <ion-textarea
+              name="desc"
               placeholder="Enter Description (max 200 characters)"
               rows="5"
+              [(ngModel)]="descProp"
             ></ion-textarea>
           </div>
         </div>

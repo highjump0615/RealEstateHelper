@@ -7,6 +7,7 @@ import {BasePage} from '../../base.page';
 import {User} from '../../../models/user';
 import {ImageUploaderComponent} from '../../../components/image-uploader/image-uploader.component';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
+import {ApiService} from "../../../services/api/api.service";
 
 @Component({
   selector: 'app-signup-profile',
@@ -35,7 +36,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
     private kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    private auth: AuthService
+    private auth: AuthService,
+    public api: ApiService
   ) {
     super(loadingCtrl, alertCtrl);
 
@@ -108,19 +110,19 @@ export class SignupProfilePage extends BasePage implements OnInit {
       const user = this.auth.user;
       const path = 'users/' + user.id + '.png';
 
-      FirebaseManager.getInstance().uploadImageTo(
+      this.api.uploadImage(
         path,
-        this.uploadPhoto.picture,
-        (downloadURL, error) => {
-          if (error) {
-            // failed to upload
-            this.showLoadingView(false);
-            return;
-          }
+        this.uploadPhoto.picture
+      ).then((url) => {
+        user.photoUrl = url;
+        this.saveUserInfo(completion);
 
-          user.photoUrl = downloadURL;
-          this.saveUserInfo(completion);
-        });
+      }).catch((err) => {
+        console.log(err);
+
+        // failed to upload
+        this.showLoadingView(false);
+      });
 
     } else {
       this.saveUserInfo(completion);
@@ -136,7 +138,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
     user.nameBkg = this.nameBkg;
     user.phoneBkg = this.phoneBkg;
     user.addressBkg = this.addressBkg;
-    user.saveToDatabase();
+
+    this.api.saveToDatabase(user);
 
     // save user info to session storage
     this.auth.user = user;

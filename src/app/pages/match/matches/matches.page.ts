@@ -9,7 +9,7 @@ import {BaseSegmentPage} from '../../base-segment.page';
 export class MatchesPage extends BaseSegmentPage implements OnInit {
 
   constructor() {
-    super();
+    super(null, null);
   }
 
   ngOnInit() {

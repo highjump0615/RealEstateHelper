@@ -14,7 +14,7 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     public alertController: AlertController,
     private router: Router
   ) {
-    super();
+    super(null, alertController);
   }
 
   ngOnInit() {

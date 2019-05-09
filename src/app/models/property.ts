@@ -72,6 +72,8 @@ export class Property extends BaseModel implements Deserializable {
   //
   // properties
   //
+  photoUrl: string;
+
   address = '';
   title = '';
   desc = '';
@@ -87,7 +89,7 @@ export class Property extends BaseModel implements Deserializable {
   lotFrontage: number;
   lotDepth: number;
 
-  status = [];
+  status = '';
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
@@ -127,8 +129,7 @@ export class Property extends BaseModel implements Deserializable {
 
     dict[Property.FIELD_ADDRESS] = this.address;
     dict[Property.FIELD_TITLE] = this.title;
-    dict[Property.FIELD_DESC] = this.desc;
-    dict[Property.FIELD_DESC] = this.price;
+    this.addDictItem(dict, Property.FIELD_DESC, this.desc);
     this.addDictItem(dict, Property.FIELD_PRICE, this.price);
 
     dict[Property.FIELD_STYLE] = this.style;

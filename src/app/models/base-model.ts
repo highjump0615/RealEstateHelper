@@ -53,7 +53,7 @@ export class BaseModel {
     }
   }
 
-  private getDatabaseRef(withID?: string, parentID?: string) {
+  getDatabaseRef(withID?: string, parentID?: string) {
     let strDb = this.tableName();
     if (parentID) {
       strDb += '/' + parentID;
@@ -77,34 +77,8 @@ export class BaseModel {
     this.getDatabaseRef(null, parentID);
   }
 
-  /**
-   * save entire object to database
-   *
-   * @param withID
-   * @param parentID
-   */
-  saveToDatabase(withID?: string, parentID?: string) {
-    const db = this.getDatabaseRef(withID, parentID);
-    return db.set(this.toDictionary());
-  }
-
-  saveToDatabaseWithField(field: string,
-                          value: any,
-                          onComplete?: (err: Error | null) => any,
-                          withID?: string,
-                          parentID?: string) {
-
-    const db = this.getDatabaseRef(withID, parentID);
-    db.child(field).set(value, onComplete);
-  }
-
   public equalTo(data: BaseModel) {
     return this.id === data.id;
-  }
-
-  public delete() {
-    const db = this.getDatabaseRef();
-    db.remove();
   }
 
   public clone(): any {

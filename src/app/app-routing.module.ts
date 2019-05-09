@@ -86,7 +86,9 @@ const routes: Routes = [
   },
   {
     path: 'profile-add',
-    loadChildren: './pages/profile/profile-add/profile-add.module#ProfileAddPageModule'
+    loadChildren: './pages/profile/profile-add/profile-add.module#ProfileAddPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'filter-search',

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {FirebaseManager} from '../../helpers/firebase-manager';
 import {User} from '../../models/user';
+import {Client} from '../../models/client';
+import {BaseModel} from '../../models/base-model';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +50,26 @@ export class ApiService {
         const user = new User(null, snapshot);
         return Promise.resolve(user);
       });
+  }
+
+  /**
+   * save entire object to database
+   *
+   * @param data
+   * @param withID
+   * @param parentID
+   */
+  saveToDatabase(data: BaseModel, withID?: string, parentID?: string) {
+    const db = data.getDatabaseRef(withID, parentID);
+    return db.set(data.toDictionary());
+  }
+
+  saveToDatabaseRaw(data, path) {
+    const db = FirebaseManager.ref().child(path);
+    return db.set(data);
+  }
+
+  uploadImage(path, imgData) {
+    return FirebaseManager.getInstance().uploadImageTo(path, imgData);
   }
 }

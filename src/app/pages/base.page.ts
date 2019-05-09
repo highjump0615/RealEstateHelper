@@ -41,4 +41,8 @@ export class BasePage {
 
     await alert.present();
   }
+
+  onError(err) {
+
+  }
 }

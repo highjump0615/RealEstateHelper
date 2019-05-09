@@ -37,27 +37,18 @@ export class FirebaseManager {
       .credential(token);
   }
 
-  uploadImageTo(path, imgData, completion: (string?, error?) => void) {
+  uploadImageTo(path, imgData) {
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(path);
 
-    imageRef.putString(imgData, 'data_url')
+    return imageRef.putString(imgData, 'data_url')
       .then((snapshot) => {
         // get download url
-        imageRef.getDownloadURL().then((url) => {
+        return imageRef.getDownloadURL().then((url) => {
           console.log('url: ' + url);
 
-          completion(url);
-        }).catch((err) => {
-          console.log(err);
-
-          completion(null, err);
+          return url;
         });
-      })
-      .catch((err) => {
-        console.log(err);
-
-        completion(null, err);
       });
   }
 
