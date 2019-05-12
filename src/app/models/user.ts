@@ -1,5 +1,6 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
+import {Property} from "./property";
 
 export class User extends BaseModel implements Deserializable {
 
@@ -37,6 +38,11 @@ export class User extends BaseModel implements Deserializable {
   addressBkg = '';
 
   type = User.USER_TYPE_NORMAL;
+
+  //
+  // logical
+  //
+  propAll: Array<Property> = [];
 
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);

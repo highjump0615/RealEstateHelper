@@ -6,7 +6,8 @@ import {FirebaseManager} from '../../helpers/firebase-manager';
 import {Property} from '../../models/property';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {ApiService} from '../../services/api/api.service';
-import {from} from "rxjs";
+import {TabService} from '../../services/tab.service';
+import {TabsPage} from '../tabs/tabs.page';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import {from} from "rxjs";
 export class HomePage implements OnInit {
   showLoading = true;
 
-  properties: Array<Property> = [];
+  properties: Array<Property>;
 
   lat: number;
   lng: number;
@@ -25,10 +26,14 @@ export class HomePage implements OnInit {
     private router: Router,
     private geolocation: Geolocation,
     private auth: AuthService,
-    public api: ApiService
+    public api: ApiService,
+    private tab: TabService
   ) { }
 
   ngOnInit() {
+
+    // set tab data
+    this.tab.setCurrentTab(TabsPage.TAB_HOME, this);
 
     this.geolocation.getCurrentPosition()
       .then((resp) => {
@@ -44,23 +49,40 @@ export class HomePage implements OnInit {
       });
   }
 
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+
+    // add newly added property when appear
+    if (this.properties) {
+      this.filterData(this.auth.user.propAll);
+    }
+  }
+
+  filterData(props) {
+    if (!props) {
+      return;
+    }
+
+    // sort properties by distance
+    if (this.lat && this.lng) {
+      for (const p of props) {
+        if (p.location) {
+          p.distance = GeoFire.distance(p.location, [this.lat, this.lng]);
+        }
+      }
+
+      props.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
+    }
+
+    this.properties = props;
+    this.auth.user.propAll = props;
+  }
+
   async fetchData() {
     try {
       // fetch all properties
       const props = await this.api.getAllProperties();
-
-      // sort properties by distance
-      if (this.lat && this.lng) {
-        for (const p of props) {
-          if (p.location) {
-            p.distance = GeoFire.distance(p.location, [this.lat, this.lng]);
-          }
-        }
-
-        props.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
-      }
-
-      this.properties = props;
+      this.filterData(props);
 
       this.showLoading = false;
 

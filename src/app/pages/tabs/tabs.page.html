@@ -1,4 +1,5 @@
-<ion-tabs>
+<ion-tabs
+  (ionTabsWillChange)="onTabWillChange($event)">
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
