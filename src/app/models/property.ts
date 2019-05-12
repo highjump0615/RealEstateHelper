@@ -7,6 +7,7 @@ export class Property extends BaseModel implements Deserializable {
   // table info
   //
   static TABLE_NAME = 'properties';
+  static TABLE_NAME_LOCATION = 'propLocations';
 
   static FIELD_ADDRESS = 'address';
   static FIELD_TITLE = 'title';

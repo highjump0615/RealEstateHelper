@@ -10,6 +10,7 @@ import {Client} from '../../../models/client';
 import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {PropertyService} from '../../../services/property/property.service';
+import {GeoFire} from "geofire";
 
 @Component({
   selector: 'app-profile-add',
@@ -583,6 +584,13 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   }
 
   async doSaveProperty(prop) {
+    // save to geofire
+    if (this.propService.lat && this.propService.lng) {
+      const dbRef = FirebaseManager.ref().child(Property.TABLE_NAME_LOCATION);
+      const geoFire = new GeoFire(dbRef);
+      geoFire.set(prop.id, [this.propService.lat, this.propService.lng]);
+    }
+
     // save data for property
     await this.api.saveToDatabase(prop);
   }
