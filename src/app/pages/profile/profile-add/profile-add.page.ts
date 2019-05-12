@@ -9,6 +9,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 import {Client} from '../../../models/client';
 import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
+import {PropertyService} from '../../../services/property/property.service';
 
 @Component({
   selector: 'app-profile-add',
@@ -31,8 +32,6 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   priceMax: number;
   price: number;
 
-  location = '';
-  address = '';
   isAddressVisible = false;
 
   title = '';
@@ -59,6 +58,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     private kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
+    private propService: PropertyService,
     private auth: AuthService,
     public api: ApiService
   ) {
@@ -340,7 +340,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
         return;
       }
 
-      if (!this.address) {
+      if (!this.propService.address) {
         this.presentAlert(
           'Invalid Address',
           'Please enter address'
@@ -462,7 +462,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     // save property info
     const propNew = new Property();
-    propNew.address = this.address;
+    propNew.address = this.propService.address;
     propNew.title = this.title;
     propNew.desc = this.descProp;
     propNew.style = this.styles;
@@ -512,7 +512,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
       clientNew.priceMin = this.priceMin;
       clientNew.priceMax = this.priceMax;
-      clientNew.location = this.location;
+      clientNew.location = this.propService.address;
       clientNew.propRequest = propNew;
 
       clientNew.generateNewId();
@@ -576,7 +576,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       this.showLoadingView(false);
 
       this.presentAlert(
-        'Faild to save data',
+        'Failed to save data',
         err.message
       );
     }
@@ -585,5 +585,10 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   async doSaveProperty(prop) {
     // save data for property
     await this.api.saveToDatabase(prop);
+  }
+
+  onFocusLocation() {
+    // go to map page
+    this.propService.gotoMapForLocation();
   }
 }

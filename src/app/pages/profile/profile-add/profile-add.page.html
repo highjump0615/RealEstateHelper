@@ -154,7 +154,7 @@
               placeholder="Desired Location"
               readonly
               (ionFocus)="onFocusLocation()"
-              [(ngModel)]="location"
+              [value]="propService.address"
             ></ion-input>
           </div>
         </div>
@@ -174,13 +174,31 @@
           ></ion-input>
         </div>
 
-        <!-- address -->
-        <div class="dv-profile-input flex-c-row mt-14">
-          <ion-input
-            name="address"
-            placeholder="Enter Address"
-            [(ngModel)]="address"
-          ></ion-input>
+        <!-- location -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Location</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="pin"></ion-icon>
+            <ion-input
+              name="location"
+              [value]="propService.getLocationFormatted()"
+              placeholder="Location"
+              readonly
+              (ionFocus)="onFocusLocation()"
+            ></ion-input>
+          </div>
+
+          <!-- address -->
+          <div class="dv-profile-input flex-c-row mt-14">
+            <ion-input
+              name="address"
+              [value]="propService.address"
+              placeholder="Enter Address"
+            ></ion-input>
+          </div>
         </div>
 
         <!-- checkbox -->

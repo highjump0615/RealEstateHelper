@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {PropertyService} from '../../services/property/property.service';
 
 @Component({
   selector: 'app-filter-search',
@@ -15,17 +16,16 @@ export class FilterSearchPage implements OnInit {
   distance = 12;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private propService: PropertyService
   ) { }
 
   ngOnInit() {
   }
 
   onFocusLocation() {
-    console.log('asdf');
-
     // go to map page
-    this.router.navigate(['location']);
+    this.propService.gotoMapForLocation();
   }
 
   onFocusLot() {

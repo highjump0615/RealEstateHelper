@@ -6,5 +6,7 @@ export const config = {
     projectId: 'reconnect-f66a7',
     storageBucket: 'reconnect-f66a7.appspot.com',
     messagingSenderId: '154808025696'
-  }
+  },
+
+  googleMapApiKey: 'AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo'
 };

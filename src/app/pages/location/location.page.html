@@ -10,11 +10,18 @@
     <ion-buttons slot="end">
       <ion-button
         color="light"
+        (click)="onButDone()"
+        [disabled]="!address"
       >DONE</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div id="map_canvas"></div>
+  <div class="container">
+    <!-- map -->
+    <div
+      id="map_canvas"
+    ></div>
+  </div>
 </ion-content>
