@@ -10,7 +10,7 @@ import {Client} from '../../../models/client';
 import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {PropertyService} from '../../../services/property/property.service';
-import {GeoFire} from "geofire";
+import {GeoFire} from 'geofire';
 
 @Component({
   selector: 'app-profile-add',
@@ -476,6 +476,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     propNew.lotFrontage = this.frontage;
     propNew.lotDepth = this.depth;
     propNew.status = this.constStatus;
+    propNew.price = this.price;
 
     propNew.generateNewId();
 
@@ -589,6 +590,8 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       const dbRef = FirebaseManager.ref().child(Property.TABLE_NAME_LOCATION);
       const geoFire = new GeoFire(dbRef);
       geoFire.set(prop.id, [this.propService.lat, this.propService.lng]);
+
+      prop.location = [this.propService.lat, this.propService.lng];
     }
 
     // save data for property

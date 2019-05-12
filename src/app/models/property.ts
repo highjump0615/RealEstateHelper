@@ -1,5 +1,6 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
+import {GeoFire} from 'geofire';
 
 export class Property extends BaseModel implements Deserializable {
 
@@ -12,8 +13,10 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_ADDRESS = 'address';
   static FIELD_TITLE = 'title';
   static FIELD_DESC = 'description';
+  static FIELD_PHOTO = 'photoUrl';
 
   static FIELD_PRICE = 'price';
+  static FIELD_LOCATION = 'location';
 
   static FIELD_STYLE = 'style';
   static FIELD_TYPE = 'type';
@@ -80,6 +83,8 @@ export class Property extends BaseModel implements Deserializable {
   desc = '';
   price: number;
 
+  location: any;
+
   style = [];
   type = [];
   size: number;
@@ -91,6 +96,11 @@ export class Property extends BaseModel implements Deserializable {
   lotDepth: number;
 
   status = '';
+
+  //
+  // logical
+  //
+  distance: number;
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
@@ -104,6 +114,13 @@ export class Property extends BaseModel implements Deserializable {
 
       if (Property.FIELD_PRICE in info) {
         this.price = info[Property.FIELD_PRICE];
+      }
+
+      if (Property.FIELD_LOCATION in info) {
+        this.location = info[Property.FIELD_LOCATION];
+      }
+      if (Property.FIELD_PHOTO in info) {
+        this.photoUrl = info[Property.FIELD_PHOTO];
       }
 
       this.style = info[Property.FIELD_STYLE];
@@ -132,6 +149,9 @@ export class Property extends BaseModel implements Deserializable {
     dict[Property.FIELD_TITLE] = this.title;
     this.addDictItem(dict, Property.FIELD_DESC, this.desc);
     this.addDictItem(dict, Property.FIELD_PRICE, this.price);
+    this.addDictItem(dict, Property.FIELD_LOCATION, this.location);
+
+    dict[Property.FIELD_PHOTO] = this.photoUrl;
 
     dict[Property.FIELD_STYLE] = this.style;
     dict[Property.FIELD_TYPE] = this.type;
@@ -147,5 +167,13 @@ export class Property extends BaseModel implements Deserializable {
     dict[Property.FIELD_STATUS] = this.status;
 
     return dict;
+  }
+
+  distanceToMile() {
+    if (this.distance) {
+      return (this.distance * 0.621371).toFixed(2);
+    }
+
+    return -1;
   }
 }

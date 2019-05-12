@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 import {TabsPage} from './pages/tabs/tabs.page';
 import {IonicStorageModule} from '@ionic/storage';
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {IonicStorageModule} from '@ionic/storage';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Keyboard
+    Keyboard,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

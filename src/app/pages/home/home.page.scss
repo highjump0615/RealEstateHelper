@@ -26,7 +26,8 @@ ion-content {
     ion-thumbnail {
       flex: 2;
       margin-right: 14px;
-      height: auto;
+      height: 98px;
+      background: var(--ion-color-light);
     }
 
     .dv-info {

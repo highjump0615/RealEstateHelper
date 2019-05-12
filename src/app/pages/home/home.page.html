@@ -58,41 +58,63 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <!-- pull to refresh -->
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && properties.length == 0">
+    <span>No properties available yet</span>
+  </div>
+
+  <ion-virtual-scroll
+    [items]="properties"
+    approxItemHeight="130">
+
     <ion-item
       button
       detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]"
+      *virtualItem="let item"
       (click)="onProperyItem()">
-      <div class="flex-row">
+      <div class="flex-row width-100">
         <!-- image -->
         <ion-thumbnail>
-          <img src="../../../assets/imgs/default_img.png">
+          <ion-img [src]="item.photoUrl"></ion-img>
         </ion-thumbnail>
 
         <div class="flex-column dv-info">
           <!-- title -->
           <span
             class="sp-title"
-          >New three bedroom, one level duplex home</span>
+          >{{item.title}}</span>
 
           <!-- price -->
           <span
             class="sp-price"
-          >$399,000.00</span>
+          >${{item.price}}</span>
 
           <!-- address -->
           <span
             class="sp-address"
-          >83 Iskoot Crescent, Whitehorse, Canada</span>
+          >{{item.address}}</span>
 
           <!-- distance -->
           <span
             class="sp-distance"
-          >0.3 miles away</span>
+            *ngIf="item.distanceToMile() > 0"
+          >{{item.distanceToMile()}} miles away</span>
         </div>
       </div>
     </ion-item>
-  </ion-list>
+  </ion-virtual-scroll>
 
 </ion-content>
