@@ -31,6 +31,8 @@ export class Property extends BaseModel implements Deserializable {
 
   static FIELD_STATUS = 'status';
 
+  static FIELD_AGENT = 'agent';
+
   static STYLES = [
     'Two-Storey',
     'Bungalow',
@@ -97,6 +99,8 @@ export class Property extends BaseModel implements Deserializable {
 
   status = '';
 
+  agent = '';
+
   //
   // logical
   //
@@ -135,6 +139,8 @@ export class Property extends BaseModel implements Deserializable {
       this.lotDepth = info[Property.FIELD_LOT_DEPTH];
 
       this.status = info[Property.FIELD_STATUS];
+
+      this.agent = info[Property.FIELD_AGENT];
     }
   }
 
@@ -165,6 +171,8 @@ export class Property extends BaseModel implements Deserializable {
     this.addDictItem(dict, Property.FIELD_LOT_DEPTH, this.lotDepth);
 
     dict[Property.FIELD_STATUS] = this.status;
+
+    dict[Property.FIELD_AGENT] = this.agent;
 
     return dict;
   }

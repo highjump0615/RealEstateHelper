@@ -147,9 +147,10 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer
+  *ngIf="data.agent">
   <ion-button
-    [routerLink]="['/profile/aa']"
+    [routerLink]="['/profile/' + data.agent]"
     class="m-0 with-shadow"
     expand="block"
     square
