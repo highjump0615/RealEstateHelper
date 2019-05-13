@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseSegmentPage} from "../../base-segment.page";
-import {AlertController} from "@ionic/angular";
-import {Router} from "@angular/router";
+import {BaseSegmentPage} from '../../base-segment.page';
+import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth/auth.service';
+import {ApiService} from '../../../services/api/api.service';
 
 @Component({
   selector: 'app-profile-client',
@@ -10,14 +12,72 @@ import {Router} from "@angular/router";
 })
 export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
+  showLoading = false;
+
   constructor(
     public alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private auth: AuthService,
+    public api: ApiService,
   ) {
     super(null, alertController);
   }
 
   ngOnInit() {
+    this.fetchData();
+  }
+
+  onPageChanged(page: number) {
+    console.log('onPageChanged');
+
+    super.onPageChanged(page);
+
+    this.fetchData();
+  }
+
+  async fetchData() {
+    const isBuyer = this.currentPage === this.PAGE_BUYER;
+
+    if (isBuyer) {
+      if (this.auth.user.buyers) {
+        // already initialized
+        return;
+      }
+    } else {
+      if (this.auth.user.sellers) {
+        // already initialized
+        return;
+      }
+    }
+
+    this.showLoading = true;
+
+    try {
+      const clients = await this.api.fetchClients(isBuyer);
+
+      if (isBuyer) {
+        this.auth.user.buyers = clients;
+      } else {
+        this.auth.user.sellers = clients;
+      }
+
+      this.showLoading = false;
+
+    } catch (err) {
+      console.log(err);
+
+      this.showLoading = false;
+    }
+  }
+
+  getData() {
+    const isBuyer = this.currentPage === this.PAGE_BUYER;
+
+    if (isBuyer) {
+      return this.auth.user.buyers;
+    } else {
+      return this.auth.user.sellers;
+    }
   }
 
   onButRemove() {

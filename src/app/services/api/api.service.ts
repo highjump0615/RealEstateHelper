@@ -3,14 +3,17 @@ import {FirebaseManager} from '../../helpers/firebase-manager';
 import {User} from '../../models/user';
 import {Client} from '../../models/client';
 import {BaseModel} from '../../models/base-model';
-import {Property} from "../../models/property";
+import {Property} from '../../models/property';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor() { }
+  constructor(
+    private auth: AuthService
+  ) { }
 
   checkUserExistingByEmail(email) {
     // fetch products
@@ -53,6 +56,25 @@ export class ApiService {
       });
   }
 
+  fetchClientWithId(id, isBuyer): Promise<Client> {
+    const dbRef = FirebaseManager.ref()
+      .child(isBuyer ? Client.TABLE_NAME_BUYER : Client.TABLE_NAME_SELLER)
+      .child(id);
+
+    return dbRef.once('value')
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          const err = new Error('Client not found');
+          err.name = 'notfound';
+
+          return Promise.reject(err);
+        }
+
+        const client = new Client(snapshot);
+        return Promise.resolve(client);
+      });
+  }
+
   getAllProperties(): Promise<Array<Property>> {
     const properties = [];
 
@@ -74,6 +96,36 @@ export class ApiService {
         });
 
         return Promise.resolve(properties);
+      });
+  }
+
+  /**
+   * get cart products of the user
+   */
+  fetchClients(isBuyer) {
+    const that = this;
+
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    const query: any = dbRef
+      .child(isBuyer ? Client.TABLE_NAME_BUYER_AGENT : Client.TABLE_NAME_SELLER_AGENT)
+      .child(this.auth.user.id);
+
+    return query.once('value')
+      .then((snapshot) => {
+        console.log(snapshot);
+
+        // clear data
+        const proms = [];
+
+        snapshot.forEach(function(child) {
+          // get client data
+          const data = that.fetchClientWithId(child.key, isBuyer);
+          proms.push(data);
+        });
+
+        return Promise.all(proms);
       });
   }
 

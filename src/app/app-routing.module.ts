@@ -70,7 +70,9 @@ const routes: Routes = [
   },
   {
     path: 'profile-client',
-    loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule'
+    loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry1',

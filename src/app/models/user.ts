@@ -1,6 +1,7 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
-import {Property} from "./property";
+import {Property} from './property';
+import {Client} from './client';
 
 export class User extends BaseModel implements Deserializable {
 
@@ -43,6 +44,9 @@ export class User extends BaseModel implements Deserializable {
   // logical
   //
   propAll: Array<Property> = [];
+
+  buyers: Array<Client>;
+  sellers: Array<Client>;
 
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);

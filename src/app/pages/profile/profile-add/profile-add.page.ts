@@ -485,6 +485,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     clientNew.name = this.name;
     clientNew.email = this.email;
     clientNew.phone = this.phone;
+    clientNew.property = propNew.id;
 
     if (this.currentPage === this.PAGE_SELLER) {
       clientNew.type = Client.CLIENT_TYPE_SELLER;
@@ -514,7 +515,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
       clientNew.priceMin = this.priceMin;
       clientNew.priceMax = this.priceMax;
-      clientNew.location = this.propService.address;
+      clientNew.address = this.propService.address;
       clientNew.propRequest = propNew;
 
       clientNew.generateNewId();
@@ -567,6 +568,15 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
         await this.doSaveProperty(property);
       }
 
+      //
+      // add to user client list
+      //
+      if (client.type === Client.CLIENT_TYPE_SELLER) {
+        this.auth.user.sellers.push(client);
+      } else {
+        this.auth.user.buyers.push(client);
+      }
+
       this.showLoadingView(false);
 
       // back to prev page
@@ -596,6 +606,9 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     // save data for property
     await this.api.saveToDatabase(prop);
+
+    // add to user property list
+    this.auth.user.propAll.push(prop);
   }
 
   onFocusLocation() {

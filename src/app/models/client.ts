@@ -15,11 +15,13 @@ export class Client extends BaseModel implements Deserializable {
   static FIELD_NAME = 'name';
   static FIELD_PHOTO = 'photoUrl';
   static FIELD_PHONE = 'phone';
+  static FIELD_ADDRESS = 'address';
 
   // for buyers
   static FIELD_PRICE_MIN = 'priceMin';
   static FIELD_PRICE_MAX = 'priceMax';
   static FIELD_PROP_REQ = 'propertyRequest';
+  static FIELD_PROPERTY = 'property';
 
   static CLIENT_TYPE_BUYER = 0;
   static CLIENT_TYPE_SELLER = 1;
@@ -34,7 +36,9 @@ export class Client extends BaseModel implements Deserializable {
 
   priceMin: number;
   priceMax: number;
-  location = '';
+  address = '';
+
+  property: string;
 
   propRequest: Property;
 
@@ -61,6 +65,15 @@ export class Client extends BaseModel implements Deserializable {
       if (Client.FIELD_PRICE_MAX in info) {
         this.priceMax = info[Client.FIELD_PRICE_MAX];
       }
+
+      if (Client.FIELD_ADDRESS in info) {
+        this.photoUrl = info[Client.FIELD_ADDRESS];
+      }
+
+      // seller
+      if (Client.FIELD_PROPERTY in info) {
+        this.photoUrl = info[Client.FIELD_PROPERTY];
+      }
     }
   }
 
@@ -80,9 +93,20 @@ export class Client extends BaseModel implements Deserializable {
     this.addDictItem(dict, Client.FIELD_PRICE_MIN, this.priceMin);
     this.addDictItem(dict, Client.FIELD_PRICE_MAX, this.priceMax);
 
+    // location & address
+    this.addDictItem(dict, Client.FIELD_ADDRESS, this.address);
+
+    //
+    // buyer
+    //
     if (this.propRequest) {
       dict[Client.FIELD_PROP_REQ] = this.propRequest.toDictionary();
     }
+
+    //
+    // seller
+    //
+    this.addDictItem(dict, Client.FIELD_PROPERTY, this.property);
 
     return dict;
   }

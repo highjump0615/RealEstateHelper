@@ -31,10 +31,36 @@
 
 <ion-content>
 
-  <ion-list
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <ng-container
     *ngIf="currentPage == PAGE_BUYER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && auth.user.buyers?.length == 0">
+      <span>No buyers added yet</span>
+    </div>
+  </ng-container>
+  <ng-container
+    *ngIf="currentPage == PAGE_SELLER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && auth.user.sellers?.length == 0">
+      <span>No sellers added yet</span>
+    </div>
+  </ng-container>
+
+  <ion-virtual-scroll
+    *ngIf="currentPage == PAGE_BUYER"
+    [items]="auth.user.buyers"
+    approxItemHeight="69">
+
     <ion-item-sliding
-      *ngFor="let i of [1,2,3,4,5,6]">
+      *virtualItem="let item">
       <ion-item
         button
         detail="false"
@@ -43,7 +69,7 @@
           <!-- photo -->
           <ion-thumbnail
             class="round">
-            <img src="../../../../assets/imgs/default_user.png">
+            <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
           </ion-thumbnail>
 
           <!-- info -->
@@ -51,15 +77,16 @@
             <!-- name -->
             <span
               class="sp-name"
-            >Andrew Smith</span>
+            >{{item.name}}</span>
             <span
               class="sp-address"
-            >2896 Holly Street Rome, Canada</span>
+            >{{item.address}}</span>
           </div>
 
           <!-- distance -->
           <span
             class="sp-distance"
+            hidden
           >0.2 km away</span>
         </div>
       </ion-item>
@@ -71,12 +98,14 @@
         >Remove</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-  </ion-list>
+  </ion-virtual-scroll>
 
-  <ion-list
-    *ngIf="currentPage == PAGE_SELLER">
+  <ion-virtual-scroll
+    *ngIf="currentPage == PAGE_SELLER"
+    [items]="auth.user.sellers"
+    approxItemHeight="69">
     <ion-item-sliding
-      *ngFor="let i of [1,2,3,4,5,6]">
+      *virtualItem="let item">
       <ion-item
         button
         detail="false"
@@ -93,15 +122,17 @@
             <!-- name -->
             <span
               class="sp-name"
-            >Andrew Smith</span>
+            >{{item.name}}</span>
             <span
               class="sp-address"
+              hidden
             >2896 Holly Street Rome, Canada</span>
           </div>
 
           <!-- distance -->
           <span
             class="sp-distance"
+            hidden
           >0.2 km away</span>
         </div>
       </ion-item>
@@ -113,7 +144,7 @@
         >Remove</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-  </ion-list>
+  </ion-virtual-scroll>
 
   <ion-fab-button
     (click)="onButAddProfile()">
