@@ -176,4 +176,12 @@ export class Property extends BaseModel implements Deserializable {
 
     return -1;
   }
+
+  getStyleStr() {
+    return this.style.join(', ');
+  }
+
+  getTypeStr() {
+    return this.type.join(', ');
+  }
 }

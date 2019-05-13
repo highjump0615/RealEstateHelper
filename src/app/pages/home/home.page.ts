@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import {ApiService} from '../../services/api/api.service';
 import {TabService} from '../../services/tab.service';
 import {TabsPage} from '../tabs/tabs.page';
+import {NavService} from '../../services/nav.service';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomePage implements OnInit {
     private geolocation: Geolocation,
     private auth: AuthService,
     public api: ApiService,
+    public nav: NavService,
     private tab: TabService
   ) { }
 
@@ -95,8 +97,10 @@ export class HomePage implements OnInit {
     }
   }
 
-  onProperyItem() {
-    this.router.navigate(['property']);
+  onPropertyItem(prop) {
+    this.nav.push('property', {
+      data: prop
+    });
   }
 
   async doRefresh(event) {
