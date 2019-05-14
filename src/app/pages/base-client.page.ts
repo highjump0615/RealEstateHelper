@@ -1,7 +1,7 @@
 import {Client} from '../models/client';
 import {NavService} from '../services/nav.service';
 
-export class BaseCustomerPage {
+export class BaseClientPage {
   data: Client;
 
   constructor(
@@ -9,5 +9,11 @@ export class BaseCustomerPage {
   ) {
     // get parameter
     this.data = this.nav.get('data');
+  }
+
+  onAddNote() {
+    this.nav.push('note-add', {
+      data: this.data
+    });
   }
 }

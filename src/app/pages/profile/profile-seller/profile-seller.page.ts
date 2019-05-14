@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseCustomerPage} from '../../base-customer.page';
+import {BaseClientPage} from '../../base-client.page';
 import {NavService} from '../../../services/nav.service';
 import {ApiService} from '../../../services/api/api.service';
 import {Property} from '../../../models/property';
@@ -9,7 +9,7 @@ import {Property} from '../../../models/property';
   templateUrl: './profile-seller.page.html',
   styleUrls: ['../profile-buyer/profile-buyer.page.scss'],
 })
-export class ProfileSellerPage extends BaseCustomerPage implements OnInit {
+export class ProfileSellerPage extends BaseClientPage implements OnInit {
 
   property: Property = null;
 
@@ -33,5 +33,4 @@ export class ProfileSellerPage extends BaseCustomerPage implements OnInit {
         this.property = p;
       });
   }
-
 }

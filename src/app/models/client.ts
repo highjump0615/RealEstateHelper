@@ -23,6 +23,9 @@ export class Client extends BaseModel implements Deserializable {
   static FIELD_PROP_REQ = 'propertyRequest';
   static FIELD_DESC = 'description';
 
+  // note
+  static FIELD_NOTE = 'note';
+
   // sellers
   static FIELD_PROPERTY = 'property';
 
@@ -45,6 +48,8 @@ export class Client extends BaseModel implements Deserializable {
   property: string;
 
   propRequest: Property;
+
+  note = '';
 
   //
   // logical
@@ -91,6 +96,9 @@ export class Client extends BaseModel implements Deserializable {
 
   tableName() {
     return this.type === Client.CLIENT_TYPE_BUYER  ? Client.TABLE_NAME_BUYER : Client.TABLE_NAME_SELLER;
+  }
+  tableNameAgent() {
+    return this.type === Client.CLIENT_TYPE_BUYER  ? Client.TABLE_NAME_BUYER_AGENT : Client.TABLE_NAME_SELLER_AGENT;
   }
 
   toDictionary() {

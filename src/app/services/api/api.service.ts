@@ -71,8 +71,51 @@ export class ApiService {
         }
 
         const client = new Client(snapshot);
+        client.type = isBuyer ? Client.CLIENT_TYPE_BUYER : Client.CLIENT_TYPE_SELLER;
+
         return Promise.resolve(client);
       });
+  }
+
+  /**
+   * fetch client note of the user
+   * @param client
+   */
+  fetchClientNote(client): Promise<string> {
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef
+      .child(client.tableNameAgent())
+      .child(this.auth.user.id)
+      .child(client.id);
+
+    return query.once('value')
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          const err = new Error('Note not found');
+          err.name = 'notfound';
+
+          return Promise.reject(err);
+        }
+
+        let strNote = '';
+        const info = snapshot.val();
+        strNote = info[Client.FIELD_NOTE];
+
+        return Promise.resolve(strNote);
+      });
+  }
+
+  saveClientNote(client) {
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef
+      .child(client.tableNameAgent())
+      .child(this.auth.user.id)
+      .child(client.id);
+
+    const data = [];
+    data[Client.FIELD_NOTE] = client.note;
+
+    return query.set(data);
   }
 
   fetchPropertyWithId(id): Promise<Property> {

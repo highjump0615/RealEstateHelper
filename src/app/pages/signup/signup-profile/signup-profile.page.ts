@@ -7,7 +7,7 @@ import {BasePage} from '../../base.page';
 import {User} from '../../../models/user';
 import {ImageUploaderComponent} from '../../../components/image-uploader/image-uploader.component';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
-import {ApiService} from "../../../services/api/api.service";
+import {ApiService} from '../../../services/api/api.service';
 
 @Component({
   selector: 'app-signup-profile',
