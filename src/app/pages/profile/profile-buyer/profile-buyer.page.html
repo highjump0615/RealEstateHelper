@@ -27,30 +27,30 @@
       <div class="flex-column dv-info nm-center-items">
         <!-- photo -->
         <ion-avatar>
-          <img src="../../../../assets/imgs/default_user.png">
+          <img [src]="data.photoUrl ? data.photoUrl : '../../../../assets/imgs/default_user.png'">
         </ion-avatar>
 
         <!-- name -->
         <span
           class="sp-name"
-        >John Hill</span>
+        >{{data.name}}</span>
 
         <!-- email -->
         <div class="flex-c-row dv-email">
           <ion-icon name="mail"></ion-icon>
-          <span>johnH@gmail.com</span>
+          <span>{{data.email}}</span>
         </div>
 
         <!-- phone -->
         <div class="flex-c-row">
           <ion-icon name="call"></ion-icon>
-          <span>613-222-0124</span>
+          <span>{{data.phone}}</span>
         </div>
 
         <!-- price -->
         <div class="flex-c-row">
           <ion-icon name="cash"></ion-icon>
-          <span>$399,000.00</span>
+          <span>${{data.priceMin}}</span>
         </div>
       </div>
 
@@ -62,13 +62,15 @@
       <div class="dv-desc-with-title">
         <span
           class="sp-title"
-        >Property Description</span>
-        <p>
-          A one level duplex house plan that has a traditional exterior
-          with gable roofs. The exterior must accented with shake siding
-          in the front gable along with stone based columns at the entry
-          porch.
-        </p>
+        >Buyers wants and needs</span>
+        <div
+          class="dv-no-list-item-small flex-c-row"
+          *ngIf="!data.desc; else desc">
+          <span>No description of needs</span>
+        </div>
+        <ng-template #desc>
+          <p>{{data.desc}}</p>
+        </ng-template>
       </div>
 
       <!-- location -->
@@ -76,7 +78,7 @@
         <span
           class="sp-title"
         >Desired Location</span>
-        <p>Holly Street Rome, Canada</p>
+        <p>{{data.address}}</p>
       </div>
 
       <!-- favourite properties -->
@@ -94,61 +96,61 @@
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>Two-Storey</span>
+        <span>{{data.propRequest.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>Duplex</span>
+        <span>{{data.propRequest.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>650 Sq.ft</span>
+        <span>{{data.propRequest.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>5</span>
+        <span>{{data.propRequest.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>5</span>
+        <span>{{data.propRequest.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>Single</span>
+        <span>{{data.propRequest.garage}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>Yes, Unfinished</span>
+        <span>{{data.propRequest.basement}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
-        <span>10000 Sq.ft</span>
+        <span>{{data.propRequest.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>Two-Storey</span>
+        <span>{{data.propRequest.lotFrontage}}</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>New</span>
+        <span>{{data.propRequest.status}}</span>
       </div>
     </div>
   </div>

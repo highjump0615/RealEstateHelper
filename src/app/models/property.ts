@@ -112,36 +112,42 @@ export class Property extends BaseModel implements Deserializable {
     if (snapshot) {
       const info = snapshot.val();
 
-      this.address = info[Property.FIELD_ADDRESS];
-      this.title = info[Property.FIELD_TITLE];
-      this.desc = info[Property.FIELD_DESC];
-
-      if (Property.FIELD_PRICE in info) {
-        this.price = info[Property.FIELD_PRICE];
-      }
-
-      if (Property.FIELD_LOCATION in info) {
-        this.location = info[Property.FIELD_LOCATION];
-      }
-      if (Property.FIELD_PHOTO in info) {
-        this.photoUrl = info[Property.FIELD_PHOTO];
-      }
-
-      this.style = info[Property.FIELD_STYLE];
-      this.type = info[Property.FIELD_TYPE];
-      this.size = info[Property.FIELD_SIZE];
-      this.bedroom = info[Property.FIELD_BEDROOM];
-      this.bathroom = info[Property.FIELD_BATHROOM];
-      this.garage = info[Property.FIELD_GARAGE];
-      this.basement = info[Property.FIELD_BASEMENT];
-
-      this.lotFrontage = info[Property.FIELD_LOT_FRONTAGE];
-      this.lotDepth = info[Property.FIELD_LOT_DEPTH];
-
-      this.status = info[Property.FIELD_STATUS];
-
-      this.agent = info[Property.FIELD_AGENT];
+      this.fillData(info);
     }
+  }
+
+  fillData(info) {
+    this.address = info[Property.FIELD_ADDRESS];
+    this.title = info[Property.FIELD_TITLE];
+    this.desc = info[Property.FIELD_DESC];
+
+    if (Property.FIELD_PRICE in info) {
+      this.price = info[Property.FIELD_PRICE];
+    }
+
+    if (Property.FIELD_LOCATION in info) {
+      this.location = info[Property.FIELD_LOCATION];
+    }
+    if (Property.FIELD_PHOTO in info) {
+      this.photoUrl = info[Property.FIELD_PHOTO];
+    }
+
+    this.style = info[Property.FIELD_STYLE];
+    this.type = info[Property.FIELD_TYPE];
+    this.size = info[Property.FIELD_SIZE];
+    this.bedroom = info[Property.FIELD_BEDROOM];
+    this.bathroom = info[Property.FIELD_BATHROOM];
+    this.garage = info[Property.FIELD_GARAGE];
+    this.basement = info[Property.FIELD_BASEMENT];
+
+    this.lotFrontage = info[Property.FIELD_LOT_FRONTAGE];
+    this.lotDepth = info[Property.FIELD_LOT_DEPTH];
+
+    this.status = info[Property.FIELD_STATUS];
+
+    this.agent = info[Property.FIELD_AGENT];
+
+    return this;
   }
 
   tableName() {
@@ -157,7 +163,7 @@ export class Property extends BaseModel implements Deserializable {
     this.addDictItem(dict, Property.FIELD_PRICE, this.price);
     this.addDictItem(dict, Property.FIELD_LOCATION, this.location);
 
-    dict[Property.FIELD_PHOTO] = this.photoUrl;
+    this.addDictItem(dict, Property.FIELD_PHOTO, this.photoUrl);
 
     dict[Property.FIELD_STYLE] = this.style;
     dict[Property.FIELD_TYPE] = this.type;

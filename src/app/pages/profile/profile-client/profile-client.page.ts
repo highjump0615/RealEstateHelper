@@ -4,6 +4,8 @@ import {AlertController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth/auth.service';
 import {ApiService} from '../../../services/api/api.service';
+import {NavService} from '../../../services/nav.service';
+import {Client} from '../../../models/client';
 
 @Component({
   selector: 'app-profile-client',
@@ -18,6 +20,7 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     public alertController: AlertController,
     private router: Router,
     private auth: AuthService,
+    public nav: NavService,
     public api: ApiService,
   ) {
     super(null, alertController);
@@ -62,6 +65,8 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       }
 
       this.showLoading = false;
+
+      console.log(clients);
 
     } catch (err) {
       console.log(err);
@@ -110,5 +115,14 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   onButAddProfile() {
     this.router.navigate(['expiry1']);
+  }
+
+  onClickItem(item) {
+    if (item.type === Client.CLIENT_TYPE_BUYER) {
+      this.nav.push('profile-buyer', {
+        data: item
+      });
+    }
+
   }
 }
