@@ -46,6 +46,9 @@ export class Client extends BaseModel implements Deserializable {
 
   propRequest: Property;
 
+  //
+  // logical
+  //
   type = Client.CLIENT_TYPE_BUYER;
 
   constructor(snapshot?: DataSnapshot) {

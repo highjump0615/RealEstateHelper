@@ -75,6 +75,25 @@ export class ApiService {
       });
   }
 
+  fetchPropertyWithId(id): Promise<Property> {
+    const dbRef = FirebaseManager.ref()
+      .child(Property.TABLE_NAME)
+      .child(id);
+
+    return dbRef.once('value')
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          const err = new Error('Property not found');
+          err.name = 'notfound';
+
+          return Promise.reject(err);
+        }
+
+        const p = new Property(snapshot);
+        return Promise.resolve(p);
+      });
+  }
+
   getAllProperties(): Promise<Array<Property>> {
     const properties = [];
 

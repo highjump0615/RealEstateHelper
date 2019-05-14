@@ -118,11 +118,15 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
   }
 
   onClickItem(item) {
-    if (item.type === Client.CLIENT_TYPE_BUYER) {
+    if (this.currentPage === this.PAGE_BUYER) {
       this.nav.push('profile-buyer', {
         data: item
       });
-    }
 
+    } else {
+      this.nav.push('profile-seller', {
+        data: item
+      });
+    }
   }
 }
