@@ -5,6 +5,7 @@ import {Client} from '../../models/client';
 import {BaseModel} from '../../models/base-model';
 import {Property} from '../../models/property';
 import {AuthService} from '../auth/auth.service';
+import {Message} from '../../models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -213,6 +214,51 @@ export class ApiService {
 
     queryClient.remove();
   }
+
+  /**
+   * Fetch added message
+   * @param userFrom
+   * @param userTo
+   * @param onAdded
+   */
+  fetchMessageAdded(userFrom, userTo, onAdded: (msg) => void) {
+    const messages = [];
+
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    const query = dbRef.child(Message.TABLE_NAME)
+      .child(userFrom)
+      .child(userTo);
+
+    return query.on('child_added', (snapshot) => {
+      const msg = new Message(snapshot);
+
+      onAdded(msg);
+    });
+  }
+
+  fetchChatList() {
+    const messages = [];
+
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    const query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(this.auth.user.id);
+
+    return query.once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function(child) {
+          const m = new Message(child);
+
+          messages.push(m);
+        });
+
+        return messages;
+      });
+  }
+
 
   /**
    * save entire object to database

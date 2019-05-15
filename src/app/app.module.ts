@@ -12,6 +12,7 @@ import {Keyboard} from '@ionic-native/keyboard/ngx';
 import {TabsPage} from './pages/tabs/tabs.page';
 import {IonicStorageModule} from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {VirtualScrollerModule} from 'ngx-virtual-scroller';
 
 @NgModule({
   declarations: [

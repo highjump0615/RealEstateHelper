@@ -94,19 +94,27 @@ const routes: Routes = [
   },
   {
     path: 'filter-search',
-    loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule'
+    loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'location',
-    loadChildren: './pages/location/location.module#LocationPageModule'
+    loadChildren: './pages/location/location.module#LocationPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'property',
-    loadChildren: './pages/property/property.module#PropertyPageModule'
+    loadChildren: './pages/property/property.module#PropertyPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'share',
-    loadChildren: './pages/share/share.module#SharePageModule'
+    loadChildren: './pages/share/share.module#SharePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'settings',
@@ -136,7 +144,9 @@ const routes: Routes = [
   },
   {
     path: 'message',
-    loadChildren: './pages/message/message.module#MessagePageModule'
+    loadChildren: './pages/message/message.module#MessagePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry-profile',
@@ -144,27 +154,39 @@ const routes: Routes = [
   },
   {
     path: 'profile-buyer',
-    loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule'
+    loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-seller',
-    loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule'
+    loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'note-add',
-    loadChildren: './pages/note-add/note-add.module#NoteAddPageModule'
+    loadChildren: './pages/note-add/note-add.module#NoteAddPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'select-buyer',
-    loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule'
+    loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'favourites/properties',
-    loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule'
+    loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'favourites/buyers',
-    loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule'
+    loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

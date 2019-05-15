@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from '../../models/user';
 import {AuthService} from '../../services/auth/auth.service';
 import {ApiService} from '../../services/api/api.service';
+import {NavService} from '../../services/nav.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,7 @@ export class ProfilePage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public api: ApiService,
+    public nav: NavService,
     private auth: AuthService
   ) {
     this.userId = this.route.snapshot.params['id'];
@@ -47,6 +49,13 @@ export class ProfilePage implements OnInit {
       return;
     }
 
-    this.router.navigate(['message']);
+    // only available after user is fetched
+    if (!this.user) {
+      return;
+    }
+
+    this.nav.push('message', {
+      data: this.user
+    });
   }
 }

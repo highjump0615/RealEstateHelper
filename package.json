@@ -43,6 +43,7 @@
     "firebase": "^5.11.1",
     "geofire": "^5.0.1",
     "moment": "^2.24.0",
+    "ngx-virtual-scroller": "^2.2.0",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
   },

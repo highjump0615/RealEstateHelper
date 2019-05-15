@@ -7,25 +7,39 @@
 
 <ion-content>
 
-  <ion-list>
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && messages.length == 0">
+    <span>No chat with users yet</span>
+  </div>
+
+  <ion-virtual-scroll
+    [items]="messages"
+    [itemHeight]="itemHeightFn">
     <ion-item
       button
       detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]"
-      (click)="onItemClick()"
-      [routerLink]="['/message']">
+      *virtualItem="let item"
+      (click)="onItemClick(item)">
       <div class="flex-row full-width">
         <!-- user photo -->
         <ion-thumbnail>
-          <img src="../../../assets/imgs/default_user.png">
+          <ion-img
+            [src]="item.toUser?.photoUrl ? item.toUser?.photoUrl : '../../../assets/imgs/default_user.png'">
+          </ion-img>
         </ion-thumbnail>
 
         <div class="dv-content">
           <!-- message -->
-          <span>I recently sold a property down lorem ipsum lorem lorem lorem</span>
+          <span>{{item.message}}</span>
         </div>
       </div>
     </ion-item>
-  </ion-list>
+  </ion-virtual-scroll>
 
 </ion-content>

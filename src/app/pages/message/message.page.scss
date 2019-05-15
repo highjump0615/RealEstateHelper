@@ -17,6 +17,10 @@ ion-footer {
   }
 }
 
+virtual-scroller {
+  height: 100%;
+}
+
 ion-item {
   --padding-end: 16px;
 
@@ -30,11 +34,18 @@ ion-item {
   ion-avatar {
     width: 48px;
     height: 48px;
-    margin-right: 18px;
+
+    &.av-right {
+      margin-left: 18px;
+    }
+    &.av-left {
+      margin-right: 18px;
+    }
   }
 
   .dv-content {
     flex: 1;
+    align-items: start;
 
     .sp-name {
       font-size: 11pt;

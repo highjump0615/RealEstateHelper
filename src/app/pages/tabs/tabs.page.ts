@@ -9,6 +9,7 @@ import {TabService} from '../../services/tab.service';
 export class TabsPage {
 
   public static TAB_HOME = 'home';
+  public static TAB_CHAT = 'chat';
 
   constructor(
     private tab: TabService

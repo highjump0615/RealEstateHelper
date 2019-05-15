@@ -10,28 +10,64 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="messages.length == 0">
+    <span>No messages with this user yet</span>
+  </div>
+
+  <virtual-scroller
+    #scroll
+    [items]="messages">
     <ion-item
-      *ngFor="let i of [1,2,3]">
-      <div class="flex-row full-width">
+      *ngFor="let item of scroll.viewPortItems">
+
+      <div
+        class="flex-row full-width"
+        *ngIf="isMessageMine(item); else other">
+        <div class="dv-content flex-column">
+          <!-- user name -->
+          <span
+            class="sp-name"
+          >{{auth.user?.name}}</span>
+          <!-- message -->
+          <span
+            class="sp-msg"
+          >{{item.message}}</span>
+        </div>
+
         <!-- user photo -->
-        <ion-avatar>
-          <img src="../../../assets/imgs/default_user.png">
+        <ion-avatar class="av-right">
+          <ion-img
+            [src]="auth.user?.photoUrl ? auth.user?.photoUrl : '../../../assets/imgs/default_user.png'">
+          </ion-img>
+        </ion-avatar>
+      </div>
+
+      <ng-template #other>
+        <!-- user photo -->
+        <ion-avatar class="av-left">
+          <ion-img
+            [src]="userTo?.photoUrl ? userTo?.photoUrl : '../../../assets/imgs/default_user.png'">
+          </ion-img>
         </ion-avatar>
 
         <div class="dv-content flex-column">
           <!-- user name -->
           <span
             class="sp-name"
-          >Anna Clay</span>
+          >{{userTo?.name}}</span>
           <!-- message -->
           <span
             class="sp-msg"
-          >I am interested in selling my home and would like to know what is involved.</span>
+          >{{item.message}}</span>
         </div>
-      </div>
+
+      </ng-template>
+
     </ion-item>
-  </ion-list>
+  </virtual-scroller>
+
 
 </ion-content>
 
@@ -41,6 +77,7 @@
     <div class="dv-input">
       <ion-input
         placeholder="Type Here..."
+        [(ngModel)]="message"
       ></ion-input>
     </div>
 
@@ -48,6 +85,7 @@
     <ion-button
       fill="clear"
       size="small"
+      (click)="onButSend()"
     >Send</ion-button>
   </div>
 </ion-footer>
