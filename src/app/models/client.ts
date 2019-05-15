@@ -56,6 +56,8 @@ export class Client extends BaseModel implements Deserializable {
   //
   type = Client.CLIENT_TYPE_BUYER;
 
+  selected = false;
+
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
 

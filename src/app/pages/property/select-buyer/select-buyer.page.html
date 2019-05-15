@@ -12,23 +12,42 @@
 
 <ion-content>
 
-  <ion-list>
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && auth.user.buyers?.length == 0">
+    <span>No buyers added yet</span>
+  </div>
+
+  <ion-virtual-scroll
+    [items]="auth.user.buyers"
+    approxItemHeight="49">
+
     <ion-item
       button
       detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]">
+      *virtualItem="let item; let i = index">
       <div class="flex-row full-width">
         <!-- user photo -->
         <ion-avatar>
-          <img src="../../../assets/imgs/default_user.png">
+          <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
         </ion-avatar>
 
-        <ion-label>John Hill</ion-label>
+        <ion-label>{{item.name}}</ion-label>
       </div>
 
-      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="item.selected">
+      </ion-checkbox>
     </ion-item>
-  </ion-list>
+
+  </ion-virtual-scroll>
 
 </ion-content>
 
