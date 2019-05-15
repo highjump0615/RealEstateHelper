@@ -191,6 +191,29 @@ export class ApiService {
       });
   }
 
+  deleteClient(client: Client) {
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    // remove property if it is seller
+    if (client.type === Client.CLIENT_TYPE_SELLER && client.property) {
+      const queryProp = dbRef
+        .child(Property.TABLE_NAME)
+        .child(client.property);
+
+      queryProp.remove();
+    }
+
+    const queryClient = dbRef
+      .child(client.type === Client.CLIENT_TYPE_BUYER ?
+        Client.TABLE_NAME_BUYER_AGENT :
+        Client.TABLE_NAME_SELLER_AGENT)
+      .child(this.auth.user.id)
+      .child(client.id);
+
+    queryClient.remove();
+  }
+
   /**
    * save entire object to database
    *

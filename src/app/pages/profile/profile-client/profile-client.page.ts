@@ -85,11 +85,11 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     }
   }
 
-  onButRemove() {
-    this.presentRemoveConfirm();
+  onButRemove(index) {
+    this.presentRemoveConfirm(index);
   }
 
-  async presentRemoveConfirm() {
+  async presentRemoveConfirm(index) {
     const alert = await this.alertController.create({
       header: 'Are you sure remove this profile?',
       message: 'This will be removed permanently from your profile list',
@@ -105,6 +105,8 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
           text: 'OK',
           handler: () => {
             console.log('Confirm Okay');
+
+            this.removeItem(index);
           }
         }
       ]
@@ -127,6 +129,23 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       this.nav.push('profile-seller', {
         data: item
       });
+    }
+  }
+
+  private removeItem(index) {
+    if (this.currentPage === this.PAGE_BUYER) {
+      // for buyer
+      this.api.deleteClient(this.auth.user.buyers[index]);
+
+      this.auth.user.buyers.splice(index, 1);
+      this.auth.user.buyers = [...this.auth.user.buyers];
+
+    } else {
+      // for seller
+      this.api.deleteClient(this.auth.user.sellers[index]);
+
+      this.auth.user.sellers = this.auth.user.sellers.splice(index, 1);
+      this.auth.user.sellers = [...this.auth.user.sellers];
     }
   }
 }

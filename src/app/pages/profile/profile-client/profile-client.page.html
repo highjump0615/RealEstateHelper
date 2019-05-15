@@ -44,7 +44,53 @@
       *ngIf="!showLoading && auth.user.buyers?.length == 0">
       <span>No buyers added yet</span>
     </div>
+
+    <ion-virtual-scroll
+      [items]="auth.user.buyers"
+      approxItemHeight="69">
+
+      <ion-item-sliding
+        *virtualItem="let item; let i = index">
+        <ion-item
+          button
+          detail="false"
+          (click)="onClickItem(item);">
+          <div class="flex-row full-width">
+            <!-- photo -->
+            <ion-thumbnail
+              class="round">
+              <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
+            </ion-thumbnail>
+
+            <!-- info -->
+            <div class="flex-column dv-info">
+              <!-- name -->
+              <span
+                class="sp-name"
+              >{{item.name}}</span>
+              <span
+                class="sp-address"
+              >{{item.address}}</span>
+            </div>
+
+            <!-- distance -->
+            <span
+              class="sp-distance"
+              hidden
+            >0.2 km away</span>
+          </div>
+        </ion-item>
+
+        <!-- remove button -->
+        <ion-item-options>
+          <ion-item-option
+            (click)="onButRemove(i)"
+          >Remove</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-virtual-scroll>
   </ng-container>
+
   <ng-container
     *ngIf="currentPage == PAGE_SELLER">
     <div
@@ -52,99 +98,52 @@
       *ngIf="!showLoading && auth.user.sellers?.length == 0">
       <span>No sellers added yet</span>
     </div>
-  </ng-container>
 
-  <ion-virtual-scroll
-    *ngIf="currentPage == PAGE_BUYER"
-    [items]="auth.user.buyers"
-    approxItemHeight="69">
+    <ion-virtual-scroll
+      [items]="auth.user.sellers"
+      approxItemHeight="69">
+      <ion-item-sliding
+        *virtualItem="let item; let i = index">
+        <ion-item
+          button
+          detail="false"
+          (click)="onClickItem(item)">
+          <div class="flex-row full-width">
+            <!-- photo -->
+            <ion-thumbnail
+              class="round">
+              <img src="../../../../assets/imgs/default_user.png">
+            </ion-thumbnail>
 
-    <ion-item-sliding
-      *virtualItem="let item">
-      <ion-item
-        button
-        detail="false"
-        (click)="onClickItem(item)">
-        <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
-          </ion-thumbnail>
+            <!-- info -->
+            <div class="flex-column dv-info">
+              <!-- name -->
+              <span
+                class="sp-name"
+              >{{item.name}}</span>
+              <span
+                class="sp-address"
+                hidden
+              >2896 Holly Street Rome, Canada</span>
+            </div>
 
-          <!-- info -->
-          <div class="flex-column dv-info">
-            <!-- name -->
+            <!-- distance -->
             <span
-              class="sp-name"
-            >{{item.name}}</span>
-            <span
-              class="sp-address"
-            >{{item.address}}</span>
-          </div>
-
-          <!-- distance -->
-          <span
-            class="sp-distance"
-            hidden
-          >0.2 km away</span>
-        </div>
-      </ion-item>
-
-      <!-- remove button -->
-      <ion-item-options>
-        <ion-item-option
-          (click)="onButRemove()"
-        >Remove</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-virtual-scroll>
-
-  <ion-virtual-scroll
-    *ngIf="currentPage == PAGE_SELLER"
-    [items]="auth.user.sellers"
-    approxItemHeight="69">
-    <ion-item-sliding
-      *virtualItem="let item">
-      <ion-item
-        button
-        detail="false"
-        (click)="onClickItem(item)">
-        <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <img src="../../../../assets/imgs/default_user.png">
-          </ion-thumbnail>
-
-          <!-- info -->
-          <div class="flex-column dv-info">
-            <!-- name -->
-            <span
-              class="sp-name"
-            >{{item.name}}</span>
-            <span
-              class="sp-address"
+              class="sp-distance"
               hidden
-            >2896 Holly Street Rome, Canada</span>
+            >0.2 km away</span>
           </div>
+        </ion-item>
 
-          <!-- distance -->
-          <span
-            class="sp-distance"
-            hidden
-          >0.2 km away</span>
-        </div>
-      </ion-item>
-
-      <!-- remove button -->
-      <ion-item-options>
-        <ion-item-option
-          (click)="onButRemove()"
-        >Remove</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-virtual-scroll>
+        <!-- remove button -->
+        <ion-item-options>
+          <ion-item-option
+            (click)="onButRemove(i)"
+          >Remove</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-virtual-scroll>
+  </ng-container>
 
   <ion-fab-button
     (click)="onButAddProfile()">
