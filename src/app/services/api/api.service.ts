@@ -6,6 +6,7 @@ import {BaseModel} from '../../models/base-model';
 import {Property} from '../../models/property';
 import {AuthService} from '../auth/auth.service';
 import {Message} from '../../models/message';
+import {Favourite} from '../../models/favourite';
 
 @Injectable({
   providedIn: 'root'
@@ -257,6 +258,132 @@ export class ApiService {
 
         return messages;
       });
+  }
+
+  async fetchFavouriteBuyers(): Promise<Array<Client>> {
+    const that = this;
+
+    const dbRef = FirebaseManager.ref();
+
+    try {
+      let query;
+      let snapshot;
+
+      const buyerIds = [];
+      if (this.auth.user.buyers) {
+        for (const buyer of this.auth.user.buyers) {
+          buyerIds.push(buyer.id);
+        }
+      } else {
+        // fetch buyer ids of the user
+        query = dbRef
+          .child(Client.TABLE_NAME_BUYER_AGENT)
+          .child(this.auth.user.id);
+
+        snapshot = await query.once('value');
+
+        snapshot.forEach(function(child) {
+          buyerIds.push(child.key);
+        });
+      }
+
+      // promise array
+      const proms = [];
+
+      for (const bId of buyerIds) {
+        // check if the buyer has favourite properties
+        query = dbRef
+          .child(Favourite.TN_FAVOURITE_BUYER)
+          .child(bId);
+
+        snapshot = await query.once('value');
+        if (!snapshot.exists()) {
+          continue;
+        }
+
+        const data = that.fetchClientWithId(bId, true);
+        proms.push(data);
+      }
+
+      return Promise.all(proms);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async fetchFavouriteBuyersOfProperty(propertyId) {
+    const dbRef = FirebaseManager.ref();
+
+    const buyerIds = [];
+
+    // fetch buyer ids of the user
+    const query = dbRef
+      .child(Favourite.TN_FAVOURITE_PROPERTY)
+      .child(propertyId);
+
+    const snapshot = await query.once('value');
+    if (!snapshot.exists()) {
+      return buyerIds;
+    }
+
+    snapshot.forEach(function(child) {
+      buyerIds.push(child.key);
+    });
+
+    return buyerIds;
+  }
+
+  async fetchFavouriteSellers(): Promise<Array<Client>> {
+    const that = this;
+
+    const dbRef = FirebaseManager.ref();
+
+    try {
+      let query;
+      let snapshot;
+
+      const sellerIds = [];
+      if (this.auth.user.sellers) {
+        for (const buyer of this.auth.user.sellers) {
+          sellerIds.push(buyer.id);
+        }
+      } else {
+        // fetch buyer ids of the user
+        query = dbRef
+          .child(Client.TABLE_NAME_SELLER_AGENT)
+          .child(this.auth.user.id);
+
+        snapshot = await query.once('value');
+
+        snapshot.forEach(function(child) {
+          sellerIds.push(child.key);
+        });
+      }
+
+      // promise array
+      const proms = [];
+
+      for (const sId of sellerIds) {
+        // check if the seller has favourite properties
+        query = dbRef
+          .child(Favourite.TN_FAVOURITE_SELLER)
+          .child(sId);
+
+        snapshot = await query.once('value');
+        if (!snapshot.exists()) {
+          continue;
+        }
+
+        const data = that.fetchClientWithId(sId, false);
+        proms.push(data);
+      }
+
+      return Promise.all(proms);
+
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 

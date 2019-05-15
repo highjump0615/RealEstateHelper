@@ -21,4 +21,9 @@ export class PropertyPage implements OnInit {
   ngOnInit() {
   }
 
+  onButFavourite() {
+    this.nav.push('select-buyer', {
+      data: this.data
+    });
+  }
 }

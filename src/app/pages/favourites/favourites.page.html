@@ -27,70 +27,108 @@
 
 <ion-content>
 
-  <ion-list
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <ng-container
     *ngIf="currentPage == PAGE_BUYER">
-    <ion-item
-      button
-      detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]"
-      [routerLink]="['/favourites/properties']">
-      <div class="flex-row full-width">
-        <!-- photo -->
-        <ion-thumbnail
-          class="round">
-          <img src="../../../assets/imgs/default_user.png">
-        </ion-thumbnail>
 
-        <!-- info -->
-        <div class="flex-column dv-info">
-          <!-- name -->
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && buyers?.length == 0">
+      <span>No buyers has favorite properties yet</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="buyers"
+      approxItemHeight="69">
+
+      <ion-item
+        button
+        detail="false"
+        *virtualItem="let item"
+        [routerLink]="['/favourites/properties']">
+
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <ion-img
+              [src]="item.photoUrl ? item.photoUrl : '../../../assets/imgs/default_user.png'">
+            </ion-img>
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+            >{{item.address}}</span>
+          </div>
+
+          <!-- distance -->
           <span
-            class="sp-name"
-          >Andrew Smith</span>
-          <span
-            class="sp-address"
-          >2896 Holly Street Rome, Canada</span>
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
         </div>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
 
-        <!-- distance -->
-        <span
-          class="sp-distance"
-        >0.2 km away</span>
-      </div>
-    </ion-item>
- </ion-list>
-
-  <ion-list
+  <ng-container
     *ngIf="currentPage == PAGE_SELLER">
-    <ion-item
-      button
-      detail="false"
-      [routerLink]="['/favourites/buyers']"
-      *ngFor="let i of [1,2,3,4,5,6]">
-      <div class="flex-row full-width">
-        <!-- photo -->
-        <ion-thumbnail
-          class="round">
-          <img src="../../../assets/imgs/default_user.png">
-        </ion-thumbnail>
 
-        <!-- info -->
-        <div class="flex-column dv-info">
-          <!-- name -->
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && sellers?.length == 0">
+      <span>No sellers has favorite buyers yet</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="sellers"
+      [itemHeight]="itemHeightFn">
+
+      <ion-item
+        button
+        detail="false"
+        [routerLink]="['/favourites/buyers']"
+        *virtualItem="let item">
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <ion-img
+              [src]="item.photoUrl ? item.photoUrl : '../../../assets/imgs/default_user.png'">
+            </ion-img>
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+              hidden
+            >2896 Holly Street Rome, Canada</span>
+          </div>
+
+          <!-- distance -->
           <span
-            class="sp-name"
-          >Andrew Smith</span>
-          <span
-            class="sp-address"
-          >2896 Holly Street Rome, Canada</span>
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
         </div>
-
-        <!-- distance -->
-        <span
-          class="sp-distance"
-        >0.2 km away</span>
-      </div>
-    </ion-item>
-  </ion-list>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
 
 </ion-content>

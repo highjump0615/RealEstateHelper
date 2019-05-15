@@ -568,6 +568,8 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       // save property
       //
       if (client.type === Client.CLIENT_TYPE_SELLER) {
+        property.sellerId = client.id;
+
         await this.doSaveProperty(property);
       }
 
