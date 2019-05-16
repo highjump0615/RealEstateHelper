@@ -112,6 +112,12 @@ export class PropertiesPage extends BasePropertiesPage implements OnInit {
       .child(prop.id)
       .remove();
 
+    // remove db for favourite sellers
+    dbRef.child(Favourite.TN_FAVOURITE_SELLER)
+      .child(prop.sellerId)
+      .child(this.buyerId)
+      .remove();
+
     // remove from list
     this.props.splice(index, 1);
   }

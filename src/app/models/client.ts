@@ -29,6 +29,8 @@ export class Client extends BaseModel implements Deserializable {
   // sellers
   static FIELD_PROPERTY = 'property';
 
+  static FIELD_AGENTID = 'agentId';
+
   static CLIENT_TYPE_BUYER = 0;
   static CLIENT_TYPE_SELLER = 1;
 
@@ -51,6 +53,8 @@ export class Client extends BaseModel implements Deserializable {
 
   note = '';
 
+  agentId = '';
+
   //
   // logical
   //
@@ -71,6 +75,8 @@ export class Client extends BaseModel implements Deserializable {
       if (Client.FIELD_PHOTO in info) {
         this.photoUrl = info[Client.FIELD_PHOTO];
       }
+
+      this.agentId = info[Client.FIELD_AGENTID];
 
       // buyer
       if (Client.FIELD_PRICE_MIN in info) {
@@ -117,6 +123,8 @@ export class Client extends BaseModel implements Deserializable {
 
     // location & address
     this.addDictItem(dict, Client.FIELD_ADDRESS, this.address);
+
+    dict[Client.FIELD_AGENTID] = this.agentId;
 
     //
     // buyer

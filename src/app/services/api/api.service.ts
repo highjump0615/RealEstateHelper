@@ -414,6 +414,32 @@ export class ApiService {
     return Promise.all(proms);
   }
 
+  async getFavouriteBuyersOfSeller(sellerId): Promise<Array<Client>> {
+    const dbRef = FirebaseManager.ref();
+
+    //
+    // fetch buyer ids
+    //
+    const query = dbRef.child(Favourite.TN_FAVOURITE_SELLER)
+      .child(sellerId);
+
+    const buyerIds = [];
+    const snapshot = await query.once('value');
+    snapshot.forEach(function(child) {
+      buyerIds.push(child.key);
+    });
+
+    // promise array
+    const proms = [];
+
+    for (const bId of buyerIds) {
+      // check if the seller has favourite properties
+      const data = this.fetchClientWithId(bId, true);
+      proms.push(data);
+    }
+
+    return Promise.all(proms);
+  }
 
   /**
    * save entire object to database

@@ -486,6 +486,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     clientNew.email = this.email;
     clientNew.phone = this.phone;
     clientNew.desc = this.description;
+    clientNew.agentId = this.auth.user.id;
 
     if (this.currentPage === this.PAGE_SELLER) {
       clientNew.type = Client.CLIENT_TYPE_SELLER;

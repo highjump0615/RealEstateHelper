@@ -11,15 +11,26 @@
 </ion-header>
 
 <ion-content>
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && buyers.length == 0">
+    <span>No favorite buyers</span>
+  </div>
 
   <ion-card
     class="ca-seller"
-    *ngFor="let i of [1,2,3,4,5,6]">
+    *ngFor="let data of buyers; let i = index">
     <ion-item
       class="no-padding"
       button
       detail="false"
-      [routerLink]="['/profile/asdf']">
+      [routerLink]="['/profile', data.agentId]">
       <ion-card-content class="full-width">
         <div class="flex-row">
           <div class="dv-info">
@@ -27,16 +38,17 @@
               <!-- title -->
               <span
                 class="sp-title"
-              >Andrew Smith</span>
+              >{{data.name}}</span>
 
               <!-- address -->
               <span
                 class="sp-address"
-              >83 Iskoot Crescent, Whitehorse, Canada</span>
+              >{{data.address}}</span>
 
               <!-- distance -->
               <span
                 class="sp-distance"
+                hidden
               >0.3 miles away</span>
             </div>
           </div>

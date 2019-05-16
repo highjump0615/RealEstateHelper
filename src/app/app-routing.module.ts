@@ -183,7 +183,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'favourites/buyers',
+    path: 'favourites/buyers/:sellerId',
     loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule',
     data: {needUser: true},
     canActivate: [AuthGuard]
