@@ -48,6 +48,9 @@ export class User extends BaseModel implements Deserializable {
   buyers: Array<Client>;
   sellers: Array<Client>;
 
+  lat: number;
+  lng: number;
+
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);
 

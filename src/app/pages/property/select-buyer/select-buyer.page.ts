@@ -5,7 +5,7 @@ import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {Favourite} from '../../../models/favourite';
 import {Property} from '../../../models/property';
-import {NavService} from "../../../services/nav.service";
+import {NavService} from '../../../services/nav.service';
 
 @Component({
   selector: 'app-select-buyer',

@@ -4,6 +4,8 @@ import {AlertController} from '@ionic/angular';
 import {ApiService} from '../../services/api/api.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {Client} from '../../models/client';
+import {TabsPage} from "../tabs/tabs.page";
+import {TabService} from "../../services/tab.service";
 
 @Component({
   selector: 'app-favourites',
@@ -19,12 +21,15 @@ export class FavouritesPage extends BaseSegmentPage implements OnInit {
   constructor(
     public alertController: AlertController,
     private auth: AuthService,
+    private tab: TabService,
     public api: ApiService,
   ) {
     super();
   }
 
   ngOnInit() {
+    // set tab data
+    this.tab.setCurrentTab(TabsPage.TAB_FAVOURITE, this);
   }
 
   ionViewDidEnter() {

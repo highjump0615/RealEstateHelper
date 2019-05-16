@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Message} from '../../models/message';
 import {ApiService} from '../../services/api/api.service';
 import {NavService} from '../../services/nav.service';
-import {TabsPage} from "../tabs/tabs.page";
-import {TabService} from "../../services/tab.service";
+import {TabsPage} from '../tabs/tabs.page';
+import {TabService} from '../../services/tab.service';
 
 @Component({
   selector: 'app-chat',

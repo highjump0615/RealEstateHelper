@@ -177,7 +177,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'favourites/properties',
+    path: 'favourites/properties/:buyerId',
     loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule',
     data: {needUser: true},
     canActivate: [AuthGuard]

@@ -366,6 +366,7 @@ export class ApiService {
 
       for (const sId of sellerIds) {
         // check if the seller has favourite properties
+
         query = dbRef
           .child(Favourite.TN_FAVOURITE_SELLER)
           .child(sId);
@@ -384,6 +385,33 @@ export class ApiService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async getFavouritePropertiesOfBuyer(buyerId): Promise<Array<Property>> {
+    const dbRef = FirebaseManager.ref();
+
+    //
+    // fetch property ids
+    //
+    const query = dbRef.child(Favourite.TN_FAVOURITE_BUYER)
+      .child(buyerId);
+
+    const propIds = [];
+    const snapshot = await query.once('value');
+    snapshot.forEach(function(child) {
+      propIds.push(child.key);
+    });
+
+    // promise array
+    const proms = [];
+
+    for (const pId of propIds) {
+      // check if the seller has favourite properties
+      const data = this.fetchPropertyWithId(pId);
+      proms.push(data);
+    }
+
+    return Promise.all(proms);
   }
 
 

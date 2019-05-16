@@ -12,19 +12,31 @@
 
 <ion-content>
 
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && props.length == 0">
+    <span>No favorite properties</span>
+  </div>
+
   <ion-card
     class="ca-buyer"
-    *ngFor="let i of [1,2,3,4,5,6]">
+    *ngFor="let data of props; let i = index">
     <ion-item
       class="no-padding"
       button
       detail="false"
-      [routerLink]="['/property']">
+      (click)="onPropertyItem(data)">
       <ion-card-content class="full-width">
         <div class="flex-row">
           <!-- image -->
           <ion-thumbnail>
-            <img src="../../../assets/imgs/default_img.png">
+            <ion-img [src]="data.photoUrl"></ion-img>
           </ion-thumbnail>
 
           <div class="dv-info">
@@ -32,17 +44,18 @@
               <!-- title -->
               <span
                 class="sp-title"
-              >New three bedroom, one level duplex home</span>
+              >{{data.title}}</span>
 
               <!-- address -->
               <span
                 class="sp-address"
-              >83 Iskoot Crescent, Whitehorse, Canada</span>
+              >{{data.address}}</span>
 
               <!-- distance -->
               <span
                 class="sp-distance"
-              >0.3 miles away</span>
+                *ngIf="data.distanceToMile() > 0"
+              >{{data.distanceToMile()}} miles away</span>
             </div>
 
             <!-- delete button -->
@@ -50,7 +63,7 @@
               class="bt-delete"
               fill="clear"
               color="danger"
-              (click)="onButDelete($event)">
+              (click)="onButDelete(i)">
               <ion-icon
                 slot="icon-only"
                 name="trash">

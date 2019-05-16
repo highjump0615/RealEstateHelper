@@ -9,46 +9,42 @@ import {ApiService} from '../../services/api/api.service';
 import {TabService} from '../../services/tab.service';
 import {TabsPage} from '../tabs/tabs.page';
 import {NavService} from '../../services/nav.service';
+import {BasePropertiesPage} from '../base-properties.page';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage extends BasePropertiesPage implements OnInit {
   showLoading = true;
 
   properties: Array<Property>;
 
-  lat: number;
-  lng: number;
-
   constructor(
     private router: Router,
     private geolocation: Geolocation,
-    private auth: AuthService,
+    public auth: AuthService,
     public api: ApiService,
     public nav: NavService,
     private tab: TabService
-  ) { }
+  ) {
+    super(auth, nav);
+  }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     // set tab data
     this.tab.setCurrentTab(TabsPage.TAB_HOME, this);
 
-    this.geolocation.getCurrentPosition()
-      .then((resp) => {
-        this.lat = resp.coords.latitude;
-        this.lng = resp.coords.longitude;
+    try {
+      const resp = await this.geolocation.getCurrentPosition();
+      this.auth.user.lat = resp.coords.latitude;
+      this.auth.user.lng = resp.coords.longitude;
 
-        this.fetchData();
-      })
-      .catch((error) => {
-        console.log('Error getting location', error);
-
-        this.fetchData();
-      });
+    } finally {
+      this.fetchData();
+    }
   }
 
   ionViewDidEnter() {
@@ -66,11 +62,16 @@ export class HomePage implements OnInit {
     }
 
     // sort properties by distance
-    if (this.lat && this.lng) {
+    if (this.auth.user.lat && this.auth.user.lng) {
       for (const p of props) {
-        if (p.location) {
-          p.distance = GeoFire.distance(p.location, [this.lat, this.lng]);
+        if (!p.location) {
+          continue;
         }
+
+        p.distance = GeoFire.distance(p.location, [
+          this.auth.user.lat,
+          this.auth.user.lng
+        ]);
       }
 
       props.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
@@ -95,12 +96,6 @@ export class HomePage implements OnInit {
 
       this.showLoading = false;
     }
-  }
-
-  onPropertyItem(prop) {
-    this.nav.push('property', {
-      data: prop
-    });
   }
 
   async doRefresh(event) {
