@@ -33,9 +33,9 @@ export class Client extends BaseModel implements Deserializable {
   static FIELD_NOTE = 'note';
 
   // sellers
-  static FIELD_PROPERTY = 'property';
+  static FIELD_PROPERTY_ID = 'propertyId';
 
-  static FIELD_AGENTID = 'agentId';
+  static FIELD_AGENT_ID = 'agentId';
 
   static CLIENT_TYPE_BUYER = 0;
   static CLIENT_TYPE_SELLER = 1;
@@ -59,12 +59,9 @@ export class Client extends BaseModel implements Deserializable {
   address = '';
   desc = '';
 
-  property: string;
-
+  propertyId: string;
   propRequest: Property;
-
   note = '';
-
   agentId = '';
 
   //
@@ -74,7 +71,9 @@ export class Client extends BaseModel implements Deserializable {
 
   selected = false;
 
+  property: Property;
   matchedProperties: Array<Property> = [];
+  matchedBuyers: Array<Client> = [];
 
 
   constructor(snapshot?: DataSnapshot) {
@@ -91,7 +90,7 @@ export class Client extends BaseModel implements Deserializable {
         this.photoUrl = info[Client.FIELD_PHOTO];
       }
 
-      this.agentId = info[Client.FIELD_AGENTID];
+      this.agentId = info[Client.FIELD_AGENT_ID];
 
       // buyer
       if (Client.FIELD_PRICE_MIN in info) {
@@ -131,8 +130,8 @@ export class Client extends BaseModel implements Deserializable {
       }
 
       // seller
-      if (Client.FIELD_PROPERTY in info) {
-        this.property = info[Client.FIELD_PROPERTY];
+      if (Client.FIELD_PROPERTY_ID in info) {
+        this.propertyId = info[Client.FIELD_PROPERTY_ID];
       }
     }
   }
@@ -155,7 +154,7 @@ export class Client extends BaseModel implements Deserializable {
     // location & address
     this.addDictItem(dict, Client.FIELD_ADDRESS, this.address);
 
-    dict[Client.FIELD_AGENTID] = this.agentId;
+    dict[Client.FIELD_AGENT_ID] = this.agentId;
 
     //
     // buyer
@@ -179,7 +178,7 @@ export class Client extends BaseModel implements Deserializable {
     //
     // seller
     //
-    this.addDictItem(dict, Client.FIELD_PROPERTY, this.property);
+    this.addDictItem(dict, Client.FIELD_PROPERTY_ID, this.propertyId);
 
     return dict;
   }

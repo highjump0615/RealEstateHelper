@@ -511,9 +511,10 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
     if (this.currentPage === this.PAGE_SELLER) {
       clientNew.type = Client.CLIENT_TYPE_SELLER;
+      clientNew.property = propNew;
 
       // add property
-      clientNew.property = propNew.id;
+      clientNew.propertyId = propNew.id;
 
       // save image
       if (this.uploadPhoto.picture) {

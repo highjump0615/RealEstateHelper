@@ -56,7 +56,7 @@
 
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && matchedBuyers.length == 0">
+      *ngIf="!showLoading && (!matchedBuyers || matchedBuyers.length == 0)">
       <span>No matched buyers yet</span>
     </div>
 
@@ -113,22 +113,35 @@
   <ion-list
     *ngIf="currentPage == PAGE_SELLER">
 
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && (!matchedSellers || matchedSellers.length == 0)">
+      <span>No matched sellers yet</span>
+    </div>
+
     <ion-item
-      *ngFor="let i of [1,2,3,4,5,6]"
+      *ngFor="let item of matchedSellers"
       lines="none">
       <div
         class="flex-row"
         [routerLink]="['/match-buyer']">
+
         <div class="dv-buyer flex-column nm-center">
           <ion-thumbnail
             class="round">
-            <img src="../../../../assets/imgs/default_img.png">
+            <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'">
+            </ion-img>
           </ion-thumbnail>
+
+          <!-- name -->
+          <span
+            class="sp-username"
+          >{{item.name}}</span>
 
           <!-- address -->
           <span
-            class="sp-address-buyer"
-          >1263 Derek Drive Akron, Canada</span>
+            class="sp-address"
+          >{{item.address}}</span>
         </div>
 
         <div

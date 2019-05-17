@@ -156,6 +156,23 @@ export class ApiService {
       });
   }
 
+  getAllBuyers(): Promise<Array<Client>> {
+    const clients = [];
+
+    const dbRef = FirebaseManager.ref().child(Client.TABLE_NAME_BUYER);
+
+    return dbRef.once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function(child) {
+          const c = new Client(child);
+
+          clients.push(c);
+        });
+
+        return Promise.resolve(clients);
+      });
+  }
+
   /**
    * get cart products of the user
    */
@@ -191,10 +208,10 @@ export class ApiService {
     const dbRef = FirebaseManager.ref();
 
     // remove property if it is seller
-    if (client.type === Client.CLIENT_TYPE_SELLER && client.property) {
+    if (client.type === Client.CLIENT_TYPE_SELLER && client.propertyId) {
       const queryProp = dbRef
         .child(Property.TABLE_NAME)
-        .child(client.property);
+        .child(client.propertyId);
 
       queryProp.remove();
     }

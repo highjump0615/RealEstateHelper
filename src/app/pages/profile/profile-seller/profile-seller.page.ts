@@ -26,7 +26,7 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     }
 
     // fetch property
-    this.api.fetchPropertyWithId(this.data.property)
+    this.api.fetchPropertyWithId(this.data.propertyId)
       .then((p) => {
         console.log(p);
 
