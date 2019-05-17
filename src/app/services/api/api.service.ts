@@ -146,13 +146,6 @@ export class ApiService {
 
     return dbRef.once('value')
       .then((snapshot) => {
-        if (!snapshot.exists()) {
-          const err = new Error('No properties');
-          err.name = 'notfound';
-
-          return Promise.reject(err);
-        }
-
         snapshot.forEach(function(child) {
           const p = new Property(child);
 

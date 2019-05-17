@@ -61,4 +61,20 @@ export class Utils {
     // date
     return time.format('dd MMM YYYY');
   }
+
+  static compareArrays(arrA, arrB) {
+
+    // check if lengths are different
+    if (arrA.length !== arrB.length) { return false; }
+
+
+    // slice so we do not effect the original
+    // sort makes sure they are in order
+    // join makes it a string so we can do a string compare
+    const cA = arrA.slice().sort().join(',');
+    const cB = arrB.slice().sort().join(',');
+
+    return cA === cB;
+
+  }
 }
