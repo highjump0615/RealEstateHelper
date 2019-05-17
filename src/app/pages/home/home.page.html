@@ -72,7 +72,7 @@
   </ion-spinner>
   <div
     class="dv-no-list-item flex-c-row"
-    *ngIf="!showLoading && properties.length == 0">
+    *ngIf="!showLoading && (properties?.length == 0 || !properties)">
     <span>No properties available yet</span>
   </div>
 
