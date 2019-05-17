@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController} from "@ionic/angular";
-import {Router} from "@angular/router";
+import {AlertController} from '@ionic/angular';
+import {Router} from '@angular/router';
+import {NavService} from '../../../services/nav.service';
+import {Client} from '../../../models/client';
 
 @Component({
   selector: 'app-match-property',
@@ -8,11 +10,16 @@ import {Router} from "@angular/router";
   styleUrls: ['./match-property.page.scss'],
 })
 export class MatchPropertyPage implements OnInit {
+  buyer: Client;
 
   constructor(
     public alertController: AlertController,
+    public nav: NavService,
     private router: Router
-  ) { }
+  ) {
+    // get parameter
+    this.buyer = this.nav.get('data');
+  }
 
   ngOnInit() {
   }
@@ -48,8 +55,11 @@ export class MatchPropertyPage implements OnInit {
     await alert.present();
   }
 
-  onProperty(event) {
-    this.router.navigate(['/property']);
+  onProperty(prop, event) {
+    // go to property page
+    this.nav.push('property', {
+      data: prop
+    });
 
     event.stopPropagation();
     return false;

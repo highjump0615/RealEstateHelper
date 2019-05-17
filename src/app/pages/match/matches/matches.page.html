@@ -65,7 +65,7 @@
       lines="none">
       <div
         class="flex-row"
-        [routerLink]="['/match-property']">
+        (click)="onItemBuyer(item)">
         <div class="dv-buyer flex-column nm-center">
           <ion-thumbnail
             class="round">
@@ -124,7 +124,7 @@
       lines="none">
       <div
         class="flex-row"
-        [routerLink]="['/match-buyer']">
+        (click)="onItemSeller(item)">
 
         <div class="dv-buyer flex-column nm-center">
           <ion-thumbnail

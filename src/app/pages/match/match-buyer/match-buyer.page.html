@@ -17,8 +17,8 @@
     <div class="flex-column">
       <ion-label
         class="lb-name"
-      >Accel Murphy</ion-label>
-      <ion-label>1263 Derek Drive Akron, Canada</ion-label>
+      >{{seller.name}}</ion-label>
+      <ion-label>{{seller.address}}</ion-label>
     </div>
   </div>
 
@@ -26,17 +26,17 @@
     <!-- count -->
     <span
       class="sp-title nm-center"
-    >9 Matched Buyers</span>
+    >{{seller.matchedBuyers.length}} Matched Buyers</span>
 
     <!-- property item -->
     <ion-card
       class="ca-buyer"
-      *ngFor="let data of [1,2,3,4,5,6]; let i = index">
+      *ngFor="let data of seller.matchedBuyers; let i = index">
       <ion-item
         class="no-padding"
         button
         detail="false"
-        [routerLink]="['/profile/asdf']">
+        [routerLink]="['/profile', data.agentId]">
         <ion-card-content
           class="full-width">
           <div class="flex-column">
@@ -50,16 +50,17 @@
               <!-- username -->
               <span
                 class="sp-name"
-              >Anna Clay</span>
+              >{{data.name}}</span>
 
               <!-- address -->
               <span
                 class="sp-address"
-              >83 Iskoot Crescent, Whitehorse, Canada</span>
+              >{{data.address}}</span>
 
               <!-- distance -->
               <span
                 class="sp-distance"
+                hidden
               >0.3 miles away</span>
             </div>
           </div>
@@ -68,6 +69,7 @@
           <ion-button
             class="bt-more"
             fill="clear"
+            hidden
             (click)="onButMore($event)">
             <ion-icon
               slot="icon-only"

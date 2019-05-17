@@ -31,7 +31,7 @@ export class Property extends BaseModel implements Deserializable {
 
   static FIELD_STATUS = 'status';
 
-  static FIELD_AGENT = 'agent';
+  static FIELD_AGENT = 'agentId';
   static FIELD_SELLERID = 'sellerId';
 
   static STYLES = [
@@ -100,7 +100,7 @@ export class Property extends BaseModel implements Deserializable {
 
   status = '';
 
-  agent = '';
+  agentId = '';
   sellerId = '';
 
   //
@@ -147,7 +147,7 @@ export class Property extends BaseModel implements Deserializable {
 
     this.status = info[Property.FIELD_STATUS];
 
-    this.agent = info[Property.FIELD_AGENT];
+    this.agentId = info[Property.FIELD_AGENT];
     this.sellerId = info[Property.FIELD_SELLERID];
 
     return this;
@@ -181,7 +181,7 @@ export class Property extends BaseModel implements Deserializable {
 
     dict[Property.FIELD_STATUS] = this.status;
 
-    dict[Property.FIELD_AGENT] = this.agent;
+    dict[Property.FIELD_AGENT] = this.agentId;
     dict[Property.FIELD_SELLERID] = this.sellerId;
 
     return dict;

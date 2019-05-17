@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertController, PopoverController} from '@ionic/angular';
 import {RemoveButtonComponent} from '../../../components/remove-button/remove-button.component';
+import {NavService} from "../../../services/nav.service";
+import {Client} from "../../../models/client";
 
 @Component({
   selector: 'app-match-buyer',
@@ -8,11 +10,16 @@ import {RemoveButtonComponent} from '../../../components/remove-button/remove-bu
   styleUrls: ['./match-buyer.page.scss'],
 })
 export class MatchBuyerPage implements OnInit {
+  seller: Client;
 
   constructor(
+    public nav: NavService,
     public popoverCtrl: PopoverController,
     public alertController: AlertController
-  ) { }
+  ) {
+    // get parameter
+    this.seller = this.nav.get('data');
+  }
 
   ngOnInit() {
   }

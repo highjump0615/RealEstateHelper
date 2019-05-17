@@ -6,6 +6,7 @@ import {Property} from '../../../models/property';
 import {Client} from '../../../models/client';
 import {GeoFire} from 'geofire';
 import {Utils} from '../../../helpers/utils';
+import {NavService} from '../../../services/nav.service';
 
 @Component({
   selector: 'app-matches',
@@ -22,6 +23,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   constructor(
     private auth: AuthService,
     public api: ApiService,
+    public nav: NavService,
   ) {
     super(null, null);
   }
@@ -188,5 +190,17 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     await this.getData();
 
     event.target.complete();
+  }
+
+  onItemBuyer(item: Client) {
+    this.nav.push('match-property', {
+      data: item
+    });
+  }
+
+  onItemSeller(item: Client) {
+    this.nav.push('match-buyer', {
+      data: item
+    });
   }
 }
