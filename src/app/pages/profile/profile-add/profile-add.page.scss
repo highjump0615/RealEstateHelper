@@ -53,6 +53,16 @@
   }
 }
 
+.dv-radius {
+  width: 72px;
+  margin-left: 6px;
+
+  .dv-profile-input {
+    align-items: center;
+    padding-right: 8px;
+  }
+}
+
 .it-checkbox {
   --min-height: auto;
 

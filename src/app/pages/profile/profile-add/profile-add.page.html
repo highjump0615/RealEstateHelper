@@ -142,20 +142,66 @@
         </div>
 
         <!-- location -->
-        <div class="dv-input-with-title mt-14">
-          <!-- title -->
-          <ion-label>Desired Location</ion-label>
+        <div class="flex-row mt-14">
+          <div class="dv-input-with-title flex-fill">
+            <!-- title -->
+            <ion-label>Desired Location</ion-label>
 
-          <div class="dv-profile-input dv-profile-input-text flex-row">
-            <!-- icon -->
-            <ion-icon name="pin"></ion-icon>
-            <ion-input
-              name="location"
-              placeholder="Desired Location"
-              readonly
-              (ionFocus)="onFocusLocation()"
-              [value]="propService.address"
-            ></ion-input>
+            <div class="dv-profile-input dv-profile-input-text flex-row">
+              <!-- icon -->
+              <ion-icon name="pin"></ion-icon>
+              <ion-input
+                name="location"
+                placeholder="Desired Location"
+                readonly
+                (ionFocus)="onFocusLocation()"
+                [value]="propService.address"
+              ></ion-input>
+            </div>
+          </div>
+
+          <!-- radius -->
+          <div class="dv-input-with-title dv-radius">
+            <!-- title -->
+            <ion-label>Radius</ion-label>
+
+            <div class="dv-profile-input flex-row">
+              <ion-input
+                text-right
+                name="radius"
+                type="number"
+                [(ngModel)]="radius"
+              ></ion-input>
+              km
+            </div>
+          </div>
+        </div>
+
+        <!-- house size -->
+        <div class="dv-input-with-title mt-6">
+          <ion-label>House Size</ion-label>
+
+          <div class="flex-row dv-budget">
+            <div class="dv-profile-input flex-c-row">
+              <!-- icon -->
+              <ion-icon name="calculator"></ion-icon>
+              <ion-input
+                name="sizeMin"
+                placeholder="Minimum Size"
+                type="number"
+                [(ngModel)]="sizeMin"
+              ></ion-input>
+            </div>
+            <div class="dv-profile-input flex-c-row">
+              <!-- icon -->
+              <ion-icon name="calculator"></ion-icon>
+              <ion-input
+                name="sizeMax"
+                placeholder="Maximum Size"
+                type="number"
+                [(ngModel)]="sizeMax"
+              ></ion-input>
+            </div>
           </div>
         </div>
       </ng-container>
@@ -231,6 +277,18 @@
             ></ion-input>
           </div>
         </div>
+
+        <!-- size -->
+        <div class="dv-profile-input dv-profile-input-text flex-row mt-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <ion-input
+            name="size"
+            placeholder="Enter House Size"
+            type="number"
+            [(ngModel)]="sizeMin"
+          ></ion-input>
+        </div>
       </ng-container>
 
       <!-- style -->
@@ -254,18 +312,6 @@
           readonly
           (ionFocus)="onFocusType()"
           [value]="getTypes()"
-        ></ion-input>
-      </div>
-
-      <!-- size -->
-      <div class="dv-profile-input dv-profile-input-text flex-row mt-6">
-        <!-- icon -->
-        <ion-icon name="calculator"></ion-icon>
-        <ion-input
-          name="size"
-          placeholder="Enter House Size"
-          type="number"
-          [(ngModel)]="size"
         ></ion-input>
       </div>
 

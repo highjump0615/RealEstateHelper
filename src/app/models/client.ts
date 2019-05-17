@@ -20,6 +20,12 @@ export class Client extends BaseModel implements Deserializable {
   // for buyers
   static FIELD_PRICE_MIN = 'priceMin';
   static FIELD_PRICE_MAX = 'priceMax';
+
+  static FIELD_SIZE_MIN = 'sizeMin';
+  static FIELD_SIZE_MAX = 'sizeMax';
+
+  static FIELD_RADIUS = 'radius';
+
   static FIELD_PROP_REQ = 'propertyRequest';
   static FIELD_DESC = 'description';
 
@@ -44,6 +50,12 @@ export class Client extends BaseModel implements Deserializable {
 
   priceMin: number;
   priceMax: number;
+
+  sizeMin: number;
+  sizeMax: number;
+
+  radius: number;
+
   address = '';
   desc = '';
 
@@ -85,6 +97,16 @@ export class Client extends BaseModel implements Deserializable {
       if (Client.FIELD_PRICE_MAX in info) {
         this.priceMax = info[Client.FIELD_PRICE_MAX];
       }
+
+      if (Client.FIELD_SIZE_MIN in info) {
+        this.sizeMin = info[Client.FIELD_SIZE_MIN];
+      }
+      if (Client.FIELD_SIZE_MAX in info) {
+        this.sizeMax = info[Client.FIELD_SIZE_MAX];
+      }
+
+      this.radius = info[Client.FIELD_RADIUS];
+
       this.desc = info[Client.FIELD_DESC];
 
       if (Client.FIELD_ADDRESS in info) {
@@ -117,10 +139,6 @@ export class Client extends BaseModel implements Deserializable {
     dict[Client.FIELD_PHONE] = this.phone;
     this.addDictItem(dict, Client.FIELD_PHOTO, this.photoUrl);
 
-    // price
-    this.addDictItem(dict, Client.FIELD_PRICE_MIN, this.priceMin);
-    this.addDictItem(dict, Client.FIELD_PRICE_MAX, this.priceMax);
-
     // location & address
     this.addDictItem(dict, Client.FIELD_ADDRESS, this.address);
 
@@ -129,10 +147,21 @@ export class Client extends BaseModel implements Deserializable {
     //
     // buyer
     //
+
+    // price
+    this.addDictItem(dict, Client.FIELD_PRICE_MIN, this.priceMin);
+    this.addDictItem(dict, Client.FIELD_PRICE_MAX, this.priceMax);
+
+    // price
+    this.addDictItem(dict, Client.FIELD_SIZE_MIN, this.sizeMin);
+    this.addDictItem(dict, Client.FIELD_SIZE_MAX, this.sizeMax);
+
     if (this.propRequest) {
       dict[Client.FIELD_PROP_REQ] = this.propRequest.toDictionary();
     }
     this.addDictItem(dict, Client.FIELD_DESC, this.desc);
+
+    this.addDictItem(dict, Client.FIELD_RADIUS, this.radius);
 
     //
     // seller

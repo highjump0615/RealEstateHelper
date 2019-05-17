@@ -41,6 +41,9 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   types = [];
 
   size: number;
+  sizeMin: number;
+  sizeMax: number;
+
   bedroom: number;
   bathroom: number;
   frontage: number;
@@ -53,13 +56,15 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   description = '';
   descProp = '';
 
+  radius = 10;
+
   constructor(
     public navCtrl: NavController,
     public alertController: AlertController,
     private kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    private propService: PropertyService,
+    public propService: PropertyService,
     private auth: AuthService,
     public api: ApiService
   ) {
@@ -356,13 +361,32 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
         );
         return;
       }
+
+      // size
+      if (!this.size) {
+        this.presentAlert(
+          'Invalid Size',
+          'Please input house size'
+        );
+        return;
+      }
     } else {
       // buyer
 
+      // price range
       if (!this.priceMin || !this.priceMax) {
         this.presentAlert(
           'Invalid Price',
           'Please enter price'
+        );
+        return;
+      }
+
+      // size range
+      if (!this.sizeMin) {
+        this.presentAlert(
+          'Invalid Size',
+          'Please enter house size'
         );
         return;
       }
@@ -380,14 +404,6 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       this.presentAlert(
         'Invalid Type',
         'Please select types'
-      );
-      return;
-    }
-
-    if (!this.size) {
-      this.presentAlert(
-        'Invalid Size',
-        'Please input house size'
       );
       return;
     }
@@ -478,6 +494,11 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     propNew.status = this.constStatus;
     propNew.price = this.price;
 
+    // save location
+    if (this.propService.lat && this.propService.lng) {
+      propNew.location = [this.propService.lat, this.propService.lng];
+    }
+
     propNew.generateNewId();
 
     // save client info
@@ -519,7 +540,12 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
       clientNew.priceMin = this.priceMin;
       clientNew.priceMax = this.priceMax;
+
+      clientNew.sizeMin = this.sizeMin;
+      clientNew.sizeMax = this.sizeMax;
+
       clientNew.address = this.propService.address;
+      clientNew.radius = this.radius;
       clientNew.propRequest = propNew;
 
       clientNew.generateNewId();
@@ -606,8 +632,6 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
       const dbRef = FirebaseManager.ref().child(Property.TABLE_NAME_LOCATION);
       const geoFire = new GeoFire(dbRef);
       geoFire.set(prop.id, [this.propService.lat, this.propService.lng]);
-
-      prop.location = [this.propService.lat, this.propService.lng];
     }
 
     // save data for property
