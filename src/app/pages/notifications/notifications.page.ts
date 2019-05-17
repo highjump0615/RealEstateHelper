@@ -7,15 +7,11 @@ import {Notification} from '../../models/notification';
   styleUrls: ['./notifications.page.scss'],
 })
 export class NotificationsPage implements OnInit {
+  showLoading = false;
 
   notifications: Array<Notification> = [];
 
   constructor() {
-    for (let i = 0; i < 6; i++) {
-      let n = new Notification();
-      n.type = i % 3;
-      this.notifications.push(n);
-    }
   }
 
   ngOnInit() {

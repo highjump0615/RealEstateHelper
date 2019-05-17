@@ -8,5 +8,6 @@ export const config = {
     messagingSenderId: '154808025696'
   },
 
+  webClientId: '154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com',
   googleMapApiKey: 'AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo'
 };

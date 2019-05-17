@@ -6,6 +6,8 @@ import {AuthService} from '../../services/auth/auth.service';
 import {Utils} from '../../helpers/utils';
 import {User} from '../../models/user';
 import {ApiService} from '../../services/api/api.service';
+import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {config} from '../../helpers/config';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ export class LoginPage extends BasePage implements OnInit {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     private auth: AuthService,
-    public api: ApiService
+    public api: ApiService,
+    private googlePlus: GooglePlus
   ) {
     super(loadingCtrl, alertCtrl);
   }
@@ -97,5 +100,15 @@ export class LoginPage extends BasePage implements OnInit {
 
     // show error alert
     this.presentAlert('Login Failed', err.message);
+  }
+
+  onButGoogle() {
+    console.log('onButGoogle');
+
+    this.googlePlus.login({
+      'webClientId': config.webClientId,
+      'offline': true
+    }).then(res => console.log(res))
+      .catch(err => console.error(err));
   }
 }

@@ -6,6 +6,16 @@
 </ion-header>
 
 <ion-content>
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && notifications.length == 0">
+    <span>No notifications yet</span>
+  </div>
 
   <ion-card
     class="ca-buyer"

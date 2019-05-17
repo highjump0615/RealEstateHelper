@@ -13,6 +13,7 @@ import {TabsPage} from './pages/tabs/tabs.page';
 import {IonicStorageModule} from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {VirtualScrollerModule} from 'ngx-virtual-scroller';
+import {GooglePlus} from '@ionic-native/google-plus/ngx';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {VirtualScrollerModule} from 'ngx-virtual-scroller';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Keyboard,
-    Geolocation
+    Geolocation,
+    GooglePlus
   ],
   bootstrap: [AppComponent]
 })
