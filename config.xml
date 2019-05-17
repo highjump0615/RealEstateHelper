@@ -20,6 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="KeyboardResize" value="false" />
+    <preference name="Orientation" value="portrait" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo" />
     <platform name="android">

@@ -33,7 +33,7 @@ export class SignupProfilePage extends BasePage implements OnInit {
     public navCtrl: NavController,
     private route: ActivatedRoute,
     private router: Router,
-    private kbService: KeyboardService,
+    public kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     private auth: AuthService,
