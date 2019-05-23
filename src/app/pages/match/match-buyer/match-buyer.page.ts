@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AlertController, PopoverController} from '@ionic/angular';
 import {RemoveButtonComponent} from '../../../components/remove-button/remove-button.component';
-import {NavService} from "../../../services/nav.service";
-import {Client} from "../../../models/client";
+import {NavService} from '../../../services/nav.service';
+import {Client} from '../../../models/client';
 
 @Component({
   selector: 'app-match-buyer',
