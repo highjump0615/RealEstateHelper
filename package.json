@@ -33,6 +33,7 @@
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-facebook4": "4.2.1",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-googlemaps": "2.5.0",
     "cordova-plugin-googleplus": "7.0.1",
@@ -94,6 +95,12 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.154808025696-00avfp3kqf3dpv8vjqlt5udkuo9793t",
         "WEB_APPLICATION_CLIENT_ID": "154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com"
+      },
+      "cordova-plugin-facebook4": {
+        "APP_ID": "594146507745397",
+        "APP_NAME": "Reconnect",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
       }
     },
     "platforms": [
