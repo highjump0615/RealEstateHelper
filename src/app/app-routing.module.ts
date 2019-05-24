@@ -187,6 +187,12 @@ const routes: Routes = [
     loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule',
     data: {needUser: true},
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'filter-search/clients',
+    loadChildren: './pages/filter-search/clients/clients.module#ClientsPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   }
 ];
 @NgModule({

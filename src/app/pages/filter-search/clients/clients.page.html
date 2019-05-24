@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Searched Buyers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container
+    *ngIf="type == TYPE_BUYER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && clients?.length == 0">
+      <span>Buyers not found</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="clients"
+      approxItemHeight="69">
+
+      <ion-item
+        button
+        detail="false"
+        *virtualItem="let item; let i = index"
+        [routerLink]="['/profile', item.agentId]">
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+            >{{item.address}}</span>
+          </div>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
+
+  <ng-container
+    *ngIf="type == TYPE_SELLER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && clients?.length == 0">
+      <span>Sellers not found</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="clients"
+      approxItemHeight="69">
+
+      <ion-item
+        button
+        detail="false"
+        *virtualItem="let item; let i = index"
+        [routerLink]="['/profile', item.agentId]">
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail
+            class="round">
+            <img src="../../../../assets/imgs/default_user.png">
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+              hidden
+            >2896 Holly Street Rome, Canada</span>
+          </div>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
+
+</ion-content>

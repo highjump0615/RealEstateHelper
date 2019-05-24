@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {PropertyService} from '../../services/property/property.service';
-import {AlertController, LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController} from '@ionic/angular';
 import {BaseClientAddPage} from '../base-client-add.page';
+import {NavService} from '../../services/nav.service';
+import {Client} from '../../models/client';
 
 @Component({
   selector: 'app-filter-search',
@@ -11,14 +13,11 @@ import {BaseClientAddPage} from '../base-client-add.page';
 })
 export class FilterSearchPage extends BaseClientAddPage implements OnInit {
 
-  TARGET_BUYER = 'buyer';
-  TARGET_SELLER = 'seller';
-
-  target = this.TARGET_BUYER;
+  target = this.PAGE_BUYER;
   distance = 12;
 
   constructor(
-    private router: Router,
+    public nav: NavService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public propService: PropertyService,
@@ -31,5 +30,14 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
   }
 
   onButSearch() {
+    // set object
+    const c = new Client();
+    c.type = this.target === this.PAGE_BUYER ?
+      Client.CLIENT_TYPE_BUYER :
+      Client.CLIENT_TYPE_SELLER;
+
+    this.nav.push('filter-search/clients', {
+      data: c
+    });
   }
 }
