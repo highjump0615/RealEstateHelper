@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {PropertyService} from '../../services/property/property.service';
+import {AlertController, LoadingController} from '@ionic/angular';
+import {BaseClientAddPage} from '../base-client-add.page';
 
 @Component({
   selector: 'app-filter-search',
   templateUrl: './filter-search.page.html',
   styleUrls: ['./filter-search.page.scss'],
 })
-export class FilterSearchPage implements OnInit {
+export class FilterSearchPage extends BaseClientAddPage implements OnInit {
 
   TARGET_BUYER = 'buyer';
   TARGET_SELLER = 'seller';
@@ -17,18 +19,17 @@ export class FilterSearchPage implements OnInit {
 
   constructor(
     private router: Router,
-    private propService: PropertyService
-  ) { }
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public propService: PropertyService,
+  ) {
+    super(loadingCtrl, alertCtrl, propService);
+
+  }
 
   ngOnInit() {
   }
 
-  onFocusLocation() {
-    // go to map page
-    this.propService.gotoMapForLocation();
-  }
-
-  onFocusLot() {
-    console.log('asdf');
+  onButSearch() {
   }
 }

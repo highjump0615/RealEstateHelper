@@ -11,47 +11,30 @@ import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {PropertyService} from '../../../services/property/property.service';
 import {GeoFire} from 'geofire';
+import {BaseClientAddPage} from '../../base-client-add.page';
 
 @Component({
   selector: 'app-profile-add',
   templateUrl: './profile-add.page.html',
   styleUrls: ['./profile-add.page.scss'],
 })
-export class ProfileAddPage extends BaseSegmentPage implements OnInit {
+export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   @ViewChild('imagePhoto') uploadPhoto: ImageUploaderComponent;
   @ViewChild('mainForm') formMain: NgForm;
-
-  alertSelect: any;
 
   // input data
   name = '';
   email = '';
   phone = '';
 
-  priceMin: number;
-  priceMax: number;
   price: number;
 
   isAddressVisible = false;
 
   title = '';
 
-  styles = [];
-  types = [];
-
   size: number;
-  sizeMin: number;
-  sizeMax: number;
-
-  bedroom: number;
-  bathroom: number;
-  frontage: number;
-  depth: number;
-
-  basement =  '';
-  constStatus = '';
-  garage = '';
 
   description = '';
   descProp = '';
@@ -60,7 +43,6 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public alertController: AlertController,
     private kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
@@ -68,7 +50,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     private auth: AuthService,
     public api: ApiService
   ) {
-    super(loadingCtrl, alertCtrl);
+    super(loadingCtrl, alertCtrl, propService);
   }
 
   ngOnInit() {
@@ -81,7 +63,7 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
   }
 
   async presentAddressVisibleConfirm() {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       message: 'All property addresses will be shown to all users. To hide property address from all users, click box below.',
       buttons: [
         {
@@ -102,200 +84,6 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  onFocusStyle() {
-    // already opened select alert
-    if (this.alertSelect) {
-      return;
-    }
-
-    const inputs = [];
-    for (const s of Property.STYLES) {
-      const item = {
-        type: 'checkbox',
-        label: s,
-        value: s
-      };
-
-      // set initial checked
-      if (this.styles.indexOf(s) >= 0) {
-        item['checked'] = true;
-      }
-
-      inputs.push(item);
-    }
-
-    this.presentSelectAlert(
-      'Select Style',
-      inputs,
-      (data) => {
-        this.styles = data;
-      });
-  }
-
-  async presentSelectAlert(title, inputs, onOk = (data) => {}) {
-    this.alertSelect = await this.alertController.create({
-      header: title,
-      inputs: inputs,
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Confirm Cancel');
-
-            this.onCloseSelectAlert();
-          }
-        }, {
-          text: 'OK',
-          handler: (data) => {
-            console.log(data);
-
-            // callback
-            onOk(data);
-
-            this.onCloseSelectAlert();
-          }
-        }
-      ]
-    });
-
-    await this.alertSelect.present();
-  }
-
-  onCloseSelectAlert() {
-    // clear
-    this.alertSelect = null;
-  }
-
-  onFocusType() {
-    // already opened select alert
-    if (this.alertSelect) {
-      return;
-    }
-
-    const inputs = [];
-    for (const s of Property.TYPES) {
-      const item = {
-        type: 'checkbox',
-        label: s,
-        value: s
-      };
-
-      // set initial checked
-      if (this.types.indexOf(s) >= 0) {
-        item['checked'] = true;
-      }
-
-      inputs.push(item);
-    }
-
-    this.presentSelectAlert(
-      'Select Type',
-      inputs,
-      (data) => {
-        this.types = data;
-      });
-  }
-
-  onFocusStatus() {
-    // already opened select alert
-    if (this.alertSelect) {
-      return;
-    }
-
-    const inputs = [];
-    for (const s of Property.STATUSES) {
-      const item = {
-        type: 'radio',
-        label: s,
-        value: s
-      };
-
-      // set initial checked
-      if (this.constStatus === s) {
-        item['checked'] = true;
-      }
-
-      inputs.push(item);
-    }
-
-    this.presentSelectAlert(
-      'Select Status',
-      inputs,
-      (data) => {
-        this.constStatus = data;
-      });
-  }
-
-  onFocusBasement() {
-    // already opened select alert
-    if (this.alertSelect) {
-      return;
-    }
-
-    const inputs = [];
-    for (const s of Property.BASEMENT) {
-      const item = {
-        type: 'radio',
-        label: s,
-        value: s
-      };
-
-      // set initial checked
-      if (this.basement === s) {
-        item['checked'] = true;
-      }
-
-      inputs.push(item);
-    }
-
-    this.presentSelectAlert(
-      'Select Garage',
-      inputs,
-      (data) => {
-        this.basement = data;
-      });
-  }
-
-
-  getStyles() {
-    return this.styles.join(', ');
-  }
-
-  getTypes() {
-    return this.types.join(', ');
-  }
-
-  onFocusGarage() {
-    // already opened select alert
-    if (this.alertSelect) {
-      return;
-    }
-
-    const inputs = [];
-    for (const s of Property.GARAGES) {
-      const item = {
-        type: 'radio',
-        label: s,
-        value: s
-      };
-
-      // set initial checked
-      if (this.garage === s) {
-        item['checked'] = true;
-      }
-
-      inputs.push(item);
-    }
-
-    this.presentSelectAlert(
-      'Select Garage',
-      inputs,
-      (data) => {
-        this.garage = data;
-      });
   }
 
   onButDone() {
@@ -642,8 +430,5 @@ export class ProfileAddPage extends BaseSegmentPage implements OnInit {
     this.auth.user.propAll.push(prop);
   }
 
-  onFocusLocation() {
-    // go to map page
-    this.propService.gotoMapForLocation();
-  }
+
 }
