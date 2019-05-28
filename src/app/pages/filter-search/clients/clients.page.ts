@@ -36,7 +36,11 @@ export class ClientsPage extends BasePage implements OnInit {
   }
 
   ngOnInit() {
-    this.showLoadingView(true, 'Searching for required buyers...');
+    let strDesc = 'Searching for required buyers...';
+    if (this.type === this.TYPE_SELLER) {
+      strDesc = 'Searching for required sellers...';
+    }
+    this.showLoadingView(true, strDesc);
 
     this.filterData();
   }

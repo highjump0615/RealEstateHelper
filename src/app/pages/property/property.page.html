@@ -97,7 +97,9 @@
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>{{data.size}} Sq.ft</span>
+        <span
+          *ngIf="!data.size"
+        >{{data.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
@@ -127,7 +129,9 @@
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
-        <span>{{data.lotDepth}} Sq.ft</span>
+        <span
+          *ngIf="data.lotDepth"
+        >{{data.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
