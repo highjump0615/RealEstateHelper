@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {
   Environment,
   GoogleMap,
@@ -14,7 +14,7 @@ import {PropertyService} from '../../services/property/property.service';
   templateUrl: './location.page.html',
   styleUrls: ['./location.page.scss'],
 })
-export class LocationPage implements OnInit {
+export class LocationPage implements OnInit, AfterViewInit {
 
   map: GoogleMap;
   address: string;
@@ -28,9 +28,13 @@ export class LocationPage implements OnInit {
   ) {
   }
 
+  ngAfterViewInit() {
+    this.platform.ready().then(() => {
+      this.loadMap();
+    });
+  }
+
   ngOnInit() {
-    this.platform.ready();
-    this.loadMap();
   }
 
   loadMap() {
