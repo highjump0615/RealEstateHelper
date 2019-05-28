@@ -114,8 +114,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return;
     }
 
-
-
     if (this.currentPage === this.PAGE_SELLER) {
       if (!this.uploadPhoto.picture) {
         this.presentAlert(
@@ -133,122 +131,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         );
         return;
       }
-
-      if (!this.propService.address) {
-        this.presentAlert(
-          'Invalid Address',
-          'Please enter address'
-        );
-        return;
-      }
-
-      if (!this.title) {
-        this.presentAlert(
-          'Invalid Title',
-          'Please enter property title'
-        );
-        return;
-      }
-
-      // size
-      if (!this.size) {
-        this.presentAlert(
-          'Invalid Size',
-          'Please input house size'
-        );
-        return;
-      }
-    } else {
-      // buyer
-
-      // price range
-      if (!this.priceMin || !this.priceMax) {
-        this.presentAlert(
-          'Invalid Price',
-          'Please enter price'
-        );
-        return;
-      }
-
-      // size range
-      if (!this.sizeMin) {
-        this.presentAlert(
-          'Invalid Size',
-          'Please enter house size'
-        );
-        return;
-      }
-    }
-
-    if (this.styles.length <= 0) {
-      this.presentAlert(
-        'Invalid Style',
-        'Please select styles'
-      );
-      return;
-    }
-
-    if (this.types.length <= 0) {
-      this.presentAlert(
-        'Invalid Type',
-        'Please select types'
-      );
-      return;
-    }
-
-    if (!this.bedroom) {
-      this.presentAlert(
-        'Invalid Bedrooms',
-        'Please input bedroom number'
-      );
-      return;
-    }
-
-    if (!this.bathroom) {
-      this.presentAlert(
-        'Invalid Bathrooms',
-        'Please input bathroom number'
-      );
-      return;
-    }
-
-    if (this.garages.length <= 0) {
-      this.presentAlert(
-        'Invalid Garage',
-        'Please select garage info'
-      );
-      return;
-    }
-
-    if (this.basements.length <= 0) {
-      this.presentAlert(
-        'Invalid Basement',
-        'Please select basement info'
-      );
-      return;
-    }
-
-    if (!this.frontage) {
-      this.presentAlert(
-        'Invalid Lot Frontage',
-        'Please input lot frontage'
-      );
-      return;
-    }
-    if (!this.depth) {
-      this.presentAlert(
-        'Invalid Lot Depth',
-        'Please input lot depth'
-      );
-      return;
-    }
-
-    if (this.constStatus.length <= 0) {
-      this.presentAlert(
-        'Invalid Status',
-        'Please select construction status'
-      );
-      return;
     }
 
     this.formMain.ngSubmit.emit();

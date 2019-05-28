@@ -108,7 +108,9 @@
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>{{data.propRequest.size}} Sq.ft</span>
+        <span
+          *ngIf="data.propRequest.size"
+        >{{data.propRequest.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
@@ -126,19 +128,21 @@
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>{{data.propRequest.garage}}</span>
+        <span>{{data.propRequest.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>{{data.propRequest.basement}}</span>
+        <span>{{data.propRequest.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
-        <span>{{data.propRequest.lotDepth}} Sq.ft</span>
+        <span
+          *ngIf="data.propRequest.lotDepth"
+        >{{data.propRequest.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
@@ -150,7 +154,7 @@
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>{{data.propRequest.status}}</span>
+        <span>{{data.propRequest.getStatusStr()}}</span>
       </div>
     </div>
   </div>

@@ -196,10 +196,22 @@ export class Property extends BaseModel implements Deserializable {
   }
 
   getStyleStr() {
-    return this.style.join(', ');
+    return this.style ? this.style.join(', ') : '';
   }
 
   getTypeStr() {
-    return this.type.join(', ');
+    return this.type ? this.type.join(', ') : '';
+  }
+
+  getGarageStr() {
+    return this.garage ? this.garage.join(', ') : '';
+  }
+
+  getBasementStr() {
+    return this.basement ? this.basement.join(', ') : '';
+  }
+
+  getStatusStr() {
+    return this.status ? this.status.join(', ') : '';
   }
 }
