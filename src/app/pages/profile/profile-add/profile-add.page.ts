@@ -370,15 +370,13 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       //
       // save user relation
       //
-      const data = [];
-      data[client.id] = true;
-
-      let path = `${Client.TABLE_NAME_BUYER_AGENT}/${this.auth.user.id}`;
+      let path = `${Client.TABLE_NAME_BUYER_AGENT}`;
       if (client.type === Client.CLIENT_TYPE_SELLER) {
-        path = `${Client.TABLE_NAME_SELLER_AGENT}/${this.auth.user.id}`;
+        path = `${Client.TABLE_NAME_SELLER_AGENT}`;
       }
 
-      await this.api.saveToDatabaseRaw(data, path);
+      await this.api.saveToDatabaseRaw(true,
+        `${path}/${this.auth.user.id}/${client.id}`);
 
       //
       // save property
@@ -393,9 +391,15 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       // add to user client list
       //
       if (client.type === Client.CLIENT_TYPE_SELLER) {
-        this.auth.user.sellers.push(client);
+        // add to array if initialized only
+        if (this.auth.user.sellers) {
+          this.auth.user.sellers.push(client);
+        }
       } else {
-        this.auth.user.buyers.push(client);
+        // add to array if initialized only
+        if (this.auth.user.buyers) {
+          this.auth.user.buyers.push(client);
+        }
       }
 
       this.showLoadingView(false);
