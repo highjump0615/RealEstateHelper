@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^7.2.15",
     "@angular/router": "^7.2.15",
     "@ionic-native/core": "^5.5.1",
+    "@ionic-native/facebook": "^5.6.0",
     "@ionic-native/geolocation": "^5.5.1",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/google-plus": "^5.6.0",
