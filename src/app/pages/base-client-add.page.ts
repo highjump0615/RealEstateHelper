@@ -22,9 +22,9 @@ export class BaseClientAddPage extends BaseSegmentPage {
   frontage: number;
   depth: number;
 
-  basement =  '';
-  constStatus = '';
-  garage = '';
+  basements = [];
+  constStatus = [];
+  garages = [];
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -40,6 +40,18 @@ export class BaseClientAddPage extends BaseSegmentPage {
 
   getTypes() {
     return this.types.join(', ');
+  }
+
+  getGarages() {
+    return this.garages.join(', ');
+  }
+
+  getBasements() {
+    return this.basements.join(', ');
+  }
+
+  getConstStatus() {
+    return this.constStatus.join(', ');
   }
 
   onFocusStyle() {
@@ -146,13 +158,13 @@ export class BaseClientAddPage extends BaseSegmentPage {
     const inputs = [];
     for (const s of Property.STATUSES) {
       const item = {
-        type: 'radio',
+        type: 'checkbox',
         label: s,
         value: s
       };
 
       // set initial checked
-      if (this.constStatus === s) {
+      if (this.constStatus.indexOf(s) >= 0) {
         item['checked'] = true;
       }
 
@@ -176,13 +188,13 @@ export class BaseClientAddPage extends BaseSegmentPage {
     const inputs = [];
     for (const s of Property.BASEMENT) {
       const item = {
-        type: 'radio',
+        type: 'checkbox',
         label: s,
         value: s
       };
 
       // set initial checked
-      if (this.basement === s) {
+      if (this.basements.indexOf(s) >= 0) {
         item['checked'] = true;
       }
 
@@ -190,10 +202,10 @@ export class BaseClientAddPage extends BaseSegmentPage {
     }
 
     this.presentSelectAlert(
-      'Select Garage',
+      'Select Basement',
       inputs,
       (data) => {
-        this.basement = data;
+        this.basements = data;
       });
   }
 
@@ -206,13 +218,13 @@ export class BaseClientAddPage extends BaseSegmentPage {
     const inputs = [];
     for (const s of Property.GARAGES) {
       const item = {
-        type: 'radio',
+        type: 'checkbox',
         label: s,
         value: s
       };
 
       // set initial checked
-      if (this.garage === s) {
+      if (this.garages.indexOf(s) >= 0) {
         item['checked'] = true;
       }
 
@@ -223,7 +235,7 @@ export class BaseClientAddPage extends BaseSegmentPage {
       'Select Garage',
       inputs,
       (data) => {
-        this.garage = data;
+        this.garages = data;
       });
   }
 

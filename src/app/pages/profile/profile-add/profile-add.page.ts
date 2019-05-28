@@ -212,7 +212,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return;
     }
 
-    if (!this.garage) {
+    if (this.garages.length <= 0) {
       this.presentAlert(
         'Invalid Garage',
         'Please select garage info'
@@ -220,7 +220,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return;
     }
 
-    if (!this.basement) {
+    if (this.basements.length <= 0) {
       this.presentAlert(
         'Invalid Basement',
         'Please select basement info'
@@ -243,7 +243,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return;
     }
 
-    if (!this.constStatus) {
+    if (this.constStatus.length <= 0) {
       this.presentAlert(
         'Invalid Status',
         'Please select construction status'
@@ -275,8 +275,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.size = this.size;
     propNew.bedroom = this.bedroom;
     propNew.bathroom = this.bathroom;
-    propNew.garage = this.garage;
-    propNew.basement = this.basement;
+    propNew.garage = this.garages;
+    propNew.basement = this.basements;
     propNew.lotFrontage = this.frontage;
     propNew.lotDepth = this.depth;
     propNew.status = this.constStatus;

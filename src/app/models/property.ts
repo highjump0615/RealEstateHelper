@@ -93,12 +93,12 @@ export class Property extends BaseModel implements Deserializable {
   size: number;
   bedroom: number;
   bathroom: number;
-  garage = '';
-  basement = '';
+  garage = [];
+  basement = [];
   lotFrontage: number;
   lotDepth: number;
 
-  status = '';
+  status = [];
 
   agentId = '';
   sellerId = '';
