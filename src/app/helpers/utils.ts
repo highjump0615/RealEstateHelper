@@ -84,7 +84,7 @@ export class Utils {
     found = false;
     targetMap = {};
 
-    if (!target) {
+    if (!target || !toMatch) {
       return found;
     }
 

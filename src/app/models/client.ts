@@ -256,6 +256,34 @@ export class Client extends BaseModel implements Deserializable {
     return false;
   }
 
+  isPriceMatchingWithProperty(prop) {
+    const price = prop.price;
+    if (!price) {
+      return false;
+    }
+
+    // consider all cases
+    if (this.priceMin && this.priceMax) {
+      if (this.priceMin <= price && price <= this.priceMax) {
+        return true;
+      }
+    }
+
+    if (this.priceMin && !this.priceMax) {
+      if (this.priceMin <= price) {
+        return true;
+      }
+    }
+
+    if (!this.priceMin && this.priceMax) {
+      if (this.priceMax >= price) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   isSizeMatching(target) {
     // consider all cases
     if (this.sizeMin && this.sizeMax) {
@@ -322,6 +350,34 @@ export class Client extends BaseModel implements Deserializable {
           return true;
         }
       } else if (!target.sizeMin && target.sizeMax) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isSizeMatchingWithProperty(prop) {
+    const sz = prop.size;
+    if (!sz) {
+      return false;
+    }
+
+    // consider all cases
+    if (this.sizeMin && this.sizeMax) {
+      if (this.sizeMin <= sz && sz <= this.sizeMax) {
+        return true;
+      }
+    }
+
+    if (this.sizeMin && !this.sizeMax) {
+      if (this.sizeMin <= sz) {
+        return true;
+      }
+    }
+
+    if (!this.sizeMin && this.sizeMax) {
+      if (this.sizeMax >= sz) {
         return true;
       }
     }

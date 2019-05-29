@@ -49,11 +49,9 @@ export class ClientsPage extends BasePage implements OnInit {
 
   private async filterData() {
     try {
-      let propsAll = [];
-      const buyersMatched = [];
-
       if (this.filterClient.type === this.TYPE_BUYER) {
         const buyersAll = await this.api.getAllBuyers();
+        const buyersMatched = [];
 
         for (const buyer of buyersAll) {
           if (this.isClientMatching(buyer) > 0) {
@@ -63,7 +61,18 @@ export class ClientsPage extends BasePage implements OnInit {
 
         this.clients = buyersMatched;
       } else {
-        propsAll = await this.api.getAllProperties();
+        const propsAll = await this.api.getAllProperties();
+        const proms = [];
+
+        for (const prop of propsAll) {
+          if (this.isPropertyMatching(prop) > 0) {
+            const prom = this.api.fetchClientWithId(prop.sellerId, false);
+            proms.push(prom);
+          }
+        }
+
+        // fetch clients
+        this.clients = await Promise.all(proms);
       }
 
       console.log(this.clients);
@@ -155,19 +164,104 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // bedroom
-    if (client.propRequest.bedroom <= this.filterClient.propRequest.bedroom) {
+    if (client.propRequest.bedroom >= this.filterClient.propRequest.bedroom) {
       nMatch++;
     }
 
     // bathroom
-    if (client.propRequest.bathroom <= this.filterClient.propRequest.bathroom) {
+    if (client.propRequest.bathroom >= this.filterClient.propRequest.bathroom) {
       nMatch++;
     }
 
     return nMatch;
   }
 
-  isPropertyMatching() {
+  isPropertyMatching(prop) {
+    let nMatch = 0;
 
+    // location
+    if (this.auth.user.lat && this.auth.user.lng) {
+      if (prop.location) {
+        const distance = GeoFire.distance(
+          prop.location,
+          [
+            this.auth.user.lat,
+            this.auth.user.lng
+          ]);
+
+        if (distance <= this.filterClient.radius) {
+          nMatch++;
+        }
+      }
+    }
+
+    //
+    // show all for no filter
+    //
+    if (this.filterClient.isPropRequestEmpty()) {
+      return 1;
+    }
+
+    // price
+    if (this.filterClient.isPriceMatchingWithProperty(prop)) {
+      nMatch++;
+    }
+
+    // size
+    if (this.filterClient.isSizeMatchingWithProperty(prop)) {
+      nMatch++;
+    }
+
+    // styles
+    if (Utils.containsArray(
+      prop.style,
+      this.filterClient.propRequest.style)) {
+
+      nMatch++;
+    }
+
+    // types
+    if (Utils.containsArray(
+      prop.type,
+      this.filterClient.propRequest.type)) {
+
+      nMatch++;
+    }
+
+    // garage
+    if (Utils.containsArray(
+      prop.garage,
+      this.filterClient.propRequest.garage)) {
+
+      nMatch++;
+    }
+
+    // basement
+    if (Utils.containsArray(
+      prop.basement,
+      this.filterClient.propRequest.basement)) {
+
+      nMatch++;
+    }
+
+    // status
+    if (Utils.containsArray(
+      prop.status,
+      this.filterClient.propRequest.status)) {
+
+      nMatch++;
+    }
+
+    // bedroom
+    if (prop.bedroom >= this.filterClient.propRequest.bedroom) {
+      nMatch++;
+    }
+
+    // bathroom
+    if (prop.bathroom >= this.filterClient.propRequest.bathroom) {
+      nMatch++;
+    }
+
+    return nMatch;
   }
 }
