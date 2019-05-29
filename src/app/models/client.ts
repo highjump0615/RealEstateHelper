@@ -182,4 +182,198 @@ export class Client extends BaseModel implements Deserializable {
 
     return dict;
   }
+
+  isPriceMatching(target) {
+    // consider all cases
+    if (this.priceMin && this.priceMax) {
+      if (target.priceMin && target.priceMax) {
+        //
+        // Amin <= Bmin <= Amax
+        // Amin <= Bmax <= Amax
+        //
+        if (this.priceMin <= target.priceMin && target.priceMin <= this.priceMax) {
+          return true;
+        }
+
+        if (this.priceMin <= target.priceMax && target.priceMax <= this.priceMax) {
+          return true;
+        }
+      } else if (target.priceMin && !target.priceMax) {
+        //
+        // Amin <= Bmin <= Amax
+        //
+        if (this.priceMin <= target.priceMin && target.priceMin <= this.priceMax) {
+          return true;
+        }
+      } else if (!target.priceMin && target.priceMax) {
+        //
+        // Amin <= Bmax <= Amax
+        //
+        if (this.priceMin <= target.priceMax && target.priceMax <= this.priceMax) {
+          return true;
+        }
+      }
+    }
+
+    if (this.priceMin && !this.priceMax) {
+      if (target.priceMin && target.priceMax) {
+        //
+        // Amin <= Bmax
+        //
+        if (this.priceMin <= target.priceMax) {
+          return true;
+        }
+      } else if (target.priceMin && !target.priceMax) {
+        //
+        // Amin <= Bmin
+        //
+        if (this.priceMin <= target.priceMin) {
+          return true;
+        }
+      } else if (!target.priceMin && target.priceMax) {
+        //
+        // Amin <= Bmax
+        //
+        if (this.priceMin <= target.priceMax) {
+          return true;
+        }
+      }
+    }
+
+    if (!this.priceMin && this.priceMax) {
+      if (target.priceMin) {
+        //
+        // Amax >= Bmin
+        //
+        if (this.priceMax <= target.priceMin) {
+          return true;
+        }
+      } else if (!target.priceMin && target.priceMax) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isSizeMatching(target) {
+    // consider all cases
+    if (this.sizeMin && this.sizeMax) {
+      if (target.sizeMin && target.sizeMax) {
+        //
+        // Amin <= Bmin <= Amax
+        // Amin <= Bmax <= Amax
+        //
+        if (this.sizeMin <= target.sizeMin && target.sizeMin <= this.sizeMax) {
+          return true;
+        }
+
+        if (this.sizeMin <= target.sizeMax && target.sizeMax <= this.sizeMax) {
+          return true;
+        }
+      } else if (target.sizeMin && !target.sizeMax) {
+        //
+        // Amin <= Bmin <= Amax
+        //
+        if (this.sizeMin <= target.sizeMin && target.sizeMin <= this.sizeMax) {
+          return true;
+        }
+      } else if (!target.sizeMin && target.sizeMax) {
+        //
+        // Amin <= Bmax <= Amax
+        //
+        if (this.sizeMin <= target.sizeMax && target.sizeMax <= this.sizeMax) {
+          return true;
+        }
+      }
+    }
+
+    if (this.sizeMin && !this.sizeMax) {
+      if (target.sizeMin && target.sizeMax) {
+        //
+        // Amin <= Bmax
+        //
+        if (this.sizeMin <= target.sizeMax) {
+          return true;
+        }
+      } else if (target.sizeMin && !target.sizeMax) {
+        //
+        // Amin <= Bmin
+        //
+        if (this.sizeMin <= target.sizeMin) {
+          return true;
+        }
+      } else if (!target.sizeMin && target.sizeMax) {
+        //
+        // Amin <= Bmax
+        //
+        if (this.sizeMin <= target.sizeMax) {
+          return true;
+        }
+      }
+    }
+
+    if (!this.sizeMin && this.sizeMax) {
+      if (target.sizeMin) {
+        //
+        // Amax >= Bmin
+        //
+        if (this.sizeMax <= target.sizeMin) {
+          return true;
+        }
+      } else if (!target.sizeMin && target.sizeMax) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isPropRequestEmpty() {
+    if (this.priceMin) {
+      return false;
+    }
+    if (this.priceMax) {
+      return false;
+    }
+
+    if (this.sizeMin) {
+      return false;
+    }
+    if (this.sizeMax) {
+      return false;
+    }
+
+    // property request
+    if (this.propRequest.style && this.propRequest.style.length > 0) {
+      return false;
+    }
+    if (this.propRequest.type && this.propRequest.type.length > 0) {
+      return false;
+    }
+    if (this.propRequest.garage && this.propRequest.garage.length > 0) {
+      return false;
+    }
+    if (this.propRequest.basement && this.propRequest.basement.length > 0) {
+      return false;
+    }
+    if (this.propRequest.status && this.propRequest.status.length > 0) {
+      return false;
+    }
+
+    if (this.propRequest.bedroom) {
+      return false;
+    }
+    if (this.propRequest.bathroom) {
+      return false;
+    }
+    if (this.propRequest.lotFrontage) {
+      return false;
+    }
+    if (this.propRequest.lotDepth) {
+      return false;
+    }
+
+    return true;
+  }
 }

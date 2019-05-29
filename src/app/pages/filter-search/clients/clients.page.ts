@@ -4,6 +4,9 @@ import {LoadingController} from '@ionic/angular';
 import {Client} from '../../../models/client';
 import {NavService} from '../../../services/nav.service';
 import {ApiService} from '../../../services/api/api.service';
+import {GeoFire} from 'geofire';
+import {AuthService} from '../../../services/auth/auth.service';
+import {Utils} from '../../../helpers/utils';
 
 @Component({
   selector: 'app-clients',
@@ -20,24 +23,23 @@ export class ClientsPage extends BasePage implements OnInit {
   showLoading = false;
   clients: Array<Client> = [];
 
-  type = this.TYPE_BUYER;
+  filterClient: Client;
 
   constructor(
     public loadingCtrl: LoadingController,
     public nav: NavService,
     public api: ApiService,
+    public auth: AuthService,
   ) {
     super(loadingCtrl);
 
     // get parameter
-    const c = nav.get('data');
-
-    this.type = c.type;
+    this.filterClient = nav.get('data');
   }
 
   ngOnInit() {
     let strDesc = 'Searching for required buyers...';
-    if (this.type === this.TYPE_SELLER) {
+    if (this.filterClient.type === this.TYPE_SELLER) {
       strDesc = 'Searching for required sellers...';
     }
     this.showLoadingView(true, strDesc);
@@ -47,8 +49,21 @@ export class ClientsPage extends BasePage implements OnInit {
 
   private async filterData() {
     try {
-      if (this.type === this.TYPE_BUYER) {
-        this.clients = await this.api.getAllBuyers();
+      let propsAll = [];
+      const buyersMatched = [];
+
+      if (this.filterClient.type === this.TYPE_BUYER) {
+        const buyersAll = await this.api.getAllBuyers();
+
+        for (const buyer of buyersAll) {
+          if (this.isClientMatching(buyer) > 0) {
+            buyersMatched.push(buyer);
+          }
+        }
+
+        this.clients = buyersMatched;
+      } else {
+        propsAll = await this.api.getAllProperties();
       }
 
       console.log(this.clients);
@@ -56,7 +71,103 @@ export class ClientsPage extends BasePage implements OnInit {
     finally {
       // hide loading mask
       this.showLoading = false;
-      this.showLoadingView(false);
+
+      setTimeout(() => {
+        this.showLoadingView(false);
+      }, 100);
     }
+  }
+
+  isClientMatching(client): number {
+    let nMatch = 0;
+
+    // location
+    if (this.auth.user.lat && this.auth.user.lng) {
+      if (client.propRequest.location) {
+        client.propRequest.distance = GeoFire.distance(
+          client.propRequest.location,
+          [
+            this.auth.user.lat,
+            this.auth.user.lng
+          ]);
+
+        if (client.propRequest.distance <= this.filterClient.radius) {
+          nMatch++;
+        }
+      }
+    }
+
+    //
+    // show all for no filter
+    //
+    if (this.filterClient.isPropRequestEmpty()) {
+      return 1;
+    }
+
+    // price
+    if (this.filterClient.isPriceMatching(client)) {
+      nMatch++;
+    }
+
+    // size
+    if (this.filterClient.isSizeMatching(client)) {
+      nMatch++;
+    }
+
+    // styles
+    if (Utils.containsArray(
+      client.propRequest.style,
+      this.filterClient.propRequest.style)) {
+
+      nMatch++;
+    }
+
+    // types
+    if (Utils.containsArray(
+      client.propRequest.type,
+      this.filterClient.propRequest.type)) {
+
+      nMatch++;
+    }
+
+    // garage
+    if (Utils.containsArray(
+      client.propRequest.garage,
+      this.filterClient.propRequest.garage)) {
+
+      nMatch++;
+    }
+
+    // basement
+    if (Utils.containsArray(
+      client.propRequest.basement,
+      this.filterClient.propRequest.basement)) {
+
+      nMatch++;
+    }
+
+    // status
+    if (Utils.containsArray(
+      client.propRequest.status,
+      this.filterClient.propRequest.status)) {
+
+      nMatch++;
+    }
+
+    // bedroom
+    if (client.propRequest.bedroom <= this.filterClient.propRequest.bedroom) {
+      nMatch++;
+    }
+
+    // bathroom
+    if (client.propRequest.bathroom <= this.filterClient.propRequest.bathroom) {
+      nMatch++;
+    }
+
+    return nMatch;
+  }
+
+  isPropertyMatching() {
+
   }
 }

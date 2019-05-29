@@ -23,6 +23,14 @@ export class PropertyService {
     this.router.navigate(['location']);
   }
 
+  getLocation() {
+    if (this.lat && this.lng) {
+      return [this.lat, this.lng];
+    }
+
+    return null;
+  }
+
   getLocationFormatted() {
     if (this.lat && this.lng) {
       return `(${this.lat.toFixed(4)}, ${this.lng.toFixed(4)})`;

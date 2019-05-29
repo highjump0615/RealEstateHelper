@@ -98,7 +98,7 @@
       <div class="dv-item">
         <span>House Size</span>
         <span
-          *ngIf="!data.size"
+          *ngIf="data.size"
         >{{data.size}} Sq.ft</span>
       </div>
 
@@ -117,13 +117,13 @@
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>{{data.garage}}</span>
+        <span>{{data.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>{{data.basement}}</span>
+        <span>{{data.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->

@@ -5,6 +5,7 @@ import {AlertController, LoadingController, NavController} from '@ionic/angular'
 import {BaseClientAddPage} from '../base-client-add.page';
 import {NavService} from '../../services/nav.service';
 import {Client} from '../../models/client';
+import {Property} from '../../models/property';
 
 @Component({
   selector: 'app-filter-search',
@@ -32,9 +33,31 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
   onButSearch() {
     // set object
     const c = new Client();
+    c.propRequest = new Property();
+
     c.type = this.target === this.PAGE_BUYER ?
       Client.CLIENT_TYPE_BUYER :
       Client.CLIENT_TYPE_SELLER;
+
+    c.priceMin = this.priceMin;
+    c.priceMax = this.priceMax;
+
+    c.propRequest.style = this.styles;
+    c.propRequest.type = this.types;
+    c.propRequest.basement = this.basements;
+    c.propRequest.status = this.constStatus;
+    c.propRequest.garage = this.garages;
+
+    c.propRequest.location = this.propService.getLocation();
+    c.radius = this.distance;
+
+    c.sizeMin = this.sizeMin;
+    c.sizeMax = this.sizeMax;
+
+    c.propRequest.bedroom = this.bedroom;
+    c.propRequest.bathroom = this.bathroom;
+    c.propRequest.lotFrontage = this.frontage;
+    c.propRequest.lotDepth = this.depth;
 
     this.nav.push('filter-search/clients', {
       data: c

@@ -12,7 +12,7 @@
 <ion-content>
 
   <ng-container
-    *ngIf="type == TYPE_BUYER">
+    *ngIf="filterClient.type == TYPE_BUYER">
     <div
       class="dv-no-list-item flex-c-row"
       *ngIf="!showLoading && clients?.length == 0">
@@ -57,7 +57,7 @@
   </ng-container>
 
   <ng-container
-    *ngIf="type == TYPE_SELLER">
+    *ngIf="filterClient.type == TYPE_SELLER">
     <div
       class="dv-no-list-item flex-c-row"
       *ngIf="!showLoading && clients?.length == 0">
