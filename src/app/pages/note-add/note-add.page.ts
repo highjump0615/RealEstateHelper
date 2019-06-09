@@ -36,9 +36,14 @@ export class NoteAddPage extends BasePage implements OnInit {
   }
 
   async onButSave() {
+    // check if text is empty
+    if (!this.note) {
+      return;
+    }
+
     this.client.note = this.note;
 
-    this.showLoadingView();
+    await this.showLoadingView();
 
     try {
       await this.api.saveClientNote(this.client);

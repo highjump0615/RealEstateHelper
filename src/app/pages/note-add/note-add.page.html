@@ -26,6 +26,7 @@
     class="m-0 with-shadow"
     expand="block"
     square
+    [disabled]="!this.note"
     (click)="onButSave()"
   >Save</ion-button>
 </ion-footer>
