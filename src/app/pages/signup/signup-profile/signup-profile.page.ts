@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, ToastController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 import {AuthService} from '../../../services/auth/auth.service';
@@ -36,6 +36,7 @@ export class SignupProfilePage extends BasePage implements OnInit {
     public kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
+    public toastController: ToastController,
     private auth: AuthService,
     public api: ApiService
   ) {
@@ -151,8 +152,16 @@ export class SignupProfilePage extends BasePage implements OnInit {
     completion();
   }
 
-  doneCallback = () => {
+  doneCallback = async () => {
     if (this.isEdit) {
+      // show notice
+      const toast = await this.toastController.create({
+        color: 'dark',
+        message: 'Your profile has been saved.',
+        duration: 2000
+      });
+      toast.present();
+
       // save profile
       this.onButBack();
       return;
