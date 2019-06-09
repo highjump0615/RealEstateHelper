@@ -206,7 +206,7 @@
             placeholder="Garage"
             readonly
             (ionFocus)="onFocusGarage()"
-            [value]="garage"
+            [value]="getGarages()"
           ></ion-input>
         </div>
       </div>
@@ -222,7 +222,7 @@
             placeholder="Basement"
             readonly
             (ionFocus)="onFocusBasement()"
-            [value]="basement"
+            [value]="getBasements()"
           ></ion-input>
         </div>
       </div>
