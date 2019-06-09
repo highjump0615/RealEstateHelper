@@ -78,10 +78,11 @@ export class AuthGuard implements CanActivate {
     return this.storage.get(OnboardPage.KEY_SHOWN)
       .then((shown) => {
         if (shown) {
+          this.router.navigate(['signup-email']);
+        } else {
           this.router.navigate(['onboard']);
         }
-
-        this.router.navigate(['signup-email']);
+        
         return Promise.resolve(false);
       })
       .catch((err) => {
