@@ -14,6 +14,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {VirtualScrollerModule} from 'ngx-virtual-scroller';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {Facebook} from '@ionic-native/facebook/ngx';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {GooglePlus} from '@ionic-native/google-plus/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Keyboard,
     Geolocation,
-    GooglePlus
+    GooglePlus,
+    Facebook
   ],
   bootstrap: [AppComponent]
 })

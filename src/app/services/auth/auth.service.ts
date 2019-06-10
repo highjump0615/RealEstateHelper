@@ -49,6 +49,18 @@ export class AuthService {
     });
   }
 
+  socialSignIn(credential) {
+    return FirebaseManager.auth().signInAndRetrieveDataWithCredential(credential)
+      .then((res) => {
+        if (!res.user) {
+          const err = new Error('User not available');
+          return Promise.reject(new Error('User not available'));
+        }
+
+        return Promise.resolve(res.user);
+      });
+  }
+
   resetPassword(email) {
     // do login
     return FirebaseManager.auth().sendPasswordResetEmail(email);

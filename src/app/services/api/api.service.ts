@@ -48,7 +48,7 @@ export class ApiService {
       .then((snapshot) => {
         if (!snapshot.exists()) {
           const err = new Error('User not found');
-          err.name = 'notfound';
+          err.name = 'not-found';
 
           return Promise.reject(err);
         }
