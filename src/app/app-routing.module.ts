@@ -47,8 +47,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule',
-    data: {needUser: false},
-    canActivate: [AuthGuard]
   },
   {
     path: 'forget',

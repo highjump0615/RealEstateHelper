@@ -99,6 +99,8 @@ export class BaseSigninPage extends BasePage {
   }
 
   async onSocialError(err) {
+    console.log(err);
+
     let strTitle = 'Google Login Failed';
     if (this.signinMethod === this.SIGNIN_FACEBOOK) {
       strTitle = 'Facebook Login Failed';
@@ -111,6 +113,8 @@ export class BaseSigninPage extends BasePage {
       buttons: ['Ok']
     });
     alert.present();
+
+    this.showLoadingView(false);
   }
 
   onError(err) {
