@@ -5,6 +5,9 @@ import * as firebase from 'firebase';
 import {AuthService} from '../services/auth/auth.service';
 import {User} from '../models/user';
 import {ApiService} from '../services/api/api.service';
+import {config} from '../helpers/config';
+import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {Router} from '@angular/router';
 
 export class BaseSigninPage extends BasePage {
 
@@ -16,8 +19,10 @@ export class BaseSigninPage extends BasePage {
 
   constructor(
     public fb: Facebook,
+    public googlePlus: GooglePlus,
     public auth: AuthService,
     public api: ApiService,
+    public router: Router,
     public navCtrl: NavController,
     public loadingCtrl?: LoadingController,
     public alertCtrl?: AlertController,
@@ -30,11 +35,8 @@ export class BaseSigninPage extends BasePage {
 
     await this.showLoadingView();
 
-    let res = null;
-    let userRes = null;
-
     try {
-      res = await this.fb.login(['public_profile', 'email']);
+      const res = await this.fb.login(['public_profile', 'email']);
 
       console.log('Logged into Facebook!', res);
 
@@ -42,22 +44,94 @@ export class BaseSigninPage extends BasePage {
         .FacebookAuthProvider
         .credential(res.authResponse.accessToken);
 
-      userRes = await this.auth.socialSignIn(facebookCredential);
+      // get user profile info
+      const profile = await this.fb.api('me?fields=first_name,last_name,picture.width(360).height(360).as(picture_large)', [])
+      console.log(profile);
+
+      this.continueSocialSignIn(
+        facebookCredential,
+        profile['first_name'],
+        profile['last_name'],
+        profile['picture_large']['data']['url']);
+
+    } catch (err) {
+      this.onSocialError(err);
+      return;
+    }
+  }
+
+  async onButGoogle() {
+    this.signinMethod = this.SIGNIN_GOOGLE;
+
+    await this.showLoadingView();
+
+    try {
+      const res = await this.googlePlus.login({
+        'webClientId': config.webClientId,
+        'offline': true
+      });
+
+      console.log('Logged into Google!', res);
+
+      const googleCredential = firebase.auth.GoogleAuthProvider.credential(res['idToken']);
+      console.log(googleCredential);
+
+      this.continueSocialSignIn(
+        googleCredential,
+        res['givenName'],
+        res['familyName'],
+        res['imageUrl']);
+
+    } catch (err) {
+      this.onSocialError(err);
+      return;
+    }
+
+  }
+
+  setUser(u) {
+    this.auth.user = u;
+    this.auth.updateCurrentUser();
+
+    // go to main page
+    this.navCtrl.navigateRoot(['/tabs/home']);
+    this.showLoadingView(false);
+  }
+
+  async onSocialError(err) {
+    let strTitle = 'Google Login Failed';
+    if (this.signinMethod === this.SIGNIN_FACEBOOK) {
+      strTitle = 'Facebook Login Failed';
+    }
+
+    // show error alert
+    const alert = await this.alertCtrl.create({
+      header: strTitle,
+      message: err.message,
+      buttons: ['Ok']
+    });
+    alert.present();
+  }
+
+  onError(err) {
+    console.log(JSON.stringify(err));
+
+    this.showLoadingView(false);
+
+    // show error alert
+    this.presentAlert('Login Failed', err.message);
+  }
+
+  private async continueSocialSignIn(credential, firstName, lastName, photoUrl) {
+    let userRes = null;
+
+    try {
+      userRes = await this.auth.socialSignIn(credential);
       console.log(userRes);
 
     } catch (err) {
-      let strTitle = 'Google Login Failed';
-      if (this.signinMethod === this.SIGNIN_FACEBOOK) {
-        strTitle = 'Facebook Login Failed';
-      }
-
-      // show error alert
-      const alert = await this.alertCtrl.create({
-        header: strTitle,
-        message: err.message,
-        buttons: ['Ok']
-      });
-      alert.present();
+      this.onSocialError(err);
+      return;
     }
 
     try {
@@ -76,14 +150,18 @@ export class BaseSigninPage extends BasePage {
       console.log(err);
 
       if (err.name === 'not-found') {
-        const newUser = new User(userRes.id);
+        const newUser = new User(userRes.uid);
 
         newUser.email = userRes.email;
-        newUser.name = `${res['givenName']} ${res['familyName']}`;
-        newUser.photoUrl = res['imageUrl'];
+        newUser.name = `${firstName} ${lastName}`;
+        newUser.photoUrl = photoUrl;
 
-        this.api.saveToDatabase(newUser);
-        this.setUser(newUser);
+        this.auth.user = newUser;
+
+        // social login, go to signup profile page
+        this.router.navigate(['signup-profile/social', {
+          socialLogin: true,
+        }]);
 
         return;
       }
@@ -93,24 +171,5 @@ export class BaseSigninPage extends BasePage {
     finally {
       this.showLoadingView(false);
     }
-
-  }
-
-  setUser(u) {
-    this.auth.user = u;
-    this.auth.updateCurrentUser();
-
-    // go to main page
-    this.navCtrl.navigateRoot(['/tabs/home']);
-    this.showLoadingView(false);
-  }
-
-  onError(err) {
-    console.log(JSON.stringify(err));
-
-    this.showLoadingView(false);
-
-    // show error alert
-    this.presentAlert('Login Failed', err.message);
   }
 }

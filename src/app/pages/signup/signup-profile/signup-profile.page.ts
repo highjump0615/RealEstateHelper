@@ -45,6 +45,8 @@ export class SignupProfilePage extends BasePage implements OnInit {
     this.email = this.route.snapshot.paramMap.get('email');
     this.password = this.route.snapshot.paramMap.get('password');
 
+    const isSocialLogin = this.route.snapshot.paramMap.has('socialLogin');
+
     if (auth.user) {
       // set user info
       this.name = auth.user.name;
@@ -54,7 +56,9 @@ export class SignupProfilePage extends BasePage implements OnInit {
       this.phoneBkg = auth.user.phoneBkg;
       this.addressBkg = auth.user.addressBkg;
 
-      this.isEdit = true;
+      if (!isSocialLogin) {
+        this.isEdit = true;
+      }
     }
   }
 

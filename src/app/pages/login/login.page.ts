@@ -22,16 +22,16 @@ export class LoginPage extends BaseSigninPage implements OnInit {
   password = '';
 
   constructor(
-    private router: Router,
+    public router: Router,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public auth: AuthService,
     public api: ApiService,
-    private googlePlus: GooglePlus,
     public fb: Facebook,
+    public googlePlus: GooglePlus,
   ) {
-    super(fb, auth, api, navCtrl, loadingCtrl, alertCtrl);
+    super(fb, googlePlus, auth, api, router, navCtrl, loadingCtrl, alertCtrl);
   }
 
   ngOnInit() {
@@ -79,15 +79,5 @@ export class LoginPage extends BaseSigninPage implements OnInit {
 
       this.onError(err);
     });
-  }
-
-  onButGoogle() {
-    console.log('onButGoogle');
-
-    this.googlePlus.login({
-      'webClientId': config.webClientId,
-      'offline': true
-    }).then(res => console.log(res))
-      .catch(err => console.error(err));
   }
 }
