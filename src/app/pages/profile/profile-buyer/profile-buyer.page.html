@@ -96,65 +96,65 @@
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>{{data.propRequest.getStyleStr()}}</span>
+        <span>{{data.propRequest?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>{{data.propRequest.getTypeStr()}}</span>
+        <span>{{data.propRequest?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
         <span
-          *ngIf="data.propRequest.size"
-        >{{data.propRequest.size}} Sq.ft</span>
+          *ngIf="data.propRequest?.size"
+        >{{data.propRequest?.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>{{data.propRequest.bedroom}}</span>
+        <span>{{data.propRequest?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>{{data.propRequest.bathroom}}</span>
+        <span>{{data.propRequest?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>{{data.propRequest.getGarageStr()}}</span>
+        <span>{{data.propRequest?.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>{{data.propRequest.getBasementStr()}}</span>
+        <span>{{data.propRequest?.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
         <span
-          *ngIf="data.propRequest.lotDepth"
-        >{{data.propRequest.lotDepth}} Sq.ft</span>
+          *ngIf="data.propRequest?.lotDepth"
+        >{{data.propRequest?.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>{{data.propRequest.lotFrontage}}</span>
+        <span>{{data.propRequest?.lotFrontage}}</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>{{data.propRequest.getStatusStr()}}</span>
+        <span>{{data.propRequest?.getStatusStr()}}</span>
       </div>
     </div>
   </div>
