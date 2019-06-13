@@ -4,6 +4,7 @@ import {User} from '../../models/user';
 import {AuthService} from '../../services/auth/auth.service';
 import {ApiService} from '../../services/api/api.service';
 import {NavService} from '../../services/nav.service';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,8 @@ export class ProfilePage implements OnInit {
   user: User;
 
   constructor(
+    public alertController: AlertController,
+    public toastController: ToastController,
     private route: ActivatedRoute,
     private router: Router,
     public api: ApiService,
@@ -57,5 +60,51 @@ export class ProfilePage implements OnInit {
     this.nav.push('message', {
       data: this.user
     });
+  }
+
+  async onButReport() {
+    const alert = await this.alertController.create({
+      header: 'Report',
+      inputs: [
+        {
+          name: 'report',
+          type: 'text',
+          placeholder: 'Input content here...',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (alertData) => {
+            console.log('Confirm Ok');
+
+            this.doReport(alertData.report);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async doReport(content) {
+    if (!content) {
+      return;
+    }
+
+    // show notice
+    const toast = await this.toastController.create({
+      color: 'dark',
+      message: 'The user has been reported',
+      duration: 2000
+    });
+    toast.present();
   }
 }

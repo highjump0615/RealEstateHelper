@@ -5,7 +5,7 @@ import {Client} from '../../../models/client';
 import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {Favourite} from '../../../models/favourite';
-import {AlertController} from "@ionic/angular";
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-buyers',

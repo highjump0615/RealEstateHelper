@@ -12,7 +12,8 @@
       <!-- report -->
       <ion-button
         color="light"
-        *ngIf="userId; else butEdit">
+        *ngIf="userId; else butEdit"
+        (click)="onButReport();">
         <ion-icon
           slot="icon-only"
           name="flag">
