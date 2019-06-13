@@ -4,6 +4,7 @@ import {ApiService} from '../../services/api/api.service';
 import {NavService} from '../../services/nav.service';
 import {TabsPage} from '../tabs/tabs.page';
 import {TabService} from '../../services/tab.service';
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-chat',
@@ -16,6 +17,7 @@ export class ChatPage implements OnInit {
   messages: Array<Message> = [];
 
   constructor(
+    public alertController: AlertController,
     public nav: NavService,
     private tab: TabService,
     public api: ApiService
@@ -62,5 +64,42 @@ export class ChatPage implements OnInit {
 
   itemHeightFn(item, index) {
     return 73;
+  }
+
+  async onButDelete(index, slidingItem) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure remove this messages?',
+      message: 'The message history with this user will be deleted permanently',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+
+            slidingItem.close();
+          }
+        }, {
+          text: 'OK',
+          handler: () => {
+            this.doDeleteChat(index);
+
+            slidingItem.close();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  private doDeleteChat(index) {
+    const msg = this.messages[index];
+
+    this.api.deleteChat(msg.id);
+
+    this.messages.splice(index, 1);
+    this.messages = [...this.messages];
   }
 }

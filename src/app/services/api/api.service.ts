@@ -270,6 +270,22 @@ export class ApiService {
       });
   }
 
+  deleteChat(userId) {
+    const dbRef = FirebaseManager.ref();
+
+    // remove chat
+    let query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(this.auth.user.id)
+      .child(userId);
+    query.remove();
+
+    // remove messages
+    query = dbRef.child(Message.TABLE_NAME)
+      .child(this.auth.user.id)
+      .child(userId);
+    query.remove();
+  }
+
   async fetchFavouriteBuyers(): Promise<Array<Client>> {
     const that = this;
 
