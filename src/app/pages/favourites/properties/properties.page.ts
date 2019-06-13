@@ -64,7 +64,7 @@ export class PropertiesPage extends BasePropertiesPage implements OnInit {
     }
   }
 
-  onButDelete(index) {
+  onButDelete(index, event) {
     this.presentDeleteConfirm(index);
 
     event.stopPropagation();

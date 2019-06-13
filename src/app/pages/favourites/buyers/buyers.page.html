@@ -55,6 +55,18 @@
           </div>
 
         </div>
+
+        <!-- delete button -->
+        <ion-button
+          class="bt-delete"
+          fill="clear"
+          color="danger"
+          (click)="onButDelete(i, $event)">
+          <ion-icon
+            slot="icon-only"
+            name="trash">
+          </ion-icon>
+        </ion-button>
       </ion-card-content>
     </ion-item>
   </ion-card>
