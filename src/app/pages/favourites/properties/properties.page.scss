@@ -24,8 +24,12 @@ ion-card {
 
   .bt-delete {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: -4px;
+    right: -8px;
+  }
+
+  ion-item {
+    --inner-padding-end: 0;
   }
 }
 
