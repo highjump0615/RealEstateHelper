@@ -15,6 +15,8 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {VirtualScrollerModule} from 'ngx-virtual-scroller';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Facebook} from '@ionic-native/facebook/ngx';
+import {CallNumber} from '@ionic-native/call-number/ngx';
+import {EmailComposer} from '@ionic-native/email-composer/ngx';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {Facebook} from '@ionic-native/facebook/ngx';
     Keyboard,
     Geolocation,
     GooglePlus,
-    Facebook
+    Facebook,
+    CallNumber,
+    EmailComposer
   ],
   bootstrap: [AppComponent]
 })

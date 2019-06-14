@@ -72,7 +72,8 @@
 
         <!-- email -->
         <div
-          class="flex-c-row dv-email">
+          class="flex-c-row dv-email"
+          (click)="onButEmail(user?.email)">
           <ion-icon
             name="mail"
             *ngIf="user">
@@ -83,6 +84,7 @@
         <!-- phone -->
         <div
           class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phone)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
           <span>{{user ? user.phone : '&nbsp;'}}</span>
@@ -111,6 +113,7 @@
         <!-- phone -->
         <div
           class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phoneBkg)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
           <span>{{user ? user.phoneBkg : '&nbsp;'}}</span>

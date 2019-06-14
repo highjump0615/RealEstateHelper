@@ -5,6 +5,8 @@ import {AuthService} from '../../services/auth/auth.service';
 import {ApiService} from '../../services/api/api.service';
 import {NavService} from '../../services/nav.service';
 import {AlertController, ToastController} from '@ionic/angular';
+import {CallNumber} from '@ionic-native/call-number/ngx';
+import {EmailComposer} from '@ionic-native/email-composer/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +25,9 @@ export class ProfilePage implements OnInit {
     private router: Router,
     public api: ApiService,
     public nav: NavService,
-    private auth: AuthService
+    private auth: AuthService,
+    private callNumber: CallNumber,
+    private emailComposer: EmailComposer
   ) {
     this.userId = this.route.snapshot.params['id'];
 
@@ -106,5 +110,19 @@ export class ProfilePage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  onButPhone(phone) {
+    this.callNumber.callNumber(phone, true);
+  }
+
+  onButEmail(email) {
+    const emailData = {
+      to: email,
+      isHtml: true
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(emailData);
   }
 }
