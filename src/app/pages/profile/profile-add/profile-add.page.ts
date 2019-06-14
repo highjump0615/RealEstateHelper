@@ -27,6 +27,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   name = '';
   email = '';
   phone = '';
+  commission = '';
 
   price: number;
 
@@ -180,70 +181,70 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     clientNew.desc = this.description;
     clientNew.agentId = this.auth.user.id;
 
-    if (this.currentPage === this.PAGE_SELLER) {
-      clientNew.type = Client.CLIENT_TYPE_SELLER;
-      clientNew.property = propNew;
-
-      // add property
-      clientNew.propertyId = propNew.id;
-
-      // save image
-      if (this.uploadPhoto.picture) {
-        const path = 'properties/' + propNew.id + '.png';
-
-        this.api.uploadImage(path, this.uploadPhoto.picture)
-          .then((url) => {
-            propNew.photoUrl = url;
-
-            this.doSaveClient(clientNew, propNew);
-          })
-          .catch((err) => {
-            console.log(err);
-
-            this.showLoadingView(false);
-            this.presentAlert(
-              'Faild to upload image',
-              err.message
-            );
-          });
-      }
-    } else {
-      clientNew.type = Client.CLIENT_TYPE_BUYER;
-
-      clientNew.priceMin = this.priceMin;
-      clientNew.priceMax = this.priceMax;
-
-      clientNew.sizeMin = this.sizeMin;
-      clientNew.sizeMax = this.sizeMax;
-
-      clientNew.address = this.propService.address;
-      clientNew.radius = this.radius;
-      clientNew.propRequest = propNew;
-
-      clientNew.generateNewId();
-
-      if (this.uploadPhoto.picture) {
-        const path = 'clients/' + clientNew.id + '.png';
-
-        this.api.uploadImage(path, this.uploadPhoto.picture)
-          .then((url) => {
-            clientNew.photoUrl = url;
-
-            this.doSaveClient(clientNew);
-          })
-          .catch((err) => {
-            console.log(err);
-
-            this.showLoadingView(false);
-            this.presentAlert(
-              'Faild to upload image',
-              err.message
-            );
-          });
-      } else {
-        this.doSaveClient(clientNew);
-      }
-    }
+    // if (this.currentPage === this.PAGE_SELLER) {
+    //   clientNew.type = Client.CLIENT_TYPE_SELLER;
+    //   clientNew.property = propNew;
+    //
+    //   // add property
+    //   clientNew.propertyId = propNew.id;
+    //
+    //   // save image
+    //   if (this.uploadPhoto.picture) {
+    //     const path = 'properties/' + propNew.id + '.png';
+    //
+    //     this.api.uploadImage(path, this.uploadPhoto.picture)
+    //       .then((url) => {
+    //         propNew.photoUrl = url;
+    //
+    //         this.doSaveClient(clientNew, propNew);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //
+    //         this.showLoadingView(false);
+    //         this.presentAlert(
+    //           'Faild to upload image',
+    //           err.message
+    //         );
+    //       });
+    //   }
+    // } else {
+    //   clientNew.type = Client.CLIENT_TYPE_BUYER;
+    //
+    //   clientNew.priceMin = this.priceMin;
+    //   clientNew.priceMax = this.priceMax;
+    //
+    //   clientNew.sizeMin = this.sizeMin;
+    //   clientNew.sizeMax = this.sizeMax;
+    //
+    //   clientNew.address = this.propService.address;
+    //   clientNew.radius = this.radius;
+    //   clientNew.propRequest = propNew;
+    //
+    //   clientNew.generateNewId();
+    //
+    //   if (this.uploadPhoto.picture) {
+    //     const path = 'clients/' + clientNew.id + '.png';
+    //
+    //     this.api.uploadImage(path, this.uploadPhoto.picture)
+    //       .then((url) => {
+    //         clientNew.photoUrl = url;
+    //
+    //         this.doSaveClient(clientNew);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //
+    //         this.showLoadingView(false);
+    //         this.presentAlert(
+    //           'Faild to upload image',
+    //           err.message
+    //         );
+    //       });
+    //   } else {
+    //     this.doSaveClient(clientNew);
+    //   }
+    // }
   }
 
   async doSaveClient(client, property = null) {

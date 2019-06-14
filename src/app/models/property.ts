@@ -26,6 +26,8 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_GARAGE = 'garage';
   static FIELD_BASEMENT = 'basement';
 
+  static FIELD_COMMISSION = 'commission';
+
   static FIELD_LOT_FRONTAGE = 'lotFtg';
   static FIELD_LOT_DEPTH = 'lotDepth';
 
@@ -100,6 +102,8 @@ export class Property extends BaseModel implements Deserializable {
 
   status = [];
 
+  commission: number;
+
   agentId = '';
   sellerId = '';
 
@@ -147,6 +151,8 @@ export class Property extends BaseModel implements Deserializable {
 
     this.status = info[Property.FIELD_STATUS];
 
+    this.commission = info[Property.FIELD_COMMISSION];
+
     this.agentId = info[Property.FIELD_AGENT];
     this.sellerId = info[Property.FIELD_SELLERID];
 
@@ -180,6 +186,8 @@ export class Property extends BaseModel implements Deserializable {
     this.addDictItem(dict, Property.FIELD_LOT_DEPTH, this.lotDepth);
 
     dict[Property.FIELD_STATUS] = this.status;
+
+    this.addDictItem(dict, Property.FIELD_COMMISSION, this.commission);
 
     dict[Property.FIELD_AGENT] = this.agentId;
     dict[Property.FIELD_SELLERID] = this.sellerId;

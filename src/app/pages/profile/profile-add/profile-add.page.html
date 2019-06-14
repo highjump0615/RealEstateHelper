@@ -427,6 +427,28 @@
 
       <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
+        <!-- commission payout -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Commission Payout</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-c-row">
+            <!-- icon -->
+            <ion-icon
+              class="mt-0"
+              name="cash"></ion-icon>
+            <ion-input
+              name="commission"
+              placeholder="Enter Commission Payout (%)"
+              type="number"
+              min="0"
+              max="100"
+              [(ngModel)]="commission"
+            ></ion-input>
+            <span class="sp-suffix">%</span>
+          </div>
+        </div>
+
         <!-- property description -->
         <div class="dv-input-with-title mt-14">
           <!-- title -->

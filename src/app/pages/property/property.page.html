@@ -145,6 +145,14 @@
         <span>Construction Status</span>
         <span>{{data.status}}</span>
       </div>
+
+      <!-- commission -->
+      <div class="dv-item">
+        <span>Commission Payout</span>
+        <span
+          *ngIf="data.commission"
+        >{{data.commission}}%</span>
+      </div>
     </div>
 
   </div>
