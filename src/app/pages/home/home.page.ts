@@ -103,4 +103,8 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
     event.target.complete();
   }
+
+  onButAddProfile() {
+    this.nav.push('profile-add');
+  }
 }

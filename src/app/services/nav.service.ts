@@ -22,6 +22,10 @@ export class NavService {
   }
 
   get(key: string) {
+    if (!this.data) {
+      return null;
+    }
+
     return this.data[key];
   }
 }

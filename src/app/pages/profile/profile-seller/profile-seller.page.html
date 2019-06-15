@@ -7,6 +7,16 @@
 
     <ion-title>SELLER PROFILE</ion-title>
 
+    <!-- edit -->
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="onButEdit();">
+        <img
+          src="../../../../assets/imgs/profile_edit.png"
+          slot="icon-only" />
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -49,9 +59,9 @@
 
         <!-- price -->
         <div class="flex-c-row"
-             [hidden]="!property">
+             [hidden]="!data.property">
           <ion-icon name="cash"></ion-icon>
-          <span>${{property?.price}}</span>
+          <span>${{data.property?.price}}</span>
         </div>
 
         <!-- location -->
@@ -60,7 +70,7 @@
             <ion-icon name="pin"></ion-icon>
             <span>Location</span>
           </div>
-          <span>{{property?.address}}</span>
+          <span>{{data.property?.address}}</span>
         </div>
       </div>
 
@@ -70,7 +80,7 @@
     <div
       class="dv-property flex-column"
       padding
-      *ngIf="property">
+      *ngIf="data.property">
       <!-- description -->
       <div class="dv-desc-with-title">
         <span
@@ -78,11 +88,11 @@
         >Property Description</span>
         <div
           class="dv-no-list-item-small flex-c-row"
-          *ngIf="!property.desc; else desc">
+          *ngIf="!data.property.desc; else desc">
           <span>No description of needs</span>
         </div>
         <ng-template #desc>
-          <p>{{property.desc}}</p>
+          <p>{{data.property.desc}}</p>
         </ng-template>
       </div>
 
@@ -101,61 +111,61 @@
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>{{property.getStyleStr()}}</span>
+        <span>{{data.property?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>{{property.getTypeStr()}}</span>
+        <span>{{data.property?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>{{property.size}} Sq.ft</span>
+        <span>{{data.property?.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>{{property.bedroom}}</span>
+        <span>{{data.property?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>{{property.bathroom}}</span>
+        <span>{{data.property?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>{{property.garage}}</span>
+        <span>{{data.property?.garage}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>{{property.basement}}</span>
+        <span>{{data.property?.basement}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
-        <span>{{property.lotDepth}} Sq.ft</span>
+        <span>{{data.property?.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>{{property.lotFrontage}}</span>
+        <span>{{data.property?.lotFrontage}}</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>{{property.status}}</span>
+        <span>{{data.property?.status}}</span>
       </div>
     </div>
   </div>

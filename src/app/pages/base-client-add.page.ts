@@ -32,6 +32,11 @@ export class BaseClientAddPage extends BaseSegmentPage {
     public propService: PropertyService,
   ) {
     super(loadingCtrl, alertCtrl);
+
+    // init prop service
+    propService.address = '';
+    propService.lat = null;
+    propService.lng = null;
   }
 
   getStyles() {

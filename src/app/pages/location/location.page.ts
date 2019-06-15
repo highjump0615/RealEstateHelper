@@ -3,7 +3,7 @@ import {
   Environment,
   GoogleMap,
   GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, MyLocation,
-  Geocoder, GeocoderRequest, ILatLng, GeocoderResult
+  Geocoder, GeocoderRequest, ILatLng, GeocoderResult, LatLng
 } from '@ionic-native/google-maps';
 import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
@@ -35,6 +35,10 @@ export class LocationPage implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    // init data
+    this.address = this.propService.address;
+    this.lat = this.propService.lat;
+    this.lng = this.propService.lng;
   }
 
   loadMap() {
@@ -56,49 +60,15 @@ export class LocationPage implements OnInit, AfterViewInit {
     });
 
     this.goToMyLocation();
+    if (this.lat && this.lng) {
+      const latlng = new LatLng(this.lat, this.lng);
+      this.showMarker(latlng);
+    }
 
     this.map.on(GoogleMapsEvent.MAP_CLICK)
       .subscribe(
         (params: any[]) => {
-          // clear all markers
-          this.map.clear();
-
-          const latLng: ILatLng = params[0];
-          const marker: Marker = this.map.addMarkerSync({
-            'position': latLng
-          });
-
-          this.lat = latLng.lat;
-          this.lng = latLng.lng;
-
-          // Latitude, longitude -> address
-          Geocoder.geocode({
-            'position': latLng
-          }).then((results: GeocoderResult[]) => {
-            console.log(results);
-
-            if (results.length === 0) {
-              // Not found
-              return null;
-            }
-
-            // address text
-            const country = results[0].country;
-            let address = '';
-            for (const strLine of results[0].extra.lines) {
-              if (strLine === country) {
-                address += strLine;
-                break;
-              }
-
-              address += `${strLine}, `;
-            }
-
-            marker.setTitle(address);
-            marker.showInfoWindow();
-
-            this.address = address;
-          });
+          this.showMarker(params[0] as ILatLng);
         }
       );
 
@@ -108,14 +78,20 @@ export class LocationPage implements OnInit, AfterViewInit {
     this.map.clear();
 
     try {
-      // Get the location of you
-      const location = await this.map.getMyLocation();
+      let latlng = null;
+      if (this.lat && this.lng) {
+        latlng = new LatLng(this.lat, this.lng);
+      } else {
+        // Get the location of you
+        const location = await this.map.getMyLocation();
+        latlng = location.latLng;
+      }
 
-      console.log(location);
+      console.log(latlng);
 
       // Move the map camera to the location with animation
       this.map.animateCamera({
-        target: location.latLng,
+        target: latlng,
         zoom: 15,
         duration: 5000
       });
@@ -123,6 +99,52 @@ export class LocationPage implements OnInit, AfterViewInit {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async showMarker(latLng, addr = null) {
+    // clear all markers
+    this.map.clear();
+
+    const marker: Marker = this.map.addMarkerSync({
+      'position': latLng
+    });
+
+    this.lat = latLng.lat;
+    this.lng = latLng.lng;
+
+    if (!addr) {
+      try {
+        const results = await Geocoder.geocode({
+          'position': latLng
+        }) as GeocoderResult[];
+
+        console.log(results);
+
+        if (results.length === 0) {
+          // Not found
+          return null;
+        }
+
+        // address text
+        const country = results[0].country;
+        let address = '';
+        for (const strLine of results[0].extra.lines) {
+          if (strLine === country) {
+            address += strLine;
+            break;
+          }
+
+          address += `${strLine}, `;
+        }
+
+        this.address = address;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    marker.setTitle(this.address);
+    marker.showInfoWindow();
   }
 
   onButDone() {

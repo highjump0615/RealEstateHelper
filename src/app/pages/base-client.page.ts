@@ -16,4 +16,10 @@ export class BaseClientPage {
       data: this.data
     });
   }
+
+  onButEdit() {
+    this.nav.push('profile-add', {
+      data: this.data
+    });
+  }
 }

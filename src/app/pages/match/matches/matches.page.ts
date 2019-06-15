@@ -115,6 +115,8 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
           this.auth.user.buyers = await this.api.fetchClients(true);
         }
 
+        console.log(this.auth.user.buyers);
+
         // fetch all properties
         const props = await this.api.getAllProperties();
 

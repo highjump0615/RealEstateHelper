@@ -30,7 +30,7 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
       .then((p) => {
         console.log(p);
 
-        this.property = p;
+        this.data.property = p;
       });
   }
 }

@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title>ADD PROFILE</ion-title>
+    <ion-title>{{client ? 'EDIT' : 'ADD'}} PROFILE</ion-title>
 
     <ion-buttons slot="end">
       <ion-button
@@ -28,6 +28,7 @@
       </div>
 
       <app-image-uploader
+        [imgUrl]="getPhotoUrl()"
         #imagePhoto>
         <div class="container flex-c-row nm-center">
           <ion-icon

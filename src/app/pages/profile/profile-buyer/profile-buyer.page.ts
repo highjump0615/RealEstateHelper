@@ -17,5 +17,4 @@ export class ProfileBuyerPage extends BaseClientPage implements OnInit {
 
   ngOnInit() {
   }
-
 }
