@@ -119,8 +119,8 @@
       <div class="dv-item">
         <span>House Size</span>
         <span
-          *ngIf="data.propRequest?.size"
-        >{{data.propRequest?.size}} Sq.ft</span>
+          *ngIf="data.sizeMin || data.sizeMax"
+        >{{data.sizeMin}} ~ {{data.sizeMax}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->

@@ -36,8 +36,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   title = '';
 
-  size: number;
-
   description = '';
   descProp = '';
 
@@ -105,7 +103,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         this.price = this.client.property.price;
         this.commission = this.client.property.commission;
         this.title = this.client.property.title;
-        this.size = this.client.property.size;
+        this.sizeMin = this.client.property.size;
         this.descProp = this.client.property.desc;
 
         this.styles = this.client.property.style;
@@ -261,7 +259,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.desc = this.descProp;
     propNew.style = this.styles;
     propNew.type = this.types;
-    propNew.size = this.size;
+    propNew.size = this.sizeMin;
     propNew.bedroom = this.bedroom;
     propNew.bathroom = this.bathroom;
     propNew.garage = this.garages;

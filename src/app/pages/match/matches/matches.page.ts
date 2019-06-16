@@ -46,7 +46,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     //
     // location
     //
-    if (propReq.location && buyer.radius) {
+    if (propReq.location && prop.location && buyer.radius) {
       const distance = GeoFire.distance(propReq.location, prop.location);
       if (distance > buyer.radius) {
         return false;
