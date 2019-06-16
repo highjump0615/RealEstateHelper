@@ -26,7 +26,7 @@
     <!-- count -->
     <span
       class="sp-title nm-center"
-    >{{buyer.matchedProperties.length}} Matched Properties</span>
+    >{{buyer.matchedProperties?.length}} Matched Properties</span>
 
     <!-- property item -->
     <ion-card
@@ -35,6 +35,7 @@
       <ion-item
         class="no-padding"
         button
+        lines="none"
         detail="false"
         [routerLink]="['/profile', data.agentId]">
         <ion-card-content class="full-width">
@@ -60,19 +61,20 @@
                 <!-- username -->
                 <span
                   class="sp-name"
-                >Anna Clay</span>
+                >{{data.title}}</span>
 
                 <!-- address -->
                 <span
                   class="sp-address"
                   (click)="goToLocation($event)"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
+                >{{data.address}}</span>
 
                 <!-- distance -->
                 <span
                   class="sp-distance"
                   (click)="goToLocation($event)"
-                >0.3 miles away</span>
+                  *ngIf="data.distanceToMile() > 0"
+                >{{data.distanceToMile()}} miles away</span>
               </div>
             </div>
 

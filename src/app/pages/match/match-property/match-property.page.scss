@@ -2,23 +2,25 @@
 
 ion-card {
   ion-card-content {
+    --inner-padding-end: 0;
+
     .dv-content {
       align-items: center;
     }
 
     .dv-image {
-      flex: 2;
+      flex: 3;
       margin-right: 14px;
       height: auto;
 
       ion-thumbnail {
         width: 100%;
-        height: auto;
+        height: 100px;
       }
     }
 
     .dv-info {
-      flex: 1;
+      flex: 2;
       padding-left: 13px;
       border-left: 1px solid var(--color-gray);
 

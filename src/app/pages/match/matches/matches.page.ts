@@ -54,51 +54,67 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // style
-    if (!Utils.compareArrays(propReq.style, prop.style)) {
-      return false;
+    if (propReq.style && prop.style) {
+      if (!Utils.compareArrays(propReq.style, prop.style)) {
+        return false;
+      }
     }
 
     // type
-    if (!Utils.compareArrays(propReq.type, prop.type)) {
-      return false;
+    if (propReq.type && prop.type) {
+      if (!Utils.compareArrays(propReq.type, prop.type)) {
+        return false;
+      }
     }
 
     // size
-    if (!(buyer.sizeMin <= prop.size && prop.size <= buyer.sizeMax)) {
-      return false;
+    if (prop.size && (buyer.sizeMin || buyer.sizeMax)) {
+      if (!(buyer.sizeMin <= prop.size && prop.size <= buyer.sizeMax)) {
+        return false;
+      }
     }
 
     // bedrooms
-    if (propReq.bedroom !== prop.bedroom) {
-      return false;
+    if (propReq.bedroom && prop.bedroom) {
+      if (propReq.bedroom !== prop.bedroom) {
+        return false;
+      }
     }
 
     // bathrooms
-    if (propReq.bathroom !== prop.bathroom) {
-      return false;
+    if (propReq.bathroom && prop.bathroom) {
+      if (propReq.bathroom !== prop.bathroom) {
+        return false;
+      }
     }
 
-    // bedrooms
-    if (propReq.garage !== prop.garage) {
-      return false;
+    // garage
+    if (propReq.garage && prop.garage) {
+      if (!Utils.compareArrays(propReq.garage, prop.garage)) {
+        return false;
+      }
     }
 
     // basement
-    if (propReq.basement !== prop.basement) {
-      return false;
+    if (propReq.basement && prop.basement) {
+      if (!Utils.compareArrays(propReq.basement, prop.basement)) {
+        return false;
+      }
     }
 
     // lot
 
     // status
-    if (propReq.status !== prop.status) {
-      return false;
+    if (propReq.status && prop.status) {
+      if (!Utils.compareArrays(propReq.status, prop.status)) {
+        return false;
+      }
     }
 
     return true;
   }
 
-  async getData() {
+  async getData(isRefresh = false) {
     const isBuyer = this.currentPage === this.PAGE_BUYER;
 
     try {
@@ -107,8 +123,16 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
         // My buyers
         //
         if (!this.matchedBuyers) {
-          this.showLoading = true;
+          if (!isRefresh) {
+            this.showLoading = true;
+          }
+        } else {
+          // already fetched
+          if (!isRefresh) {
+            return;
+          }
         }
+
 
         if (!this.auth.user.buyers) {
           // fetch buyers
@@ -116,6 +140,11 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
         }
 
         console.log(this.auth.user.buyers);
+
+        // init
+        for (const buyer of this.auth.user.buyers) {
+          buyer.matchedProperties = [];
+        }
 
         // fetch all properties
         const props = await this.api.getAllProperties();
@@ -125,6 +154,13 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
 
         // check matching
         for (const prop of props) {
+          if (this.auth.user.lat && this.auth.user.lng && prop.location) {
+            prop.distance = GeoFire.distance(prop.location, [
+              this.auth.user.lat,
+              this.auth.user.lng
+            ]);
+          }
+
           for (const buyer of this.auth.user.buyers) {
             const propReq = buyer.propRequest;
 
@@ -157,6 +193,8 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
         this.matchedSellers = [];
 
         for (const seller of this.auth.user.sellers) {
+          seller.matchedBuyers = [];
+
           // fetch property of seller if needed
           if (!seller.property) {
             seller.property = await this.api.fetchPropertyWithId(seller.propertyId);
