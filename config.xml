@@ -85,6 +85,12 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>We use your location for searching properties nearby from you.</string>
         </edit-config>
+        <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+            <string>We use Photo library for uploading profile and property photos</string>
+        </config-file>
+        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+            <string>We use Camera for uploading profile and property photos</string>
+        </config-file>
     </platform>
     <plugin name="cordova-plugin-googlemaps" spec="~2.5.0">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCfkHIARKL5hIuvviOxuge-a-5HvByaT1Q" />
