@@ -268,6 +268,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.lotDepth = this.depth;
     propNew.status = this.constStatus;
     propNew.price = this.price;
+    propNew.commission = this.commission;
     propNew.agentId = this.auth.user.id;
 
     // save location
