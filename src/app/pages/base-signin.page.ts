@@ -55,6 +55,8 @@ export class BaseSigninPage extends BasePage {
         profile['picture_large']['data']['url']);
 
     } catch (err) {
+      console.log(err.code);
+
       this.onSocialError(err);
       return;
     }
