@@ -36,7 +36,7 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   ionViewDidEnter() {
     // refresh data
-    this.setData();
+    // this.setData();
   }
 
 
@@ -158,9 +158,9 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   private setData() {
     if (this.currentPage === this.PAGE_BUYER) {
-      this.buyers = this.auth.user.buyers;
+      this.buyers = [...this.auth.user.buyers];
     } else {
-      this.sellers = this.auth.user.sellers;
+      this.sellers = [...this.auth.user.sellers];
     }
   }
 }
