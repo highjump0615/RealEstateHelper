@@ -43,6 +43,7 @@ export class User extends BaseModel implements Deserializable {
   //
   // logical
   //
+  saved = true;
   propAll: Array<Property> = [];
 
   buyers: Array<Client>;

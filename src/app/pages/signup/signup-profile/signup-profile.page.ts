@@ -172,6 +172,6 @@ export class SignupProfilePage extends BasePage implements OnInit {
     }
 
     // signup
-    this.router.navigate(['/tabs/home']);
+    this.navCtrl.navigateRoot(['/tabs/home']);
   }
 }

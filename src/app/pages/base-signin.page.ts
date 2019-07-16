@@ -161,11 +161,12 @@ export class BaseSigninPage extends BasePage {
         newUser.email = userRes.email;
         newUser.name = `${firstName} ${lastName}`;
         newUser.photoUrl = photoUrl;
+        newUser.saved = false;
 
         this.auth.user = newUser;
 
         // social login, go to signup profile page
-        this.router.navigate(['signup-profile/social', {
+        this.router.navigate(['signup-profile', {
           socialLogin: true,
         }]);
 

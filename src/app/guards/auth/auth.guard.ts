@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate {
   }
 
   gotoNext(needUser): Promise<boolean> | boolean {
-    if (this.auth.user) {
+    if (this.auth.user && this.auth.user.saved) {
       if (needUser) {
         return Promise.resolve(true);
       }
@@ -82,7 +82,7 @@ export class AuthGuard implements CanActivate {
         } else {
           this.router.navigate(['onboard']);
         }
-        
+
         return Promise.resolve(false);
       })
       .catch((err) => {
