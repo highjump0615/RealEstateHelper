@@ -138,18 +138,29 @@ export class Property extends BaseModel implements Deserializable {
       this.photoUrl = info[Property.FIELD_PHOTO];
     }
 
-    this.style = info[Property.FIELD_STYLE];
-    this.type = info[Property.FIELD_TYPE];
+    if (Property.FIELD_STYLE in info) {
+      this.style = info[Property.FIELD_STYLE];
+    }
+    if (Property.FIELD_TYPE in info) {
+      this.type = info[Property.FIELD_TYPE];
+    }
     this.size = info[Property.FIELD_SIZE];
     this.bedroom = info[Property.FIELD_BEDROOM];
     this.bathroom = info[Property.FIELD_BATHROOM];
-    this.garage = info[Property.FIELD_GARAGE];
-    this.basement = info[Property.FIELD_BASEMENT];
+
+    if (Property.FIELD_GARAGE in info) {
+      this.garage = info[Property.FIELD_GARAGE];
+    }
+    if (Property.FIELD_BASEMENT in info) {
+      this.basement = info[Property.FIELD_BASEMENT];
+    }
 
     this.lotFrontage = info[Property.FIELD_LOT_FRONTAGE];
     this.lotDepth = info[Property.FIELD_LOT_DEPTH];
 
-    this.status = info[Property.FIELD_STATUS];
+    if (Property.FIELD_STATUS in info) {
+      this.status = info[Property.FIELD_STATUS];
+    }
 
     this.commission = info[Property.FIELD_COMMISSION];
 
