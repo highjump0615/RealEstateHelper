@@ -209,6 +209,11 @@ ion-item.no-padding {
 
   span:first-child {
     color: var(--color-gray-dark);
+    margin-right: 16px;
+  }
+
+  span:last-child {
+    text-align: right;
   }
 }
 
