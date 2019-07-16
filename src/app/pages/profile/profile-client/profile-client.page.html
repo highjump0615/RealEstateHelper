@@ -41,12 +41,12 @@
     *ngIf="currentPage == PAGE_BUYER">
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && auth.user.buyers?.length == 0">
+      *ngIf="!showLoading && buyers.length == 0">
       <span>No buyers added yet</span>
     </div>
 
     <ion-virtual-scroll
-      [items]="auth.user.buyers"
+      [items]="buyers"
       approxItemHeight="69">
 
       <ion-item-sliding
@@ -95,12 +95,12 @@
     *ngIf="currentPage == PAGE_SELLER">
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && auth.user.sellers?.length == 0">
+      *ngIf="!showLoading && sellers.length == 0">
       <span>No sellers added yet</span>
     </div>
 
     <ion-virtual-scroll
-      [items]="auth.user.sellers"
+      [items]="sellers"
       approxItemHeight="69">
       <ion-item-sliding
         *virtualItem="let item; let i = index">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {BaseSegmentPage} from '../../base-segment.page';
 import {AlertController} from '@ionic/angular';
 import {Router} from '@angular/router';
@@ -16,12 +16,16 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   showLoading = false;
 
+  buyers = [];
+  sellers = [];
+
   constructor(
     public alertController: AlertController,
     private router: Router,
     private auth: AuthService,
     public nav: NavService,
     public api: ApiService,
+    private zone: NgZone
   ) {
     super(null, alertController);
   }
@@ -29,6 +33,12 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
   ngOnInit() {
     this.fetchData();
   }
+
+  ionViewDidEnter() {
+    // refresh data
+    this.setData();
+  }
+
 
   onPageChanged(page: number) {
     console.log('onPageChanged');
@@ -44,11 +54,13 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     if (isBuyer) {
       if (this.auth.user.buyers) {
         // already initialized
+        this.buyers = this.auth.user.buyers;
         return;
       }
     } else {
       if (this.auth.user.sellers) {
         // already initialized
+        this.sellers = this.auth.user.sellers;
         return;
       }
     }
@@ -60,29 +72,19 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
       if (isBuyer) {
         this.auth.user.buyers = clients;
+        this.buyers = this.auth.user.buyers;
       } else {
         this.auth.user.sellers = clients;
+        this.sellers = this.auth.user.sellers;
       }
-
-      this.showLoading = false;
 
       console.log(clients);
 
     } catch (err) {
       console.log(err);
-
-      this.showLoading = false;
     }
-  }
 
-  getData() {
-    const isBuyer = this.currentPage === this.PAGE_BUYER;
-
-    if (isBuyer) {
-      return this.auth.user.buyers;
-    } else {
-      return this.auth.user.sellers;
-    }
+    this.showLoading = false;
   }
 
   onButRemove(index) {
@@ -106,7 +108,12 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
 
-            this.removeItem(index);
+            setTimeout(() => {
+              this.zone.run(() => {
+                this.removeItem(index);
+              });
+            }, 500);
+
           }
         }
       ]
@@ -138,14 +145,22 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       this.api.deleteClient(this.auth.user.buyers[index]);
 
       this.auth.user.buyers.splice(index, 1);
-      this.auth.user.buyers = [...this.auth.user.buyers];
 
     } else {
       // for seller
       this.api.deleteClient(this.auth.user.sellers[index]);
 
-      this.auth.user.sellers = this.auth.user.sellers.splice(index, 1);
-      this.auth.user.sellers = [...this.auth.user.sellers];
+      this.auth.user.sellers.splice(index, 1);
+    }
+
+    this.setData();
+  }
+
+  private setData() {
+    if (this.currentPage === this.PAGE_BUYER) {
+      this.buyers = this.auth.user.buyers;
+    } else {
+      this.sellers = this.auth.user.sellers;
     }
   }
 }
