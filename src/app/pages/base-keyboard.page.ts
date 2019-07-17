@@ -1,14 +1,19 @@
 import {AlertController, LoadingController, Platform} from '@ionic/angular';
 import {KeyboardService} from '../services/keyboard/keyboard.service';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
+import {BasePage} from './base.page';
 
-export class BaseKeyboardPage {
+export class BaseKeyboardPage extends BasePage {
 
   constructor(
     public kbService: KeyboardService,
     public platform: Platform,
     public keyboard: Keyboard,
+    public loadingCtrl?: LoadingController,
+    public alertCtrl?: AlertController
   ) {
+    super(loadingCtrl, alertCtrl);
+
     keyboard.setResizeMode('native');
   }
 

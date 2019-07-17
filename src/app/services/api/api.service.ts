@@ -467,6 +467,23 @@ export class ApiService {
     return Promise.all(proms);
   }
 
+  sendFeedback(text) {
+    const send = FirebaseManager.getInstance().getCloudFunction('sendMail');
+
+    return send({
+      text: text
+    });
+  }
+
+  sendShareProperty(to) {
+    const share = FirebaseManager.getInstance().getCloudFunction('shareProperty');
+
+    return share({
+      sendTo: to,
+      name: this.auth.user.name
+    });
+  }
+
   /**
    * save entire object to database
    *

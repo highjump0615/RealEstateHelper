@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
+import 'firebase/functions';
 import {config} from './config';
 
 export class FirebaseManager {
@@ -54,6 +55,10 @@ export class FirebaseManager {
 
   init() {
     firebase.initializeApp(config.firebase);
+
+    // local test
+    // firebase.functions().useFunctionsEmulator('http://localhost:5001')
+
     this.initServerTime();
   }
 
@@ -77,6 +82,10 @@ export class FirebaseManager {
   signOut() {
     // Log out
     FirebaseManager.auth().signOut();
+  }
+
+  getCloudFunction(functionName) {
+    return firebase.functions().httpsCallable(functionName);
   }
 
 }
