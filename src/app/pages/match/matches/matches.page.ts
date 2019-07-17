@@ -207,6 +207,10 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
 
             // add to matched buyers
             seller.matchedBuyers.push(buyer);
+          }
+
+          // add to list if it has matched buyers
+          if (seller.matchedBuyers.length > 0) {
             this.matchedSellers.push(seller);
           }
         }
