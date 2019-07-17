@@ -8,13 +8,14 @@ import {NavService} from '../../services/nav.service';
 import {VirtualScrollerComponent} from 'ngx-virtual-scroller';
 import {KeyboardService} from '../../services/keyboard/keyboard.service';
 import {Platform} from '@ionic/angular';
+import {BaseKeyboardPage} from '../base-keyboard.page';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.page.html',
   styleUrls: ['./message.page.scss']
 })
-export class MessagePage implements OnInit {
+export class MessagePage extends BaseKeyboardPage implements OnInit {
 
   @ViewChild('scroll') scrollMain: VirtualScrollerComponent;
 
@@ -24,21 +25,17 @@ export class MessagePage implements OnInit {
   message = '';
 
   constructor(
-    private keyboard: Keyboard,
+    public keyboard: Keyboard,
     public nav: NavService,
     private auth: AuthService,
     public api: ApiService,
     public kbService: KeyboardService,
-    private platform: Platform,
+    public platform: Platform,
   ) {
-    keyboard.setResizeMode('native');
+    super(kbService, platform, keyboard);
 
     // get parameter
     this.userTo = this.nav.get('data');
-  }
-
-  ionViewDidLeave() {
-    this.keyboard.setResizeMode('');
   }
 
   ngOnInit() {
@@ -64,14 +61,6 @@ export class MessagePage implements OnInit {
 
   isMessageMine(msg) {
     return msg.senderId === this.auth.user.id;
-  }
-
-  getMarginBottom() {
-    if (this.platform.is('android')) {
-      return `${this.kbService.keyboardHeight}px`;
-    }
-
-    return '0';
   }
 
   onButSend() {

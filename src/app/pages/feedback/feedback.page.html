@@ -25,10 +25,12 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer
+  [style.margin-bottom] = "getMarginBottom()">
   <ion-button
     class="m-0 with-shadow"
     expand="block"
     square
+    (click)="onButDone()"
   >Done</ion-button>
 </ion-footer>
