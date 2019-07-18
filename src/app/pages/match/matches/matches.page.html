@@ -31,11 +31,15 @@
     mode="ios"
     placeholder="Search client name or property address..."
     *ngIf="currentPage == PAGE_BUYER"
+    [(ngModel)]="keywordBuyer"
+    (ionChange)="onSearch()"
   ></ion-searchbar>
   <ion-searchbar
     mode="ios"
     placeholder="Search client name"
     *ngIf="currentPage == PAGE_SELLER"
+    [(ngModel)]="keywordSeller"
+    (ionChange)="onSearch()"
   ></ion-searchbar>
 
   <!-- pull to refresh -->
@@ -56,12 +60,12 @@
 
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && (!matchedBuyers || matchedBuyers.length == 0)">
-      <span>No matched buyers yet</span>
+      *ngIf="getNotice(PAGE_BUYER)">
+      <span>{{getNotice(PAGE_BUYER)}}</span>
     </div>
 
     <ion-item
-      *ngFor="let item of matchedBuyers"
+      *ngFor="let item of getMatchedBuyers()"
       lines="none">
       <div
         class="flex-row"
@@ -115,12 +119,12 @@
 
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && (!matchedSellers || matchedSellers.length == 0)">
-      <span>No matched sellers yet</span>
+      *ngIf="getNotice(PAGE_SELLER)">
+      <span>{{getNotice(PAGE_SELLER)}}</span>
     </div>
 
     <ion-item
-      *ngFor="let item of matchedSellers"
+      *ngFor="let item of getMatchedSellers()"
       lines="none">
       <div
         class="flex-row"

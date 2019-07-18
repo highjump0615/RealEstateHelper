@@ -18,7 +18,12 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   showLoading = true;
 
   matchedBuyers: Array<Client>;
+  matchedBuyersFiltered: Array<Client> = [];
   matchedSellers: Array<Client>;
+  matchedSellersFiltered: Array<Client> = [];
+
+  keywordBuyer = '';
+  keywordSeller = '';
 
   constructor(
     private auth: AuthService,
@@ -246,5 +251,91 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     this.nav.push('match-buyer', {
       data: item
     });
+  }
+
+  onSearch() {
+    if (this.currentPage === this.PAGE_BUYER) {
+      // filter
+      if (this.keywordBuyer) {
+        const buyersFiltered = [];
+
+        for (const c of this.matchedBuyers) {
+          // name
+          if (c.name.toLowerCase().indexOf(this.keywordBuyer) >= 0) {
+            buyersFiltered.push(c);
+          }
+          // address
+          else if (c.address.toLowerCase().indexOf(this.keywordBuyer) >= 0) {
+            buyersFiltered.push(c);
+          }
+        }
+
+        this.matchedBuyersFiltered = buyersFiltered;
+      }
+    }
+    else {
+      // filter
+      if (this.keywordSeller) {
+        const sellersFiltered = [];
+
+        for (const c of this.matchedSellers) {
+          // name
+          if (c.name.toLowerCase().indexOf(this.keywordSeller) >= 0) {
+            sellersFiltered.push(c);
+          }
+        }
+
+        this.matchedSellersFiltered = sellersFiltered;
+      }
+    }
+  }
+
+  getMatchedBuyers() {
+    if (this.keywordBuyer) {
+      return this.matchedBuyersFiltered;
+    }
+
+    return this.matchedBuyers;
+  }
+
+  getMatchedSellers() {
+    if (this.keywordSeller) {
+      return this.matchedSellersFiltered;
+    }
+
+    return this.matchedSellers;
+  }
+
+  getNotice(tab) {
+    if (this.showLoading) {
+      return '';
+    }
+
+    if (tab === this.PAGE_BUYER) {
+      if (this.keywordBuyer) {
+        if (this.matchedBuyersFiltered.length <= 0) {
+          return 'Not found matched buyers with the keyword';
+        }
+      }
+      else {
+        if (!this.matchedBuyers || this.matchedBuyers.length <= 0) {
+          return 'No matched buyers yet';
+        }
+      }
+    }
+    else {
+      if (this.keywordSeller) {
+        if (this.matchedSellersFiltered.length <= 0) {
+          return 'Not found matched sellers with the keyword';
+        }
+      }
+      else {
+        if (!this.matchedSellers || this.matchedSellers.length <= 0) {
+          return 'No matched sellers yet';
+        }
+      }
+    }
+
+    return '';
   }
 }
