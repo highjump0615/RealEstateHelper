@@ -104,7 +104,7 @@
       </div>
 
       <!-- phone -->
-      <div class="dv-profile-input flex-c-row mb-6">
+      <div class="dv-profile-input flex-c-row mb-14">
         <!-- icon -->
         <ion-icon name="call"></ion-icon>
         <ion-input
@@ -114,6 +114,9 @@
           [(ngModel)]="phone"
         ></ion-input>
       </div>
+
+      <!-- separator -->
+      <div class="dv-separator mb-14"></div>
 
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
@@ -268,12 +271,12 @@
         <!-- property description -->
         <div class="dv-input-with-title">
           <!-- title -->
-          <ion-label>Title</ion-label>
+          <ion-label>Property Heading</ion-label>
 
           <div class="dv-profile-input flex-row">
             <ion-input
               name="title"
-              placeholder="Enter Title"
+              placeholder="Enter Property Heading"
               [(ngModel)]="title"
             ></ion-input>
           </div>
