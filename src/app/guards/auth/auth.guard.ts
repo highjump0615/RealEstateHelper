@@ -88,7 +88,7 @@ export class AuthGuard implements CanActivate {
       .catch((err) => {
         console.log(err);
 
-        this.router.navigate(['signup-email']);
+        this.router.navigate(['onboard']);
         return Promise.resolve(false);
       });
   }
