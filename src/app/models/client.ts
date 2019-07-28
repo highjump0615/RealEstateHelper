@@ -432,4 +432,16 @@ export class Client extends BaseModel implements Deserializable {
 
     return true;
   }
+
+  getPhone() {
+    if (!this.phone) {
+      return '';
+    }
+
+    const first = this.phone.substring(0, 3);
+    const second = this.phone.substring(3, 6);
+    const last = this.phone.substring(6);
+
+    return `${first}-${second}-${last}`;
+  }
 }

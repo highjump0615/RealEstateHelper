@@ -233,4 +233,8 @@ export class Property extends BaseModel implements Deserializable {
   getStatusStr() {
     return this.status ? this.status.join(', ') : '';
   }
+
+  priceStr() {
+    return this.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
 }

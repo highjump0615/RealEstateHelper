@@ -54,14 +54,14 @@
         <!-- phone -->
         <div class="flex-c-row">
           <ion-icon name="call"></ion-icon>
-          <span>{{data.phone}}</span>
+          <span>{{data.getPhone()}}</span>
         </div>
 
         <!-- price -->
         <div class="flex-c-row"
              [hidden]="!data.property">
           <ion-icon name="cash"></ion-icon>
-          <span>${{data.property?.price}}</span>
+          <span>${{data.property?.priceStr()}}</span>
         </div>
 
         <!-- location -->
