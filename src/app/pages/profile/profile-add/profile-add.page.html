@@ -107,12 +107,13 @@
       <div class="dv-profile-input flex-c-row mb-14">
         <!-- icon -->
         <ion-icon name="call"></ion-icon>
-        <ion-input
+        <input
           name="phone"
+          class="ip-item"
           placeholder="Enter Phone Number"
           type="tel"
           [(ngModel)]="phone"
-        ></ion-input>
+          [textMask]="{mask: maskPhone}" />
       </div>
 
       <!-- separator -->
@@ -222,7 +223,7 @@
             placeholder="Price"
             type="tel"
             [(ngModel)]="price"
-            [textMask]="{mask: numberMask}" />
+            [textMask]="{mask: maskNumber}" />
         </div>
 
         <!-- location -->

@@ -44,7 +44,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   client: Client;
 
-  numberMask: any;
+  maskNumber: any;
+  maskPhone = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   constructor(
     public navCtrl: NavController,
@@ -62,7 +63,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     this.client = this.nav.get('data');
 
     // text mask
-    this.numberMask = createNumberMask({
+    this.maskNumber = createNumberMask({
       prefix: '$',
       thousandsSeparatorSymbol: ',',
       allowDecimal: true,
@@ -184,6 +185,10 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     await alert.present();
   }
 
+  unmask(val) {
+    return val.replace(/\D+/g, '');
+  }
+
   onButDone() {
     //
     // input valid
@@ -278,7 +283,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.lotFrontage = this.frontage;
     propNew.lotDepth = this.depth;
     propNew.status = this.constStatus;
-    propNew.price = this.price;
+    propNew.price = this.unmask(this.price);
     propNew.commission = this.commission;
     propNew.agentId = this.auth.user.id;
 
@@ -297,7 +302,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
     clientNew.name = this.name;
     clientNew.email = this.email;
-    clientNew.phone = this.phone;
+    clientNew.phone = this.unmask(this.phone);
     clientNew.desc = this.description;
     clientNew.agentId = this.auth.user.id;
 
