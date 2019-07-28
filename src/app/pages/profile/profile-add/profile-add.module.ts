@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfileAddPage } from './profile-add.page';
 import {ComponentsModule} from '../../../components/components.module';
+import {TextMaskModule} from 'angular2-text-mask';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    TextMaskModule
   ],
   declarations: [ProfileAddPage]
 })

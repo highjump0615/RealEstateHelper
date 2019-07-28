@@ -13,6 +13,7 @@ import {PropertyService} from '../../../services/property/property.service';
 import {GeoFire} from 'geofire';
 import {BaseClientAddPage} from '../../base-client-add.page';
 import {NavService} from '../../../services/nav.service';
+import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
 
 @Component({
   selector: 'app-profile-add',
@@ -43,6 +44,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   client: Client;
 
+  numberMask: any;
+
   constructor(
     public navCtrl: NavController,
     private kbService: KeyboardService,
@@ -57,6 +60,14 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
     // get parameter
     this.client = this.nav.get('data');
+
+    // text mask
+    this.numberMask = createNumberMask({
+      prefix: '$',
+      thousandsSeparatorSymbol: ',',
+      allowDecimal: true,
+      decimalSymbol: '.'
+    });
   }
 
   async ngOnInit() {

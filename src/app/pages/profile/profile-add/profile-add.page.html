@@ -216,12 +216,13 @@
         <div class="dv-profile-input flex-c-row">
           <!-- icon -->
           <ion-icon name="cash"></ion-icon>
-          <ion-input
+          <input
             name="price"
+            class="ip-item"
             placeholder="Price"
-            type="number"
+            type="tel"
             [(ngModel)]="price"
-          ></ion-input>
+            [textMask]="{mask: numberMask}" />
         </div>
 
         <!-- location -->
