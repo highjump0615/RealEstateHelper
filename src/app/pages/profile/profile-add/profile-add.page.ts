@@ -188,14 +188,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     await alert.present();
   }
 
-  unmask(val) {
-    if (!val) {
-      return null;
-    }
-
-    return val.toString().replace(/\D+/g, '');
-  }
-
   onButDone() {
     //
     // input valid

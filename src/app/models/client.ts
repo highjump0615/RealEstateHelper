@@ -437,4 +437,9 @@ export class Client extends BaseModel implements Deserializable {
   getPhone() {
     return Utils.getPhoneStr(this.phone);
   }
+
+  getIdReadable() {
+    const strId = this.id.substring(this.id.length - 7);
+    return strId.toUpperCase();
+  }
 }

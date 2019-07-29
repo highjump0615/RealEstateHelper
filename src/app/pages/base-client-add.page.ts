@@ -385,4 +385,12 @@ export class BaseClientAddPage extends BaseSegmentPage {
       this.alertSelect = null;
     });
   }
+
+  unmask(val) {
+    if (!val) {
+      return null;
+    }
+
+    return val.toString().replace(/\D+/g, '');
+  }
 }
