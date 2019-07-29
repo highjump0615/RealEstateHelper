@@ -106,4 +106,16 @@ export class Utils {
 
     return found;
   }
+
+  static getPhoneStr(phone) {
+    if (!phone) {
+      return '';
+    }
+
+    const first = phone.substring(0, 3);
+    const second = phone.substring(3, 6);
+    const last = phone.substring(6, 10);
+
+    return `${first}-${second}-${last}`;
+  }
 }

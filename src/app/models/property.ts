@@ -36,6 +36,8 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_AGENT = 'agentId';
   static FIELD_SELLERID = 'sellerId';
 
+  static FIELD_SHOW_ADDRESS = 'showAddress';
+
   static STYLES = [
     'Two-Storey',
     'Bungalow',
@@ -109,6 +111,8 @@ export class Property extends BaseModel implements Deserializable {
   agentId = '';
   sellerId = '';
 
+  showAddress = false;
+
   //
   // logical
   //
@@ -169,6 +173,10 @@ export class Property extends BaseModel implements Deserializable {
     this.agentId = info[Property.FIELD_AGENT];
     this.sellerId = info[Property.FIELD_SELLERID];
 
+    if (Property.FIELD_SHOW_ADDRESS in info) {
+      this.showAddress = info[Property.FIELD_SHOW_ADDRESS];
+    }
+
     return this;
   }
 
@@ -204,6 +212,8 @@ export class Property extends BaseModel implements Deserializable {
 
     dict[Property.FIELD_AGENT] = this.agentId;
     dict[Property.FIELD_SELLERID] = this.sellerId;
+
+    this.addDictItem(dict, Property.FIELD_SHOW_ADDRESS, this.showAddress);
 
     return dict;
   }

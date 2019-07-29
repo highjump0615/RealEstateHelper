@@ -1,6 +1,7 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
+import {Utils} from "../helpers/utils";
 
 export class Client extends BaseModel implements Deserializable {
   //
@@ -434,14 +435,6 @@ export class Client extends BaseModel implements Deserializable {
   }
 
   getPhone() {
-    if (!this.phone) {
-      return '';
-    }
-
-    const first = this.phone.substring(0, 3);
-    const second = this.phone.substring(3, 6);
-    const last = this.phone.substring(6);
-
-    return `${first}-${second}-${last}`;
+    return Utils.getPhoneStr(this.phone);
   }
 }

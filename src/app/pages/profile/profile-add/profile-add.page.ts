@@ -64,6 +64,14 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     this.client = this.nav.get('data');
   }
 
+  toString(val) {
+    if (!val) {
+      return '';
+    }
+
+    return val.toString;
+  }
+
   async ngOnInit() {
     // init data
     if (this.client) {
@@ -73,11 +81,11 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       this.email = this.client.email;
       this.phone = this.client.phone;
 
-      this.priceMin = this.client.priceMin;
-      this.priceMax = this.client.priceMax;
+      this.priceMin = this.toString(this.client.priceMin);
+      this.priceMax = this.toString(this.client.priceMax);
 
-      this.sizeMin = this.client.sizeMin;
-      this.sizeMax = this.client.sizeMax;
+      this.sizeMin = this.toString(this.client.sizeMin);
+      this.sizeMax = this.toString(this.client.sizeMax);
 
       this.description = this.client.desc;
 
@@ -100,7 +108,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
           this.propService.lat = this.client.propRequest.location[0];
           this.propService.lng = this.client.propRequest.location[1];
         }
-        this.propService.address = this.client.propRequest.address
+        this.propService.address = this.client.propRequest.address;
 
         this.radius = this.client.radius;
 
@@ -108,8 +116,10 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         this.price = this.client.property.price;
         this.commission = this.client.property.commission;
         this.title = this.client.property.title;
-        this.sizeMin = this.client.property.size;
+        this.sizeMin = this.toString(this.client.property.size);
         this.descProp = this.client.property.desc;
+
+        this.isAddressVisible = this.client.property.showAddress;
 
         this.styles = this.client.property.style;
         this.types = this.client.property.type;
@@ -179,7 +189,11 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   }
 
   unmask(val) {
-    return val.replace(/\D+/g, '');
+    if (!val) {
+      return null;
+    }
+
+    return val.toString().replace(/\D+/g, '');
   }
 
   onButDone() {
@@ -268,7 +282,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.desc = this.descProp;
     propNew.style = this.styles;
     propNew.type = this.types;
-    propNew.size = this.sizeMin;
+    propNew.size = this.unmask(this.sizeMin);
     propNew.bedroom = this.bedroom;
     propNew.bathroom = this.bathroom;
     propNew.garage = this.garages;
@@ -279,6 +293,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     propNew.price = this.unmask(this.price);
     propNew.commission = this.commission;
     propNew.agentId = this.auth.user.id;
+    propNew.showAddress = this.isAddressVisible;
 
     // save location
     if (this.propService.lat && this.propService.lng) {
@@ -331,11 +346,11 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     } else {
       clientNew.type = Client.CLIENT_TYPE_BUYER;
 
-      clientNew.priceMin = this.priceMin;
-      clientNew.priceMax = this.priceMax;
+      clientNew.priceMin = this.unmask(this.priceMin);
+      clientNew.priceMax = this.unmask(this.priceMax);
 
-      clientNew.sizeMin = this.sizeMin;
-      clientNew.sizeMax = this.sizeMax;
+      clientNew.sizeMin = this.unmask(this.sizeMin);
+      clientNew.sizeMax = this.unmask(this.sizeMax);
 
       clientNew.address = this.propService.address;
       clientNew.radius = this.radius;

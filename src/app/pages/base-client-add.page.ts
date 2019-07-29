@@ -10,14 +10,14 @@ export class BaseClientAddPage extends BaseSegmentPage {
 
   alertSelect: any;
 
-  priceMin: number;
-  priceMax: number;
+  priceMin = '';
+  priceMax = '';
 
   styles = [];
   types = [];
 
-  sizeMin: number;
-  sizeMax: number;
+  sizeMin = '';
+  sizeMax = '';
 
   bedroom: number;
   bathroom: number;

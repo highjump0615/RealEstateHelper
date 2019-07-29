@@ -2,6 +2,7 @@ import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
 import {Client} from './client';
+import {Utils} from "../helpers/utils";
 
 export class User extends BaseModel implements Deserializable {
 
@@ -98,5 +99,12 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_ADDR_BKG] = this.addressBkg;
 
     return dict;
+  }
+
+  getPhone() {
+    return Utils.getPhoneStr(this.phone);
+  }
+  getPhoneBkg() {
+    return Utils.getPhoneStr(this.phoneBkg);
   }
 }

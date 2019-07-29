@@ -87,7 +87,7 @@
           (click)="onButPhone(user?.phone)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>{{user ? user.phone : '&nbsp;'}}</span>
+          <span>{{user ? user.getPhone() : '&nbsp;'}}</span>
         </div>
       </div>
 
@@ -116,7 +116,7 @@
           (click)="onButPhone(user?.phoneBkg)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>{{user ? user.phoneBkg : '&nbsp;'}}</span>
+          <span>{{user ? user.getPhoneBkg() : '&nbsp;'}}</span>
         </div>
       </div>
     </div>
