@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {PropertyService} from '../../services/property/property.service';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, PickerController} from '@ionic/angular';
 import {BaseClientAddPage} from '../base-client-add.page';
 import {NavService} from '../../services/nav.service';
 import {Client} from '../../models/client';
@@ -22,8 +22,9 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public propService: PropertyService,
+    public pickerCtrl: PickerController,
   ) {
-    super(loadingCtrl, alertCtrl, propService);
+    super(loadingCtrl, alertCtrl, propService, pickerCtrl);
 
   }
 

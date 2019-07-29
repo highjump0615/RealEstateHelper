@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {BaseSegmentPage} from '../../base-segment.page';
-import {AlertController, LoadingController, NavController} from '@ionic/angular';
+import {AlertController, LoadingController, NavController, PickerController} from '@ionic/angular';
 import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 import {Property} from '../../../models/property';
 import {ImageUploaderComponent} from '../../../components/image-uploader/image-uploader.component';
@@ -14,6 +14,7 @@ import {GeoFire} from 'geofire';
 import {BaseClientAddPage} from '../../base-client-add.page';
 import {NavService} from '../../../services/nav.service';
 import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
+
 
 @Component({
   selector: 'app-profile-add',
@@ -44,7 +45,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   client: Client;
 
-  maskNumber: any;
   maskPhone = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   constructor(
@@ -55,20 +55,13 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     public nav: NavService,
     public propService: PropertyService,
     private auth: AuthService,
-    public api: ApiService
+    public api: ApiService,
+    public pickerCtrl: PickerController,
   ) {
-    super(loadingCtrl, alertCtrl, propService);
+    super(loadingCtrl, alertCtrl, propService, pickerCtrl);
 
     // get parameter
     this.client = this.nav.get('data');
-
-    // text mask
-    this.maskNumber = createNumberMask({
-      prefix: '$',
-      thousandsSeparatorSymbol: ',',
-      allowDecimal: true,
-      decimalSymbol: '.'
-    });
   }
 
   async ngOnInit() {

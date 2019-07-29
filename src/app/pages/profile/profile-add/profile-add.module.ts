@@ -23,7 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ComponentsModule,
-    TextMaskModule
+    TextMaskModule,
   ],
   declarations: [ProfileAddPage]
 })

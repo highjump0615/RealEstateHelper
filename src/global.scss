@@ -244,3 +244,15 @@ ion-item.no-padding {
 ion-thumbnail {
   background: var(--ion-color-light);
 }
+
+//
+// input
+//
+.ip-item {
+  background: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+
+  padding: 10px;
+}

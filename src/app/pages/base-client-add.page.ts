@@ -1,7 +1,10 @@
 import {BaseSegmentPage} from './base-segment.page';
-import {AlertController, LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController, PickerController} from '@ionic/angular';
+import {PickerOptions} from '@ionic/core';
 import {Property} from '../models/property';
 import {PropertyService} from '../services/property/property.service';
+import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
+
 
 export class BaseClientAddPage extends BaseSegmentPage {
 
@@ -26,10 +29,16 @@ export class BaseClientAddPage extends BaseSegmentPage {
   constStatus = [];
   garages = [];
 
+  numbersRoom = [];
+
+  maskCurrency: any;
+  maskSize: any;
+
   constructor(
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public propService: PropertyService,
+    public pickerCtrl?: PickerController,
   ) {
     super(loadingCtrl, alertCtrl);
 
@@ -37,6 +46,26 @@ export class BaseClientAddPage extends BaseSegmentPage {
     propService.address = '';
     propService.lat = null;
     propService.lng = null;
+
+    for (let i = 1; i <= 10; i++) {
+      this.numbersRoom.push({
+        text: i.toString(),
+        value: i
+      });
+    }
+
+    // text mask
+    this.maskCurrency = createNumberMask({
+      prefix: '$',
+      thousandsSeparatorSymbol: ',',
+      allowDecimal: true,
+      decimalSymbol: '.'
+    });
+
+    this.maskSize = createNumberMask({
+      prefix: '',
+      suffix: ' sq ft.',
+    });
   }
 
   getStyles() {
@@ -247,5 +276,113 @@ export class BaseClientAddPage extends BaseSegmentPage {
   onFocusLocation() {
     // go to map page
     this.propService.gotoMapForLocation();
+  }
+
+  async onFocusBedroom() {
+    // already opened select alert
+    if (this.alertSelect) {
+      return;
+    }
+
+    let indexCur = 0;
+    if (this.bedroom) {
+      indexCur = this.bedroom - 1;
+    }
+
+    const opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (value: any): void => { console.log(value, 'cancel'); },
+        },
+        {
+          text: 'Done',
+          handler: (value: any): void => {
+            console.log(value, 'ok');
+
+            this.bedroom = value.bedroom.text;
+          },
+        }
+      ],
+      columns: [
+        {
+          name: 'bedroom',
+          options: this.numbersRoom,
+          selectedIndex: indexCur,
+        }
+      ]
+    };
+
+    this.alertSelect = await this.pickerCtrl.create(opts);
+    this.alertSelect.present();
+    this.alertSelect.onDidDismiss().then(async data => {
+      const col = await this.alertSelect.getColumn('bedroom');
+
+      //
+      // fixing error of overlapping items from second show
+      //
+      col.options.forEach(element => {
+        delete element.selected;
+        delete element.duration;
+        delete element.transform;
+      });
+
+      this.alertSelect = null;
+    });
+  }
+
+  async onFocusBathroom() {
+    // already opened select alert
+    if (this.alertSelect) {
+      return;
+    }
+
+    let indexCur = 0;
+    if (this.bathroom) {
+      indexCur = this.bathroom - 1;
+    }
+
+    const opts: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (value: any): void => { console.log(value, 'cancel'); },
+        },
+        {
+          text: 'Done',
+          handler: (value: any): void => {
+            console.log(value, 'ok');
+
+            this.bathroom = value.bathroom.text;
+          },
+        }
+      ],
+      columns: [
+        {
+          name: 'bathroom',
+          options: this.numbersRoom,
+          selectedIndex: indexCur,
+        }
+      ]
+    };
+
+    this.alertSelect = await this.pickerCtrl.create(opts);
+    this.alertSelect.present();
+    this.alertSelect.onDidDismiss().then(async data => {
+      const col = await this.alertSelect.getColumn('bathroom');
+
+      //
+      // fixing error of overlapping items from second show
+      //
+      col.options.forEach(element => {
+        delete element.selected;
+        delete element.duration;
+        delete element.transform;
+      });
+
+      this.alertSelect = null;
+    });
   }
 }

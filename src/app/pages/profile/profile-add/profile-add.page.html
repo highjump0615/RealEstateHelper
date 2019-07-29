@@ -127,22 +127,26 @@
           <div class="dv-profile-input flex-c-row">
             <!-- icon -->
             <ion-icon name="cash"></ion-icon>
-            <ion-input
+            <input
               name="priceMin"
               placeholder="Minimum Price"
-              type="number"
               [(ngModel)]="priceMin"
-            ></ion-input>
+              class="ip-item"
+              type="tel"
+              [textMask]="{mask: maskCurrency}"
+            />
           </div>
           <div class="dv-profile-input flex-c-row">
             <!-- icon -->
             <ion-icon name="cash"></ion-icon>
-            <ion-input
+            <input
               name="priceMax"
               placeholder="Maximum Price"
-              type="number"
               [(ngModel)]="priceMax"
-            ></ion-input>
+              class="ip-item"
+              type="tel"
+              [textMask]="{mask: maskCurrency}"
+            />
           </div>
         </div>
 
@@ -190,22 +194,26 @@
             <div class="dv-profile-input flex-c-row">
               <!-- icon -->
               <ion-icon name="calculator"></ion-icon>
-              <ion-input
+              <input
                 name="sizeMin"
                 placeholder="Minimum Size"
-                type="number"
                 [(ngModel)]="sizeMin"
-              ></ion-input>
+                class="ip-item"
+                type="tel"
+                [textMask]="{mask: maskSize}"
+              />
             </div>
             <div class="dv-profile-input flex-c-row">
               <!-- icon -->
               <ion-icon name="calculator"></ion-icon>
-              <ion-input
+              <input
                 name="sizeMax"
                 placeholder="Maximum Size"
-                type="number"
                 [(ngModel)]="sizeMax"
-              ></ion-input>
+                class="ip-item"
+                type="tel"
+                [textMask]="{mask: maskSize}"
+              />
             </div>
           </div>
         </div>
@@ -223,7 +231,7 @@
             placeholder="Price"
             type="tel"
             [(ngModel)]="price"
-            [textMask]="{mask: maskNumber}" />
+            [textMask]="{mask: maskCurrency}" />
         </div>
 
         <!-- location -->
@@ -288,12 +296,14 @@
         <div class="dv-profile-input dv-profile-input-text flex-row mt-6">
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
-          <ion-input
+          <input
             name="size"
+            class="ip-item"
             placeholder="Enter House Size"
-            type="number"
+            type="tel"
             [(ngModel)]="sizeMin"
-          ></ion-input>
+            [textMask]="{mask: maskSize}"
+          />
         </div>
       </ng-container>
 
@@ -327,8 +337,10 @@
         <ion-icon name="bed"></ion-icon>
         <ion-input
           name="bedroom"
+          readonly
           placeholder="Bedrooms"
           type="number"
+          (ionFocus)="onFocusBedroom()"
           [(ngModel)]="bedroom"
         ></ion-input>
       </div>
@@ -341,6 +353,8 @@
           name="bathroom"
           placeholder="Bathrooms"
           type="number"
+          readonly
+          (ionFocus)="onFocusBathroom()"
           [(ngModel)]="bathroom"
         ></ion-input>
       </div>

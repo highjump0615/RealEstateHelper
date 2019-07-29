@@ -80,24 +80,28 @@
         <div class="dv-filter-input flex-c-row mb-6">
           <!-- icon -->
           <ion-icon name="cash"></ion-icon>
-          <ion-input
+          <input
             name="priceMin"
             placeholder="Minimum Price"
-            type="number"
             [(ngModel)]="priceMin"
-          ></ion-input>
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskCurrency}"
+          />
         </div>
 
         <!-- maximum -->
         <div class="dv-filter-input flex-c-row">
           <!-- icon -->
           <ion-icon name="cash"></ion-icon>
-          <ion-input
+          <input
             name="priceMax"
             placeholder="Maximum Price"
-            type="number"
             [(ngModel)]="priceMax"
-          ></ion-input>
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskCurrency}"
+          />
         </div>
       </div>
 
@@ -109,24 +113,28 @@
         <div class="dv-filter-input flex-c-row mb-6">
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
-          <ion-input
+          <input
             name="sizeMin"
             placeholder="Minimum House Size (in square feet)"
-            type="number"
             [(ngModel)]="sizeMin"
-          ></ion-input>
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskSize}"
+          />
         </div>
 
         <!-- maximum -->
         <div class="dv-filter-input flex-c-row mb-6">
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
-          <ion-input
+          <input
             name="sizeMax"
             placeholder="Maximum House Size (in square feet)"
-            type="number"
             [(ngModel)]="sizeMax"
-          ></ion-input>
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskSize}"
+          />
         </div>
       </div>
 
@@ -174,6 +182,8 @@
             name="bedroom"
             placeholder="Minimum number of Bedrooms"
             type="number"
+            readonly
+            (ionFocus)="onFocusBedroom()"
             [(ngModel)]="bedroom"
           ></ion-input>
         </div>
@@ -190,6 +200,8 @@
             name="bathroom"
             placeholder="Minimum number of Bathrooms"
             type="number"
+            readonly
+            (ionFocus)="onFocusBathroom()"
             [(ngModel)]="bathroom"
           ></ion-input>
         </div>
