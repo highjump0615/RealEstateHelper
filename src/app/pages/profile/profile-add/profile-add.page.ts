@@ -26,6 +26,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   @ViewChild('imagePhoto') uploadPhoto: ImageUploaderComponent;
   @ViewChild('mainForm') formMain: NgForm;
 
+  images = [];
+
   // input data
   name = '';
   email = '';
@@ -447,5 +449,22 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     this.auth.user.propAll.push(prop);
   }
 
+  //
+  // images
+  //
+  getArrayPhotos() {
+    return Array(this.images.length + 1).fill(1);
+  }
 
+  onImageSelected(index, data) {
+    if (index >= this.images.length) {
+      this.images.push(data);
+    } else {
+      this.images[index] = data;
+    }
+  }
+
+  onImageRemoved(index) {
+    this.images.splice(index, 1);
+  }
 }

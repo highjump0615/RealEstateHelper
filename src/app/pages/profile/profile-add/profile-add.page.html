@@ -29,6 +29,7 @@
 
       <app-image-uploader
         [imgUrl]="getPhotoUrl()"
+        id="iu-profile"
         #imagePhoto>
         <div class="container flex-c-row nm-center">
           <ion-icon
@@ -485,6 +486,30 @@
             ></ion-textarea>
           </div>
         </div>
+
+        <!-- property images -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Photos</ion-label>
+
+          <div class="dv-img-container flex-row">
+            <app-property-image-uploader
+              class="iu-property"
+              *ngFor="let p of getArrayPhotos(); let i = index"
+              [imgUrl]="images[i]"
+              (imageSelected)="onImageSelected(i, $event)"
+              (removeImage)="onImageRemoved(i)"
+              [preservePicture]="false">
+              <div class="container flex-c-row nm-center">
+                <ion-icon
+                  class="nm-center"
+                  name="camera"></ion-icon>
+              </div>
+            </app-property-image-uploader>
+          </div>
+        </div>
+
+
       </ng-container>
     </form>
   </div>

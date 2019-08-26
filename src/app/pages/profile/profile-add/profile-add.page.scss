@@ -15,7 +15,7 @@
   }
 }
 
-/deep/ app-image-uploader {
+/deep/ app-image-uploader#iu-profile {
   z-index: 1;
 
   .dv-photo {
@@ -36,6 +36,8 @@
     }
   }
 }
+
+
 
 .dv-profile-input-text {
   ion-icon {
@@ -82,4 +84,21 @@
 
 .sp-suffix {
   margin-right: 12px;
+}
+
+.dv-img-container {
+  flex-wrap: wrap;
+}
+
+/deep/ app-property-image-uploader {
+  width: calc(100% / 3);
+  padding: 4px;
+
+  z-index: 1;
+
+  .dv-photo {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+  }
 }

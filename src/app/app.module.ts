@@ -21,7 +21,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
 @NgModule({
   declarations: [
     AppComponent,
-    TabsPage
+    TabsPage,
   ],
   entryComponents: [],
   imports: [
