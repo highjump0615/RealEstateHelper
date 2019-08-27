@@ -20,7 +20,7 @@ export class ClientsPage extends BasePage implements OnInit {
 
   currentPage = this.TYPE_BUYER;
 
-  showLoading = false;
+  showLoading = true;
   clients: Array<Client> = [];
 
   filterClient: Client;

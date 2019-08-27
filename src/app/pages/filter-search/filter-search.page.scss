@@ -7,8 +7,11 @@
 }
 
 ion-radio-group {
-  width: 60%;
   align-self: center;
+
+  ion-item {
+    width: 100px;
+  }
 }
 
 .it-checkbox {
