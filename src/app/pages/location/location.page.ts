@@ -8,6 +8,7 @@ import {
 import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
 import {PropertyService} from '../../services/property/property.service';
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-location',
@@ -24,7 +25,8 @@ export class LocationPage implements OnInit, AfterViewInit {
   constructor(
     private platform: Platform,
     public navCtrl: NavController,
-    private propService: PropertyService
+    private propService: PropertyService,
+    public auth: AuthService
   ) {
   }
 
@@ -41,64 +43,51 @@ export class LocationPage implements OnInit, AfterViewInit {
     this.lng = this.propService.lng;
   }
 
-  loadMap() {
+  async loadMap() {
     // This code is necessary for browser
     Environment.setEnv({
       'API_KEY_FOR_BROWSER_RELEASE': config.googleMapApiKey,
       'API_KEY_FOR_BROWSER_DEBUG': config.googleMapApiKey
     });
 
+    // options
+    let zoom = 12;
+
+    // get current location
+    let latlng = null;
+    if (this.lat && this.lng) {
+      latlng = new LatLng(this.lat, this.lng);
+    } else if (this.auth.user.lat && this.auth.user.lng) {
+      // Get the location of you
+      latlng = new LatLng(this.auth.user.lat, this.auth.user.lng);
+    } else {
+      // init location to Torronto
+      latlng = new LatLng(43.6532, -79.3849);
+      zoom = 15;
+    }
+
+    console.log(latlng);
+
+    // create map
     this.map = GoogleMaps.create('map_canvas', {
       camera: {
-        target: {
-          lat: 43.0741704,
-          lng: -89.3809802
-        },
-        zoom: 15,
+        target: latlng,
+        zoom: zoom,
         tilt: 30
       }
     });
 
-    this.goToMyLocation();
     if (this.lat && this.lng) {
-      const latlng = new LatLng(this.lat, this.lng);
+      latlng = new LatLng(this.lat, this.lng);
       this.showMarker(latlng);
     }
 
     this.map.on(GoogleMapsEvent.MAP_CLICK)
-      .subscribe(
-        (params: any[]) => {
-          this.showMarker(params[0] as ILatLng);
-        }
-      );
-
-  }
-
-  async goToMyLocation() {
-    this.map.clear();
-
-    try {
-      let latlng = null;
-      if (this.lat && this.lng) {
-        latlng = new LatLng(this.lat, this.lng);
-      } else {
-        // Get the location of you
-        const location = await this.map.getMyLocation();
-        latlng = location.latLng;
-      }
-
-      console.log(latlng);
-
-      // Move the map camera to the location with animation
-      this.map.animateCamera({
-        target: latlng,
-        zoom: 15,
-        duration: 5000
-      });
-
-    } catch (err) {
-      console.log(err);
-    }
+        .subscribe(
+            (params: any[]) => {
+              this.showMarker(params[0] as ILatLng);
+            }
+        );
   }
 
   async showMarker(latLng, addr = null) {

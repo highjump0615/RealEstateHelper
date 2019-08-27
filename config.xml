@@ -130,7 +130,7 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
-    <engine name="browser" spec="5.0.4" />
     <engine name="android" spec="7.1.4" />
     <engine name="ios" spec="^4.5.5" />
+    <engine name="browser" spec="^5.0.4" />
 </widget>
