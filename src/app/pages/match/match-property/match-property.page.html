@@ -67,6 +67,7 @@
                 <span
                   class="sp-address"
                   (click)="goToLocation($event)"
+                  *ngIf="data.showAddress"
                 >{{data.address}}</span>
 
                 <!-- distance -->

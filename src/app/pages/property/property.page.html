@@ -72,7 +72,9 @@
       >${{data.priceStr()}}</span>
 
       <!-- address -->
-      <span class="sp-address"
+      <span
+        class="sp-address"
+        *ngIf="data.showAddress"
       >{{data.address}}</span>
 
       <!-- description -->

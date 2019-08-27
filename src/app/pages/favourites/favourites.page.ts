@@ -4,8 +4,8 @@ import {AlertController} from '@ionic/angular';
 import {ApiService} from '../../services/api/api.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {Client} from '../../models/client';
-import {TabsPage} from "../tabs/tabs.page";
-import {TabService} from "../../services/tab.service";
+import {TabsPage} from '../tabs/tabs.page';
+import {TabService} from '../../services/tab.service';
 
 @Component({
   selector: 'app-favourites',
