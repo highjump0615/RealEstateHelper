@@ -52,10 +52,11 @@ export class Property extends BaseModel implements Deserializable {
   ];
 
   static TYPES = [
-    'detached-semi',
-    'T.H-condo',
-    'condo T.H',
-    'Condo highrise',
+    'Detached',
+    'Semi',
+    'Townhouse',
+    'Condo Town',
+    'Condo Apartment',
     'Other',
   ];
 
