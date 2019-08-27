@@ -12,7 +12,7 @@ import {PropertyService} from '../../../services/property/property.service';
 import {GeoFire} from 'geofire';
 import {BaseClientAddPage} from '../../base-client-add.page';
 import {NavService} from '../../../services/nav.service';
-import {Utils} from "../../../helpers/utils";
+import {Utils} from '../../../helpers/utils';
 
 
 @Component({
@@ -35,7 +35,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   price: number;
 
-  isAddressVisible = false;
+  isAddressVisible = true;
 
   title = '';
 
@@ -70,7 +70,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return '';
     }
 
-    return val.toString;
+    return val.toString();
   }
 
   async ngOnInit() {

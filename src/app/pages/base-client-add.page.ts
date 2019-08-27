@@ -388,7 +388,7 @@ export class BaseClientAddPage extends BaseSegmentPage {
 
   unmask(val) {
     if (!val) {
-      return null;
+      return '';
     }
 
     return val.toString().replace(/\D+/g, '');
