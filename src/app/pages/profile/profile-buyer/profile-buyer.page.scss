@@ -61,3 +61,36 @@ ion-buttons[slot="end"] {
     width: 20px;
   }
 }
+
+// seller info
+.dv-photos {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 11pt;
+  width: 100%;
+}
+.dv-img-container {
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.dv-photo {
+  width: calc(100% / 3);
+  padding: 4px;
+
+  .dv-img {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    background-color: #eee;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+    }
+  }
+
+
+}

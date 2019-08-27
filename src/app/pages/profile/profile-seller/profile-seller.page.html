@@ -167,6 +167,23 @@
         <span>Construction Status</span>
         <span>{{data.property?.getStatusStr()}}</span>
       </div>
+
+      <!-- property images -->
+      <div class="dv-photos flex-column">
+        <!-- title -->
+        <span>Property Photos</span>
+
+        <div
+          class="dv-img-container flex-row">
+          <div
+            class="dv-photo"
+            *ngFor="let img of data.property.imageUrls">
+            <div class="dv-img">
+              <img [src]="img" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
