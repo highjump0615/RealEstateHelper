@@ -88,8 +88,8 @@
             >Seller: {{item.getIdReadable()}}</span>
             <span
               class="sp-address"
-              hidden
-            >2896 Holly Street Rome, Canada</span>
+              *ngIf="item.property.showAddress"
+            >{{item.property.address}}</span>
           </div>
 
           <!-- distance -->

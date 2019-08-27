@@ -66,7 +66,13 @@ export class ClientsPage extends BasePage implements OnInit {
 
         for (const prop of propsAll) {
           if (this.isPropertyMatching(prop) > 0) {
-            const prom = this.api.fetchClientWithId(prop.sellerId, false);
+            const prom = this.api.fetchClientWithId(prop.sellerId, false)
+                .then((client) => {
+                  client.property = prop;
+
+                  return Promise.resolve(client);
+                });
+
             proms.push(prom);
           }
         }

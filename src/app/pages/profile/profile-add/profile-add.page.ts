@@ -148,6 +148,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   }
 
   onAddressChecked(event) {
+    console.log(event);
+
     if (this.isAddressVisible) {
       this.presentAddressVisibleConfirm();
     }
