@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar
     color="primary">
-    <ion-title>FAVORITES</ion-title>
+    <ion-title>FAVOURITES</ion-title>
   </ion-toolbar>
 
   <!-- segments -->
@@ -12,7 +12,7 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_BUYER)">
-      Buyer’s Favorites
+      Buyer’s Favourites
     </ion-button>
     <ion-button
       [fill]="currentPage == PAGE_SELLER ? 'solid' : 'outline'"
@@ -20,7 +20,7 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_SELLER)">
-      Seller’s Favorites
+      Seller’s Favourites
     </ion-button>
   </div>
 </ion-header>
@@ -39,7 +39,7 @@
     <div
       class="dv-no-list-item flex-c-row"
       *ngIf="!showLoading && buyers?.length == 0">
-      <span>No buyers has favorite properties yet</span>
+      <span>No buyers has favourite properties yet</span>
     </div>
 
     <ion-virtual-scroll
@@ -88,7 +88,7 @@
     <div
       class="dv-no-list-item flex-c-row"
       *ngIf="!showLoading && sellers?.length == 0">
-      <span>No sellers has favorite buyers yet</span>
+      <span>No sellers has favourite buyers yet</span>
     </div>
 
     <ion-virtual-scroll
