@@ -189,22 +189,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       return;
     }
 
-    if (!this.email) {
-      this.presentAlert(
-        'Invalid Email',
-        'Please enter email address'
-      );
-      return;
-    }
-
-    if (!this.phone) {
-      this.presentAlert(
-        'Invalid Phone',
-        'Please enter phone number'
-      );
-      return;
-    }
-
     if (this.currentPage === this.PAGE_SELLER) {
       if (this.images.length <= 0) {
         // except for edit case
