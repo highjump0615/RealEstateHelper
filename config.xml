@@ -91,6 +91,18 @@
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
             <string>We use Camera for uploading profile and property photos</string>
         </config-file>
+        <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
+        <icon height="40" src="resources/ios/icon/icon-20@2x.png" width="40" />
+        <icon height="60" src="resources/ios/icon/icon-20@3x.png" width="60" />
+        <icon height="29" src="resources/ios/icon/icon-29.png" width="29" />
+        <icon height="58" src="resources/ios/icon/icon-29@2x.png" width="58" />
+        <icon height="87" src="resources/ios/icon/icon-29@3x.png" width="87" />
+        <icon height="48" src="resources/ios/icon/icon-24@2x.png" width="48" />
+        <icon height="55" src="resources/ios/icon/icon-27.5@2x.png" width="55" />
+        <icon height="88" src="resources/ios/icon/icon-44@2x.png" width="88" />
+        <icon height="172" src="resources/ios/icon/icon-86@2x.png" width="172" />
+        <icon height="196" src="resources/ios/icon/icon-98@2x.png" width="196" />
+        <splash height="2436" src="resources/ios/splash/Default-2436h.png" width="1125" />
     </platform>
     <plugin name="cordova-plugin-googlemaps" spec="~2.5.0">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCfkHIARKL5hIuvviOxuge-a-5HvByaT1Q" />
@@ -119,6 +131,6 @@
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
-    <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.4" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>
