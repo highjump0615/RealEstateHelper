@@ -68,6 +68,7 @@ export class Property extends BaseModel implements Deserializable {
     'None',
     'Attached',
     'Detached',
+    'Triple',
     'Other',
   ];
 
