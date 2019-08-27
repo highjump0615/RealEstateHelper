@@ -28,9 +28,10 @@
       <ion-slides
         pager
         #slides>
-        <ion-slide>
+        <ion-slide
+          *ngFor="let img of data.imageUrls">
           <img
-            [src]="data.photoUrl"
+            [src]="img"
             class="img-logo" />
         </ion-slide>
       </ion-slides>

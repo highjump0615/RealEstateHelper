@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BaseSegmentPage} from '../../base-segment.page';
 import {AlertController, LoadingController, NavController, PickerController} from '@ionic/angular';
 import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 import {Property} from '../../../models/property';
@@ -13,7 +12,7 @@ import {PropertyService} from '../../../services/property/property.service';
 import {GeoFire} from 'geofire';
 import {BaseClientAddPage} from '../../base-client-add.page';
 import {NavService} from '../../../services/nav.service';
-import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
+import {Utils} from "../../../helpers/utils";
 
 
 @Component({
@@ -137,6 +136,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
         this.garages = this.client.property.garage;
 
+        this.images = this.client.property.imageUrls;
+
         if (this.client.property.location) {
           this.propService.lat = this.client.property.location[0];
           this.propService.lng = this.client.property.location[1];
@@ -144,20 +145,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         this.propService.address = this.client.property.address;
       }
     }
-  }
-
-  getPhotoUrl() {
-    let url = null;
-
-    if (this.client) {
-      if (this.client.type === Client.CLIENT_TYPE_BUYER) {
-        url = this.client.photoUrl;
-      } else {
-        url = this.client.property.photoUrl;
-      }
-    }
-
-    return url;
   }
 
   onAddressChecked(event) {
@@ -219,7 +206,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     }
 
     if (this.currentPage === this.PAGE_SELLER) {
-      if (!this.uploadPhoto.picture) {
+      if (this.images.length <= 0) {
         // except for edit case
         if (!this.client ||
           !this.client.property ||
@@ -255,10 +242,14 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     super.onPageChanged(page);
   }
 
-  onSubmit() {
+  savePropertyImages() {
+
+  }
+
+  async onSubmit() {
     console.log('submitting ...');
 
-    this.showLoadingView();
+    await this.showLoadingView();
 
     const user = this.auth.user;
 
@@ -266,158 +257,108 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     // save data for client
     //
 
-    // save property info
-    let propNew = new Property();
-    if (this.client && this.client.property) {
-      propNew = this.client.property;
-    }
-    propNew.address = this.propService.address;
-    propNew.title = this.title;
-    propNew.desc = this.descProp;
-    propNew.style = this.styles;
-    propNew.type = this.types;
-    propNew.size = this.unmask(this.sizeMin);
-    propNew.bedroom = this.bedroom;
-    propNew.bathroom = this.bathroom;
-    propNew.garage = this.garages;
-    propNew.basement = this.basements;
-    propNew.lotFrontage = this.frontage;
-    propNew.lotDepth = this.depth;
-    propNew.status = this.constStatus;
-    propNew.price = this.unmask(this.price);
-    propNew.commission = this.commission;
-    propNew.agentId = this.auth.user.id;
-    propNew.showAddress = this.isAddressVisible;
-
-    // save location
-    if (this.propService.lat && this.propService.lng) {
-      propNew.location = [this.propService.lat, this.propService.lng];
-    }
-
-    propNew.generateNewId();
-
-    // save client info
-    let clientNew = new Client();
-    if (this.client) {
-      clientNew = this.client;
-    }
-
-    clientNew.name = this.name;
-    clientNew.email = this.email;
-    clientNew.phone = this.unmask(this.phone);
-    clientNew.desc = this.description;
-    clientNew.agentId = this.auth.user.id;
-
-    if (this.currentPage === this.PAGE_SELLER) {
-      clientNew.type = Client.CLIENT_TYPE_SELLER;
-      clientNew.property = propNew;
-
-      // add property
-      clientNew.propertyId = propNew.id;
-
-      // save image
-      if (this.uploadPhoto.picture) {
-        const path = 'properties/' + propNew.id + '.png';
-
-        this.api.uploadImage(path, this.uploadPhoto.picture)
-          .then((url) => {
-            propNew.photoUrl = url;
-
-            this.doSaveClient(clientNew, propNew);
-          })
-          .catch((err) => {
-            console.log(err);
-
-            this.showLoadingView(false);
-            this.presentAlert(
-              'Faild to upload image',
-              err.message
-            );
-          });
-      } else {
-        this.doSaveClient(clientNew, propNew);
+    try {
+      //
+      // save property info
+      //
+      let propNew = new Property();
+      if (this.client && this.client.property) {
+        propNew = this.client.property;
       }
-    } else {
-      clientNew.type = Client.CLIENT_TYPE_BUYER;
+      propNew.address = this.propService.address;
+      propNew.title = this.title;
+      propNew.desc = this.descProp;
+      propNew.style = this.styles;
+      propNew.type = this.types;
+      propNew.size = this.unmask(this.sizeMin);
+      propNew.bedroom = this.bedroom;
+      propNew.bathroom = this.bathroom;
+      propNew.garage = this.garages;
+      propNew.basement = this.basements;
+      propNew.lotFrontage = this.frontage;
+      propNew.lotDepth = this.depth;
+      propNew.status = this.constStatus;
+      propNew.price = this.unmask(this.price);
+      propNew.commission = this.commission;
+      propNew.agentId = this.auth.user.id;
+      propNew.showAddress = this.isAddressVisible;
 
-      clientNew.priceMin = this.unmask(this.priceMin);
-      clientNew.priceMax = this.unmask(this.priceMax);
+      // save location
+      if (this.propService.lat && this.propService.lng) {
+        propNew.location = [this.propService.lat, this.propService.lng];
+      }
 
-      clientNew.sizeMin = this.unmask(this.sizeMin);
-      clientNew.sizeMax = this.unmask(this.sizeMax);
+      propNew.generateNewId();
 
-      clientNew.address = this.propService.address;
-      clientNew.radius = this.radius;
-      clientNew.propRequest = propNew;
+      //
+      // save client info
+      //
+      let clientNew = new Client();
+      if (this.client) {
+        clientNew = this.client;
+      }
+      else {
+        clientNew.generateNewId();
+      }
 
-      clientNew.generateNewId();
+      clientNew.name = this.name;
+      clientNew.email = this.email;
+      clientNew.phone = this.unmask(this.phone);
+      clientNew.desc = this.description;
+      clientNew.agentId = this.auth.user.id;
 
+      // upload photo
       if (this.uploadPhoto.picture) {
         const path = 'clients/' + clientNew.id + '.png';
 
-        this.api.uploadImage(path, this.uploadPhoto.picture)
-          .then((url) => {
-            clientNew.photoUrl = url;
-
-            this.doSaveClient(clientNew);
-          })
-          .catch((err) => {
-            console.log(err);
-
-            this.showLoadingView(false);
-            this.presentAlert(
-              'Faild to upload image',
-              err.message
-            );
-          });
-      } else {
-        this.doSaveClient(clientNew);
-      }
-    }
-  }
-
-  async doSaveClient(client, property = null) {
-    try {
-      await this.api.saveToDatabase(client);
-
-      //
-      // save user relation
-      //
-      let path = `${Client.TABLE_NAME_BUYER_AGENT}`;
-      if (client.type === Client.CLIENT_TYPE_SELLER) {
-        path = `${Client.TABLE_NAME_SELLER_AGENT}`;
+        clientNew.photoUrl = await this.api.uploadImage(path, this.uploadPhoto.picture);
       }
 
-      await this.api.saveToDatabaseRaw(true,
-        `${path}/${this.auth.user.id}/${client.id}`);
+      if (this.currentPage === this.PAGE_SELLER) {
+        clientNew.type = Client.CLIENT_TYPE_SELLER;
 
-      //
-      // save property
-      //
-      if (client.type === Client.CLIENT_TYPE_SELLER) {
-        property.sellerId = client.id;
+        //
+        // upload property images
+        //
+        const imageUrlsProp = [];
 
-        await this.doSaveProperty(property);
-      }
+        for (const img of this.images) {
+          // skip already uploaded
+          if (Utils.validURL(img)) {
+            imageUrlsProp.push(img);
 
-      //
-      // add to user client list, for add new clien only
-      //
-      if (!this.client) {
-        if (client.type === Client.CLIENT_TYPE_SELLER) {
-          // add to array if initialized only
-          if (this.auth.user.sellers) {
-            this.auth.user.sellers.push(client);
+            continue;
           }
-        } else {
-          // add to array if initialized only
-          if (this.auth.user.buyers) {
-            this.auth.user.buyers.push(client);
-          }
+
+          const path = `products/${propNew.id}/${Utils.makeId(5)}`;
+          const urlImg = await this.api.uploadImage(path, img);
+
+          console.log('uploaded iamge: ', urlImg);
+
+          imageUrlsProp.push(urlImg);
         }
+
+        propNew.imageUrls = imageUrlsProp;
+        clientNew.property = propNew;
+
+        // add property
+        clientNew.propertyId = propNew.id;
+
+      } else {
+        clientNew.type = Client.CLIENT_TYPE_BUYER;
+
+        clientNew.priceMin = this.unmask(this.priceMin);
+        clientNew.priceMax = this.unmask(this.priceMax);
+
+        clientNew.sizeMin = this.unmask(this.sizeMin);
+        clientNew.sizeMax = this.unmask(this.sizeMax);
+
+        clientNew.address = this.propService.address;
+        clientNew.radius = this.radius;
+        clientNew.propRequest = propNew;
       }
 
-      this.showLoadingView(false);
+      this.doSaveClient(clientNew, propNew);
 
       // back to prev page
       this.navCtrl.pop();
@@ -425,12 +366,53 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     } catch (err) {
       console.log(err);
 
-      this.showLoadingView(false);
-
       this.presentAlert(
-        'Failed to save data',
-        err.message
+          'Faild to save data',
+          err.message
       );
+    }
+
+    this.showLoadingView(false);
+  }
+
+  async doSaveClient(client, property) {
+    await this.api.saveToDatabase(client);
+
+    //
+    // save user relation
+    //
+    let path = `${Client.TABLE_NAME_BUYER_AGENT}`;
+    if (client.type === Client.CLIENT_TYPE_SELLER) {
+      path = `${Client.TABLE_NAME_SELLER_AGENT}`;
+    }
+
+    await this.api.saveToDatabaseRaw(true,
+      `${path}/${this.auth.user.id}/${client.id}`);
+
+    //
+    // save property
+    //
+    if (client.type === Client.CLIENT_TYPE_SELLER) {
+      property.sellerId = client.id;
+
+      await this.doSaveProperty(property);
+    }
+
+    //
+    // add to user client list, for add new client only
+    //
+    if (!this.client) {
+      if (client.type === Client.CLIENT_TYPE_SELLER) {
+        // add to array if initialized only
+        if (this.auth.user.sellers) {
+          this.auth.user.sellers.push(client);
+        }
+      } else {
+        // add to array if initialized only
+        if (this.auth.user.buyers) {
+          this.auth.user.buyers.push(client);
+        }
+      }
     }
   }
 

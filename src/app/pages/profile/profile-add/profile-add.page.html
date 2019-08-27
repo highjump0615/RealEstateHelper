@@ -28,7 +28,7 @@
       </div>
 
       <app-image-uploader
-        [imgUrl]="getPhotoUrl()"
+        [imgUrl]="this.client?.photoUrl"
         id="iu-profile"
         #imagePhoto>
         <div class="container flex-c-row nm-center">

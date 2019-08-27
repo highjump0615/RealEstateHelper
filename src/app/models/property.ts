@@ -13,7 +13,12 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_ADDRESS = 'address';
   static FIELD_TITLE = 'title';
   static FIELD_DESC = 'description';
+
+  static FIELD_IMAGES = 'imageUrls';
+
+  // deprecated, imageUrls now
   static FIELD_PHOTO = 'photoUrl';
+
 
   static FIELD_PRICE = 'price';
   static FIELD_LOCATION = 'location';
@@ -85,6 +90,9 @@ export class Property extends BaseModel implements Deserializable {
   //
   // properties
   //
+  imageUrls = [];
+
+  // deprecated, imageUrls now
   photoUrl: string;
 
   address = '';
@@ -140,8 +148,15 @@ export class Property extends BaseModel implements Deserializable {
     if (Property.FIELD_LOCATION in info) {
       this.location = info[Property.FIELD_LOCATION];
     }
-    if (Property.FIELD_PHOTO in info) {
-      this.photoUrl = info[Property.FIELD_PHOTO];
+
+    // photos
+    if (Property.FIELD_IMAGES in info) {
+      this.imageUrls = info[Property.FIELD_IMAGES];
+    }
+    else {
+      if (Property.FIELD_PHOTO in info) {
+        this.imageUrls.push(info[Property.FIELD_PHOTO]);
+      }
     }
 
     if (Property.FIELD_STYLE in info) {
@@ -193,7 +208,7 @@ export class Property extends BaseModel implements Deserializable {
     this.addDictItem(dict, Property.FIELD_PRICE, this.price);
     this.addDictItem(dict, Property.FIELD_LOCATION, this.location);
 
-    this.addDictItem(dict, Property.FIELD_PHOTO, this.photoUrl);
+    this.addDictItem(dict, Property.FIELD_IMAGES, this.imageUrls);
 
     dict[Property.FIELD_STYLE] = this.style;
     dict[Property.FIELD_TYPE] = this.type;
