@@ -2,6 +2,7 @@ import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
 import {Utils} from '../helpers/utils';
+import {User} from "./user";
 
 export class Client extends BaseModel implements Deserializable {
   //
@@ -72,6 +73,7 @@ export class Client extends BaseModel implements Deserializable {
 
   selected = false;
 
+  agent: User;
   property: Property;
   matchedProperties: Array<Property> = [];
   matchedBuyers: Array<Client> = [];

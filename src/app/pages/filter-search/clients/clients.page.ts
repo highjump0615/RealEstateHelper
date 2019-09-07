@@ -15,12 +15,16 @@ import {Utils} from '../../../helpers/utils';
 })
 export class ClientsPage extends BasePage implements OnInit {
 
+  static PAGE_COUNT = 20;
+
   TYPE_BUYER = 0;
   TYPE_SELLER = 1;
 
   currentPage = this.TYPE_BUYER;
 
   showLoading = true;
+
+  private clientAll: Array<Client> = [];
   clients: Array<Client> = [];
 
   filterClient: Client;
@@ -44,22 +48,23 @@ export class ClientsPage extends BasePage implements OnInit {
     }
     this.showLoadingView(true, strDesc);
 
-    this.filterData();
+    this.loadData();
   }
 
-  private async filterData() {
+  private async loadData() {
+    this.clientAll = [];
+
     try {
+      // load data
       if (this.filterClient.type === this.TYPE_BUYER) {
         const buyersAll = await this.api.getAllBuyers();
-        const buyersMatched = [];
 
         for (const buyer of buyersAll) {
           if (this.isClientMatching(buyer) > 0) {
-            buyersMatched.push(buyer);
+            this.clientAll.push(buyer);
           }
         }
 
-        this.clients = buyersMatched;
       } else {
         const propsAll = await this.api.getAllProperties();
         const proms = [];
@@ -78,10 +83,43 @@ export class ClientsPage extends BasePage implements OnInit {
         }
 
         // fetch clients
-        this.clients = await Promise.all(proms);
+        this.clientAll = await Promise.all(proms);
       }
 
-      console.log(this.clients);
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.filterData();
+  }
+
+  private async filterData() {
+    try {
+      const currentCount = this.clients.length;
+      const proms = [];
+      const clientsTemp = [];
+
+      for (const c of this.clientAll) {
+        if (c.agent) {
+          continue;
+        }
+
+        // fetch agent
+        this.api.getUserWithId(c.agentId)
+            .then((u) => {
+              c.agent = u;
+            });
+        clientsTemp.push(c);
+
+        if (clientsTemp.length >= ClientsPage.PAGE_COUNT) {
+          break;
+        }
+      }
+
+      // const clientsTemp = await Promise.all(proms);
+      console.log(clientsTemp);
+
+      this.clients = this.clients.concat(clientsTemp);
     }
     finally {
       // hide loading mask
@@ -90,6 +128,17 @@ export class ClientsPage extends BasePage implements OnInit {
       setTimeout(() => {
         this.showLoadingView(false);
       }, 100);
+    }
+  }
+
+  async loadMoreData(event) {
+    await this.filterData();
+
+    event.target.complete();
+
+    // check if all loaded
+    if (this.clients.length >= this.clientAll.length) {
+      event.target.disabled = true;
     }
   }
 

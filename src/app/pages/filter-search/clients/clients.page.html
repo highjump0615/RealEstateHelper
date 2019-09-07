@@ -19,14 +19,12 @@
       <span>Buyers not found</span>
     </div>
 
-    <ion-virtual-scroll
-      [items]="clients"
-      approxItemHeight="69">
+    <ion-list>
 
       <ion-item
         button
         detail="false"
-        *virtualItem="let item; let i = index"
+        *ngFor="let item of clients; let i = index"
         [routerLink]="['/profile', item.agentId]">
         <div class="flex-row full-width">
           <!-- photo -->
@@ -43,7 +41,7 @@
             >Buyer: {{item.getIdReadable()}}</span>
             <span
               class="sp-address"
-            >{{item.address}}</span>
+            >Agent: {{item.agent?.name}}</span>
           </div>
 
           <!-- distance -->
@@ -53,7 +51,7 @@
           >0.2 km away</span>
         </div>
       </ion-item>
-    </ion-virtual-scroll>
+    </ion-list>
   </ng-container>
 
   <ng-container
@@ -101,5 +99,12 @@
       </ion-item>
     </ion-virtual-scroll>
   </ng-container>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
