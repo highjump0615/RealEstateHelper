@@ -40,8 +40,8 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
       Client.CLIENT_TYPE_BUYER :
       Client.CLIENT_TYPE_SELLER;
 
-    c.priceMin = this.unmask(this.priceMin);
-    c.priceMax = this.unmask(this.priceMax);
+    c.priceMin = +this.unmask(this.priceMin);
+    c.priceMax = +this.unmask(this.priceMax);
 
     c.propRequest.style = this.styles;
     c.propRequest.type = this.types;
@@ -52,13 +52,13 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
     c.propRequest.location = this.propService.getLocation();
     c.radius = this.distance;
 
-    c.sizeMin = this.unmask(this.sizeMin);
-    c.sizeMax = this.unmask(this.sizeMax);
+    c.sizeMin = +this.unmask(this.sizeMin);
+    c.sizeMax = +this.unmask(this.sizeMax);
 
-    c.propRequest.bedroom = this.bedroom;
-    c.propRequest.bathroom = this.bathroom;
-    c.propRequest.lotFrontage = this.frontage;
-    c.propRequest.lotDepth = this.depth;
+    c.propRequest.bedroom = +this.bedroom;
+    c.propRequest.bathroom = +this.bathroom;
+    c.propRequest.lotFrontage = +this.frontage;
+    c.propRequest.lotDepth = +this.depth;
 
     this.nav.push('filter-search/clients', {
       data: c

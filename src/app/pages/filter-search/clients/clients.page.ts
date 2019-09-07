@@ -41,12 +41,12 @@ export class ClientsPage extends BasePage implements OnInit {
     this.filterClient = nav.get('data');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     let strDesc = 'Searching for required buyers...';
     if (this.filterClient.type === this.TYPE_SELLER) {
       strDesc = 'Searching for required sellers...';
     }
-    this.showLoadingView(true, strDesc);
+    await this.showLoadingView(true, strDesc);
 
     this.loadData();
   }
@@ -227,6 +227,9 @@ export class ClientsPage extends BasePage implements OnInit {
     if (client.propRequest.bathroom >= this.filterClient.propRequest.bathroom) {
       nMatch++;
     }
+
+    console.log(client);
+    console.log(nMatch);
 
     return nMatch;
   }

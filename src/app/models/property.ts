@@ -144,7 +144,7 @@ export class Property extends BaseModel implements Deserializable {
     this.desc = info[Property.FIELD_DESC];
 
     if (Property.FIELD_PRICE in info) {
-      this.price = info[Property.FIELD_PRICE];
+      this.price = +info[Property.FIELD_PRICE];
     }
 
     if (Property.FIELD_LOCATION in info) {
@@ -167,9 +167,9 @@ export class Property extends BaseModel implements Deserializable {
     if (Property.FIELD_TYPE in info) {
       this.type = info[Property.FIELD_TYPE];
     }
-    this.size = info[Property.FIELD_SIZE];
-    this.bedroom = info[Property.FIELD_BEDROOM];
-    this.bathroom = info[Property.FIELD_BATHROOM];
+    this.size = +info[Property.FIELD_SIZE];
+    this.bedroom = +info[Property.FIELD_BEDROOM];
+    this.bathroom = +info[Property.FIELD_BATHROOM];
 
     if (Property.FIELD_GARAGE in info) {
       this.garage = info[Property.FIELD_GARAGE];
@@ -178,8 +178,8 @@ export class Property extends BaseModel implements Deserializable {
       this.basement = info[Property.FIELD_BASEMENT];
     }
 
-    this.lotFrontage = info[Property.FIELD_LOT_FRONTAGE];
-    this.lotDepth = info[Property.FIELD_LOT_DEPTH];
+    this.lotFrontage = +info[Property.FIELD_LOT_FRONTAGE];
+    this.lotDepth = +info[Property.FIELD_LOT_DEPTH];
 
     if (Property.FIELD_STATUS in info) {
       this.status = info[Property.FIELD_STATUS];

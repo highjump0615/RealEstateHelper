@@ -2,7 +2,7 @@ import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
 import {Utils} from '../helpers/utils';
-import {User} from "./user";
+import {User} from './user';
 
 export class Client extends BaseModel implements Deserializable {
   //
@@ -97,25 +97,25 @@ export class Client extends BaseModel implements Deserializable {
 
       // buyer
       if (Client.FIELD_PRICE_MIN in info) {
-        this.priceMin = info[Client.FIELD_PRICE_MIN];
+        this.priceMin = +info[Client.FIELD_PRICE_MIN];
       } else {
         this.priceMin = 0;
       }
 
       if (Client.FIELD_PRICE_MAX in info) {
-        this.priceMax = info[Client.FIELD_PRICE_MAX];
+        this.priceMax = +info[Client.FIELD_PRICE_MAX];
       } else {
         this.priceMax = Number.MAX_SAFE_INTEGER;
       }
 
       if (Client.FIELD_SIZE_MIN in info) {
-        this.sizeMin = info[Client.FIELD_SIZE_MIN];
+        this.sizeMin = +info[Client.FIELD_SIZE_MIN];
       } else {
         this.sizeMin = 0;
       }
 
       if (Client.FIELD_SIZE_MAX in info) {
-        this.sizeMax = info[Client.FIELD_SIZE_MAX];
+        this.sizeMax = +info[Client.FIELD_SIZE_MAX];
       } else {
         this.sizeMax = Number.MAX_SAFE_INTEGER;
       }
