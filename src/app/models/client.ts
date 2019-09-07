@@ -1,7 +1,7 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
-import {Utils} from "../helpers/utils";
+import {Utils} from '../helpers/utils';
 
 export class Client extends BaseModel implements Deserializable {
   //
