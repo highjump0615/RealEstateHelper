@@ -95,9 +95,8 @@ export class ClientsPage extends BasePage implements OnInit {
 
   private async filterData() {
     try {
-      const currentCount = this.clients.length;
-      const proms = [];
       const clientsTemp = [];
+      const proms = [];
 
       for (const c of this.clientAll) {
         if (c.agent) {
@@ -105,10 +104,11 @@ export class ClientsPage extends BasePage implements OnInit {
         }
 
         // fetch agent
-        this.api.getUserWithId(c.agentId)
+        const prom = this.api.getUserWithId(c.agentId)
             .then((u) => {
               c.agent = u;
             });
+        proms.push(prom);
         clientsTemp.push(c);
 
         if (clientsTemp.length >= ClientsPage.PAGE_COUNT) {
@@ -116,7 +116,7 @@ export class ClientsPage extends BasePage implements OnInit {
         }
       }
 
-      // const clientsTemp = await Promise.all(proms);
+      await Promise.all(proms);
       console.log(clientsTemp);
 
       this.clients = this.clients.concat(clientsTemp);

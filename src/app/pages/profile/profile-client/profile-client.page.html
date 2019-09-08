@@ -41,16 +41,13 @@
     *ngIf="currentPage == PAGE_BUYER">
     <div
       class="dv-no-list-item flex-c-row"
-      *ngIf="!showLoading && buyers.length == 0">
+      *ngIf="!showLoading && auth.user.buyers.length == 0">
       <span>No buyers added yet</span>
     </div>
 
-    <ion-virtual-scroll
-      [items]="buyers"
-      approxItemHeight="69">
-
+    <ion-list>
       <ion-item-sliding
-        *virtualItem="let item; let i = index">
+        *ngFor="let item of auth.user.buyers; let i = index">
         <ion-item
           button
           detail="false"
@@ -88,7 +85,7 @@
           >Remove</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-    </ion-virtual-scroll>
+    </ion-list>
   </ng-container>
 
   <ng-container
@@ -99,11 +96,9 @@
       <span>No sellers added yet</span>
     </div>
 
-    <ion-virtual-scroll
-      [items]="sellers"
-      approxItemHeight="69">
+    <ion-list>
       <ion-item-sliding
-        *virtualItem="let item; let i = index">
+        *ngFor="let item of sellers; let i = index">
         <ion-item
           button
           detail="false"
@@ -123,8 +118,7 @@
               >{{item.name}}</span>
               <span
                 class="sp-address"
-                hidden
-              >2896 Holly Street Rome, Canada</span>
+              >{{item.property.address}}</span>
             </div>
 
             <!-- distance -->
@@ -142,7 +136,14 @@
           >Remove</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-    </ion-virtual-scroll>
+    </ion-list>
+
+    <ion-infinite-scroll
+      threshold="100px"
+      (ionInfinite)="loadMoreData($event)">
+      <ion-infinite-scroll-content>
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </ng-container>
 
   <ion-fab-button

@@ -25,6 +25,11 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
       return;
     }
 
+    // check if property is fetched
+    if (this.data.property) {
+      return;
+    }
+
     // fetch property
     this.api.fetchPropertyWithId(this.data.propertyId)
       .then((p) => {

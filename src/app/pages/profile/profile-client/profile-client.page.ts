@@ -14,9 +14,10 @@ import {Client} from '../../../models/client';
 })
 export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
+  static PAGE_COUNT = 14;
+
   showLoading = false;
 
-  buyers = [];
   sellers = [];
 
   constructor(
@@ -54,13 +55,11 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     if (isBuyer) {
       if (this.auth.user.buyers) {
         // already initialized
-        this.buyers = this.auth.user.buyers;
         return;
       }
     } else {
       if (this.auth.user.sellers) {
         // already initialized
-        this.sellers = this.auth.user.sellers;
         return;
       }
     }
@@ -72,10 +71,10 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
       if (isBuyer) {
         this.auth.user.buyers = clients;
-        this.buyers = this.auth.user.buyers;
       } else {
         this.auth.user.sellers = clients;
-        this.sellers = this.auth.user.sellers;
+
+        await this.filterData();
       }
 
       console.log(clients);
@@ -151,16 +150,51 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       this.api.deleteClient(this.auth.user.sellers[index]);
 
       this.auth.user.sellers.splice(index, 1);
+      this.sellers.splice(index, 1);
     }
-
-    this.setData();
   }
 
-  private setData() {
-    if (this.currentPage === this.PAGE_BUYER) {
-      this.buyers = [...this.auth.user.buyers];
-    } else {
-      this.sellers = [...this.auth.user.sellers];
+  private async filterData() {
+    try {
+      const clientsTemp = [];
+      const proms = [];
+
+      for (const c of this.auth.user.sellers) {
+        if (c.property) {
+          continue;
+        }
+
+        // fetch property
+        const prom = this.api.fetchPropertyWithId(c.propertyId)
+          .then((p) => {
+            c.property = p;
+          });
+        proms.push(prom);
+        clientsTemp.push(c);
+
+        if (clientsTemp.length >= ProfileClientPage.PAGE_COUNT) {
+          break;
+        }
+      }
+
+      await Promise.all(proms);
+      console.log(clientsTemp);
+
+      this.sellers = this.sellers.concat(clientsTemp);
+    } finally {
+      // hide loading mask
+      this.showLoading = false;
+    }
+  }
+
+  async loadMoreData(event) {
+    await this.filterData();
+
+    event.target.complete();
+
+    // check if all loaded
+    if (this.sellers.length >= this.auth.user.sellers.length) {
+      event.target.disabled = true;
     }
   }
 }
