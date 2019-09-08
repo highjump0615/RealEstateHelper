@@ -21,13 +21,13 @@ export class ProfilePage implements OnInit {
   constructor(
     public alertController: AlertController,
     public toastController: ToastController,
-    private route: ActivatedRoute,
-    private router: Router,
+    public route: ActivatedRoute,
+    public router: Router,
     public api: ApiService,
     public nav: NavService,
-    private auth: AuthService,
-    private callNumber: CallNumber,
-    private emailComposer: EmailComposer
+    public auth: AuthService,
+    public callNumber: CallNumber,
+    public emailComposer: EmailComposer
   ) {
     this.userId = this.route.snapshot.params['id'];
 

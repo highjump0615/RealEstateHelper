@@ -25,7 +25,7 @@
         button
         detail="false"
         *ngFor="let item of clients; let i = index"
-        [routerLink]="['/profile', item.agentId]">
+        (click)="onItemDetail(item)">
         <div class="flex-row full-width">
           <!-- photo -->
           <ion-thumbnail
@@ -40,7 +40,7 @@
               class="sp-name"
             >Buyer: {{item.getIdReadable()}}</span>
             <span
-              class="sp-address"
+              class="sp-address mt-8"
             >Agent: {{item.agent?.name}}</span>
           </div>
 
@@ -70,7 +70,7 @@
         button
         detail="false"
         *virtualItem="let item; let i = index"
-        [routerLink]="['/profile', item.agentId]">
+        (click)="onItemDetail(item)">
         <div class="flex-row full-width">
           <!-- photo -->
           <ion-thumbnail
@@ -85,7 +85,7 @@
               class="sp-name"
             >Seller: {{item.getIdReadable()}}</span>
             <span
-              class="sp-address"
+              class="sp-address mt-4"
               *ngIf="item.property.showAddress"
             >{{item.property.address}}</span>
           </div>

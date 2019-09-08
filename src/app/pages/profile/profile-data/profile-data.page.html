@@ -1,0 +1,281 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>AGENT PROFILE</ion-title>
+
+    <ion-buttons slot="end">
+
+      <!-- report -->
+      <ion-button
+        color="light"
+        (click)="onButReport();">
+        <ion-icon
+          slot="icon-only"
+          name="flag">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex-column">
+    <!-- agent info -->
+    <div
+      class="dv-user flex-c-row">
+
+      <!-- background image -->
+      <div class="dv-bg">
+      </div>
+      <img
+        class="img-shadow"
+        src="../../../../assets/imgs/profile_shadow_bg.png">
+
+      <!-- info -->
+      <div class="flex-column dv-info nm-center-items">
+        <!-- photo -->
+        <ion-avatar>
+          <img
+            class="img-user"
+            [src]="user?.photoUrl ? user?.photoUrl : '../../../assets/imgs/default_user.png'">
+        </ion-avatar>
+
+        <!-- name -->
+        <div
+          class="flex-c-row dv-name"
+          (click)="onButChat()">
+          <span
+            class="sp-name"
+          >{{user ? user.name : '&nbsp;'}}</span>
+          <!-- show chat icon for other user -->
+          <ion-icon
+            *ngIf="user && userId"
+            name="chatbubbles">
+          </ion-icon>
+        </div>
+
+        <!-- email -->
+        <div
+          class="flex-c-row dv-email"
+          (click)="onButEmail(user?.email)">
+          <ion-icon
+            name="mail"
+            *ngIf="user">
+          </ion-icon>
+          <span>{{user ? user.email : '&nbsp;'}}</span>
+        </div>
+
+        <!-- phone -->
+        <div
+          class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phone)"
+          *ngIf="user">
+          <ion-icon name="call"></ion-icon>
+          <span>{{user ? user.getPhone() : '&nbsp;'}}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- property info for buyer -->
+    <div
+      class="dv-property flex-column"
+      *ngIf="data?.isBuyer()"
+      padding>
+      <!-- description -->
+      <div
+        class="dv-desc-with-title">
+        <span
+          class="sp-title"
+        >Buyers wants and needs</span>
+        <p>{{data.desc}}</p>
+      </div>
+
+      <!-- location -->
+      <div
+        class="dv-desc-with-title mt-14"
+        *ngIf="data.address">
+        <span
+          class="sp-title"
+        >Desired Location</span>
+        <p>{{data.address}}</p>
+      </div>
+
+      <!-- separator -->
+      <div class="dv-separator mt-6"></div>
+
+      <!-- style -->
+      <div class="dv-item">
+        <span>Style</span>
+        <span>{{data.propRequest?.getStyleStr()}}</span>
+      </div>
+
+      <!-- type -->
+      <div class="dv-item">
+        <span>Type</span>
+        <span>{{data.propRequest?.getTypeStr()}}</span>
+      </div>
+
+      <!-- size -->
+      <div class="dv-item">
+        <span>House Size</span>
+        <span
+          *ngIf="data.sizeMin || data.sizeMax"
+        >{{data.sizeMin}} ~ {{data.sizeMax}} Sq.ft</span>
+      </div>
+
+      <!-- bedrooms -->
+      <div class="dv-item">
+        <span>Number of Bedrooms</span>
+        <span>{{data.propRequest?.bedroom}}</span>
+      </div>
+
+      <!-- bathrooms -->
+      <div class="dv-item">
+        <span>Number of Bathrooms</span>
+        <span>{{data.propRequest?.bathroom}}</span>
+      </div>
+
+      <!-- garage -->
+      <div class="dv-item">
+        <span>Garage Type</span>
+        <span>{{data.propRequest?.getGarageStr()}}</span>
+      </div>
+
+      <!-- basement -->
+      <div class="dv-item">
+        <span>Basement</span>
+        <span>{{data.propRequest?.getBasementStr()}}</span>
+      </div>
+
+      <!-- lot -->
+      <div class="dv-item">
+        <span>Lot Size</span>
+        <span
+          *ngIf="data.propRequest?.lotDepth"
+        >{{data.propRequest?.lotDepth}} Sq.ft</span>
+      </div>
+
+      <!-- frontage -->
+      <div class="dv-item">
+        <span>Lot Frontage</span>
+        <span>{{data.propRequest?.lotFrontage}}</span>
+      </div>
+
+      <!-- status -->
+      <div class="dv-item">
+        <span>Construction Status</span>
+        <span>{{data.propRequest?.getStatusStr()}}</span>
+      </div>
+    </div>
+
+    <!-- property info for seller -->
+    <div
+      class="dv-property flex-column"
+      padding
+      *ngIf="data?.property">
+      <!-- description -->
+      <div class="dv-desc-with-title">
+        <span
+          class="sp-title"
+        >Property Description</span>
+        <div
+          class="dv-no-list-item-small flex-c-row"
+          *ngIf="!data.property.desc; else desc">
+          <span>No description of needs</span>
+        </div>
+        <ng-template #desc>
+          <p>{{data.property.desc}}</p>
+        </ng-template>
+      </div>
+
+      <!-- separator -->
+      <div class="dv-separator mt-6"></div>
+
+      <!-- style -->
+      <div class="dv-item">
+        <span>Style</span>
+        <span>{{data.property?.getStyleStr()}}</span>
+      </div>
+
+      <!-- type -->
+      <div class="dv-item">
+        <span>Type</span>
+        <span>{{data.property?.getTypeStr()}}</span>
+      </div>
+
+      <!-- size -->
+      <div class="dv-item">
+        <span>House Size</span>
+        <span>{{data.property?.size}} Sq.ft</span>
+      </div>
+
+      <!-- bedrooms -->
+      <div class="dv-item">
+        <span>Number of Bedrooms</span>
+        <span>{{data.property?.bedroom}}</span>
+      </div>
+
+      <!-- bathrooms -->
+      <div class="dv-item">
+        <span>Number of Bathrooms</span>
+        <span>{{data.property?.bathroom}}</span>
+      </div>
+
+      <!-- garage -->
+      <div class="dv-item">
+        <span>Garage Type</span>
+        <span>{{data.property?.garage}}</span>
+      </div>
+
+      <!-- basement -->
+      <div class="dv-item">
+        <span>Basement</span>
+        <span>{{data.property?.basement}}</span>
+      </div>
+
+      <!-- lot -->
+      <div class="dv-item">
+        <span>Lot Size</span>
+        <span>{{data.property?.lotDepth}} Sq.ft</span>
+      </div>
+
+      <!-- frontage -->
+      <div class="dv-item">
+        <span>Lot Frontage</span>
+        <span>{{data.property?.lotFrontage}}</span>
+      </div>
+
+      <!-- status -->
+      <div class="dv-item">
+        <span>Construction Status</span>
+        <span>{{data.property?.getStatusStr()}}</span>
+      </div>
+
+      <!-- property images -->
+      <div class="dv-photos flex-column">
+        <!-- title -->
+        <span>Property Photos</span>
+
+        <div
+          class="dv-img-container flex-row">
+          <div
+            class="dv-photo"
+            *ngFor="let img of data.property.imageUrls">
+            <div class="dv-img">
+              <img [src]="img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

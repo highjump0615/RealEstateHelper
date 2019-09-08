@@ -444,4 +444,8 @@ export class Client extends BaseModel implements Deserializable {
     const strId = this.id.substring(this.id.length - 7);
     return strId.toUpperCase();
   }
+
+  isBuyer() {
+    return this.type === Client.CLIENT_TYPE_BUYER;
+  }
 }

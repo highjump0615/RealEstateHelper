@@ -322,4 +322,10 @@ export class ClientsPage extends BasePage implements OnInit {
 
     return nMatch;
   }
+
+  onItemDetail(item: Client) {
+    this.nav.push('profile-data', {
+      data: item
+    });
+  }
 }

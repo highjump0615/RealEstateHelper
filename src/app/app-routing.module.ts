@@ -67,6 +67,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile-data',
+    loadChildren: './pages/profile/profile-data/profile-data.module#ProfileDataPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'profile-client',
     loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule',
     data: {needUser: true},
@@ -191,7 +197,9 @@ const routes: Routes = [
     loadChildren: './pages/filter-search/clients/clients.module#ClientsPageModule',
     data: {needUser: true},
     canActivate: [AuthGuard]
-  }
+  },
+  { path: 'profile-data', loadChildren: './profile/profile-data/profile-data.module#ProfileDataPageModule' },
+  { path: 'profile-data', loadChildren: './pages/profile/profile-data/profile-data.module#ProfileDataPageModule' }
 ];
 @NgModule({
   imports: [

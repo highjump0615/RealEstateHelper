@@ -167,9 +167,17 @@ export class Property extends BaseModel implements Deserializable {
     if (Property.FIELD_TYPE in info) {
       this.type = info[Property.FIELD_TYPE];
     }
-    this.size = +info[Property.FIELD_SIZE];
-    this.bedroom = +info[Property.FIELD_BEDROOM];
-    this.bathroom = +info[Property.FIELD_BATHROOM];
+
+    if (Property.FIELD_SIZE in info) {
+      this.size = +info[Property.FIELD_SIZE];
+    }
+
+    if (Property.FIELD_BEDROOM in info) {
+      this.bedroom = +info[Property.FIELD_BEDROOM];
+    }
+    if (Property.FIELD_BATHROOM in info) {
+      this.bathroom = +info[Property.FIELD_BATHROOM];
+    }
 
     if (Property.FIELD_GARAGE in info) {
       this.garage = info[Property.FIELD_GARAGE];
@@ -178,8 +186,12 @@ export class Property extends BaseModel implements Deserializable {
       this.basement = info[Property.FIELD_BASEMENT];
     }
 
-    this.lotFrontage = +info[Property.FIELD_LOT_FRONTAGE];
-    this.lotDepth = +info[Property.FIELD_LOT_DEPTH];
+    if (Property.FIELD_LOT_FRONTAGE in info) {
+      this.lotFrontage = +info[Property.FIELD_LOT_FRONTAGE];
+    }
+    if (Property.FIELD_LOT_DEPTH in info) {
+      this.lotDepth = +info[Property.FIELD_LOT_DEPTH];
+    }
 
     if (Property.FIELD_STATUS in info) {
       this.status = info[Property.FIELD_STATUS];
