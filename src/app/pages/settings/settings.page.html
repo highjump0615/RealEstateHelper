@@ -12,7 +12,7 @@
 <ion-content padding>
 
   <!-- Renew my Profiles -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail>
@@ -24,7 +24,7 @@
   </ion-card>
 
   <!-- Subscribe -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail
@@ -37,7 +37,7 @@
   </ion-card>
 
   <!-- Notification Settings -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail>
@@ -77,7 +77,8 @@
   <ion-card>
     <ion-item
       lines="none"
-      detail>
+      detail
+      (click)="onRateApp()">
       <ion-icon
         name="star"
         slot="start"></ion-icon>

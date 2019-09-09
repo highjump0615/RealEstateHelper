@@ -198,8 +198,6 @@ const routes: Routes = [
     data: {needUser: true},
     canActivate: [AuthGuard]
   },
-  { path: 'profile-data', loadChildren: './profile/profile-data/profile-data.module#ProfileDataPageModule' },
-  { path: 'profile-data', loadChildren: './pages/profile/profile-data/profile-data.module#ProfileDataPageModule' }
 ];
 @NgModule({
   imports: [

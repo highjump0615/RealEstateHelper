@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AlertController, NavController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
+import {config} from '../../helpers/config';
+import {AppRate} from '@ionic-native/app-rate/ngx';
 
 @Component({
   selector: 'app-settings',
@@ -14,7 +16,8 @@ export class SettingsPage implements OnInit {
     private router: Router,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    private auth: AuthService
+    private auth: AuthService,
+    private appRate: AppRate,
   ) { }
 
   ngOnInit() {
@@ -53,5 +56,15 @@ export class SettingsPage implements OnInit {
     this.auth.signOut();
 
     this.navCtrl.navigateRoot('/login');
+  }
+
+  onRateApp() {
+    // set certain preferences
+    this.appRate.preferences.storeAppURL = {
+      ios: config.appleId,
+      android: `market://details?id=${config.packageName}`,
+    };
+
+    this.appRate.promptForRating(true);
   }
 }

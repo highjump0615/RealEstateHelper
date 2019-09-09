@@ -17,6 +17,7 @@ import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Facebook} from '@ionic-native/facebook/ngx';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
+import {AppRate} from '@ionic-native/app-rate/ngx';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
     Facebook,
     CallNumber,
     EmailComposer,
+    AppRate,
   ],
   bootstrap: [AppComponent]
 })
