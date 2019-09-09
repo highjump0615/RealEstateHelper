@@ -29,6 +29,7 @@
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic-native/google-plus": "^5.10.0",
     "@ionic-native/keyboard": "^5.5.1",
+    "@ionic-native/social-sharing": "^5.13.0",
     "@ionic-native/splash-screen": "^5.5.1",
     "@ionic-native/status-bar": "^5.5.1",
     "@ionic/angular": "^4.6.2",
@@ -54,7 +55,9 @@
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-plugin-x-socialsharing": "^5.6.0",
     "core-js": "^2.6.5",
+    "es6-promise-plugin": "^4.2.2",
     "firebase": "^5.11.1",
     "geofire": "^5.0.1",
     "moment": "^2.24.0",
@@ -122,7 +125,12 @@
         "WEB_APPLICATION_CLIENT_ID": "154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com",
         "PLAY_SERVICES_VERSION": "11.8.0"
       },
-      "cordova-plugin-apprate": {}
+      "cordova-plugin-apprate": {},
+      "cordova-plugin-x-socialsharing": {
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+        "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
+      }
     },
     "platforms": [
       "ios",

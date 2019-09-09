@@ -18,6 +18,7 @@ import {Facebook} from '@ionic-native/facebook/ngx';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {AppRate} from '@ionic-native/app-rate/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {AppRate} from '@ionic-native/app-rate/ngx';
     CallNumber,
     EmailComposer,
     AppRate,
+    SocialSharing,
   ],
   bootstrap: [AppComponent]
 })

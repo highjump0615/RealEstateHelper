@@ -8,7 +8,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {Client} from '../../../models/client';
-import {Property} from "../../../models/property";
+import {Property} from '../../../models/property';
 
 @Component({
   selector: 'app-profile-data',

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlertController, NavController} from '@ionic/angular';
+import {ActionSheetController, AlertController, NavController, ToastController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
 import {config} from '../../helpers/config';
 import {AppRate} from '@ionic-native/app-rate/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-settings',
@@ -12,12 +13,18 @@ import {AppRate} from '@ionic-native/app-rate/ngx';
 })
 export class SettingsPage implements OnInit {
 
+  static SHARE_FACEBOOK = 0;
+  static SHARE_TWITTER = 1;
+
   constructor(
     private router: Router,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
     private auth: AuthService,
     private appRate: AppRate,
+    public actionSheetController: ActionSheetController,
+    private socialSharing: SocialSharing,
+    public toastController: ToastController,
   ) { }
 
   ngOnInit() {
@@ -66,5 +73,66 @@ export class SettingsPage implements OnInit {
     };
 
     this.appRate.promptForRating(true);
+  }
+
+  async shareApp(type) {
+    const shareText = 'Check out this great App!';
+    const shareUrl = 'https://ionicacademy.com';
+
+    try {
+      if (type === SettingsPage.SHARE_FACEBOOK) {
+        await this.socialSharing.shareViaFacebook(
+          shareText,
+          null,
+          shareUrl
+        );
+      }
+      else {
+        await this.socialSharing.shareViaTwitter(
+          shareText,
+          null,
+          shareUrl
+        );
+      }
+
+      // show notice
+      const toast = await this.toastController.create({
+        color: 'dark',
+        message: 'App has been shared successfully.',
+        duration: 2000
+      });
+      toast.present();
+
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: 'Facebook',
+        handler: () => {
+          this.shareApp(SettingsPage.SHARE_FACEBOOK);
+        }
+      }, {
+        text: 'Twitter',
+        handler: () => {
+          this.shareApp(SettingsPage.SHARE_TWITTER);
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  onShare() {
+    this.presentActionSheet();
   }
 }
