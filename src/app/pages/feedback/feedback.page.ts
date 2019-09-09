@@ -44,7 +44,7 @@ export class FeedbackPage extends BaseKeyboardPage implements OnInit {
       // show notice
       const toast = await this.toastController.create({
         color: 'dark',
-        message: 'Your feedback has beent sent successfully.',
+        message: 'Your feedback has been sent successfully.',
         duration: 2000
       });
       toast.present();

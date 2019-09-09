@@ -131,12 +131,12 @@
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <plugin name="cordova-plugin-apprate" spec="^1.4.0" />
-    <engine name="ios" spec="^4.5.5" />
-    <engine name="browser" spec="^5.0.4" />
-    <engine name="android" spec="^7.1.4" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.6.0">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
         <variable name="PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
     </plugin>
+    <engine name="ios" spec="^4.5.5" />
+    <engine name="browser" spec="^5.0.4" />
+    <engine name="android" spec="^7.1.4" />
 </widget>

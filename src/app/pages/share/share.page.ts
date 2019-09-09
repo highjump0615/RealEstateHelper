@@ -52,7 +52,7 @@ export class SharePage extends BaseKeyboardPage implements OnInit {
       // show notice
       const toast = await this.toastController.create({
         color: 'dark',
-        message: 'Email has beent sent successfully.',
+        message: 'Email has been sent successfully.',
         duration: 2000
       });
       toast.present();
