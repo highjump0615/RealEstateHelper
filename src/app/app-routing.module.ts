@@ -198,6 +198,12 @@ const routes: Routes = [
     data: {needUser: true},
     canActivate: [AuthGuard]
   },
+  {
+    path: 'settings/change-password',
+    loadChildren: './pages/settings/change-password/change-password.module#ChangePasswordPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
 ];
 @NgModule({
   imports: [

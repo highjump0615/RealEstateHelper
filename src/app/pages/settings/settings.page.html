@@ -48,9 +48,23 @@
     </ion-item>
   </ion-card>
 
+  <!-- Change password -->
+  <ion-card>
+    <ion-item
+      lines="none"
+      detail
+      [routerLink]="['change-password']">
+      <ion-icon
+        name="construct"
+        slot="start"></ion-icon>
+      <ion-label>Change Password</ion-label>
+    </ion-item>
+  </ion-card>
+
   <!-- Share App -->
   <ion-card>
     <ion-item
+      button
       lines="none"
       detail
       (click)="onShare()">
@@ -77,6 +91,7 @@
   <!-- Rate App -->
   <ion-card>
     <ion-item
+      button
       lines="none"
       detail
       (click)="onRateApp()">
