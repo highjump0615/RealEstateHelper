@@ -74,8 +74,12 @@ export class HomePage extends BasePropertiesPage implements OnInit {
         ]);
       }
 
+      // sort by distance
       props.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
     }
+
+    // sort by time
+    props.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
 
     this.properties = props;
     this.auth.user.propAll = props;
