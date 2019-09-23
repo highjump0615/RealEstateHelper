@@ -5,6 +5,8 @@ import {Storage} from '@ionic/storage';
 import {AuthService} from '../../services/auth/auth.service';
 import {User} from '../../models/user';
 import {OnboardPage} from '../../pages/onboard/onboard.page';
+import {SplashScreen} from "@ionic-native/splash-screen/ngx";
+import {StatusBar} from "@ionic-native/status-bar/ngx";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class AuthGuard implements CanActivate {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private storage: Storage
+    private storage: Storage,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar
   ) {
   }
 
@@ -53,6 +57,10 @@ export class AuthGuard implements CanActivate {
   }
 
   gotoNext(needUser): Promise<boolean> | boolean {
+
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
+
     if (this.auth.user && this.auth.user.saved) {
       if (needUser) {
         return Promise.resolve(true);
