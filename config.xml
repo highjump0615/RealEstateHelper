@@ -119,12 +119,6 @@
     <plugin name="cordova-plugin-email-composer" spec="0.9.2">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
     </plugin>
-    <plugin name="cordova-plugin-facebook4" spec="5.0.0">
-        <variable name="APP_ID" value="594146507745397" />
-        <variable name="APP_NAME" value="Reconnect" />
-        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
-        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.0.2" />
-    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="7.0.2">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.154808025696-00avfp3kqf3dpv8vjqlt5udkuo9793tl" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com" />
@@ -135,6 +129,12 @@
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
         <variable name="PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
+    </plugin>
+    <plugin name="cordova-plugin-facebook4" spec="^6.0.0">
+        <variable name="APP_ID" value="377684863179767" />
+        <variable name="APP_NAME" value="Reconnect" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.2.0" />
     </plugin>
     <engine name="ios" spec="^4.5.5" />
     <engine name="browser" spec="^5.0.4" />
