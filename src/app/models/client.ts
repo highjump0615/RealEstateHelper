@@ -389,6 +389,10 @@ export class Client extends BaseModel implements Deserializable {
   }
 
   isPropRequestEmpty() {
+    if (this.propRequest.location) {
+      return false;
+    }
+
     if (this.priceMin) {
       return false;
     }

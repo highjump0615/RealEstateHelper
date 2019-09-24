@@ -145,27 +145,25 @@ export class ClientsPage extends BasePage implements OnInit {
   isClientMatching(client): number {
     let nMatch = 0;
 
-    // location
-    if (this.auth.user.lat && this.auth.user.lng) {
-      if (client.propRequest.location) {
-        client.propRequest.distance = GeoFire.distance(
-          client.propRequest.location,
-          [
-            this.auth.user.lat,
-            this.auth.user.lng
-          ]);
-
-        if (client.propRequest.distance <= this.filterClient.radius) {
-          nMatch++;
-        }
-      }
-    }
-
     //
     // show all for no filter
     //
     if (this.filterClient.isPropRequestEmpty()) {
       return 1;
+    }
+
+    // location
+    if (this.filterClient.propRequest.location) {
+      if (client.propRequest.location) {
+        client.propRequest.distance = GeoFire.distance(
+          client.propRequest.location,
+          this.filterClient.propRequest.location
+        );
+
+        if (client.propRequest.distance <= this.filterClient.radius) {
+          nMatch++;
+        }
+      }
     }
 
     // price
@@ -228,8 +226,9 @@ export class ClientsPage extends BasePage implements OnInit {
       nMatch++;
     }
 
-    console.log(client);
-    console.log(nMatch);
+    if (nMatch > 0) {
+      console.log(client);
+    }
 
     return nMatch;
   }
@@ -237,27 +236,25 @@ export class ClientsPage extends BasePage implements OnInit {
   isPropertyMatching(prop) {
     let nMatch = 0;
 
-    // location
-    if (this.auth.user.lat && this.auth.user.lng) {
-      if (prop.location) {
-        const distance = GeoFire.distance(
-          prop.location,
-          [
-            this.auth.user.lat,
-            this.auth.user.lng
-          ]);
-
-        if (distance <= this.filterClient.radius) {
-          nMatch++;
-        }
-      }
-    }
-
     //
     // show all for no filter
     //
     if (this.filterClient.isPropRequestEmpty()) {
       return 1;
+    }
+
+    // location
+    if (this.filterClient.propRequest.location) {
+      if (prop.location) {
+        const distance = GeoFire.distance(
+          prop.location,
+          this.filterClient.propRequest.location
+        );
+
+        if (distance <= this.filterClient.radius) {
+          nMatch++;
+        }
+      }
     }
 
     // price
@@ -318,6 +315,10 @@ export class ClientsPage extends BasePage implements OnInit {
     // bathroom
     if (prop.bathroom >= this.filterClient.propRequest.bathroom) {
       nMatch++;
+    }
+
+    if (nMatch > 0) {
+      console.log(prop);
     }
 
     return nMatch;

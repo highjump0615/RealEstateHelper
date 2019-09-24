@@ -20,7 +20,6 @@
     </div>
 
     <ion-list>
-
       <ion-item
         button
         detail="false"
@@ -62,15 +61,13 @@
       <span>Sellers not found</span>
     </div>
 
-    <ion-virtual-scroll
-      [items]="clients"
-      approxItemHeight="69">
-
+    <ion-list>
       <ion-item
         button
         detail="false"
-        *virtualItem="let item; let i = index"
+        *ngFor="let item of clients; let i = index"
         (click)="onItemDetail(item)">
+
         <div class="flex-row full-width">
           <!-- photo -->
           <ion-thumbnail
@@ -97,7 +94,7 @@
           >0.2 km away</span>
         </div>
       </ion-item>
-    </ion-virtual-scroll>
+    </ion-list>
   </ng-container>
 
   <ion-infinite-scroll
