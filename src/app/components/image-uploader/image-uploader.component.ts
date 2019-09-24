@@ -1,4 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Utils} from '../../helpers/utils';
+import {ActionSheetController, Platform} from '@ionic/angular';
+import {ImageHelper} from '../../helpers/image-helper';
+import {Camera} from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-image-uploader',
@@ -13,12 +17,31 @@ export class ImageUploaderComponent implements OnInit {
 
   @Input() imgUrl = '';
 
-  constructor() { }
+  @ViewChild('file') inputFile: ElementRef;
+
+  @Output() SelectPhoto = new EventEmitter();
+
+  imageHelper: ImageHelper;
+
+  constructor(
+    public plt: Platform,
+    // camera
+    public actionSheetController: ActionSheetController,
+    private camera: Camera,
+  ) {
+    this.imageHelper = new ImageHelper().init(
+      actionSheetController,
+      camera,
+    );
+  }
 
   ngOnInit() {
   }
 
   onSelectedPhoto(pic) {
+    if (this.preservePicture) {
+      this.picture = pic;
+    }
   }
 
   onFileSelected(event) {
@@ -27,9 +50,6 @@ export class ImageUploaderComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = e => {
-        if (this.preservePicture) {
-          this.picture = reader.result;
-        }
 
         this.onSelectedPhoto(reader.result);
       };
@@ -38,4 +58,16 @@ export class ImageUploaderComponent implements OnInit {
     }
   }
 
+  onButPhoto() {
+    // browser
+    if (Utils.isPlatformWeb(this.plt)) {
+      this.inputFile.nativeElement.click();
+      return;
+    }
+
+    // native
+    this.imageHelper.showSelectImage((img) => {
+      this.onSelectedPhoto(img);
+    });
+  }
 }

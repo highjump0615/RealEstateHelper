@@ -15,6 +15,8 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
   }
 
   onSelectedPhoto(pic) {
+    super.onSelectedPhoto(pic);
+
     this.imageSelected.emit(pic);
   }
 

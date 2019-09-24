@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import {Platform} from '@ionic/angular';
 
 export class Utils {
   private static instance: Utils;
@@ -139,5 +140,12 @@ export class Utils {
     }
 
     return result;
+  }
+
+  //
+  // platforms
+  //
+  static isPlatformWeb(plt: Platform) {
+    return plt.is('mobileweb');
   }
 }

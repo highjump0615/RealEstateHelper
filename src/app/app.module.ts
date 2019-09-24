@@ -14,11 +14,12 @@ import {IonicStorageModule} from '@ionic/storage';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {VirtualScrollerModule} from 'ngx-virtual-scroller';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
-import {Facebook} from '@ionic-native/facebook/ngx';
+// import {Facebook} from '@ionic-native/facebook/ngx';
 import {CallNumber} from '@ionic-native/call-number/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {AppRate} from '@ionic-native/app-rate/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import {Camera} from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [
@@ -39,11 +40,12 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     Keyboard,
     Geolocation,
     GooglePlus,
-    Facebook,
+    // Facebook,
     CallNumber,
     EmailComposer,
     AppRate,
     SocialSharing,
+    Camera,
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,7 @@ import {ApiService} from '../../services/api/api.service';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {config} from '../../helpers/config';
 import {BaseSigninPage} from '../base-signin.page';
-import {Facebook} from '@ionic-native/facebook/ngx';
+// import {Facebook} from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
@@ -28,10 +28,11 @@ export class LoginPage extends BaseSigninPage implements OnInit {
     public alertCtrl: AlertController,
     public auth: AuthService,
     public api: ApiService,
-    public fb: Facebook,
+    // public fb: Facebook,
     public googlePlus: GooglePlus,
   ) {
-    super(fb, googlePlus, auth, api, router, navCtrl, loadingCtrl, alertCtrl);
+    // super(fb, googlePlus, auth, api, router, navCtrl, loadingCtrl, alertCtrl);
+    super(googlePlus, auth, api, router, navCtrl, loadingCtrl, alertCtrl);
   }
 
   ngOnInit() {

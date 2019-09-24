@@ -1,5 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertController, LoadingController, NavController, PickerController} from '@ionic/angular';
+import {
+  ActionSheetController,
+  AlertController,
+  LoadingController,
+  NavController,
+  PickerController
+} from '@ionic/angular';
 import {KeyboardService} from '../../../services/keyboard/keyboard.service';
 import {Property} from '../../../models/property';
 import {ImageUploaderComponent} from '../../../components/image-uploader/image-uploader.component';
@@ -13,6 +19,8 @@ import {GeoFire} from 'geofire';
 import {BaseClientAddPage} from '../../base-client-add.page';
 import {NavService} from '../../../services/nav.service';
 import {Utils} from '../../../helpers/utils';
+import {Camera} from '@ionic-native/camera/ngx';
+import {ImageHelper} from '../../../helpers/image-helper';
 
 
 @Component({
@@ -25,6 +33,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   @ViewChild('imagePhoto') uploadPhoto: ImageUploaderComponent;
   @ViewChild('mainForm') formMain: NgForm;
 
+  imageProfile: any;
   images = [];
 
   // input data

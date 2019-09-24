@@ -1,6 +1,6 @@
 import {BasePage} from './base.page';
 import {AlertController, LoadingController, NavController} from '@ionic/angular';
-import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
+// import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 import * as firebase from 'firebase';
 import {AuthService} from '../services/auth/auth.service';
 import {User} from '../models/user';
@@ -18,7 +18,7 @@ export class BaseSigninPage extends BasePage {
   signinMethod = this.SIGNIN_EMAIL;
 
   constructor(
-    public fb: Facebook,
+    // public fb: Facebook,
     public googlePlus: GooglePlus,
     public auth: AuthService,
     public api: ApiService,
@@ -33,33 +33,33 @@ export class BaseSigninPage extends BasePage {
   async onButFacebook() {
     this.signinMethod = this.SIGNIN_FACEBOOK;
 
-    await this.showLoadingView();
-
-    try {
-      const res = await this.fb.login(['public_profile', 'email']);
-
-      console.log('Logged into Facebook!', res);
-
-      const facebookCredential = firebase.auth
-        .FacebookAuthProvider
-        .credential(res.authResponse.accessToken);
-
-      // get user profile info
-      const profile = await this.fb.api('me?fields=first_name,last_name,picture.width(360).height(360).as(picture_large)', [])
-      console.log(profile);
-
-      this.continueSocialSignIn(
-        facebookCredential,
-        profile['first_name'],
-        profile['last_name'],
-        profile['picture_large']['data']['url']);
-
-    } catch (err) {
-      console.log(err.code);
-
-      this.onSocialError(err);
-      return;
-    }
+    // await this.showLoadingView();
+    //
+    // try {
+    //   const res = await this.fb.login(['public_profile', 'email']);
+    //
+    //   console.log('Logged into Facebook!', res);
+    //
+    //   const facebookCredential = firebase.auth
+    //     .FacebookAuthProvider
+    //     .credential(res.authResponse.accessToken);
+    //
+    //   // get user profile info
+    //   const profile = await this.fb.api('me?fields=first_name,last_name,picture.width(360).height(360).as(picture_large)', [])
+    //   console.log(profile);
+    //
+    //   this.continueSocialSignIn(
+    //     facebookCredential,
+    //     profile['first_name'],
+    //     profile['last_name'],
+    //     profile['picture_large']['data']['url']);
+    //
+    // } catch (err) {
+    //   console.log(err.code);
+    //
+    //   this.onSocialError(err);
+    //   return;
+    // }
   }
 
   async onButGoogle() {
