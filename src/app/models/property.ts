@@ -82,10 +82,9 @@ export class Property extends BaseModel implements Deserializable {
     'Finished',
     'Unfinished',
     'Partly Finished',
-    'Rec Room',
+    'Walkout/Walkup',
     'Basement Apt.',
     'Separate Entrance',
-    'No Separate Entrance',
     'Other',
   ];
 
