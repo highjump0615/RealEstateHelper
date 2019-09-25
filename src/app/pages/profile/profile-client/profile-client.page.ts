@@ -52,6 +52,8 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
   async fetchData() {
     const isBuyer = this.currentPage === this.PAGE_BUYER;
 
+    this.sellers = [];
+
     if (isBuyer) {
       if (this.auth.user.buyers) {
         // already initialized
@@ -60,6 +62,8 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
     } else {
       if (this.auth.user.sellers) {
         // already initialized
+        await this.filterData();
+
         return;
       }
     }
@@ -159,17 +163,21 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       const clientsTemp = [];
       const proms = [];
 
-      for (const c of this.auth.user.sellers) {
-        if (c.property) {
+      for (let i = 0; i < this.auth.user.sellers.length; i++) {
+        if (i < this.sellers.length) {
           continue;
         }
 
-        // fetch property
-        const prom = this.api.fetchPropertyWithId(c.propertyId)
-          .then((p) => {
-            c.property = p;
-          });
-        proms.push(prom);
+        const c = this.auth.user.sellers[i];
+        if (!c.property) {
+          // fetch property
+          const prom = this.api.fetchPropertyWithId(c.propertyId)
+            .then((p) => {
+              c.property = p;
+            });
+          proms.push(prom);
+        }
+
         clientsTemp.push(c);
 
         if (clientsTemp.length >= ProfileClientPage.PAGE_COUNT) {
