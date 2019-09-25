@@ -1,11 +1,13 @@
 import {ActionSheetController} from '@ionic/angular';
 import {Camera, CameraOptions, PictureSourceType} from '@ionic-native/camera/ngx';
+import {ImagePicker, OutputType} from '@ionic-native/image-picker/ngx';
 
 export class ImageHelper {
   private static instance: ImageHelper;
 
   private actionSheetController: ActionSheetController;
   private camera: Camera;
+  private imagePicker: ImagePicker;
 
   static getInstance() {
     if (!this.instance) {
@@ -17,10 +19,12 @@ export class ImageHelper {
 
   init(
     actionSheetController: ActionSheetController,
-    camera: Camera
+    camera: Camera,
+    imagePicker: ImagePicker,
   ) {
     this.actionSheetController = actionSheetController;
     this.camera = camera;
+    this.imagePicker = imagePicker;
 
     return this;
   }
@@ -53,7 +57,7 @@ export class ImageHelper {
     await actionSheet.present();
   }
 
-  async doSelectPhoto(sourceType, callback) {
+  private async doSelectPhoto(sourceType, callback) {
     const options: CameraOptions = {
       quality: 70,
       targetWidth: 300,
@@ -81,5 +85,32 @@ export class ImageHelper {
 
   onImageLibrary(callback) {
     this.doSelectPhoto(PictureSourceType.PHOTOLIBRARY, callback);
+  }
+
+  async selectMultiplePhoto(callback) {
+    const options = {
+      width: 800,
+      height: 800,
+      // quality of resized image, defaults to 100
+      quality: 70,
+      outputType: OutputType.DATA_URL
+    };
+
+    try {
+      const images = await this.imagePicker.getPictures(options);
+
+      const imgBase64s = [];
+      for (const img of images) {
+        const imgBase64 = 'data:image/jpeg;base64,' + img;
+        imgBase64s.push(imgBase64);
+      }
+
+      if (imgBase64s.length > 0) {
+        callback(imgBase64s);
+      }
+
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

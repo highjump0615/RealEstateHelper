@@ -14,10 +14,8 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
   ngOnInit() {
   }
 
-  onSelectedPhoto(pic) {
-    super.onSelectedPhoto(pic);
-
-    this.imageSelected.emit(pic);
+  onSelectedPhotos(pics) {
+    this.imageSelected.emit(pics);
   }
 
   onRemove(event) {
@@ -26,5 +24,14 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
     this.removeImage.emit();
   }
 
+  onButPhoto() {
+    if (this.imgUrl) {
+      return;
+    }
+
+    this.imageHelper.selectMultiplePhoto((imgs) => {
+      this.onSelectedPhotos(imgs);
+    });
+  }
 
 }

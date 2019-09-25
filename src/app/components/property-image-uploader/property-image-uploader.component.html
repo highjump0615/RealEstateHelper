@@ -5,7 +5,7 @@
 
 <div
   class="nm-center dv-photo"
-  (click)="imgUrl ? null : file.click()">
+  (click)="onButPhoto()">
 
   <div class="dv-content flex-column">
     <div *ngIf="!(picture || imgUrl); else imageDiv">

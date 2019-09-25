@@ -3,6 +3,7 @@ import {Utils} from '../../helpers/utils';
 import {ActionSheetController, Platform} from '@ionic/angular';
 import {ImageHelper} from '../../helpers/image-helper';
 import {Camera} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-image-uploader',
@@ -28,10 +29,12 @@ export class ImageUploaderComponent implements OnInit {
     // camera
     public actionSheetController: ActionSheetController,
     private camera: Camera,
+    private imagePicker: ImagePicker,
   ) {
     this.imageHelper = new ImageHelper().init(
       actionSheetController,
       camera,
+      imagePicker,
     );
   }
 

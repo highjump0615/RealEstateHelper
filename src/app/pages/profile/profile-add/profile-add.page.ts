@@ -434,11 +434,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   }
 
   onImageSelected(index, data) {
-    if (index >= this.images.length) {
-      this.images.push(data);
-    } else {
-      this.images[index] = data;
-    }
+    // image array
+    this.images = [...this.images, ...data];
   }
 
   onImageRemoved(index) {

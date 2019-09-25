@@ -28,5 +28,5 @@
   <span
     class="sp-desc"
     *ngIf="desc"
-  >{{desc}}</span>
+  >{{(picture || imgUrl) ? ' ' : desc}}</span>
 </div>

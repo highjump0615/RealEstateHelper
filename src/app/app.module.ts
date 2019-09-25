@@ -20,6 +20,7 @@ import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {AppRate} from '@ionic-native/app-rate/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {Camera} from '@ionic-native/camera/ngx';
     AppRate,
     SocialSharing,
     Camera,
+    ImagePicker,
   ],
   bootstrap: [AppComponent]
 })
