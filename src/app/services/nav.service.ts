@@ -11,7 +11,7 @@ export class NavService {
     // ...
   }
 
-  push(url: string, data: any = '') {
+  push(url: string, data: any = null) {
     this.data = data;
 
     this.navCtrl.navigateForward('/' + url);

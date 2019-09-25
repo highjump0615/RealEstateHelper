@@ -10,6 +10,14 @@
     <!-- edit -->
     <ion-buttons slot="end">
       <ion-button
+        [routerLink]="['/share']"
+        color="light">
+        <ion-icon
+          slot="icon-only"
+          name="md-open">
+        </ion-icon>
+      </ion-button>
+      <ion-button
         (click)="onButEdit();">
         <img
           src="../../../../assets/imgs/profile_edit.png"
@@ -184,7 +192,7 @@
           <div
             class="dv-photo"
             *ngFor="let img of data.property.imageUrls">
-            <div class="dv-img">
+            <div class="dv-img" (click)="onClickPhoto(img)">
               <img [src]="img" />
             </div>
           </div>

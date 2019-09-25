@@ -4,6 +4,7 @@ import {ActionSheetController, Platform} from '@ionic/angular';
 import {ImageHelper} from '../../helpers/image-helper';
 import {Camera} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
+import {ModalService} from '../../services/modal/modal.service';
 
 @Component({
   selector: 'app-image-uploader',
@@ -28,8 +29,9 @@ export class ImageUploaderComponent implements OnInit {
     public plt: Platform,
     // camera
     public actionSheetController: ActionSheetController,
-    private camera: Camera,
-    private imagePicker: ImagePicker,
+    public camera: Camera,
+    public imagePicker: ImagePicker,
+    public modalService: ModalService,
   ) {
     this.imageHelper = new ImageHelper().init(
       actionSheetController,

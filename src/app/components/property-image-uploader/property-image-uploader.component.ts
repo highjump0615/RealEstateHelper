@@ -1,5 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageUploaderComponent} from '../image-uploader/image-uploader.component';
+import {ModalService} from '../../services/modal/modal.service';
+import {ActionSheetController, Platform} from '@ionic/angular';
+import {Camera} from '@ionic-native/camera/ngx';
+import {ImagePicker} from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-property-image-uploader',
@@ -10,6 +14,17 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
 
   @Output() imageSelected = new EventEmitter();
   @Output() removeImage = new EventEmitter();
+
+  constructor(
+    public plt: Platform,
+    // camera
+    public actionSheetController: ActionSheetController,
+    public camera: Camera,
+    public imagePicker: ImagePicker,
+    public modalService: ModalService,
+  ) {
+    super(plt, actionSheetController, camera, imagePicker, modalService);
+  }
 
   ngOnInit() {
   }
@@ -26,6 +41,10 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
 
   onButPhoto() {
     if (this.imgUrl) {
+      this.modalService.viewImage(
+        this.imgUrl
+      );
+
       return;
     }
 

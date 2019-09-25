@@ -21,18 +21,22 @@ import {AppRate} from '@ionic-native/app-rate/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
+import {ImageViewerComponent} from './components/image-viewer/image-viewer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabsPage,
+    ImageViewerComponent,
   ],
-  entryComponents: [],
+  entryComponents: [
+    ImageViewerComponent,
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,

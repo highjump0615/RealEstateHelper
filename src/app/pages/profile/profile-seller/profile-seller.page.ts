@@ -3,6 +3,7 @@ import {BaseClientPage} from '../../base-client.page';
 import {NavService} from '../../../services/nav.service';
 import {ApiService} from '../../../services/api/api.service';
 import {Property} from '../../../models/property';
+import {ModalService} from '../../../services/modal/modal.service';
 
 @Component({
   selector: 'app-profile-seller',
@@ -15,7 +16,8 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
 
   constructor(
     public nav: NavService,
-    public api: ApiService
+    public api: ApiService,
+    public modalService: ModalService,
   ) {
     super(nav);
   }
@@ -37,5 +39,11 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
 
         this.data.property = p;
       });
+  }
+
+  onClickPhoto(img: any) {
+    this.modalService.viewImage(
+      img
+    );
   }
 }

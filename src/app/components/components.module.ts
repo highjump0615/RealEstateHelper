@@ -5,6 +5,7 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import {CommonModule} from '@angular/common';
 import { RemoveButtonComponent } from './remove-button/remove-button.component';
 import { PropertyImageUploaderComponent } from './property-image-uploader/property-image-uploader.component';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 const COMPONENTS = [
   CheckBoxComponent,
