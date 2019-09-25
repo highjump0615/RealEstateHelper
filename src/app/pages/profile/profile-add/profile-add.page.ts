@@ -145,7 +145,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
         this.garages = this.client.property.garage;
 
-        this.images = this.client.property.imageUrls;
+        this.images = [...this.client.property.imageUrls];
 
         if (this.client.property.location) {
           this.propService.lat = this.client.property.location[0];

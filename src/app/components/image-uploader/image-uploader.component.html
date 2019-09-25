@@ -11,14 +11,14 @@
     <ng-content *ngIf="!(picture || imgUrl)"></ng-content>
 
     <img *ngIf="picture; else default"
-         class="content"
+         class="content img-user"
          [src]="picture" />
 
     <!-- show default image only if content is empty -->
     <ng-template
       #default>
       <img
-        class="photo"
+        class="photo img-user"
         *ngIf="imgUrl"
         [src]="imgUrl" />
     </ng-template>

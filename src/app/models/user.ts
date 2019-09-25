@@ -84,6 +84,19 @@ export class User extends BaseModel implements Deserializable {
     return User.TABLE_NAME;
   }
 
+  deserialize(input: any): this {
+    super.deserialize(input);
+
+    //
+    // initialize data
+    //
+    this.propAll = null;
+    this.buyers = null;
+    this.sellers = null;
+
+    return this;
+  }
+
   toDictionary() {
     const dict = super.toDictionary();
 

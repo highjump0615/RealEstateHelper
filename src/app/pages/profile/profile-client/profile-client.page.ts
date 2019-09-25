@@ -126,7 +126,8 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
   }
 
   onButAddProfile() {
-    this.router.navigate(['expiry1']);
+    // this.router.navigate(['expiry1']);
+    this.router.navigate(['profile-add']);
   }
 
   onClickItem(item) {
