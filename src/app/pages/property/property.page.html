@@ -140,7 +140,9 @@
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>{{data.lotFrontage}}</span>
+        <span
+          *ngIf="data.lotFrontage"
+        >{{data.lotFrontage}} Sq.ft</span>
       </div>
 
       <!-- status -->
