@@ -8,7 +8,7 @@ import {
 import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
 import {PropertyService} from '../../services/property/property.service';
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-location',
@@ -85,9 +85,19 @@ export class LocationPage implements OnInit, AfterViewInit {
     this.map.on(GoogleMapsEvent.MAP_CLICK)
         .subscribe(
             (params: any[]) => {
+              console.log('map click');
+
               this.showMarker(params[0] as ILatLng);
             }
         );
+    this.map.on(GoogleMapsEvent.POI_CLICK)
+      .subscribe((params: any[]) => {
+        const placeId: string = params[0];
+        const name: string = params[1];
+        const latLng: LatLng = params[2];
+
+        this.showMarker(latLng);
+      });
   }
 
   async showMarker(latLng, addr = null) {
