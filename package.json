@@ -116,7 +116,7 @@
       "cordova-plugin-geolocation": {},
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-email-composer": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+        "ANDROID_SUPPORT_V4_VERSION": "27.1.1+"
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.154808025696-00avfp3kqf3dpv8vjqlt5udkuo9793tl",
@@ -125,12 +125,12 @@
       },
       "cordova-plugin-apprate": {},
       "cordova-plugin-x-socialsharing": {
-        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+        "ANDROID_SUPPORT_V4_VERSION": "27.1.1+",
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
       "cordova-plugin-camera": {
-        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+        "ANDROID_SUPPORT_V4_VERSION": "27.1.1+"
       },
       "cordova-plugin-telerik-imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
@@ -144,8 +144,8 @@
     },
     "platforms": [
       "browser",
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

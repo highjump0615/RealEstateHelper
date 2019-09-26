@@ -37,7 +37,7 @@ export class SignupProfilePage extends BasePage implements OnInit, OnDestroy {
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public toastController: ToastController,
-    private auth: AuthService,
+    public auth: AuthService,
     public api: ApiService
   ) {
     super(loadingCtrl, alertCtrl);
