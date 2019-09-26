@@ -31,6 +31,11 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
   ngOnInit() {
   }
 
+  onChangeType(event) {
+    // set search target
+    this.target = event.detail.value;
+  }
+
   onButSearch() {
     // set object
     const c = new Client();

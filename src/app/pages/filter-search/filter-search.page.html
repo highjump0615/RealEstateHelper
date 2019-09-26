@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="ion-padding">
   <div class="flex-column">
     <!-- search for-->
     <div class="dv-input-with-title flex-column">
@@ -17,7 +17,7 @@
 
       <ion-radio-group
         class="flex-c-row"
-        [(ngModel)]="target">
+        (ionChange)="onChangeType($event)">
         <!-- checkbox -->
         <ion-item
           lines="none"
@@ -27,6 +27,7 @@
             slot="start"
             mode="md"
             color="secondary"
+            checked
             [value]="PAGE_BUYER"
           ></ion-radio>
         </ion-item>
@@ -44,8 +45,7 @@
       </ion-radio-group>
     </div>
 
-    <form
-      (ngSubmit)="onSubmit()">
+    <form>
       <!-- location -->
       <div class="dv-filter-input flex-c-row mt-10">
         <!-- icon -->
