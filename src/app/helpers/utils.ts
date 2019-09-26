@@ -80,32 +80,21 @@ export class Utils {
   }
 
   static containsArray(target, toMatch) {
-    let found, targetMap, i, j, cur;
-
-    found = false;
-    targetMap = {};
-
-    if (!target || !toMatch) {
-      return found;
+    // no data to compare, not contain
+    if (toMatch.length <= 0) {
+      return false;
     }
 
-    // Put all values in the `target` array into a map, where
-    //  the keys are the values from the array
-    for (i = 0, j = target.length; i < j; i++) {
-      cur = target[i];
-      targetMap[cur] = true;
+    // length is smaller than search keys, not contain
+    if (target.length < toMatch.length) {
+      return false;
     }
 
-    // Loop over all items in the `toMatch` array and see if any of
-    //  their values are in the map from before
-    for (i = 0, j = toMatch.length; !found && (i < j); i++) {
-      cur = toMatch[i];
-      found = !!targetMap[cur];
-      // If found, `targetMap[cur]` will return true, otherwise it
-      //  will return `undefined`...that's what the `!!` is for
-    }
+    const contains = toMatch.filter(function (elem) {
+      return target.indexOf(elem) > -1;
+    }).length === toMatch.length;
 
-    return found;
+    return contains;
   }
 
   static getPhoneStr(phone) {

@@ -318,7 +318,7 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     if (nMatch > 0) {
-      console.log(prop);
+      console.log(prop.lotDepth);
     }
 
     return nMatch;
