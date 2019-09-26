@@ -257,15 +257,16 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     if (this.currentPage === this.PAGE_BUYER) {
       // filter
       if (this.keywordBuyer) {
+        const keyword = this.keywordBuyer.toLowerCase();
         const buyersFiltered = [];
 
         for (const c of this.matchedBuyers) {
           // name
-          if (c.name.toLowerCase().indexOf(this.keywordBuyer) >= 0) {
+          if (c.name.toLowerCase().indexOf(keyword) >= 0) {
             buyersFiltered.push(c);
           }
           // address
-          else if (c.address.toLowerCase().indexOf(this.keywordBuyer) >= 0) {
+          else if (c.address.toLowerCase().indexOf(keyword) >= 0) {
             buyersFiltered.push(c);
           }
         }
@@ -276,11 +277,12 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     else {
       // filter
       if (this.keywordSeller) {
+        const keyword = this.keywordSeller.toLowerCase();
         const sellersFiltered = [];
 
         for (const c of this.matchedSellers) {
           // name
-          if (c.name.toLowerCase().indexOf(this.keywordSeller) >= 0) {
+          if (c.name.toLowerCase().indexOf(keyword) >= 0) {
             sellersFiltered.push(c);
           }
         }

@@ -65,8 +65,10 @@ export class MatchPropertyPage implements OnInit {
     return false;
   }
 
-  goToLocation(event) {
-    this.router.navigate(['/location']);
+  goToLocation(prop, event) {
+    this.router.navigate(['/location', {
+      location: prop.location
+    }]);
 
     event.stopPropagation();
     return false;

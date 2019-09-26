@@ -9,6 +9,7 @@ import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
 import {PropertyService} from '../../services/property/property.service';
 import {AuthService} from '../../services/auth/auth.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-location',
@@ -25,6 +26,7 @@ export class LocationPage implements OnInit, AfterViewInit {
   constructor(
     private platform: Platform,
     public navCtrl: NavController,
+    private route: ActivatedRoute,
     private propService: PropertyService,
     public auth: AuthService
   ) {
@@ -41,6 +43,14 @@ export class LocationPage implements OnInit, AfterViewInit {
     this.address = this.propService.address;
     this.lat = this.propService.lat;
     this.lng = this.propService.lng;
+
+    const location = this.route.snapshot.paramMap.get('location');
+    if (location) {
+      const latlng = location.split(',');
+
+      this.lat = +latlng[0];
+      this.lng = +latlng[1];
+    }
   }
 
   async loadMap() {
