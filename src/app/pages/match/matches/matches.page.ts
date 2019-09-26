@@ -39,6 +39,10 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   }
 
   isBuyerMatching(buyer: Client, prop: Property) {
+    if (buyer.isPropRequestEmpty()) {
+      return false;
+    }
+
     const propReq = buyer.propRequest;
 
     //
@@ -158,16 +162,12 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
         this.matchedBuyers = [];
 
         // check matching
-        for (const prop of props) {
-          if (this.auth.user.lat && this.auth.user.lng && prop.location) {
-            prop.distance = GeoFire.distance(prop.location, [
-              this.auth.user.lat,
-              this.auth.user.lng
-            ]);
-          }
-
-          for (const buyer of this.auth.user.buyers) {
+        for (const buyer of this.auth.user.buyers) {
+          for (const prop of props) {
             const propReq = buyer.propRequest;
+            if (propReq.location && prop.location) {
+              prop.distance = GeoFire.distance(prop.location, propReq.location);
+            }
 
             if (!this.isBuyerMatching(buyer, prop)) {
               continue;
@@ -175,8 +175,9 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
 
             // add to matched buyers
             buyer.matchedProperties.push(prop);
-            this.matchedBuyers.push(buyer);
           }
+
+          this.matchedBuyers.push(buyer);
         }
       } else {
         //
