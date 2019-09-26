@@ -136,6 +136,12 @@
     <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.3.3">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-plugin-facebook4" spec="6.0.0">
+        <variable name="APP_ID" value="377684863179767" />
+        <variable name="APP_NAME" value="Reconnect" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.2.0" />
+    </plugin>
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="^7.1.4" />
     <engine name="ios" spec="^4.5.5" />

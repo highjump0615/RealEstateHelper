@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AlertController, LoadingController, NavController, ToastController} from '@ionic/angular';
 import {ActivatedRoute, Router} from '@angular/router';
 import {KeyboardService} from '../../../services/keyboard/keyboard.service';
@@ -14,7 +14,7 @@ import {ApiService} from '../../../services/api/api.service';
   templateUrl: './signup-profile.page.html',
   styleUrls: ['./signup-profile.page.scss'],
 })
-export class SignupProfilePage extends BasePage implements OnInit {
+export class SignupProfilePage extends BasePage implements OnInit, OnDestroy {
 
   email = '';
   password = '';
@@ -63,6 +63,14 @@ export class SignupProfilePage extends BasePage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    const isSocialLogin = this.route.snapshot.paramMap.has('socialLogin');
+    if (isSocialLogin) {
+      // remove user
+      this.auth.user = null;
+    }
   }
 
   onButBack() {
