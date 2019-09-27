@@ -108,13 +108,19 @@ export class BaseSigninPage extends BasePage {
       strTitle = 'Facebook Login Failed';
     }
 
-    // show error alert
-    const alert = await this.alertCtrl.create({
-      header: strTitle,
-      message: err.message,
-      buttons: ['Ok']
-    });
-    alert.present();
+    if (this.signinMethod === this.SIGNIN_FACEBOOK &&
+      err.errorCode === '4201') {
+      // canceled
+    }
+    else {
+      // show error alert
+      const alert = await this.alertCtrl.create({
+        header: strTitle,
+        message: err.message,
+        buttons: ['Ok']
+      });
+      alert.present();
+    }
 
     this.showLoadingView(false);
   }
