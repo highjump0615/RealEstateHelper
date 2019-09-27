@@ -58,7 +58,6 @@ export class AuthGuard implements CanActivate {
 
   gotoNext(needUser): Promise<boolean> | boolean {
 
-    this.statusBar.styleDefault();
     this.splashScreen.hide();
 
     if (this.auth.user && this.auth.user.saved) {

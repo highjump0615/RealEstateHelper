@@ -4,12 +4,13 @@ import {AuthService} from '../../services/auth/auth.service';
 import {GeoFire} from 'geofire';
 import {FirebaseManager} from '../../helpers/firebase-manager';
 import {Property} from '../../models/property';
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+import {Geolocation, GeolocationOptions} from '@ionic-native/geolocation/ngx';
 import {ApiService} from '../../services/api/api.service';
 import {TabService} from '../../services/tab.service';
 import {TabsPage} from '../tabs/tabs.page';
 import {NavService} from '../../services/nav.service';
 import {BasePropertiesPage} from '../base-properties.page';
+import {Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -27,18 +28,28 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     public auth: AuthService,
     public api: ApiService,
     public nav: NavService,
-    private tab: TabService
+    private tab: TabService,
+    private platform: Platform,
   ) {
     super(auth, nav);
   }
 
   async ngOnInit() {
 
+    console.log('on init');
+
     // set tab data
     this.tab.setCurrentTab(TabsPage.TAB_HOME, this);
 
+    await this.platform.ready();
+
     try {
-      const resp = await this.geolocation.getCurrentPosition();
+      const options: GeolocationOptions = {
+        maximumAge: 1000,
+        timeout: 1000,
+      };
+
+      const resp = await this.geolocation.getCurrentPosition(options);
       this.auth.user.lat = resp.coords.latitude;
       this.auth.user.lng = resp.coords.longitude;
 
@@ -86,6 +97,8 @@ export class HomePage extends BasePropertiesPage implements OnInit {
   }
 
   async fetchData() {
+    console.log('fetch start');
+
     try {
       // fetch all properties
       const props = await this.api.getAllProperties();
@@ -100,6 +113,8 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
       this.showLoading = false;
     }
+
+    console.log('fetch done');
   }
 
   async doRefresh(event) {
