@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {NavController} from '@ionic/angular';
+import {LoadingController, NavController} from '@ionic/angular';
 import {AuthService} from '../../../services/auth/auth.service';
 import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {Favourite} from '../../../models/favourite';
 import {Property} from '../../../models/property';
 import {NavService} from '../../../services/nav.service';
+import {BasePage} from '../../base.page';
+
 
 @Component({
   selector: 'app-select-buyer',
   templateUrl: './select-buyer.page.html',
   styleUrls: ['./select-buyer.page.scss'],
 })
-export class SelectBuyerPage implements OnInit {
+export class SelectBuyerPage extends BasePage implements OnInit {
 
   showLoading = false;
 
@@ -24,7 +26,10 @@ export class SelectBuyerPage implements OnInit {
     public nav: NavService,
     private auth: AuthService,
     public api: ApiService,
+    public loadingCtrl: LoadingController,
   ) {
+    super(loadingCtrl);
+
     // get parameter
     this.property = this.nav.get('data');
   }
@@ -58,25 +63,34 @@ export class SelectBuyerPage implements OnInit {
     }
   }
 
-  onButNext() {
+  async onButNext() {
+    await this.showLoadingView();
+
     const dbRef = FirebaseManager.ref();
 
     // clear original data
-    dbRef.child(Favourite.TN_FAVOURITE_PROPERTY)
-      .child(this.property.id)
-      .remove();
-
-    dbRef.child(Favourite.TN_FAVOURITE_SELLER)
-      .child(this.property.sellerId)
-      .remove();
-
-    // clear original data
-    for (const bId of this.buyerIds) {
+    const proms = [];
+    for (const b of this.auth.user.buyers) {
       // remove from db
-      dbRef.child(Favourite.TN_FAVOURITE_BUYER)
-        .child(bId)
+      let prom = dbRef.child(Favourite.TN_FAVOURITE_PROPERTY)
+        .child(this.property.id)
+        .child(b.id)
         .remove();
+      proms.push(prom);
+
+      prom = dbRef.child(Favourite.TN_FAVOURITE_SELLER)
+        .child(this.property.sellerId)
+        .child(b.id)
+        .remove();
+      proms.push(prom);
+
+      prom = dbRef.child(Favourite.TN_FAVOURITE_BUYER)
+        .child(b.id)
+        .child(this.property.id)
+        .remove();
+      proms.push(prom);
     }
+    await Promise.all(proms);
 
     // add new data
     for (const b of this.auth.user.buyers) {
@@ -99,6 +113,9 @@ export class SelectBuyerPage implements OnInit {
           .set(true);
       }
     }
+
+    // hide loading
+    this.showLoadingView(false);
 
     // back to prev page
     this.navCtrl.pop();

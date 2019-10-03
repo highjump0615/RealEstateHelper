@@ -7,7 +7,7 @@ import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {Favourite} from '../../../models/favourite';
 import {AlertController} from '@ionic/angular';
 import {AuthService} from '../../../services/auth/auth.service';
-import {NavService} from "../../../services/nav.service";
+import {NavService} from '../../../services/nav.service';
 
 @Component({
   selector: 'app-buyers',

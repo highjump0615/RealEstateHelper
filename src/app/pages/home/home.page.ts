@@ -11,6 +11,7 @@ import {TabsPage} from '../tabs/tabs.page';
 import {NavService} from '../../services/nav.service';
 import {BasePropertiesPage} from '../base-properties.page';
 import {Platform} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-home',
@@ -30,11 +31,14 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     public nav: NavService,
     private tab: TabService,
     private platform: Platform,
+    private splashScreen: SplashScreen,
   ) {
     super(auth, nav);
   }
 
   async ngOnInit() {
+
+    this.splashScreen.hide();
 
     console.log('on init');
 
