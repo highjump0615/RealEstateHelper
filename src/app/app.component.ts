@@ -28,7 +28,7 @@ export class AppComponent {
   }
 
   initializeApp() {
-    console.log('built in 09271218');
+    console.log('built in 09271556');
 
     // init firebase
     if (FirebaseManager.getInstance()) {

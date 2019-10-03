@@ -41,11 +41,26 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
 
     // init agent & client
     this.data = this.nav.get('data');
+
+    // init user
     this.user = this.data.agent;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log(this.user);
 
+    // fetch agent info
+    if (!this.data.agent) {
+      // agent is me
+      if (this.data.agentId === this.auth.user.id) {
+        this.data.agent = this.auth.user;
+      }
+      else {
+        this.data.agent = await this.api.getUserWithId(this.data.agentId);
+      }
+
+      this.user = this.data.agent;
+    }
   }
 
 }

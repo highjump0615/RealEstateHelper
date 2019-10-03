@@ -31,7 +31,7 @@
       button
       lines="none"
       detail="false"
-      [routerLink]="['/profile', data.agentId]">
+      (click)="onItemDetail(data)">
       <ion-card-content class="full-width">
         <div class="flex-row">
           <div class="dv-info">
@@ -39,7 +39,7 @@
               <!-- title -->
               <span
                 class="sp-title"
-              >{{data.name}}</span>
+              >{{getBuyerName(data)}}</span>
 
               <!-- address -->
               <span

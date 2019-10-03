@@ -6,6 +6,8 @@ import {ApiService} from '../../../services/api/api.service';
 import {FirebaseManager} from '../../../helpers/firebase-manager';
 import {Favourite} from '../../../models/favourite';
 import {AlertController} from '@ionic/angular';
+import {AuthService} from '../../../services/auth/auth.service';
+import {NavService} from "../../../services/nav.service";
 
 @Component({
   selector: 'app-buyers',
@@ -24,6 +26,8 @@ export class BuyersPage implements OnInit {
     public alertController: AlertController,
     private route: ActivatedRoute,
     public api: ApiService,
+    public auth: AuthService,
+    public nav: NavService,
   ) {
     this.sellerId = this.route.snapshot.params['sellerId'];
   }
@@ -78,6 +82,21 @@ export class BuyersPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  getBuyerName(data) {
+    if (data.agentId === this.auth.user.id) {
+      // this buyer is mine
+      return data.name;
+    }
+
+    return `Buyer Code: ${data.getIdReadable()}`;
+  }
+
+  onItemDetail(item: Client) {
+    this.nav.push('profile-data', {
+      data: item
+    });
   }
 
   private doDeleteBuyer(index) {
