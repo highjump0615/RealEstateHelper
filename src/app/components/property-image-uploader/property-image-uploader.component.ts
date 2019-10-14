@@ -4,6 +4,7 @@ import {ModalService} from '../../services/modal/modal.service';
 import {ActionSheetController, Platform} from '@ionic/angular';
 import {Camera} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
+import {Utils} from '../../helpers/utils';
 
 @Component({
   selector: 'app-property-image-uploader',
@@ -39,6 +40,20 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
     this.removeImage.emit();
   }
 
+  onFileSelected(event) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => {
+
+        this.onSelectedPhotos([reader.result]);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
   onButPhoto() {
     if (this.imgUrl) {
       this.modalService.viewImage(
@@ -48,9 +63,19 @@ export class PropertyImageUploaderComponent extends ImageUploaderComponent imple
       return;
     }
 
-    this.imageHelper.selectMultiplePhoto((imgs) => {
-      this.onSelectedPhotos(imgs);
-    });
+    // browser
+    if (Utils.isPlatformWeb(this.plt)) {
+      this.inputFile.nativeElement.click();
+      return;
+    }
+
+    // native
+    this.imageHelper.showSelectImage(
+      (imgs) => {
+        this.onSelectedPhotos(imgs);
+      },
+      true
+    );
   }
 
 }

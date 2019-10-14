@@ -29,7 +29,7 @@ export class ImageHelper {
     return this;
   }
 
-  async showSelectImage(callback) {
+  async showSelectImage(callback, multiple = false) {
     if (!this.actionSheetController) {
       return;
     }
@@ -38,12 +38,12 @@ export class ImageHelper {
       buttons: [{
         text: 'Take Photo',
         handler: () => {
-          this.onTakePhoto(callback);
+          this.onTakePhoto(callback, multiple);
         }
       }, {
         text: 'Photo Library',
         handler: () => {
-          this.onImageLibrary(callback);
+          this.onImageLibrary(callback, multiple);
         }
       }, {
         text: 'Cancel',
@@ -57,7 +57,7 @@ export class ImageHelper {
     await actionSheet.present();
   }
 
-  private async doSelectPhoto(sourceType, callback) {
+  private async doSelectPhoto(sourceType, callback, multiple) {
     const options: CameraOptions = {
       quality: 70,
       targetWidth: 300,
@@ -72,19 +72,32 @@ export class ImageHelper {
       const imageData = await this.camera.getPicture(options);
       console.log(imageData);
 
-      callback('data:image/jpeg;base64,' + imageData);
+      const imgData = 'data:image/jpeg;base64,' + imageData;
+      if (multiple) {
+        // return data as an array
+        callback([imgData]);
+      }
+      else {
+        callback(imgData);
+      }
 
     } catch (e) {
       console.log(e);
     }
   }
 
-  onTakePhoto(callback) {
-    this.doSelectPhoto(PictureSourceType.CAMERA, callback);
+  onTakePhoto(callback, multiple) {
+    this.doSelectPhoto(PictureSourceType.CAMERA, callback, multiple);
   }
 
-  onImageLibrary(callback) {
-    this.doSelectPhoto(PictureSourceType.PHOTOLIBRARY, callback);
+  onImageLibrary(callback, multiple) {
+    if (multiple) {
+      // multiple image picker
+      this.selectMultiplePhoto(callback);
+    }
+    else {
+      this.doSelectPhoto(PictureSourceType.PHOTOLIBRARY, callback, multiple);
+    }
   }
 
   async selectMultiplePhoto(callback) {

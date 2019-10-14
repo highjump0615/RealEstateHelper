@@ -442,12 +442,21 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   // images
   //
   getArrayPhotos() {
-    return Array(this.images.length + 1).fill(1);
+    const len = Math.min(this.images.length + 1, 10);
+
+    return Array(len).fill(1);
   }
 
   onImageSelected(index, data) {
     // image array
-    this.images = [...this.images, ...data];
+    const imgs = [...this.images, ...data];
+
+    // allow 10 images maximum
+    if (imgs.length > 10) {
+      imgs.length = 10;
+    }
+
+    this.images = imgs;
   }
 
   onImageRemoved(index) {
