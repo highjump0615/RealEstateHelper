@@ -7,7 +7,9 @@
 
     <ion-title>LOCATION</ion-title>
 
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="!readOnly">
       <ion-button
         color="light"
         (click)="onButDone()"

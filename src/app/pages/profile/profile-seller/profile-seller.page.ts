@@ -4,6 +4,7 @@ import {NavService} from '../../../services/nav.service';
 import {ApiService} from '../../../services/api/api.service';
 import {Property} from '../../../models/property';
 import {ModalService} from '../../../services/modal/modal.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile-seller',
@@ -18,8 +19,9 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     public nav: NavService,
     public api: ApiService,
     public modalService: ModalService,
+    public router: Router,
   ) {
-    super(nav);
+    super(nav, router);
   }
 
   ngOnInit() {

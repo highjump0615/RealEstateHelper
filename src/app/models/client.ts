@@ -453,4 +453,21 @@ export class Client extends BaseModel implements Deserializable {
   isBuyer() {
     return this.type === Client.CLIENT_TYPE_BUYER;
   }
+
+  getLocation() {
+    if (this.isBuyer()) {
+      if (!this.propRequest) {
+        return null;
+      }
+
+      return this.propRequest.location;
+    }
+    else {
+      if (!this.property) {
+        return null;
+      }
+
+      return this.property.location;
+    }
+  }
 }

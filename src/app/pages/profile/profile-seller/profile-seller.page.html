@@ -73,7 +73,10 @@
         </div>
 
         <!-- location -->
-        <div class="flex-column dv-location nm-center-items">
+        <div
+          class="flex-column dv-location nm-center-items"
+          *ngIf="data.property?.address"
+          (click)="goToLocation(data, $event)">
           <div class="flex-c-row">
             <ion-icon name="pin"></ion-icon>
             <span>Location</span>

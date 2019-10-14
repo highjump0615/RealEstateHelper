@@ -74,6 +74,7 @@
       <!-- address -->
       <span
         class="sp-address"
+        (click)="goToLocation(data, $event)"
         *ngIf="data.showAddress"
       >{{data.address}}</span>
 

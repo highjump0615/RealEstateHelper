@@ -20,7 +20,9 @@ export class PropertyService {
   }
 
   gotoMapForLocation() {
-    this.router.navigate(['location']);
+    this.router.navigate(['/location', {
+      readonly: false,
+    }]);
   }
 
   getLocation() {

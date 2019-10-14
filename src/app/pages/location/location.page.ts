@@ -9,7 +9,7 @@ import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
 import {PropertyService} from '../../services/property/property.service';
 import {AuthService} from '../../services/auth/auth.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-location',
@@ -19,9 +19,10 @@ import {ActivatedRoute} from "@angular/router";
 export class LocationPage implements OnInit, AfterViewInit {
 
   map: GoogleMap;
-  address: string;
+  address: string;e
   lat: number;
   lng: number;
+  readOnly = true;
 
   constructor(
     private platform: Platform,
@@ -50,6 +51,11 @@ export class LocationPage implements OnInit, AfterViewInit {
 
       this.lat = +latlng[0];
       this.lng = +latlng[1];
+    }
+
+    const readOnly = this.route.snapshot.paramMap.get('readonly');
+    if (readOnly) {
+      this.readOnly = (readOnly === 'true');
     }
   }
 
@@ -92,22 +98,24 @@ export class LocationPage implements OnInit, AfterViewInit {
       this.showMarker(latlng);
     }
 
-    this.map.on(GoogleMapsEvent.MAP_CLICK)
+    if (!this.readOnly) {
+      this.map.on(GoogleMapsEvent.MAP_CLICK)
         .subscribe(
-            (params: any[]) => {
-              console.log('map click');
+          (params: any[]) => {
+            console.log('map click');
 
-              this.showMarker(params[0] as ILatLng);
-            }
+            this.showMarker(params[0] as ILatLng);
+          }
         );
-    this.map.on(GoogleMapsEvent.POI_CLICK)
-      .subscribe((params: any[]) => {
-        const placeId: string = params[0];
-        const name: string = params[1];
-        const latLng: LatLng = params[2];
+      this.map.on(GoogleMapsEvent.POI_CLICK)
+        .subscribe((params: any[]) => {
+          const placeId: string = params[0];
+          const name: string = params[1];
+          const latLng: LatLng = params[2];
 
-        this.showMarker(latLng);
-      });
+          this.showMarker(latLng);
+        });
+    }
   }
 
   async showMarker(latLng, addr = null) {
@@ -121,39 +129,41 @@ export class LocationPage implements OnInit, AfterViewInit {
     this.lat = latLng.lat;
     this.lng = latLng.lng;
 
-    if (!addr) {
-      try {
-        const results = await Geocoder.geocode({
-          'position': latLng
-        }) as GeocoderResult[];
+    if (!this.readOnly) {
+      if (!addr) {
+        try {
+          const results = await Geocoder.geocode({
+            'position': latLng
+          }) as GeocoderResult[];
 
-        console.log(results);
+          console.log(results);
 
-        if (results.length === 0) {
-          // Not found
-          return null;
-        }
-
-        // address text
-        const country = results[0].country;
-        let address = '';
-        for (const strLine of results[0].extra.lines) {
-          if (strLine === country) {
-            address += strLine;
-            break;
+          if (results.length === 0) {
+            // Not found
+            return null;
           }
 
-          address += `${strLine}, `;
+          // address text
+          const country = results[0].country;
+          let address = '';
+          for (const strLine of results[0].extra.lines) {
+            if (strLine === country) {
+              address += strLine;
+              break;
+            }
+
+            address += `${strLine}, `;
+          }
+
+          this.address = address;
+        } catch (e) {
+          console.log(e);
         }
-
-        this.address = address;
-      } catch (e) {
-        console.log(e);
       }
-    }
 
-    marker.setTitle(this.address);
-    marker.showInfoWindow();
+      marker.setTitle(this.address);
+      marker.showInfoWindow();
+    }
   }
 
   onButDone() {

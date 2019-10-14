@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavService} from '../../../services/nav.service';
 import {BaseClientPage} from '../../base-client.page';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile-buyer',
@@ -10,9 +11,10 @@ import {BaseClientPage} from '../../base-client.page';
 export class ProfileBuyerPage extends BaseClientPage implements OnInit {
 
   constructor(
-    public nav: NavService
+    public nav: NavService,
+    public router: Router,
   ) {
-    super(nav);
+    super(nav, router);
   }
 
   ngOnInit() {

@@ -120,4 +120,13 @@ export class ProfilePage implements OnInit {
     // Send a text message using default options
     this.emailComposer.open(emailData);
   }
+
+  goToLocation(client, event) {
+    this.router.navigate(['/location', {
+      location: client.getLocation()
+    }]);
+
+    event.stopPropagation();
+    return false;
+  }
 }

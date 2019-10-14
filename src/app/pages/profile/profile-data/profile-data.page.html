@@ -90,7 +90,8 @@
       <!-- location -->
       <div
         class="dv-desc-with-title mt-14"
-        *ngIf="data.address">
+        *ngIf="data.address"
+        (click)="goToLocation(data, $event)">
         <span
           class="sp-title"
         >Desired Location</span>
@@ -183,6 +184,17 @@
         <ng-template #desc>
           <p>{{data.property.desc}}</p>
         </ng-template>
+      </div>
+
+      <!-- location -->
+      <div
+        class="dv-desc-with-title mt-14"
+        *ngIf="data.property?.address"
+        (click)="goToLocation(data, $event)">
+        <span
+          class="sp-title"
+        >Address</span>
+        <p>{{data.property?.address}}</p>
       </div>
 
       <!-- separator -->

@@ -84,7 +84,10 @@
       </div>
 
       <!-- location -->
-      <div class="dv-desc-with-title mt-14">
+      <div
+        class="dv-desc-with-title mt-14"
+        (click)="goToLocation(data, $event)"
+        *ngIf="data.address">
         <span
           class="sp-title"
         >Desired Location</span>
