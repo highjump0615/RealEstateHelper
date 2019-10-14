@@ -44,7 +44,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   price: number;
 
-  isAddressVisible = true;
+  isAddressVisible = false;
 
   title = '';
 
@@ -54,6 +54,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
   radius = 10;
 
   client: Client;
+  addressOld = '';
 
   maskPhone = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
@@ -118,6 +119,9 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
           this.propService.lat = this.client.propRequest.location[0];
           this.propService.lng = this.client.propRequest.location[1];
         }
+
+        // address
+        this.addressOld = this.client.propRequest.address;
         this.propService.address = this.client.propRequest.address;
 
         this.radius = this.client.radius;
@@ -151,22 +155,30 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
           this.propService.lat = this.client.property.location[0];
           this.propService.lng = this.client.property.location[1];
         }
+
+        // address
+        this.addressOld = this.client.property.address;
         this.propService.address = this.client.property.address;
       }
     }
   }
 
-  onAddressChecked(event) {
-    console.log(event);
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
 
-    if (this.isAddressVisible) {
+    // address is selected newly
+    const addressNew = this.propService.address;
+    if (!this.addressOld && addressNew) {
+      this.addressOld = addressNew;
+
+      // show popup
       this.presentAddressVisibleConfirm();
     }
   }
 
   async presentAddressVisibleConfirm() {
     const alert = await this.alertCtrl.create({
-      message: 'All property addresses will be shown to all users. To hide property address from all users, click box below.',
+      message: `Properties will not be displayed to other users unless selecting the “Make property address visible” box below.`,
       buttons: [
         {
           text: 'Cancel',
