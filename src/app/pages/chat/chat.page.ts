@@ -4,7 +4,7 @@ import {ApiService} from '../../services/api/api.service';
 import {NavService} from '../../services/nav.service';
 import {TabsPage} from '../tabs/tabs.page';
 import {TabService} from '../../services/tab.service';
-import {AlertController} from "@ionic/angular";
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-chat',
@@ -31,9 +31,23 @@ export class ChatPage implements OnInit {
   async ionViewDidEnter() {
     // fetch chat list
     try {
-      this.messages = await this.api.fetchChatList();
+      const msgs = await this.api.fetchChatList();
+      const proms = [];
 
-      this.fetchUsers();
+      for (const m of msgs) {
+        const prom = this.api.getUserWithId(m.id)
+          .then((u) => {
+            m.toUser = u;
+          });
+
+        proms.push(prom);
+      }
+
+      await Promise.all(proms);
+
+      // update list
+      this.messages = msgs;
+
     } catch (err) {
       console.log(err);
     } finally {
@@ -50,16 +64,6 @@ export class ChatPage implements OnInit {
     this.nav.push('message', {
       data: msg.toUser
     });
-  }
-
-
-  private fetchUsers() {
-    for (const m of this.messages) {
-      this.api.getUserWithId(m.id)
-        .then((u) => {
-          m.toUser = u;
-        });
-    }
   }
 
   itemHeightFn(item, index) {

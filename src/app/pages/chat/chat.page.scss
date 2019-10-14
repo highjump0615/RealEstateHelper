@@ -23,6 +23,11 @@ ion-item {
       text-overflow: ellipsis;
       display: inline-block;
       width: 100%;
+
+      &.sp-name {
+        font-size: 11pt;
+        font-weight: 600;
+      }
     }
   }
 }
