@@ -51,11 +51,6 @@ export class ProfilePage implements OnInit {
   }
 
   onButChat() {
-    // only available for other user
-    if (!this.userId) {
-      return;
-    }
-
     // only available after user is fetched
     if (!this.user) {
       return;

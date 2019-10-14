@@ -5,7 +5,7 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>AGENT PROFILE</ion-title>
+    <ion-title>{{data.isBuyer() ? 'BUYER' : 'SELLER'}} PROFILE</ion-title>
 
     <ion-buttons slot="end">
 
@@ -38,26 +38,16 @@
 
       <!-- info -->
       <div class="flex-column dv-info nm-center-items">
-        <!-- photo -->
-        <ion-avatar>
-          <img
-            class="img-user"
-            [src]="user?.photoUrl ? user?.photoUrl : '../../../assets/imgs/default_user.png'">
-        </ion-avatar>
 
         <!-- name -->
-        <div
-          class="flex-c-row dv-name"
-          (click)="onButChat()">
-          <span
-            class="sp-name"
-          >{{user ? user.name : '&nbsp;'}}</span>
-          <!-- show chat icon for other user -->
-          <ion-icon
-            *ngIf="user && userId"
-            name="chatbubbles">
-          </ion-icon>
-        </div>
+        <span
+          class="sp-title"
+        >Agent Info</span>
+
+        <!-- name -->
+        <span
+          class="sp-name"
+        >{{user ? user.name : '&nbsp;'}}</span>
 
         <!-- email -->
         <div
@@ -285,3 +275,13 @@
   </div>
 
 </ion-content>
+
+<ion-footer
+  *ngIf="data.agentId">
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+    (click)="onButChat()"
+  >Contact Agent</ion-button>
+</ion-footer>

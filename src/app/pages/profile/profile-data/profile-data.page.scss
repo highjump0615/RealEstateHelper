@@ -2,7 +2,7 @@
 
 .dv-user {
   .dv-info {
-    padding: 24px;
+    padding: 18px;
 
     .dv-name {
       margin-top: 20px;
@@ -16,5 +16,10 @@
 
   .sp-name {
     margin: 0 !important;
+  }
+
+  .sp-title {
+    font-size: 12pt;
+    margin-bottom: 16px;
   }
 }
