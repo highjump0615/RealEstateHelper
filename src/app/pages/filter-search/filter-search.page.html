@@ -283,18 +283,17 @@
         </div>
       </div>
 
-      <!-- date -->
-      <div class="dv-input-with-title flex-column mt-14">
-        <ion-label>Date Posted</ion-label>
+      <!-- code (for seller only) -->
+      <div
+        class="dv-input-with-title flex-column mt-14"
+        *ngIf="target === 1">
+        <ion-label>Property Code</ion-label>
 
         <div class="dv-filter-input flex-c-row mb-6">
-          <!-- icon -->
-          <ion-icon name="calendar"></ion-icon>
           <ion-input
-            class="ip-date"
-            placeholder="Date Posted"
-            type="date"
-            value="&nbsp;"
+            name="propertyCode"
+            placeholder="Property Code to Search"
+            [(ngModel)]="propertyCode"
           ></ion-input>
         </div>
       </div>

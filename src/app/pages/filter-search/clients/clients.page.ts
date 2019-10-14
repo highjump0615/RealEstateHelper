@@ -28,6 +28,7 @@ export class ClientsPage extends BasePage implements OnInit {
   clients: Array<Client> = [];
 
   filterClient: Client;
+  matchCount = 0;
 
   constructor(
     public loadingCtrl: LoadingController,
@@ -144,6 +145,7 @@ export class ClientsPage extends BasePage implements OnInit {
 
   isClientMatching(client): number {
     let nMatch = 0;
+    let nMatchMax = 0;
 
     //
     // show all for no filter
@@ -154,6 +156,8 @@ export class ClientsPage extends BasePage implements OnInit {
 
     // location
     if (this.filterClient.propRequest.location) {
+      nMatchMax++;
+
       if (client.propRequest.location) {
         client.propRequest.distance = GeoFire.distance(
           client.propRequest.location,
@@ -167,16 +171,25 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // price
+    if (this.filterClient.priceMin || this.filterClient.priceMax) {
+      nMatchMax++;
+    }
     if (this.filterClient.isPriceMatching(client)) {
       nMatch++;
     }
 
     // size
+    if (this.filterClient.sizeMin || this.filterClient.sizeMax) {
+      nMatchMax++;
+    }
     if (this.filterClient.isSizeMatching(client)) {
       nMatch++;
     }
 
     // styles
+    if (this.filterClient.propRequest.style.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       client.propRequest.style,
       this.filterClient.propRequest.style)) {
@@ -185,6 +198,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // types
+    if (this.filterClient.propRequest.type.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       client.propRequest.type,
       this.filterClient.propRequest.type)) {
@@ -193,6 +209,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // garage
+    if (this.filterClient.propRequest.garage.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       client.propRequest.garage,
       this.filterClient.propRequest.garage)) {
@@ -201,6 +220,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // basement
+    if (this.filterClient.propRequest.basement.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       client.propRequest.basement,
       this.filterClient.propRequest.basement)) {
@@ -209,6 +231,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // status
+    if (this.filterClient.propRequest.status.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       client.propRequest.status,
       this.filterClient.propRequest.status)) {
@@ -217,24 +242,33 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // bedroom
+    if (this.filterClient.propRequest.bedroom) {
+      nMatchMax++;
+    }
     if (client.propRequest.bedroom >= this.filterClient.propRequest.bedroom) {
       nMatch++;
     }
 
     // bathroom
+    if (this.filterClient.propRequest.bathroom) {
+      nMatchMax++;
+    }
     if (client.propRequest.bathroom >= this.filterClient.propRequest.bathroom) {
       nMatch++;
     }
 
-    if (nMatch > 0) {
+    if (nMatch >= nMatchMax) {
       console.log(client);
+
+      return 1;
     }
 
-    return nMatch;
+    return 0;
   }
 
   isPropertyMatching(prop) {
     let nMatch = 0;
+    let nMatchMax = 0;
 
     //
     // show all for no filter
@@ -243,8 +277,19 @@ export class ClientsPage extends BasePage implements OnInit {
       return 1;
     }
 
+    // code
+    if (this.filterClient.propRequest.id) {
+      nMatchMax++;
+
+      if (prop.getIdReadable() === this.filterClient.propRequest.id) {
+        nMatch++;
+      }
+    }
+
     // location
     if (this.filterClient.propRequest.location) {
+      nMatchMax++;
+
       if (prop.location) {
         const distance = GeoFire.distance(
           prop.location,
@@ -258,16 +303,25 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // price
+    if (this.filterClient.priceMin || this.filterClient.priceMax) {
+      nMatchMax++;
+    }
     if (this.filterClient.isPriceMatchingWithProperty(prop)) {
       nMatch++;
     }
 
     // size
+    if (this.filterClient.sizeMin || this.filterClient.sizeMax) {
+      nMatchMax++;
+    }
     if (this.filterClient.isSizeMatchingWithProperty(prop)) {
       nMatch++;
     }
 
     // styles
+    if (this.filterClient.propRequest.style.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       prop.style,
       this.filterClient.propRequest.style)) {
@@ -276,6 +330,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // types
+    if (this.filterClient.propRequest.type.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       prop.type,
       this.filterClient.propRequest.type)) {
@@ -284,6 +341,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // garage
+    if (this.filterClient.propRequest.garage.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       prop.garage,
       this.filterClient.propRequest.garage)) {
@@ -292,6 +352,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // basement
+    if (this.filterClient.propRequest.basement.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       prop.basement,
       this.filterClient.propRequest.basement)) {
@@ -300,6 +363,9 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // status
+    if (this.filterClient.propRequest.status.length > 0) {
+      nMatchMax++;
+    }
     if (Utils.containsArray(
       prop.status,
       this.filterClient.propRequest.status)) {
@@ -308,20 +374,28 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // bedroom
+    if (this.filterClient.propRequest.bedroom) {
+      nMatchMax++;
+    }
     if (prop.bedroom >= this.filterClient.propRequest.bedroom) {
       nMatch++;
     }
 
     // bathroom
+    if (this.filterClient.propRequest.bathroom) {
+      nMatchMax++;
+    }
     if (prop.bathroom >= this.filterClient.propRequest.bathroom) {
       nMatch++;
     }
 
-    if (nMatch > 0) {
-      console.log(prop.lotDepth);
+    if (nMatch >= nMatchMax) {
+      console.log(prop.bathroom);
+
+      return 1;
     }
 
-    return nMatch;
+    return 0;
   }
 
   onItemDetail(item: Client) {

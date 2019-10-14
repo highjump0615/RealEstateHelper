@@ -150,13 +150,13 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
 
         console.log(this.auth.user.buyers);
 
+        // fetch all properties
+        const props = await this.api.getAllProperties();
+
         // init
         for (const buyer of this.auth.user.buyers) {
           buyer.matchedProperties = [];
         }
-
-        // fetch all properties
-        const props = await this.api.getAllProperties();
 
         // clear
         this.matchedBuyers = [];
@@ -237,7 +237,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   }
 
   async doRefresh(event) {
-    await this.getData();
+    await this.getData(true);
 
     event.target.complete();
   }

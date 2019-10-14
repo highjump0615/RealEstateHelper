@@ -436,6 +436,9 @@ export class Client extends BaseModel implements Deserializable {
     if (this.propRequest.lotDepth) {
       return false;
     }
+    if (this.propRequest.id) {
+      return false;
+    }
 
     return true;
   }

@@ -16,6 +16,7 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
 
   target = this.PAGE_BUYER;
   distance = 12;
+  propertyCode = '';
 
   constructor(
     public nav: NavService,
@@ -64,6 +65,8 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
     c.propRequest.bathroom = +this.bathroom;
     c.propRequest.lotFrontage = +this.frontage;
     c.propRequest.lotDepth = +this.depth;
+
+    c.propRequest.id = this.propertyCode;
 
     this.nav.push('filter-search/clients', {
       data: c

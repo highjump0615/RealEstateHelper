@@ -277,4 +277,9 @@ export class Property extends BaseModel implements Deserializable {
   priceStr() {
     return this.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
+
+  getIdReadable() {
+    const strId = this.id.substring(this.id.length - 10);
+    return strId.toUpperCase();
+  }
 }
