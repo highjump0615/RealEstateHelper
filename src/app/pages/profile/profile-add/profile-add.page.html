@@ -20,26 +20,6 @@
   <div
     class="flex-column"
     [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
-    <!-- photo area -->
-    <div
-      class="dv-photo-wrapper flex-c-row">
-      <!-- background blur -->
-      <div class="dv-bg">
-      </div>
-
-      <app-image-uploader
-        [imgUrl]="imageProfile ? imageProfile : this.client?.photoUrl"
-        id="iu-profile"
-        #imagePhoto>
-        <div class="container flex-c-row nm-center">
-          <ion-icon
-            class="nm-center"
-            name="camera"></ion-icon>
-        </div>
-      </app-image-uploader>
-
-    </div>
-
     <!-- segment -->
     <div class="dv-segment-wrapper">
       <div class="flex-row dv-segment">

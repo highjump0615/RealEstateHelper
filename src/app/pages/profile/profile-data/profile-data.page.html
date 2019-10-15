@@ -289,7 +289,7 @@
 </ion-content>
 
 <ion-footer
-  *ngIf="data.agentId">
+  *ngIf="data.agentId && auth.user.id != data.agentId">
   <ion-button
     class="m-0 with-shadow"
     expand="block"

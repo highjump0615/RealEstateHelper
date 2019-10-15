@@ -63,14 +63,14 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // style
-    if (propReq.style && prop.style) {
+    if (propReq.style.length > 0 && prop.style) {
       if (!Utils.compareArrays(propReq.style, prop.style)) {
         return false;
       }
     }
 
     // type
-    if (propReq.type && prop.type) {
+    if (propReq.type.length > 0 && prop.type) {
       if (!Utils.compareArrays(propReq.type, prop.type)) {
         return false;
       }
@@ -98,14 +98,14 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // garage
-    if (propReq.garage && prop.garage) {
+    if (propReq.garage.length > 0 && prop.garage) {
       if (!Utils.compareArrays(propReq.garage, prop.garage)) {
         return false;
       }
     }
 
     // basement
-    if (propReq.basement && prop.basement) {
+    if (propReq.basement.length > 0 && prop.basement) {
       if (!Utils.compareArrays(propReq.basement, prop.basement)) {
         return false;
       }
@@ -114,7 +114,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     // lot
 
     // status
-    if (propReq.status && prop.status) {
+    if (propReq.status.length > 0 && prop.status) {
       if (!Utils.compareArrays(propReq.status, prop.status)) {
         return false;
       }
@@ -177,7 +177,9 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
             buyer.matchedProperties.push(prop);
           }
 
-          this.matchedBuyers.push(buyer);
+          if (buyer.matchedProperties.length > 0) {
+            this.matchedBuyers.push(buyer);
+          }
         }
       } else {
         //
@@ -188,7 +190,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
         }
 
         if (!this.auth.user.sellers) {
-          // fetch buyers
+          // fetch sellers
           this.auth.user.sellers = await this.api.fetchClients(false);
         }
 

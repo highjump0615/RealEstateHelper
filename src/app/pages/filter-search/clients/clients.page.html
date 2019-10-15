@@ -26,12 +26,6 @@
         *ngFor="let item of clients; let i = index"
         (click)="onItemDetail(item)">
         <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <ion-img [src]="item.photoUrl ? item.photoUrl : '../../../../assets/imgs/default_user.png'"></ion-img>
-          </ion-thumbnail>
-
           <!-- info -->
           <div class="flex-column dv-info">
             <!-- name -->
@@ -69,12 +63,6 @@
         (click)="onItemDetail(item)">
 
         <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <img src="../../../../assets/imgs/default_user.png">
-          </ion-thumbnail>
-
           <!-- info -->
           <div class="flex-column dv-info">
             <!-- name -->

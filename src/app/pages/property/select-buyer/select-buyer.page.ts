@@ -24,7 +24,7 @@ export class SelectBuyerPage extends BasePage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public nav: NavService,
-    private auth: AuthService,
+    public auth: AuthService,
     public api: ApiService,
     public loadingCtrl: LoadingController,
   ) {

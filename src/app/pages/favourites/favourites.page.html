@@ -53,14 +53,6 @@
         [routerLink]="['/favourites/properties', item.id]">
 
         <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <ion-img
-              [src]="item.photoUrl ? item.photoUrl : '../../../assets/imgs/default_user.png'">
-            </ion-img>
-          </ion-thumbnail>
-
           <!-- info -->
           <div class="flex-column dv-info">
             <!-- name -->
@@ -101,13 +93,6 @@
         [routerLink]="['/favourites/buyers', item.id]"
         *virtualItem="let item">
         <div class="flex-row full-width">
-          <!-- photo -->
-          <ion-thumbnail
-            class="round">
-            <ion-img
-              [src]="item.photoUrl ? item.photoUrl : '../../../assets/imgs/default_user.png'">
-            </ion-img>
-          </ion-thumbnail>
 
           <!-- info -->
           <div class="flex-column dv-info">

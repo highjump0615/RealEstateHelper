@@ -30,10 +30,8 @@ import {ImageHelper} from '../../../helpers/image-helper';
 })
 export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
-  @ViewChild('imagePhoto') uploadPhoto: ImageUploaderComponent;
   @ViewChild('mainForm') formMain: NgForm;
 
-  imageProfile: any;
   images = [];
 
   // input data
@@ -217,7 +215,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         // except for edit case
         if (!this.client ||
           !this.client.property ||
-          (this.client && this.client.property && !this.client.property.photoUrl)) {
+          (this.client && this.client.property && this.client.property.imageUrls.length === 0)) {
 
           this.presentAlert(
             'Image Not Selected',
@@ -313,13 +311,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       clientNew.phone = this.unmask(this.phone);
       clientNew.desc = this.description;
       clientNew.agentId = this.auth.user.id;
-
-      // upload photo
-      if (this.uploadPhoto.picture) {
-        const path = 'clients/' + clientNew.id + '.png';
-
-        clientNew.photoUrl = await this.api.uploadImage(path, this.uploadPhoto.picture);
-      }
 
       if (this.currentPage === this.PAGE_SELLER) {
         clientNew.type = Client.CLIENT_TYPE_SELLER;

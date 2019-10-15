@@ -36,7 +36,7 @@
         class="no-padding"
         button
         detail="false"
-        [routerLink]="['/profile', data.agentId]">
+        (click)="onItemDetail(data)">
         <ion-card-content
           class="full-width">
           <div class="flex-column">

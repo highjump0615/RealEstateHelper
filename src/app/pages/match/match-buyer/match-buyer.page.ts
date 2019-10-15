@@ -74,4 +74,10 @@ export class MatchBuyerPage implements OnInit {
 
     await alert.present();
   }
+
+  onItemDetail(item: Client) {
+    this.nav.push('profile-data', {
+      data: item
+    });
+  }
 }
