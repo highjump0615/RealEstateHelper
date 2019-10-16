@@ -3,6 +3,7 @@ import {AlertController, PopoverController} from '@ionic/angular';
 import {RemoveButtonComponent} from '../../../components/remove-button/remove-button.component';
 import {NavService} from '../../../services/nav.service';
 import {Client} from '../../../models/client';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-match-buyer',
@@ -15,7 +16,8 @@ export class MatchBuyerPage implements OnInit {
   constructor(
     public nav: NavService,
     public popoverCtrl: PopoverController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public auth: AuthService,
   ) {
     // get parameter
     this.seller = this.nav.get('data');
@@ -79,5 +81,14 @@ export class MatchBuyerPage implements OnInit {
     this.nav.push('profile-data', {
       data: item
     });
+  }
+
+  getBuyerName(data) {
+    if (data.agentId === this.auth.user.id) {
+      // this buyer is mine
+      return data.name;
+    }
+
+    return `Buyer Code: ${data.getIdReadable()}`;
   }
 }

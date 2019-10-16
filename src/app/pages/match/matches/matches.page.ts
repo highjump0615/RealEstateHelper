@@ -39,88 +39,162 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   }
 
   isBuyerMatching(buyer: Client, prop: Property) {
-    if (buyer.isPropRequestEmpty()) {
+    let nMatch = 0;
+    let nMatchMax = 0;
+
+    const propReq = buyer.propRequest;
+    if (!propReq) {
       return false;
     }
 
-    const propReq = buyer.propRequest;
+    // location
+    if (propReq.location && buyer.radius) {
+      nMatchMax++;
+
+      if (prop.location) {
+        const distance = GeoFire.distance(propReq.location, prop.location);
+        if (distance <= buyer.radius) {
+          nMatch++;
+        }
+      }
+    }
 
     //
     // price
     //
-    if (!(buyer.priceMin <= prop.price && prop.price <= buyer.priceMax)) {
-      return false;
+    if (buyer.priceMin || buyer.priceMax) {
+      nMatchMax++;
+
+      if (prop.price) {
+        if (buyer.priceMin && buyer.priceMax) {
+          if (buyer.priceMin <= prop.price && prop.price <= buyer.priceMax) {
+            nMatch++;
+          }
+        }
+        else if (buyer.priceMin) {
+          if (buyer.priceMin <= prop.price) {
+            nMatch++;
+          }
+        }
+        else if (buyer.priceMax) {
+          if (prop.price <= buyer.priceMax) {
+            nMatch++;
+          }
+        }
+      }
     }
 
     //
-    // location
+    // size
     //
-    if (propReq.location && prop.location && buyer.radius) {
-      const distance = GeoFire.distance(propReq.location, prop.location);
-      if (distance > buyer.radius) {
-        return false;
+    if (buyer.sizeMin || buyer.sizeMax) {
+      nMatchMax++;
+
+      if (prop.size) {
+        if (buyer.sizeMin && buyer.sizeMax) {
+          if (buyer.sizeMin <= prop.size && prop.size <= buyer.sizeMax) {
+            nMatch++;
+          }
+        }
+        else if (buyer.sizeMin) {
+          if (buyer.sizeMin <= prop.size) {
+            nMatch++;
+          }
+        }
+        else if (buyer.sizeMax) {
+          if (prop.size <= buyer.sizeMax) {
+            nMatch++;
+          }
+        }
       }
     }
 
     // style
-    if (propReq.style.length > 0 && prop.style) {
-      if (!Utils.compareArrays(propReq.style, prop.style)) {
-        return false;
+    if (propReq.style.length > 0) {
+      nMatchMax++;
+
+      if (Utils.containsArray(prop.style, propReq.style)) {
+        nMatch++;
       }
     }
 
     // type
-    if (propReq.type.length > 0 && prop.type) {
-      if (!Utils.compareArrays(propReq.type, prop.type)) {
-        return false;
-      }
-    }
+    if (propReq.type.length > 0) {
+      nMatchMax++;
 
-    // size
-    if (prop.size && (buyer.sizeMin || buyer.sizeMax)) {
-      if (!(buyer.sizeMin <= prop.size && prop.size <= buyer.sizeMax)) {
-        return false;
+      if (Utils.containsArray(prop.type, propReq.type)) {
+        nMatch++;
       }
     }
 
     // bedrooms
-    if (propReq.bedroom && prop.bedroom) {
-      if (propReq.bedroom !== prop.bedroom) {
-        return false;
+    if (propReq.bedroom) {
+      nMatchMax++;
+
+      if (prop.bedroom && prop.bedroom >= propReq.bedroom) {
+        nMatch++;
       }
     }
 
     // bathrooms
-    if (propReq.bathroom && prop.bathroom) {
-      if (propReq.bathroom !== prop.bathroom) {
-        return false;
+    if (propReq.bathroom) {
+      nMatchMax++;
+
+      if (prop.bathroom && prop.bathroom >= propReq.bathroom) {
+        nMatch++;
       }
     }
 
     // garage
-    if (propReq.garage.length > 0 && prop.garage) {
-      if (!Utils.compareArrays(propReq.garage, prop.garage)) {
-        return false;
+    if (propReq.garage.length > 0) {
+      nMatchMax++;
+
+      if (Utils.containsArray(prop.garage, propReq.garage)) {
+        nMatch++;
       }
     }
 
     // basement
-    if (propReq.basement.length > 0 && prop.basement) {
-      if (!Utils.compareArrays(propReq.basement, prop.basement)) {
-        return false;
+    if (propReq.basement.length > 0) {
+      nMatchMax++;
+
+      if (Utils.containsArray(prop.basement, propReq.basement)) {
+        nMatch++;
       }
     }
 
     // lot
+    if (propReq.lotFrontage) {
+      nMatchMax++;
 
-    // status
-    if (propReq.status.length > 0 && prop.status) {
-      if (!Utils.compareArrays(propReq.status, prop.status)) {
-        return false;
+      if (prop.lotFrontage && prop.lotFrontage >= propReq.lotFrontage) {
+        nMatch++;
       }
     }
 
-    return true;
+    // depth
+    if (propReq.lotDepth) {
+      nMatchMax++;
+
+      if (prop.lotDepth && prop.lotDepth >= propReq.lotDepth) {
+        nMatch++;
+      }
+    }
+
+    // status
+    if (propReq.status.length > 0) {
+      nMatchMax++;
+
+      if (Utils.containsArray(prop.status, propReq.status)) {
+        nMatch++;
+      }
+    }
+
+    if (nMatchMax <= 0) {
+      return false;
+    }
+
+    return nMatch >= nMatchMax;
   }
 
   async getData(isRefresh = false) {
