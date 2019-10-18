@@ -7,6 +7,7 @@ import {Property} from '../../models/property';
 import {AuthService} from '../auth/auth.service';
 import {Message} from '../../models/message';
 import {Favourite} from '../../models/favourite';
+import {Notification} from '../../models/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -465,6 +466,25 @@ export class ApiService {
     }
 
     return Promise.all(proms);
+  }
+
+  getAllNotifications() {
+    const notifications = [];
+
+    const dbRef = FirebaseManager.ref()
+      .child(Notification.TABLE_NAME)
+      .child(this.auth.user.id);
+
+    return dbRef.once('value')
+      .then((snapshot) => {
+        snapshot.forEach(function(child) {
+          const n = new Notification(child);
+
+          notifications.push(n);
+        });
+
+        return Promise.resolve(notifications);
+      });
   }
 
   sendFeedback(text) {

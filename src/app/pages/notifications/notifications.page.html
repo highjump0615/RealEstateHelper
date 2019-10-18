@@ -6,6 +6,13 @@
 </ion-header>
 
 <ion-content>
+  <!-- pull to refresh -->
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!-- showLoading -->
   <ion-spinner
     class="spn-loading"
@@ -24,22 +31,17 @@
       class="no-padding"
       button
       detail="false"
-      lines="none"
-      [routerLink]="['/expiry-profile']">
+      lines="none">
       <ion-card-content
         class="full-width">
         <div class="flex-c-row">
           <!-- image -->
           <div class="dv-icon">
             <img
-              *ngIf="nt.type == 0"
+              *ngIf="nt.type == NOTIFICATION_MATCH_BUYER || nt.type == NOTIFICATION_MATCH_SELLER"
               src="../../../assets/imgs/tab_matches_selected.png">
             <ion-icon
-              *ngIf="nt.type == 1"
-              name="pricetag">
-            </ion-icon>
-            <ion-icon
-              *ngIf="nt.type == 2"
+              *ngIf="nt.type == NOTIFICATION_EXPIRE"
               name="md-time">
             </ion-icon>
           </div>
@@ -47,15 +49,22 @@
           <!-- message -->
           <span
             class="sp-msg"
-          >Claire tagged you in a post</span>
+          >{{getNotificationDesc(nt)}}</span>
 
           <!-- time -->
           <span
             class="sp-time"
-          >July 29 | 10:00AM</span>
+          >{{getTimeFormatted(nt)}}</span>
         </div>
       </ion-card-content>
     </ion-item>
   </ion-card>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
