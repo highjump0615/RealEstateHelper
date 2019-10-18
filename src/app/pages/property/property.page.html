@@ -29,7 +29,7 @@
         pager
         #slides>
         <ion-slide
-          *ngFor="let img of data.imageUrls">
+          *ngFor="let img of data?.imageUrls">
           <img
             [src]="img"
             class="img-logo" />
@@ -59,37 +59,37 @@
         class="dv-item"
         style="margin: 0 0 10px 0;">
         <span>Property Code</span>
-        <span>{{data.getIdReadable()}}</span>
+        <span>{{data?.getIdReadable()}}</span>
       </div>
 
       <div class="flex-row dv-title">
         <!-- title -->
         <span
           class="sp-title"
-        >{{data.title}}</span>
+        >{{data?.title}}</span>
 
         <!-- date -->
         <span
           class="sp-date"
-        >{{data.createdAtStr()}}</span>
+        >{{data?.createdAtStr()}}</span>
       </div>
 
       <!-- price -->
       <span
         class="sp-price"
-      >${{data.priceStr()}}</span>
+      >${{data?.priceStr()}}</span>
 
       <!-- address -->
       <span
         class="sp-address"
         (click)="goToLocation(data, $event)"
-        *ngIf="data.showAddress"
-      >{{data.address}}</span>
+        *ngIf="data?.showAddress"
+      >{{data?.address}}</span>
 
       <!-- description -->
       <span
         class="sp-desc"
-      >{{data.desc}}</span>
+      >{{data?.desc}}</span>
 
       <!-- separator -->
       <div class="dv-separator mt-14"></div>
@@ -97,75 +97,75 @@
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>{{data.getStyleStr()}}</span>
+        <span>{{data?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>{{data.getTypeStr()}}</span>
+        <span>{{data?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
         <span
-          *ngIf="data.size"
-        >{{data.size}} Sq.ft</span>
+          *ngIf="data?.size"
+        >{{data?.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>{{data.bedroom}}</span>
+        <span>{{data?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>{{data.bathroom}}</span>
+        <span>{{data?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>{{data.getGarageStr()}}</span>
+        <span>{{data?.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>{{data.getBasementStr()}}</span>
+        <span>{{data?.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
         <span>Lot Size</span>
         <span
-          *ngIf="data.lotDepth"
-        >{{data.lotDepth}} Sq.ft</span>
+          *ngIf="data?.lotDepth"
+        >{{data?.lotDepth}} Sq.ft</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
         <span
-          *ngIf="data.lotFrontage"
-        >{{data.lotFrontage}} Sq.ft</span>
+          *ngIf="data?.lotFrontage"
+        >{{data?.lotFrontage}} Sq.ft</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>{{data.getStatusStr()}}</span>
+        <span>{{data?.getStatusStr()}}</span>
       </div>
 
       <!-- commission -->
       <div class="dv-item">
         <span>Buyer Breakage</span>
         <span
-          *ngIf="data.commission"
-        >{{data.commission}}%</span>
+          *ngIf="data?.commission"
+        >{{data?.commission}}%</span>
       </div>
     </div>
 
@@ -174,9 +174,9 @@
 </ion-content>
 
 <ion-footer
-  *ngIf="data.agentId">
+  *ngIf="data?.agentId">
   <ion-button
-    [routerLink]="['/profile/' + data.agentId]"
+    [routerLink]="['/profile/' + data?.agentId]"
     class="m-0 with-shadow"
     expand="block"
     square

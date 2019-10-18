@@ -3,6 +3,8 @@ import {Notification} from '../../models/notification';
 import {ApiService} from '../../services/api/api.service';
 import * as moment from 'moment';
 import {Client} from '../../models/client';
+import {Router} from '@angular/router';
+import {NavService} from '../../services/nav.service';
 
 @Component({
   selector: 'app-notifications',
@@ -24,6 +26,8 @@ export class NotificationsPage implements OnInit {
 
   constructor(
     public api: ApiService,
+    private router: Router,
+    public nav: NavService,
   ) {
   }
 
@@ -58,7 +62,8 @@ export class NotificationsPage implements OnInit {
           continue;
         }
 
-        if (n.type === Notification.NOTIFICATION_MATCH_BUYER) {
+        if (n.type === Notification.NOTIFICATION_MATCH_BUYER ||
+          n.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
           // fetch data
           const prom = this.api.fetchClientWithId(n.clientId, true)
             .then((c) => {
@@ -66,10 +71,6 @@ export class NotificationsPage implements OnInit {
             });
 
           proms.push(prom);
-        }
-        else if (n.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
-          // no need to fetch, set dummy data
-          n.client = new Client();
         }
 
         notiTemp.push(n);
@@ -133,9 +134,13 @@ export class NotificationsPage implements OnInit {
   onItemClick(nt: Notification) {
     if (nt.type === Notification.NOTIFICATION_MATCH_BUYER) {
       // go to property page
+      this.router.navigate(['/property', nt.propertyId]);
     }
     else if (nt.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
       // go to buyer page
+      this.nav.push('profile-data', {
+        data: nt.client
+      });
     }
   }
 }
