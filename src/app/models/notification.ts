@@ -11,8 +11,8 @@ export class Notification extends BaseModel {
   static FIELD_PROPERTY_ID = 'propertyId';
   static FIELD_TYPE = 'type';
 
-  static NOTIFICATION_MATCH_BUYER = 0;
-  static NOTIFICATION_MATCH_SELLER = 1;
+  static NOTIFICATION_MATCH_BUYER = 0;    // new property matched to buyer
+  static NOTIFICATION_MATCH_PROPERTY = 1; // new buyer matched to property
   static NOTIFICATION_TAG = 2;
   static NOTIFICATION_EXPIRE = 3;
 
@@ -43,7 +43,8 @@ export class Notification extends BaseModel {
   }
 
   isFetched() {
-    if (this.type === Notification.NOTIFICATION_MATCH_BUYER) {
+    if (this.type === Notification.NOTIFICATION_MATCH_BUYER ||
+      this.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
       return !!(this.client);
     }
 

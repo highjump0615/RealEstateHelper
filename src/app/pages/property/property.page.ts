@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavService} from '../../services/nav.service';
 import {Property} from '../../models/property';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-property',

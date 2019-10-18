@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Notification} from '../../models/notification';
 import {ApiService} from '../../services/api/api.service';
 import * as moment from 'moment';
+import {Client} from '../../models/client';
 
 @Component({
   selector: 'app-notifications',
@@ -17,7 +18,7 @@ export class NotificationsPage implements OnInit {
   notifications: Array<Notification> = [];
 
   NOTIFICATION_MATCH_BUYER = Notification.NOTIFICATION_MATCH_BUYER;
-  NOTIFICATION_MATCH_SELLER = Notification.NOTIFICATION_MATCH_SELLER;
+  NOTIFICATION_MATCH_PROPERTY = Notification.NOTIFICATION_MATCH_PROPERTY;
   NOTIFICATION_EXPIRE = Notification.NOTIFICATION_EXPIRE;
 
 
@@ -66,6 +67,10 @@ export class NotificationsPage implements OnInit {
 
           proms.push(prom);
         }
+        else if (n.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
+          // no need to fetch, set dummy data
+          n.client = new Client();
+        }
 
         notiTemp.push(n);
 
@@ -102,6 +107,9 @@ export class NotificationsPage implements OnInit {
     if (noti.type === Notification.NOTIFICATION_MATCH_BUYER) {
       strDesc = `New Property has matched to your buyer ${noti.client.name}`;
     }
+    else if (noti.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
+      strDesc = `New buyer has matched to your property`;
+    }
 
     return strDesc;
   }
@@ -119,6 +127,15 @@ export class NotificationsPage implements OnInit {
     // check if all loaded
     if (this.notifications.length >= this.notiAll.length) {
       event.target.disabled = true;
+    }
+  }
+
+  onItemClick(nt: Notification) {
+    if (nt.type === Notification.NOTIFICATION_MATCH_BUYER) {
+      // go to property page
+    }
+    else if (nt.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
+      // go to buyer page
     }
   }
 }
