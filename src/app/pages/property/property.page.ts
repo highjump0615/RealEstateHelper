@@ -3,6 +3,7 @@ import {NavService} from '../../services/nav.service';
 import {Property} from '../../models/property';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
+import {NavController, ToastController} from "@ionic/angular";
 
 @Component({
   selector: 'app-property',
@@ -15,9 +16,11 @@ export class PropertyPage implements OnInit {
 
   constructor(
     public nav: NavService,
+    public navCtrl: NavController,
     public router: Router,
     private route: ActivatedRoute,
     public api: ApiService,
+    public toastController: ToastController,
   ) {
   }
 
@@ -26,7 +29,25 @@ export class PropertyPage implements OnInit {
 
     if (propId) {
       // fetch property from id
-      this.data = await this.api.fetchPropertyWithId(propId);
+      try {
+        this.data = await this.api.fetchPropertyWithId(propId);
+      } catch (e) {
+        console.log(e);
+
+        if (e.name === 'notfound') {
+          // show notice
+          const toast = await this.toastController.create({
+            color: 'dark',
+            message: 'The property has been deleted',
+            duration: 2000
+          });
+          toast.present();
+
+          // go back
+          this.navCtrl.pop();
+        }
+      }
+
     } else {
       // get parameter
       this.data = this.nav.get('data');

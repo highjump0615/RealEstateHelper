@@ -11,10 +11,12 @@ export class Notification extends BaseModel {
   static FIELD_PROPERTY_ID = 'propertyId';
   static FIELD_TYPE = 'type';
 
-  static NOTIFICATION_MATCH_BUYER = 0;    // new property matched to buyer
-  static NOTIFICATION_MATCH_PROPERTY = 1; // new buyer matched to property
-  static NOTIFICATION_TAG = 2;
-  static NOTIFICATION_EXPIRE = 3;
+  static NOTIFICATION_MATCH_BUYER = 'match_buyer';        // new property matched to buyer
+  static NOTIFICATION_MATCH_PROPERTY = 'match_property';  // new buyer matched to property
+  static NOTIFICATION_EXPIRE_PROPERTY = 'expire_property';
+  static NOTIFICATION_EXPIRE_BUYER = 'expire_buyer';
+  static NOTIFICATION_REMOVE_PROPERTY = 'remove_property';
+  static NOTIFICATION_REMOVE_BUYER = 'remove_buyer';
 
   //
   // properties
@@ -43,11 +45,16 @@ export class Notification extends BaseModel {
   }
 
   isFetched() {
-    if (this.type === Notification.NOTIFICATION_MATCH_BUYER ||
-      this.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
-      return !!(this.client);
-    }
+    return !!(this.client);
+  }
 
-    return false;
+  toDictionary() {
+    const dict = super.toDictionary();
+
+    dict[Notification.FIELD_TYPE] = this.type;
+    dict[Notification.FIELD_CLIENT_ID] = this.clientId;
+    dict[Notification.FIELD_PROPERTY_ID] = this.propertyId;
+
+    return dict;
   }
 }

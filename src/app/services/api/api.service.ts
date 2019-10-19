@@ -516,6 +516,17 @@ export class ApiService {
     return db.set(data.toDictionary());
   }
 
+  saveToDatabaseWithField(
+    data: BaseModel,
+    field: string,
+    value: any,
+    withID?: string,
+    parentID?: string
+  ) {
+    const db = data.getDatabaseRef(withID, parentID);
+    db.child(field).set(value);
+  }
+
   saveToDatabaseRaw(data, path) {
     const db = FirebaseManager.ref().child(path);
     return db.set(data);

@@ -269,6 +269,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       let propNew = new Property();
       if (this.client && this.client.property) {
         propNew = this.client.property;
+        propNew.updateTime();
       }
       propNew.address = this.propService.address;
       propNew.title = this.title;
@@ -301,6 +302,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       let clientNew = new Client();
       if (this.client) {
         clientNew = this.client;
+        clientNew.updateTime();
       }
       else {
         clientNew.generateNewId();

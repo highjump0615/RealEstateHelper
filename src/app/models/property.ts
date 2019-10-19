@@ -30,18 +30,14 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_BATHROOM = 'bathroom';
   static FIELD_GARAGE = 'garage';
   static FIELD_BASEMENT = 'basement';
-
   static FIELD_COMMISSION = 'commission';
-
   static FIELD_LOT_FRONTAGE = 'lotFtg';
   static FIELD_LOT_DEPTH = 'lotDepth';
-
   static FIELD_STATUS = 'status';
-
   static FIELD_AGENT = 'agentId';
   static FIELD_SELLERID = 'sellerId';
-
   static FIELD_SHOW_ADDRESS = 'showAddress';
+  static FIELD_DATE_EXPIRED = 'expiredAt';
 
   static STYLES = [
     'Two-Storey',
@@ -122,10 +118,21 @@ export class Property extends BaseModel implements Deserializable {
 
   showAddress = false;
 
+  expiredAt = null;
+
   //
   // logical
   //
   distance: number;
+
+  static getCodeReadable(idOrigin) {
+    if (!idOrigin) {
+      return '';
+    }
+
+    const strId = idOrigin.substring(idOrigin.length - 10);
+    return strId.toUpperCase();
+  }
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
@@ -204,6 +211,9 @@ export class Property extends BaseModel implements Deserializable {
     if (Property.FIELD_SHOW_ADDRESS in info) {
       this.showAddress = info[Property.FIELD_SHOW_ADDRESS];
     }
+    if (Property.FIELD_DATE_EXPIRED in info) {
+      this.expiredAt = info[Property.FIELD_DATE_EXPIRED];
+    }
 
     return this;
   }
@@ -242,6 +252,7 @@ export class Property extends BaseModel implements Deserializable {
     dict[Property.FIELD_SELLERID] = this.sellerId;
 
     this.addDictItem(dict, Property.FIELD_SHOW_ADDRESS, this.showAddress);
+    this.addDictItem(dict, Property.FIELD_DATE_EXPIRED, this.expiredAt);
 
     return dict;
   }
@@ -279,7 +290,6 @@ export class Property extends BaseModel implements Deserializable {
   }
 
   getIdReadable() {
-    const strId = this.id.substring(this.id.length - 10);
-    return strId.toUpperCase();
+    return Property.getCodeReadable(this.id);
   }
 }

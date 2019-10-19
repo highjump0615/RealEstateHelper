@@ -30,13 +30,11 @@ export class Client extends BaseModel implements Deserializable {
 
   static FIELD_PROP_REQ = 'propertyRequest';
   static FIELD_DESC = 'description';
-
+  static FIELD_DATE_EXPIRED = 'expiredAt';
   // note
   static FIELD_NOTE = 'note';
-
   // sellers
   static FIELD_PROPERTY_ID = 'propertyId';
-
   static FIELD_AGENT_ID = 'agentId';
 
   static CLIENT_TYPE_BUYER = 0;
@@ -65,6 +63,7 @@ export class Client extends BaseModel implements Deserializable {
   propRequest: Property;
   note = '';
   agentId = '';
+  expiredAt = null;
 
   //
   // logical
@@ -78,6 +77,14 @@ export class Client extends BaseModel implements Deserializable {
   matchedProperties: Array<Property> = [];
   matchedBuyers: Array<Client> = [];
 
+  static getCodeReadable(idOrigin) {
+    if (!idOrigin) {
+      return '';
+    }
+
+    const strId = idOrigin.substring(idOrigin.length - 7);
+    return strId.toUpperCase();
+  }
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
@@ -128,6 +135,10 @@ export class Client extends BaseModel implements Deserializable {
       if (Client.FIELD_PROPERTY_ID in info) {
         this.propertyId = info[Client.FIELD_PROPERTY_ID];
       }
+
+      if (Client.FIELD_DATE_EXPIRED in info) {
+        this.expiredAt = info[Client.FIELD_DATE_EXPIRED];
+      }
     }
   }
 
@@ -148,6 +159,7 @@ export class Client extends BaseModel implements Deserializable {
 
     // location & address
     this.addDictItem(dict, Client.FIELD_ADDRESS, this.address);
+    this.addDictItem(dict, Client.FIELD_DATE_EXPIRED, this.expiredAt);
 
     dict[Client.FIELD_AGENT_ID] = this.agentId;
 
@@ -441,8 +453,7 @@ export class Client extends BaseModel implements Deserializable {
 
   getIdReadable() {
     const prefix = this.type === Client.CLIENT_TYPE_BUYER ? 'B' : 'S';
-    const strId = this.id.substring(this.id.length - 7);
-    return prefix + strId.toUpperCase();
+    return prefix + Client.getCodeReadable(this.id);
   }
 
   isBuyer() {

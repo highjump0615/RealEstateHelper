@@ -24,42 +24,75 @@
     <span>No notifications yet</span>
   </div>
 
-  <ion-card
-    class="ca-buyer"
-    *ngFor="let nt of notifications">
-    <ion-item
-      class="no-padding"
-      button
-      detail="false"
-      lines="none"
-      (click)="onItemClick(nt)">
-      <ion-card-content
-        class="full-width">
-        <div class="flex-c-row">
-          <!-- image -->
-          <div class="dv-icon">
-            <img
-              *ngIf="nt.type == NOTIFICATION_MATCH_BUYER || nt.type == NOTIFICATION_MATCH_PROPERTY"
-              src="../../../assets/imgs/tab_matches_selected.png">
-            <ion-icon
-              *ngIf="nt.type == NOTIFICATION_EXPIRE"
-              name="md-time">
-            </ion-icon>
-          </div>
+  <ion-list>
+    <ion-card
+      class="ca-buyer"
+      *ngFor="let nt of notifications">
+      <ion-item-sliding #slidingItem>
+        <ion-item
+          class="no-padding"
+          button
+          detail="false"
+          lines="none"
+          (click)="onItemClick(nt)">
+          <ion-card-content
+            class="full-width">
+            <div class="flex-c-row">
+              <!-- image -->
+              <div class="dv-icon">
+                <img
+                  *ngIf="nt.type == NOTIFICATION_MATCH_BUYER || nt.type == NOTIFICATION_MATCH_PROPERTY"
+                  src="../../../assets/imgs/tab_matches_selected.png" />
+                <ion-icon
+                  *ngIf="nt.type == NOTIFICATION_EXPIRE_PROPERTY || nt.type == NOTIFICATION_EXPIRE_BUYER"
+                  name="md-time">
+                </ion-icon>
+                <ion-icon
+                  *ngIf="nt.type == NOTIFICATION_REMOVE_PROPERTY || nt.type == NOTIFICATION_REMOVE_BUYER"
+                  name="trash">
+                </ion-icon>
+              </div>
 
-          <!-- message -->
-          <span
-            class="sp-msg"
-          >{{getNotificationDesc(nt)}}</span>
+              <!-- message -->
+              <span
+                class="sp-msg"
+              >{{getNotificationDesc(nt)}}</span>
 
-          <!-- time -->
-          <span
-            class="sp-time"
-          >{{getTimeFormatted(nt)}}</span>
-        </div>
-      </ion-card-content>
-    </ion-item>
-  </ion-card>
+              <!-- time -->
+              <span
+                class="sp-time"
+              >{{getTimeFormatted(nt)}}</span>
+            </div>
+          </ion-card-content>
+        </ion-item>
+
+        <!-- options -->
+        <ion-item-options
+          *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER || nt.type == NOTIFICATION_EXPIRE_PROPERTY">
+          <!-- continue button -->
+          <ion-item-option
+            [disabled]="nt.updatedAt"
+            (click)="onButContinue(nt, slidingItem)"
+          >Continue<br/>with listing</ion-item-option>
+
+          <!-- remove button -->
+          <ion-item-option
+            color="danger"
+            [disabled]="nt.updatedAt"
+            *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER"
+            (click)="onButDeleteBuyer(nt, slidingItem)"
+          >Delete<br/>Buyer</ion-item-option>
+          <ion-item-option
+            color="danger"
+            [disabled]="nt.updatedAt"
+            *ngIf="nt.type == NOTIFICATION_EXPIRE_PROPERTY"
+            (click)="onButDeleteProp(nt, slidingItem)"
+          >Delete<br/>Property</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+
+    </ion-card>
+  </ion-list>
 
   <ion-infinite-scroll
     threshold="100px"

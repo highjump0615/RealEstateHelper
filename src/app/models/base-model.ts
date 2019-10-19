@@ -13,9 +13,11 @@ export class BaseModel {
   // table info
   //
   static FIELD_DATE = 'createdAt';
+  static FIELD_DATE_UPDATE = 'updatedAt';
 
   id = '';
   createdAt = FirebaseManager.getInstance().getServerLongTime();
+  updatedAt = null;
 
   constructor(snapshot?: DataSnapshot) {
     if (snapshot) {
@@ -25,6 +27,9 @@ export class BaseModel {
 
       if (BaseModel.FIELD_DATE in info) {
         this.createdAt = info[BaseModel.FIELD_DATE];
+      }
+      if (BaseModel.FIELD_DATE_UPDATE in info) {
+        this.updatedAt = info[BaseModel.FIELD_DATE_UPDATE];
       }
     }
   }
@@ -43,6 +48,7 @@ export class BaseModel {
   toDictionary() {
     const dict = [];
     dict[BaseModel.FIELD_DATE] = this.createdAt;
+    this.addDictItem(dict, BaseModel.FIELD_DATE_UPDATE, this.updatedAt);
 
     return dict;
   }
@@ -95,5 +101,9 @@ export class BaseModel {
 
   public createdAtStr() {
     return Utils.toStringAgo(this.createdAt);
+  }
+
+  public updateTime() {
+    this.updatedAt = FirebaseManager.getInstance().getServerLongTime();
   }
 }
