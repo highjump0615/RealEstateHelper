@@ -36,4 +36,4 @@ UserInterfaceState.xcuserstate
 # sensitive data
 src/app/helpers/config.ts
 GoogleService-Info.plist
-
+google-services.json

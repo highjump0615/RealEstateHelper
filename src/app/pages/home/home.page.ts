@@ -12,6 +12,8 @@ import {NavService} from '../../services/nav.service';
 import {BasePropertiesPage} from '../base-properties.page';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {User} from '../../models/user';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +34,7 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     private tab: TabService,
     private platform: Platform,
     private splashScreen: SplashScreen,
+    private firebase: FirebaseX,
   ) {
     super(auth, nav);
   }
@@ -47,6 +50,9 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
     await this.platform.ready();
 
+    //
+    // get location
+    //
     try {
       const options: GeolocationOptions = {
         maximumAge: 1000,
@@ -57,9 +63,38 @@ export class HomePage extends BasePropertiesPage implements OnInit {
       this.auth.user.lat = resp.coords.latitude;
       this.auth.user.lng = resp.coords.longitude;
 
-    } finally {
-      this.fetchData();
+    } catch (e) {
+      console.log(e);
     }
+
+    this.fetchData();
+
+    // push notification related
+    try {
+      console.log('init for push notification');
+
+      const perm = await this.firebase.hasPermission();
+      console.log('hasPermission', perm);
+
+      const token = await this.firebase.getToken();
+      console.log(`The token is ${token}`);
+
+      this.saveToken(token);
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.firebase.onMessageReceived()
+      .subscribe(data => {
+        console.log(`User opened a notification ${data}`);
+      });
+
+    this.firebase.onTokenRefresh()
+      .subscribe((token: string) => {
+        console.log(`Got a new token ${token}`);
+
+        this.saveToken(token);
+      });
   }
 
   ionViewDidEnter() {
@@ -69,6 +104,14 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     if (this.properties) {
       this.filterData(this.auth.user.propAll);
     }
+  }
+
+  saveToken(token) {
+    this.auth.user.fcmToken = token;
+    this.auth.updateCurrentUser();
+
+    // save to db
+    this.api.saveToDatabaseWithField(this.auth.user, User.FIELD_TOKEN, token);
   }
 
   filterData(props) {

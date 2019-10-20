@@ -14,12 +14,11 @@ export class User extends BaseModel implements Deserializable {
   static FIELD_NAME = 'name';
   static FIELD_PHOTO = 'photoUrl';
   static FIELD_PHONE = 'phone';
-
   static FIELD_NAME_BKG = 'nameBkg';
   static FIELD_PHONE_BKG = 'phoneBkg';
   static FIELD_ADDR_BKG = 'addressBkg';
-
   static FIELD_TYPE = 'type';
+  static FIELD_TOKEN = 'fcmToken';
 
   static USER_TYPE_NORMAL = 'normal';
   static USER_TYPE_ADMIN = 'admin';
@@ -40,6 +39,7 @@ export class User extends BaseModel implements Deserializable {
   addressBkg = '';
 
   type = User.USER_TYPE_NORMAL;
+  fcmToken = '';
 
   //
   // logical
@@ -72,6 +72,9 @@ export class User extends BaseModel implements Deserializable {
       }
       if (User.FIELD_PHOTO in info) {
         this.photoUrl = info[User.FIELD_PHOTO];
+      }
+      if (User.FIELD_TOKEN in info) {
+        this.fcmToken = info[User.FIELD_TOKEN];
       }
     }
 
@@ -110,6 +113,7 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_NAME_BKG] = this.nameBkg;
     dict[User.FIELD_PHONE_BKG] = this.phoneBkg;
     dict[User.FIELD_ADDR_BKG] = this.addressBkg;
+    dict[User.FIELD_TOKEN] = this.fcmToken;
 
     return dict;
   }

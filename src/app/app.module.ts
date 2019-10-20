@@ -22,6 +22,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
 import {ImageViewerComponent} from './components/image-viewer/image-viewer.component';
+import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import {ImageViewerComponent} from './components/image-viewer/image-viewer.compo
     SocialSharing,
     Camera,
     ImagePicker,
+    FirebaseX,
   ],
   bootstrap: [AppComponent]
 })
