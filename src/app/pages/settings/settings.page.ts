@@ -5,6 +5,8 @@ import {AuthService} from '../../services/auth/auth.service';
 import {config} from '../../helpers/config';
 import {AppRate} from '@ionic-native/app-rate/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import {User} from "../../models/user";
+import {ApiService} from "../../services/api/api.service";
 
 @Component({
   selector: 'app-settings',
@@ -25,6 +27,7 @@ export class SettingsPage implements OnInit {
     public actionSheetController: ActionSheetController,
     private socialSharing: SocialSharing,
     public toastController: ToastController,
+    public api: ApiService,
   ) { }
 
   ngOnInit() {
@@ -59,6 +62,9 @@ export class SettingsPage implements OnInit {
   }
 
   private doLogout() {
+    // clear fcm token
+    this.api.saveToDatabaseWithField(this.auth.user, User.FIELD_TOKEN, null);
+
     // sign out
     this.auth.signOut();
 

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 import {Message} from '../../models/message';
+import {Notification} from '../../models/notification';
 import {User} from '../../models/user';
 import {ApiService} from '../../services/api/api.service';
 import {AuthService} from '../../services/auth/auth.service';
@@ -9,6 +10,7 @@ import {VirtualScrollerComponent} from 'ngx-virtual-scroller';
 import {KeyboardService} from '../../services/keyboard/keyboard.service';
 import {Platform} from '@ionic/angular';
 import {BaseKeyboardPage} from '../base-keyboard.page';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-message',
@@ -31,14 +33,26 @@ export class MessagePage extends BaseKeyboardPage implements OnInit {
     public api: ApiService,
     public kbService: KeyboardService,
     public platform: Platform,
+    private route: ActivatedRoute,
   ) {
     super(kbService, platform, keyboard);
-
-    // get parameter
-    this.userTo = this.nav.get('data');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const userId = this.route.snapshot.params['id'];
+
+    if (userId) {
+      // fetch property from id
+      try {
+        this.userTo = await this.api.getUserWithId(userId);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      // get parameter
+      this.userTo = this.nav.get('data');
+    }
+
     //
     // fetch messages
     //
@@ -99,5 +113,17 @@ export class MessagePage extends BaseKeyboardPage implements OnInit {
     //
     // send push notification
     //
+    const message = {
+      notification: {
+        title: this.auth.user.name,
+        body: this.message,
+      },
+      data: {
+        type: Notification.NOTIFICATION_CHAT,
+        userId: this.auth.user.id,
+      },
+    };
+
+    this.api.sendChatNotification(this.userTo.id, message);
   }
 }

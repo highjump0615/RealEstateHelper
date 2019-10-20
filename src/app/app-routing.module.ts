@@ -159,6 +159,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'message/:id',
+    loadChildren: './pages/message/message.module#MessagePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'expiry-profile',
     loadChildren: './pages/expiry/expiry-profile/expiry-profile.module#ExpiryProfilePageModule'
   },

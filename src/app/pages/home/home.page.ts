@@ -13,6 +13,7 @@ import {BasePropertiesPage} from '../base-properties.page';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {User} from '../../models/user';
+import {Notification} from '../../models/notification';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
 
 @Component({
@@ -73,8 +74,8 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     try {
       console.log('init for push notification');
 
-      const perm = await this.firebase.hasPermission();
-      console.log('hasPermission', perm);
+      const perm = await this.firebase.grantPermission();
+      console.log('grantPermission', perm);
 
       const token = await this.firebase.getToken();
       console.log(`The token is ${token}`);
@@ -86,7 +87,22 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
     this.firebase.onMessageReceived()
       .subscribe(data => {
-        console.log(`User opened a notification ${data}`);
+        console.log(`User opened a notification`);
+        console.log(data);
+
+        if (data.tap === 'background') {
+          //
+          // parse data
+          //
+          const type = data.type;
+          if (data.type === Notification.NOTIFICATION_CHAT) {
+            // go to chat message page
+            this.router.navigate(['/message', data.userId]);
+          } else {
+            // go to notifications page
+            this.router.navigate(['/tabs/notifications']);
+          }
+        }
       });
 
     this.firebase.onTokenRefresh()

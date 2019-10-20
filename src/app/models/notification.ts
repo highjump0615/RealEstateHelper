@@ -18,6 +18,8 @@ export class Notification extends BaseModel {
   static NOTIFICATION_REMOVE_PROPERTY = 'remove_property';
   static NOTIFICATION_REMOVE_BUYER = 'remove_buyer';
 
+  static NOTIFICATION_CHAT = 'chat';
+
   //
   // properties
   //

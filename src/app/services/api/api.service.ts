@@ -504,6 +504,15 @@ export class ApiService {
     });
   }
 
+  sendChatNotification(userIdTo, msg) {
+    const func = FirebaseManager.getInstance().getCloudFunction('sendFcm');
+
+    return func({
+      userId: userIdTo,
+      msg: msg,
+    });
+  }
+
   /**
    * save entire object to database
    *
