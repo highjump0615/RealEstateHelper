@@ -19,7 +19,7 @@ import {ActivatedRoute} from '@angular/router';
 export class LocationPage implements OnInit, AfterViewInit {
 
   map: GoogleMap;
-  address: string;e
+  address: string;
   lat: number;
   lng: number;
   readOnly = true;

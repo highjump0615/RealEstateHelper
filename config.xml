@@ -21,8 +21,8 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="KeyboardResize" value="false" />
     <preference name="Orientation" value="portrait" />
-    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo" />
-    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyDTbM44zN73lOns3fiapHgAKVbe7_MVNwo" />
+    <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyCObuPZN6zmXE3MqqyDwyrVepZ41lX6z-g" />
+    <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyBhcMglyD8QNe_8lxaR1PRm1UJtkoBIGQU" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
