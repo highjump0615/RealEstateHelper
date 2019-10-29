@@ -121,7 +121,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'share',
+    path: 'share/:propId',
     loadChildren: './pages/share/share.module#SharePageModule',
     data: {needUser: true},
     canActivate: [AuthGuard]

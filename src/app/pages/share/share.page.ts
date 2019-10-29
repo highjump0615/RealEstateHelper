@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {AlertController, LoadingController, NavController, Platform, ToastController} from '@ionic/angular';
 import {Utils} from '../../helpers/utils';
 import {BaseKeyboardPage} from '../base-keyboard.page';
-import {KeyboardService} from "../../services/keyboard/keyboard.service";
-import {Keyboard} from "@ionic-native/keyboard/ngx";
-import {ApiService} from "../../services/api/api.service";
+import {KeyboardService} from '../../services/keyboard/keyboard.service';
+import {Keyboard} from '@ionic-native/keyboard/ngx';
+import {ApiService} from '../../services/api/api.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-share',
@@ -13,6 +14,7 @@ import {ApiService} from "../../services/api/api.service";
 })
 export class SharePage extends BaseKeyboardPage implements OnInit {
   email = '';
+  propId = '';
 
   constructor(
     public navCtrl: NavController,
@@ -20,6 +22,7 @@ export class SharePage extends BaseKeyboardPage implements OnInit {
     public platform: Platform,
     public keyboard: Keyboard,
     public api: ApiService,
+    private route: ActivatedRoute,
     public toastController: ToastController,
     public loadingCtrl?: LoadingController,
     public alertCtrl?: AlertController,
@@ -28,6 +31,7 @@ export class SharePage extends BaseKeyboardPage implements OnInit {
   }
 
   ngOnInit() {
+    this.propId = this.route.snapshot.params['propId'];
   }
 
   async onButShare() {
@@ -47,7 +51,7 @@ export class SharePage extends BaseKeyboardPage implements OnInit {
     await this.showLoadingView();
 
     try {
-      await this.api.sendShareProperty(this.email);
+      await this.api.sendShareProperty(this.email, this.propId);
 
       // show notice
       const toast = await this.toastController.create({

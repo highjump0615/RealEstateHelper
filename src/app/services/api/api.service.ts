@@ -495,12 +495,13 @@ export class ApiService {
     });
   }
 
-  sendShareProperty(to) {
+  sendShareProperty(to, propId) {
     const share = FirebaseManager.getInstance().getCloudFunction('shareProperty');
 
     return share({
       sendTo: to,
-      name: this.auth.user.name
+      name: this.auth.user.name,
+      data: {propertyId: propId},
     });
   }
 
