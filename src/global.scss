@@ -259,3 +259,8 @@ ion-thumbnail {
 .grayed {
   color : var(--color-gray);
 }
+
+ion-app {
+  /*animation of native keyboard show*/
+  transition: margin 300ms;
+}
