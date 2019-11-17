@@ -6,6 +6,7 @@ import {BaseClientAddPage} from '../base-client-add.page';
 import {NavService} from '../../services/nav.service';
 import {Client} from '../../models/client';
 import {Property} from '../../models/property';
+import {KeyboardService} from '../../services/keyboard/keyboard.service';
 
 @Component({
   selector: 'app-filter-search',
@@ -24,6 +25,7 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
     public alertCtrl: AlertController,
     public propService: PropertyService,
     public pickerCtrl: PickerController,
+    private kbService: KeyboardService,
   ) {
     super(loadingCtrl, alertCtrl, propService, pickerCtrl);
 
