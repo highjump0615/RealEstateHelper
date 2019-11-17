@@ -7,6 +7,7 @@ import {ApiService} from '../../../services/api/api.service';
 import {GeoFire} from 'geofire';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Utils} from '../../../helpers/utils';
+import {Property} from "../../../models/property";
 
 @Component({
   selector: 'app-clients',
@@ -190,10 +191,13 @@ export class ClientsPage extends BasePage implements OnInit {
     if (this.filterClient.propRequest.style.length > 0) {
       nMatchMax++;
     }
-    if (Utils.containsArray(
-      client.propRequest.style,
-      this.filterClient.propRequest.style)) {
-
+    if (this.filterClient.propRequest.style.find((s) => s === Property.OPTION_ANY)
+      ||
+      Utils.containsArray(
+        client.propRequest.style,
+        this.filterClient.propRequest.style
+      )
+    ) {
       nMatch++;
     }
 
@@ -338,10 +342,13 @@ export class ClientsPage extends BasePage implements OnInit {
     if (this.filterClient.propRequest.style.length > 0) {
       nMatchMax++;
     }
-    if (Utils.containsArray(
-      prop.style,
-      this.filterClient.propRequest.style)) {
-
+    if (this.filterClient.propRequest.style.find((s) => s === Property.OPTION_ANY)
+      ||
+      Utils.containsArray(
+        prop.style,
+        this.filterClient.propRequest.style
+      )
+    ) {
       nMatch++;
     }
 

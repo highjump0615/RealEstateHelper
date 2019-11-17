@@ -74,4 +74,41 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
       data: c
     });
   }
+
+  onFocusStyle() {
+    // already opened select alert
+    if (this.alertSelect) {
+      return;
+    }
+
+    const inputs = [];
+    const styles = Property.STYLES;
+
+    // add any
+    if (!styles.find((s) => s === Property.OPTION_ANY)) {
+      styles.push(Property.OPTION_ANY);
+    }
+
+    for (const s of styles) {
+      const item = {
+        type: 'checkbox',
+        label: s,
+        value: s
+      };
+
+      // set initial checked
+      if (this.styles.indexOf(s) >= 0) {
+        item['checked'] = true;
+      }
+
+      inputs.push(item);
+    }
+
+    this.presentSelectAlert(
+      'Select Style',
+      inputs,
+      (data) => {
+        this.styles = data;
+      });
+  }
 }

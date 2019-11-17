@@ -43,7 +43,7 @@ export class Property extends BaseModel implements Deserializable {
     'Two-Storey',
     'Bungalow',
     'Sidesplit',
-    'Any',
+    '3-storey',
     'Other',
   ];
 
@@ -83,6 +83,8 @@ export class Property extends BaseModel implements Deserializable {
     'Separate Entrance',
     'Other',
   ];
+
+  static OPTION_ANY = 'Any';
 
   //
   // properties
