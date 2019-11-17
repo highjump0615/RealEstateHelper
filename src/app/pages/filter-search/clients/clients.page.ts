@@ -257,6 +257,22 @@ export class ClientsPage extends BasePage implements OnInit {
       nMatch++;
     }
 
+    // lot size
+    if (this.filterClient.propRequest.lotFrontage) {
+      nMatchMax++;
+    }
+    if (client.propRequest.lotFrontage && client.propRequest.lotFrontage >= this.filterClient.propRequest.lotFrontage) {
+      nMatch++;
+    }
+
+    // lot depth
+    if (this.filterClient.propRequest.lotDepth) {
+      nMatchMax++;
+    }
+    if (client.propRequest.lotDepth && client.propRequest.lotDepth >= this.filterClient.propRequest.lotDepth) {
+      nMatch++;
+    }
+
     if (nMatch >= nMatchMax) {
       console.log(client);
 
@@ -386,6 +402,22 @@ export class ClientsPage extends BasePage implements OnInit {
       nMatchMax++;
     }
     if (prop.bathroom >= this.filterClient.propRequest.bathroom) {
+      nMatch++;
+    }
+
+    // lot size
+    if (this.filterClient.propRequest.lotFrontage) {
+      nMatchMax++;
+    }
+    if (prop.lotFrontage && prop.lotFrontage >= this.filterClient.propRequest.lotFrontage) {
+      nMatch++;
+    }
+
+    // lot depth
+    if (this.filterClient.propRequest.lotDepth) {
+      nMatchMax++;
+    }
+    if (prop.lotDepth && prop.lotDepth >= this.filterClient.propRequest.lotDepth) {
       nMatch++;
     }
 
