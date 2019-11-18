@@ -7,7 +7,8 @@ import {ApiService} from '../../../services/api/api.service';
 import {GeoFire} from 'geofire';
 import {AuthService} from '../../../services/auth/auth.service';
 import {Utils} from '../../../helpers/utils';
-import {Property} from "../../../models/property";
+import {Property} from '../../../models/property';
+import {PropertyHelper} from '../../../helpers/property-helper';
 
 @Component({
   selector: 'app-clients',
@@ -145,8 +146,8 @@ export class ClientsPage extends BasePage implements OnInit {
   }
 
   getPropertyImage(client) {
-    if (client.property && client.property.getPhotoUrl()) {
-      return client.property.getPhotoUrl();
+    if (client.property) {
+      return PropertyHelper.getPropertyImage(client.property);
     }
 
     return '../../../../assets/imgs/default_img.png';

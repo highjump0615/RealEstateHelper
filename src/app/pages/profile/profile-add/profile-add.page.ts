@@ -211,21 +211,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     }
 
     if (this.currentPage === this.PAGE_SELLER) {
-      if (this.images.length <= 0) {
-        // except for edit case
-        if (!this.client ||
-          !this.client.property ||
-          (this.client && this.client.property && this.client.property.imageUrls.length === 0)) {
-
-          this.presentAlert(
-            'Image Not Selected',
-            'Property Photo is needed to post seller data,'
-          );
-
-          return;
-        }
-      }
-
       if (!this.price) {
         this.presentAlert(
           'Invalid Price',

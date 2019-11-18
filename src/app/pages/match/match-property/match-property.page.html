@@ -53,7 +53,7 @@
                 class="dv-image"
                 (click)="onProperty(data, $event)">
                 <ion-thumbnail>
-                  <ion-img [src]="data.imageUrls[0]"></ion-img>
+                  <ion-img [src]="getPropertyImage(data)"></ion-img>
                 </ion-thumbnail>
               </div>
 

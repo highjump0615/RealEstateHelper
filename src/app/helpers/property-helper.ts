@@ -2,7 +2,14 @@ export class PropertyHelper {
   constructor() {
   }
 
-  showMapForLocation() {
+  static getPropertyImage(property) {
+    if (property.getPhotoUrl()) {
+      return property.getPhotoUrl();
+    }
 
+    return 'assets/imgs/default_img.png';
+  }
+
+  showMapForLocation() {
   }
 }

@@ -15,6 +15,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {User} from '../../models/user';
 import {Notification} from '../../models/notification';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
+import {PropertyHelper} from '../../helpers/property-helper';
 
 @Component({
   selector: 'app-home',
@@ -188,5 +189,9 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
   onButAddProfile() {
     this.nav.push('profile-add');
+  }
+
+  getPropertyImage(property) {
+    return PropertyHelper.getPropertyImage(property);
   }
 }

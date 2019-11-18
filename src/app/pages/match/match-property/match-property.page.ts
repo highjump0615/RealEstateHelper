@@ -3,6 +3,7 @@ import {AlertController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {NavService} from '../../../services/nav.service';
 import {Client} from '../../../models/client';
+import {PropertyHelper} from "../../../helpers/property-helper";
 
 @Component({
   selector: 'app-match-property',
@@ -72,5 +73,9 @@ export class MatchPropertyPage implements OnInit {
 
     event.stopPropagation();
     return false;
+  }
+
+  getPropertyImage(property) {
+    return PropertyHelper.getPropertyImage(property);
   }
 }
