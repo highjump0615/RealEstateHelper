@@ -147,16 +147,18 @@
 
       <!-- lot -->
       <div class="dv-item">
-        <span>Lot Size</span>
+        <span>Lot Depth</span>
         <span
           *ngIf="data.propRequest?.lotDepth"
-        >{{data.propRequest?.lotDepth}} Sq.ft</span>
+        >{{data.propRequest?.lotDepth}} feet</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>{{data.propRequest?.lotFrontage}}</span>
+        <span
+          *ngIf="data.propRequest?.lotFrontage"
+        >{{data.propRequest?.lotFrontage}} feet</span>
       </div>
 
       <!-- status -->
