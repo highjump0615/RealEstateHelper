@@ -25,3 +25,13 @@
 #map_canvas {
   flex: 1;
 }
+
+agm-map {
+  height: 100%;
+}
+
+ion-searchbar {
+  position: absolute;
+  background: #ffffffa0;
+  z-index: 1;
+}

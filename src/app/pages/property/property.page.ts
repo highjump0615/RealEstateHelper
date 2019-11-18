@@ -3,7 +3,7 @@ import {NavService} from '../../services/nav.service';
 import {Property} from '../../models/property';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
-import {NavController, ToastController} from "@ionic/angular";
+import {NavController, ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-property',

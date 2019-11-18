@@ -1,15 +1,10 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {
-  Environment,
-  GoogleMap,
-  GoogleMaps, GoogleMapsAnimation, GoogleMapsEvent, Marker, MyLocation,
-  Geocoder, GeocoderRequest, ILatLng, GeocoderResult, LatLng
-} from '@ionic-native/google-maps';
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {NavController, Platform} from '@ionic/angular';
 import {config} from '../../helpers/config';
 import {PropertyService} from '../../services/property/property.service';
 import {AuthService} from '../../services/auth/auth.service';
 import {ActivatedRoute} from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-location',
@@ -18,30 +13,37 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class LocationPage implements OnInit, AfterViewInit {
 
-  map: GoogleMap;
-  address: string;
   lat: number;
   lng: number;
+
+  mapLat: number;
+  mapLng: number;
+  zoom: number;
+
   readOnly = true;
+
+  placeTitle = '';
+  placeAddress = '';
+
+  // clicked the place on the map
+  clickedPlace = false;
+
+  @ViewChild('searchPlace', { read: ElementRef }) public searchbarElement: ElementRef;
 
   constructor(
     private platform: Platform,
     public navCtrl: NavController,
     private route: ActivatedRoute,
     private propService: PropertyService,
-    public auth: AuthService
+    public auth: AuthService,
+    private mapApiLoader: MapsAPILoader,
+    private ngZone: NgZone,
   ) {
-  }
-
-  ngAfterViewInit() {
-    this.platform.ready().then(() => {
-      this.loadMap();
-    });
   }
 
   ngOnInit() {
     // init data
-    this.address = this.propService.address;
+    this.placeAddress = this.propService.address;
     this.lat = this.propService.lat;
     this.lng = this.propService.lng;
 
@@ -59,116 +61,113 @@ export class LocationPage implements OnInit, AfterViewInit {
     }
   }
 
-  async loadMap() {
-    // This code is necessary for browser
-    Environment.setEnv({
-      'API_KEY_FOR_BROWSER_RELEASE': config.googleMapApiKey,
-      'API_KEY_FOR_BROWSER_DEBUG': config.googleMapApiKey
+  ngAfterViewInit() {
+    this.platform.ready().then(() => {
+      this.loadMap();
+    });
+  }
+
+  ionViewDidEnter() {
+    // init for autocomplete
+    this.mapApiLoader.load().then(() => {
+      const searchInput = this.searchbarElement.nativeElement.querySelector('.searchbar-input');
+
+      const autocomplete = new google.maps.places.Autocomplete(
+        searchInput,
+        {
+          types: ['address']
+        }
+      );
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          this.placeTitle = place.name;
+
+          // set latitude, longitude and zoom
+          this.mapLat = place.geometry.location.lat();
+          this.mapLng = place.geometry.location.lng();
+
+          if (!this.readOnly) {
+            this.lat = place.geometry.location.lat();
+            this.lng = place.geometry.location.lng();
+            this.placeAddress = place.formatted_address;
+          }
+          this.zoom = 12;
+        });
+      });
     });
 
+  }
+
+
+  async loadMap() {
     // options
-    let zoom = 12;
+    this.zoom = 12;
 
     // get current location
-    let latlng = null;
     if (this.lat && this.lng) {
-      latlng = new LatLng(this.lat, this.lng);
+      this.mapLat = this.lat;
+      this.mapLng = this.lng;
     } else if (this.auth.user.lat && this.auth.user.lng) {
       // Get the location of you
-      latlng = new LatLng(this.auth.user.lat, this.auth.user.lng);
+      this.mapLat = this.auth.user.lat;
+      this.mapLng = this.auth.user.lng;
     } else {
       // init location to Torronto
-      latlng = new LatLng(43.6532, -79.3849);
-      zoom = 15;
-    }
-
-    console.log(latlng);
-
-    // create map
-    this.map = GoogleMaps.create('map_canvas', {
-      camera: {
-        target: latlng,
-        zoom: zoom,
-        tilt: 30
-      }
-    });
-
-    if (this.lat && this.lng) {
-      latlng = new LatLng(this.lat, this.lng);
-      this.showMarker(latlng);
-    }
-
-    if (!this.readOnly) {
-      this.map.on(GoogleMapsEvent.MAP_CLICK)
-        .subscribe(
-          (params: any[]) => {
-            console.log('map click');
-
-            this.showMarker(params[0] as ILatLng);
-          }
-        );
-      this.map.on(GoogleMapsEvent.POI_CLICK)
-        .subscribe((params: any[]) => {
-          const placeId: string = params[0];
-          const name: string = params[1];
-          const latLng: LatLng = params[2];
-
-          this.showMarker(latLng);
-        });
+      this.mapLat = 43.6532;
+      this.mapLng = -79.3849;
+      this.zoom = 15;
     }
   }
 
-  async showMarker(latLng, addr = null) {
-    // clear all markers
-    this.map.clear();
+  onClickMap(event) {
+    if (this.readOnly) {
+      return;
+    }
 
-    const marker: Marker = this.map.addMarkerSync({
-      'position': latLng
-    });
+    this.lat = event.coords.lat;
+    this.lng = event.coords.lng;
 
-    this.lat = latLng.lat;
-    this.lng = latLng.lng;
+    console.log(event);
 
-    if (!this.readOnly) {
-      if (!addr) {
-        try {
-          const results = await Geocoder.geocode({
-            'position': latLng
-          }) as GeocoderResult[];
+    this.placeAddress = '';
+    this.clickedPlace = false;
 
-          console.log(results);
+    const geocoder = new google.maps.Geocoder();
+    const req = {
+      location: new google.maps.LatLng(this.lat, this.lng),
+      placeId: null,
+    };
+    if (event.placeId) {
+      req.placeId = event.placeId;
+      req.location = null;
 
-          if (results.length === 0) {
-            // Not found
-            return null;
-          }
+      this.clickedPlace = true;
+    }
 
-          // address text
-          const country = results[0].country;
-          let address = '';
-          for (const strLine of results[0].extra.lines) {
-            if (strLine === country) {
-              address += strLine;
-              break;
-            }
+    geocoder.geocode(req, (results, status) => {
+      console.log(results);
 
-            address += `${strLine}, `;
-          }
-
-          this.address = address;
-        } catch (e) {
-          console.log(e);
-        }
+      if (results.length === 0) {
+        // Not found
+        return null;
       }
 
-      marker.setTitle(this.address);
-      marker.showInfoWindow();
-    }
+      this.placeAddress = results[0].formatted_address;
+    });
   }
 
   onButDone() {
     // set data
-    this.propService.address = this.address;
+    this.propService.address = this.placeAddress;
     this.propService.lat = this.lat;
     this.propService.lng = this.lng;
 
