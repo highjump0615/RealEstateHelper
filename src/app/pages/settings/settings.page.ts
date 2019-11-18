@@ -65,6 +65,9 @@ export class SettingsPage implements OnInit {
     // clear fcm token
     this.api.saveToDatabaseWithField(this.auth.user, User.FIELD_TOKEN, null);
 
+    // clear db listener events
+    this.api.detachLatestChatList();
+
     // sign out
     this.auth.signOut();
 

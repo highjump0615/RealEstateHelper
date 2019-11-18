@@ -15,6 +15,10 @@
     </ion-tab-button>
 
     <ion-tab-button tab="chat">
+      <ion-badge
+        color="danger"
+        *ngIf="unreadMsgCount > 0"
+      >{{unreadMsgCount}}</ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
 

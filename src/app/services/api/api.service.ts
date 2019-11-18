@@ -250,6 +250,16 @@ export class ApiService {
     });
   }
 
+  detachMessageAdded(userFrom, userTo) {
+    const dbRef = FirebaseManager.ref();
+
+    const query = dbRef.child(Message.TABLE_NAME)
+      .child(userFrom)
+      .child(userTo);
+
+    query.off();
+  }
+
   fetchChatList() {
     const messages = [];
 
@@ -269,6 +279,57 @@ export class ApiService {
 
         return messages;
       });
+  }
+
+  fetchLatestChat(userTo, onUpdate: (msg) => void) {
+    // listen for data
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(userTo.id)
+      .child(this.auth.user.id);
+
+    return query.on('value', (snapshot) => {
+      const msg = new Message(snapshot);
+
+      onUpdate(msg);
+    });
+  }
+
+  detachLatestChat(userTo) {
+    // listen for data
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(userTo.id)
+      .child(this.auth.user.id);
+
+    query.off();
+  }
+
+  fetchLatestChatList(onUpdate: (msgs) => void) {
+    // listen for data
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(this.auth.user.id);
+
+    return query.on('value', (snapshot) => {
+      const messages = [];
+
+      snapshot.forEach(function(child) {
+        const m = new Message(child);
+
+        messages.push(m);
+      });
+
+      onUpdate(messages);
+    });
+  }
+
+  detachLatestChatList() {
+    const dbRef = FirebaseManager.ref();
+    const query = dbRef.child(Message.TABLE_NAME_CHAT)
+      .child(this.auth.user.id);
+
+    query.off();
   }
 
   deleteChat(userId) {

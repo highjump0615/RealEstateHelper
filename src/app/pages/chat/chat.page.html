@@ -42,6 +42,13 @@
             <!-- message -->
             <span>{{item.message}}</span>
           </div>
+
+          <ion-badge
+            color="danger"
+            *ngIf="item.unreadCount > 0">
+            {{item.unreadCount}}
+          </ion-badge>
+
         </div>
       </ion-item>
 

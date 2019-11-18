@@ -11,12 +11,14 @@ export class Message extends BaseModel {
 
   static FIELD_SENDER_ID = 'senderId';
   static FIELD_MESSAGE = 'message';
+  static FIELD_UNREAD_COUNT = 'unreadCount';
 
   //
   // properties
   //
   senderId = '';
   message = '';
+  unreadCount = 0;
 
   //
   // logical
@@ -32,6 +34,10 @@ export class Message extends BaseModel {
 
       this.senderId = info[Message.FIELD_SENDER_ID];
       this.message = info[Message.FIELD_MESSAGE];
+
+      if (Message.FIELD_UNREAD_COUNT in info) {
+        this.unreadCount = info[Message.FIELD_UNREAD_COUNT];
+      }
     }
   }
 
@@ -44,6 +50,7 @@ export class Message extends BaseModel {
 
     dict[Message.FIELD_SENDER_ID] = this.senderId;
     dict[Message.FIELD_MESSAGE] = this.message;
+    dict[Message.FIELD_UNREAD_COUNT] = this.unreadCount;
 
     return dict;
   }

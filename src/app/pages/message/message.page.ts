@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 import {Message} from '../../models/message';
 import {Notification} from '../../models/notification';
@@ -17,7 +17,7 @@ import {ActivatedRoute} from '@angular/router';
   templateUrl: './message.page.html',
   styleUrls: ['./message.page.scss']
 })
-export class MessagePage extends BaseKeyboardPage implements OnInit {
+export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
 
   @ViewChild('scroll') scrollMain: VirtualScrollerComponent;
 
@@ -25,6 +25,8 @@ export class MessagePage extends BaseKeyboardPage implements OnInit {
   messages: Array<Message> = [];
 
   message = '';
+  unreadCount = 0;
+  fetchChatRef: any;
 
   constructor(
     public keyboard: Keyboard,
@@ -69,12 +71,43 @@ export class MessagePage extends BaseKeyboardPage implements OnInit {
 
         // scroll to bottom
         this.scrollMain.scrollToPosition(999999);
+
+        this.clearUnreadCount();
       }
     );
+
+    //
+    // fetch data for unread count of the user to
+    //
+    this.fetchChatRef = this.api.fetchLatestChat(
+      this.userTo,
+      (msg) => {
+        this.unreadCount = msg.unreadCount;
+
+        console.log('Unread count', msg.unreadCount);
+      }
+    );
+
+    // clear unread count
+    this.clearUnreadCount();
+  }
+
+  ngOnDestroy() {
+    console.log('destroy message page');
+
+    this.api.detachLatestChat(this.userTo);
+    this.api.detachMessageAdded(this.auth.user.id, this.userTo.id);
   }
 
   isMessageMine(msg) {
     return msg.senderId === this.auth.user.id;
+  }
+
+  clearUnreadCount() {
+    this.api.saveToDatabaseRaw(
+      0,
+      `${Message.TABLE_NAME_CHAT}/${this.auth.user.id}/${this.userTo.id}/${Message.FIELD_UNREAD_COUNT}`
+    );
   }
 
   onButSend() {
@@ -103,6 +136,9 @@ export class MessagePage extends BaseKeyboardPage implements OnInit {
     this.api.saveToDatabaseRaw(
       msgNew.toDictionary(),
       `${Message.TABLE_NAME_CHAT}/${this.auth.user.id}/${this.userTo.id}`);
+
+    // add unread count for badge show
+    msgNew.unreadCount = this.unreadCount + 1;
     this.api.saveToDatabaseRaw(
       msgNew.toDictionary(),
       `${Message.TABLE_NAME_CHAT}/${this.userTo.id}/${this.auth.user.id}`);
