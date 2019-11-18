@@ -91,9 +91,6 @@ export class Property extends BaseModel implements Deserializable {
   //
   imageUrls = [];
 
-  // deprecated, imageUrls now
-  photoUrl: string;
-
   address = '';
   title = '';
   desc = '';
@@ -293,5 +290,9 @@ export class Property extends BaseModel implements Deserializable {
 
   getIdReadable() {
     return Property.getCodeReadable(this.id);
+  }
+
+  getPhotoUrl() {
+    return this.imageUrls.length > 0 ? this.imageUrls[0] : '';
   }
 }

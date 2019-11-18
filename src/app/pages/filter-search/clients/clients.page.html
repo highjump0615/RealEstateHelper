@@ -63,6 +63,11 @@
         (click)="onItemDetail(item)">
 
         <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail>
+            <img src="{{getPropertyImage(item)}}">
+          </ion-thumbnail>
+
           <!-- info -->
           <div class="flex-column dv-info">
             <!-- name -->

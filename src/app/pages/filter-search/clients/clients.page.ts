@@ -144,6 +144,22 @@ export class ClientsPage extends BasePage implements OnInit {
     }
   }
 
+  getPropertyImage(client) {
+    if (client.property && client.property.getPhotoUrl()) {
+      return client.property.getPhotoUrl();
+    }
+
+    return '../../../../assets/imgs/default_img.png';
+  }
+
+  getClientTitle(client) {
+    if (client.property && client.property.title) {
+      return client.property.title;
+    }
+
+    return `Seller Code: ${client.getIdReadable()}`;
+  }
+
   isClientMatching(client): number {
     let nMatch = 0;
     let nMatchMax = 0;
