@@ -176,7 +176,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   async presentAddressVisibleConfirm() {
     const alert = await this.alertCtrl.create({
-      message: `Properties will not be displayed to other users unless selecting the “Make property address visible” box below.`,
+      message: `Property address will not be displayed to other users unless selecting the “Make property address visible” box below.`,
       buttons: [
         {
           text: 'Cancel',
