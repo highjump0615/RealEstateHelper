@@ -11,7 +11,7 @@ export class Expiry2Page implements OnInit {
 
   constructor(
     public nav: NavService,
-    private auth: AuthService
+    public auth: AuthService
   ) { }
 
   ngOnInit() {

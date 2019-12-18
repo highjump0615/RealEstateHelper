@@ -4,6 +4,7 @@ import {Property} from '../../models/property';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {NavController, ToastController} from '@ionic/angular';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-property',
@@ -21,6 +22,7 @@ export class PropertyPage implements OnInit {
     private route: ActivatedRoute,
     public api: ApiService,
     public toastController: ToastController,
+    public auth: AuthService,
   ) {
   }
 

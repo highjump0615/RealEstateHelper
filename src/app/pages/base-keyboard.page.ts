@@ -1,6 +1,6 @@
 import {AlertController, LoadingController, Platform} from '@ionic/angular';
 import {KeyboardService} from '../services/keyboard/keyboard.service';
-import {Keyboard} from '@ionic-native/keyboard/ngx';
+import {Keyboard, KeyboardResizeMode} from '@ionic-native/keyboard/ngx';
 import {BasePage} from './base.page';
 
 export class BaseKeyboardPage extends BasePage {
@@ -14,11 +14,11 @@ export class BaseKeyboardPage extends BasePage {
   ) {
     super(loadingCtrl, alertCtrl);
 
-    keyboard.setResizeMode('native');
+    keyboard.setResizeMode(KeyboardResizeMode.Native);
   }
 
   ionViewDidLeave() {
-    this.keyboard.setResizeMode('');
+    this.keyboard.setResizeMode(KeyboardResizeMode.None);
   }
 
   getMarginBottom() {

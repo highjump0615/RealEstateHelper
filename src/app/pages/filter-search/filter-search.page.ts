@@ -25,7 +25,7 @@ export class FilterSearchPage extends BaseClientAddPage implements OnInit {
     public alertCtrl: AlertController,
     public propService: PropertyService,
     public pickerCtrl: PickerController,
-    private kbService: KeyboardService,
+    public kbService: KeyboardService,
   ) {
     super(loadingCtrl, alertCtrl, propService, pickerCtrl);
 

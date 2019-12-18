@@ -55,7 +55,11 @@ export class AuthGuard implements CanActivate {
   gotoNext(needUser): Promise<boolean> | boolean {
 
     if (this.auth.user && this.auth.user.saved) {
-      if (needUser) {
+      //
+      // some pages are available in both logged in and not-logged in state
+      // so pass through for undefined case
+      //
+      if (needUser == undefined || needUser == true) {
         return Promise.resolve(true);
       }
 

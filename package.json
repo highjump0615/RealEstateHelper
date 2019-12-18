@@ -161,5 +161,8 @@
       "android",
       "ios"
     ]
+  },
+  "resolutions": {
+    "terser": "3.14.1"
   }
 }

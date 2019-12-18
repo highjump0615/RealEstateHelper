@@ -9,7 +9,7 @@ import {AuthService} from '../../../services/auth/auth.service';
 export class Expiry1Page implements OnInit {
 
   constructor(
-    private auth: AuthService
+    public auth: AuthService
   ) { }
 
   ngOnInit() {

@@ -117,8 +117,7 @@ const routes: Routes = [
   {
     path: 'property/:id',
     loadChildren: './pages/property/property.module#PropertyPageModule',
-    data: {needUser: true},
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'share/:propId',

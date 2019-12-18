@@ -8,7 +8,9 @@
     <ion-title>PROPERTY DETAILS</ion-title>
 
     <!-- settings -->
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="data && auth.user">
       <ion-button
         [routerLink]="['/share', data?.id]"
         color="light">
@@ -49,7 +51,9 @@
     </div>
 
     <!-- favourite button -->
-    <div class="dv-favourite">
+    <div
+      class="dv-favourite"
+      *ngIf="data && auth.user">
       <ion-button
         color="danger"
         fill="clear"
@@ -185,7 +189,7 @@
 </ion-content>
 
 <ion-footer
-  *ngIf="data?.agentId">
+  *ngIf="data?.agentId && auth.user">
   <ion-button
     [routerLink]="['/profile/' + data?.agentId]"
     class="m-0 with-shadow"

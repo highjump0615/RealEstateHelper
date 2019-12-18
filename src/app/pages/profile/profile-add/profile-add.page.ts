@@ -58,7 +58,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    private kbService: KeyboardService,
+    public kbService: KeyboardService,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     public nav: NavService,
