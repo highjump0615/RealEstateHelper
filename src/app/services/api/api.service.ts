@@ -306,6 +306,10 @@ export class ApiService {
   }
 
   fetchLatestChatList(onUpdate: (msgs) => void) {
+    if (!this.auth.user) {
+      return;
+    }
+
     // listen for data
     const dbRef = FirebaseManager.ref();
     const query = dbRef.child(Message.TABLE_NAME_CHAT)
@@ -325,6 +329,10 @@ export class ApiService {
   }
 
   detachLatestChatList() {
+    if (!this.auth.user) {
+      return;
+    }
+
     const dbRef = FirebaseManager.ref();
     const query = dbRef.child(Message.TABLE_NAME_CHAT)
       .child(this.auth.user.id);

@@ -2,7 +2,9 @@
   <ion-toolbar
     color="primary">
     <!-- user photo -->
-    <ion-buttons slot="start">
+    <ion-buttons
+      slot="start"
+      *ngIf="auth.user">
       <a [routerLink]="['/profile']">
         <img
           class="img-user"

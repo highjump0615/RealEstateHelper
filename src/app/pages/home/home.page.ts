@@ -27,6 +27,9 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
   properties: Array<Property>;
 
+  latitude = 0;
+  longitude = 0;
+
   constructor(
     private router: Router,
     private geolocation: Geolocation,
@@ -62,8 +65,13 @@ export class HomePage extends BasePropertiesPage implements OnInit {
       };
 
       const resp = await this.geolocation.getCurrentPosition(options);
-      this.auth.user.lat = resp.coords.latitude;
-      this.auth.user.lng = resp.coords.longitude;
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+
+      if (this.auth.user) {
+        this.auth.user.lat = this.latitude;
+        this.auth.user.lng = this.longitude;
+      }
 
     } catch (e) {
       console.log(e);
@@ -72,18 +80,20 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     this.fetchData();
 
     // push notification related
-    try {
-      console.log('init for push notification');
+    if (this.auth.user) {
+      try {
+        console.log('init for push notification');
 
-      const perm = await this.firebase.grantPermission();
-      console.log('grantPermission', perm);
+        const perm = await this.firebase.grantPermission();
+        console.log('grantPermission', perm);
 
-      const token = await this.firebase.getToken();
-      console.log(`The token is ${token}`);
+        const token = await this.firebase.getToken();
+        console.log(`The token is ${token}`);
 
-      this.saveToken(token);
-    } catch (e) {
-      console.log(e);
+        this.saveToken(token);
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     this.firebase.onMessageReceived()
@@ -118,7 +128,7 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     console.log('ionViewDidEnter');
 
     // add newly added property when appear
-    if (this.properties) {
+    if (this.properties && this.auth.user) {
       this.filterData(this.auth.user.propAll);
     }
   }
@@ -137,15 +147,15 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     }
 
     // sort properties by distance
-    if (this.auth.user.lat && this.auth.user.lng) {
+    if (this.latitude && this.longitude) {
       for (const p of props) {
         if (!p.location) {
           continue;
         }
 
         p.distance = GeoFire.distance(p.location, [
-          this.auth.user.lat,
-          this.auth.user.lng
+          this.latitude,
+          this.longitude
         ]);
       }
 
@@ -157,7 +167,10 @@ export class HomePage extends BasePropertiesPage implements OnInit {
     props.sort((a, b) => (a.createdAt < b.createdAt) ? 1 : -1);
 
     this.properties = props;
-    this.auth.user.propAll = props;
+
+    if (this.auth.user) {
+      this.auth.user.propAll = props;
+    }
   }
 
   async fetchData() {

@@ -13,8 +13,6 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule',
-    data: {needUser: true},
-    canActivate: [AuthGuard]
   },
   {
     path: 'onboard',
@@ -99,8 +97,6 @@ const routes: Routes = [
   {
     path: 'filter-search',
     loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule',
-    data: {needUser: true},
-    canActivate: [AuthGuard]
   },
   {
     path: 'location',
@@ -111,8 +107,6 @@ const routes: Routes = [
   {
     path: 'property',
     loadChildren: './pages/property/property.module#PropertyPageModule',
-    data: {needUser: true},
-    canActivate: [AuthGuard]
   },
   {
     path: 'property/:id',
