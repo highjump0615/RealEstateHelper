@@ -25,54 +25,6 @@
 
 <ion-content>
   <div class="flex-column">
-    <!-- agent info -->
-    <div
-      class="dv-user flex-c-row">
-
-      <!-- background image -->
-      <div class="dv-bg">
-      </div>
-      <img
-        class="img-shadow"
-        src="../../../../assets/imgs/profile_shadow_bg.png">
-
-      <!-- info -->
-      <div class="flex-column dv-info nm-center-items">
-
-        <!-- name -->
-        <span
-          class="sp-title"
-        >Agent Info</span>
-
-        <!-- name -->
-        <span
-          class="sp-name"
-        >{{user ? user.name : '&nbsp;'}}</span>
-
-        <!-- email -->
-        <div
-          class="flex-c-row dv-email"
-          (click)="onButEmail(user?.email)">
-          <ion-icon
-            name="mail"
-            *ngIf="user">
-          </ion-icon>
-          <span>{{user ? user.email : '&nbsp;'}}</span>
-        </div>
-
-        <!-- phone -->
-        <div
-          class="flex-c-row dv-phone"
-          (click)="onButPhone(user?.phone)"
-          *ngIf="user">
-          <ion-icon name="call"></ion-icon>
-          <span>{{user ? user.getPhone() : '&nbsp;'}}</span>
-        </div>
-
-      </div>
-
-    </div>
-
     <!-- property info for buyer -->
     <div
       class="dv-property flex-column"
@@ -171,119 +123,189 @@
     <!-- property info for seller -->
     <div
       class="dv-property flex-column"
-      padding
       *ngIf="data?.property">
-      <!-- description -->
-      <div class="dv-desc-with-title">
-        <span
-          class="sp-title"
-        >Property Description</span>
-        <div
-          class="dv-no-list-item-small flex-c-row"
-          *ngIf="!data.property.desc; else desc">
-          <span>No property description</span>
-        </div>
-        <ng-template #desc>
-          <p>{{data.property.desc}}</p>
-        </ng-template>
+      <div class="dv-slide">
+        <ion-slides
+          pager
+          #slides>
+          <ng-container
+            *ngIf="data?.property.imageUrls.length > 0; else imgDefault">
+            <ion-slide
+              *ngFor="let img of data?.property.imageUrls">
+              <img
+                [src]="img"
+                class="img-logo" />
+            </ion-slide>
+          </ng-container>
+
+          <ng-template #imgDefault>
+            <ion-slide>
+              <img
+                src="assets/imgs/default_img.png"
+                class="img-logo" />
+            </ion-slide>
+          </ng-template>
+        </ion-slides>
       </div>
 
-      <!-- location -->
       <div
-        class="dv-desc-with-title mt-14"
-        *ngIf="data.property?.address"
-        (click)="goToLocation(data, $event)">
+        class="flex-column"
+        padding>
+
+        <div class="flex-row dv-title">
+          <!-- title -->
+          <span
+            class="sp-prop-title"
+          >{{data?.property.title}}</span>
+
+          <!-- date -->
+          <span
+            class="sp-date"
+          >{{data?.property.createdAtStr()}}</span>
+        </div>
+
+        <!-- price -->
+        <span
+          class="sp-price"
+        >${{data?.property.priceStr()}}</span>
+
+        <!-- description -->
+        <div class="dv-desc-with-title">
+          <span
+            class="sp-title"
+          >Property Description</span>
+          <div
+            class="dv-no-list-item-small flex-c-row"
+            *ngIf="!data.property.desc; else desc">
+            <span>No property description</span>
+          </div>
+          <ng-template #desc>
+            <p>{{data.property.desc}}</p>
+          </ng-template>
+        </div>
+
+        <!-- location -->
+        <div
+          class="dv-desc-with-title mt-14"
+          *ngIf="data.property?.address"
+          (click)="goToLocation(data, $event)">
+          <span
+            class="sp-title"
+          >Address</span>
+          <p>{{data.property?.address}}</p>
+        </div>
+
+        <!-- separator -->
+        <div class="dv-separator mt-6"></div>
+
+        <!-- style -->
+        <div class="dv-item">
+          <span>Style</span>
+          <span>{{data.property?.getStyleStr()}}</span>
+        </div>
+
+        <!-- type -->
+        <div class="dv-item">
+          <span>Type</span>
+          <span>{{data.property?.getTypeStr()}}</span>
+        </div>
+
+        <!-- size -->
+        <div class="dv-item">
+          <span>House Size</span>
+          <span
+            *ngIf="data.property?.size"
+          >{{data.property?.size}} Sq.ft</span>
+        </div>
+
+        <!-- bedrooms -->
+        <div class="dv-item">
+          <span>Number of Bedrooms</span>
+          <span>{{data.property?.bedroom}}</span>
+        </div>
+
+        <!-- bathrooms -->
+        <div class="dv-item">
+          <span>Number of Bathrooms</span>
+          <span>{{data.property?.bathroom}}</span>
+        </div>
+
+        <!-- garage -->
+        <div class="dv-item">
+          <span>Garage Type</span>
+          <span>{{data.property?.getGarageStr()}}</span>
+        </div>
+
+        <!-- basement -->
+        <div class="dv-item">
+          <span>Basement</span>
+          <span>{{data.property?.getBasementStr()}}</span>
+        </div>
+
+        <!-- lot -->
+        <div class="dv-item">
+          <span>Lot Depth</span>
+          <span
+            *ngIf="data.property?.lotDepth"
+          >{{data.property?.lotDepth}} feet</span>
+        </div>
+
+        <!-- frontage -->
+        <div class="dv-item">
+          <span>Lot Frontage</span>
+          <span
+            *ngIf="data.property?.lotFrontage"
+          >{{data.property?.lotFrontage}} feet</span>
+        </div>
+
+        <!-- status -->
+        <div class="dv-item">
+          <span>Construction Status</span>
+          <span>{{data.property?.getStatusStr()}}</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- agent info -->
+    <div
+      class="dv-user flex-c-row">
+
+      <!-- info -->
+      <div class="flex-column dv-info nm-center-items">
+
+        <!-- name -->
         <span
           class="sp-title"
-        >Address</span>
-        <p>{{data.property?.address}}</p>
-      </div>
+        >Agent Info</span>
 
-      <!-- separator -->
-      <div class="dv-separator mt-6"></div>
-
-      <!-- style -->
-      <div class="dv-item">
-        <span>Style</span>
-        <span>{{data.property?.getStyleStr()}}</span>
-      </div>
-
-      <!-- type -->
-      <div class="dv-item">
-        <span>Type</span>
-        <span>{{data.property?.getTypeStr()}}</span>
-      </div>
-
-      <!-- size -->
-      <div class="dv-item">
-        <span>House Size</span>
+        <!-- name -->
         <span
-          *ngIf="data.property?.size"
-        >{{data.property?.size}} Sq.ft</span>
-      </div>
+          class="sp-name"
+        >{{user ? user.name : '&nbsp;'}}</span>
 
-      <!-- bedrooms -->
-      <div class="dv-item">
-        <span>Number of Bedrooms</span>
-        <span>{{data.property?.bedroom}}</span>
-      </div>
-
-      <!-- bathrooms -->
-      <div class="dv-item">
-        <span>Number of Bathrooms</span>
-        <span>{{data.property?.bathroom}}</span>
-      </div>
-
-      <!-- garage -->
-      <div class="dv-item">
-        <span>Garage Type</span>
-        <span>{{data.property?.getGarageStr()}}</span>
-      </div>
-
-      <!-- basement -->
-      <div class="dv-item">
-        <span>Basement</span>
-        <span>{{data.property?.getBasementStr()}}</span>
-      </div>
-
-      <!-- lot -->
-      <div class="dv-item">
-        <span>Lot Depth</span>
-        <span
-          *ngIf="data.property?.lotDepth"
-        >{{data.property?.lotDepth}} feet</span>
-      </div>
-
-      <!-- frontage -->
-      <div class="dv-item">
-        <span>Lot Frontage</span>
-        <span
-          *ngIf="data.property?.lotFrontage"
-        >{{data.property?.lotFrontage}} feet</span>
-      </div>
-
-      <!-- status -->
-      <div class="dv-item">
-        <span>Construction Status</span>
-        <span>{{data.property?.getStatusStr()}}</span>
-      </div>
-
-      <!-- property images -->
-      <div class="dv-photos flex-column">
-        <!-- title -->
-        <span>Property Photos</span>
-
+        <!-- email -->
         <div
-          class="dv-img-container flex-row">
-          <div
-            class="dv-photo"
-            *ngFor="let img of data.property.imageUrls">
-            <div class="dv-img">
-              <img [src]="img" />
-            </div>
-          </div>
+          class="flex-c-row dv-email"
+          (click)="onButEmail(user?.email)">
+          <ion-icon
+            name="mail"
+            *ngIf="user">
+          </ion-icon>
+          <span>{{user ? user.email : '&nbsp;'}}</span>
         </div>
+
+        <!-- phone -->
+        <div
+          class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phone)"
+          *ngIf="user">
+          <ion-icon name="call"></ion-icon>
+          <span>{{user ? user.getPhone() : '&nbsp;'}}</span>
+        </div>
+
       </div>
+
     </div>
 
   </div>

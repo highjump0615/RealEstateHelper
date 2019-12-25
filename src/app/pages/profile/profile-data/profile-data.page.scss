@@ -3,6 +3,7 @@
 .dv-user {
   .dv-info {
     padding: 18px;
+    color: var(--ion-color-dark);
 
     .dv-name {
       margin-top: 20px;
@@ -22,4 +23,42 @@
     font-size: 12pt;
     margin-bottom: 16px;
   }
+
+  background-color: #f4f4f4;
+}
+
+ion-slides {
+  height: 200px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    background: var(--ion-color-light);
+  }
+
+  //
+  // slider bullets
+  //
+
+  // color
+  /deep/ .swiper-pagination-bullet {
+    background: var(--ion-color-primary-contrast) !important;
+  }
+}
+
+.sp-prop-title {
+  font-size: 11pt;
+  margin-right: 14px;
+  flex: 1;
+}
+.sp-date {
+  font-size: 8pt;
+  color: var(--color-gray-dark);
+}
+.sp-price {
+  color: var(--ion-color-secondary);
+  margin-top: 4px;
+  margin-bottom: 8px;
 }

@@ -289,6 +289,10 @@ export class ApiService {
       .child(this.auth.user.id);
 
     return query.on('value', (snapshot) => {
+      if (!snapshot.exists()) {
+        return;
+      }
+
       const msg = new Message(snapshot);
 
       onUpdate(msg);
