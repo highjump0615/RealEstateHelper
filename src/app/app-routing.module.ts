@@ -210,6 +210,11 @@ const routes: Routes = [
     data: {needUser: true},
     canActivate: [AuthGuard]
   },
+  {
+    path: 'subscribe-detail',
+    loadChildren: './pages/subscribe-detail/subscribe-detail.module#SubscribeDetailPageModule'
+  },
+  { path: 'purchase', loadChildren: './pages/purchase/purchase.module#PurchasePageModule' },
 ];
 @NgModule({
   imports: [

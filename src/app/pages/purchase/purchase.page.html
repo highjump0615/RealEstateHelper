@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Purchase Subscription</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button
+        color="light"
+        (click)="onButSave()"
+      >Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        <div class="flex-column">
+          <!-- title -->
+          <ion-label
+            class="lb-title"
+            text-center>
+            Limited Features
+          </ion-label>
+
+          <ion-label class="lb-desc">
+            Please feel free to download and install the app for FREE! You will be able to browse other agent's listings and create your own buyer/seller profiles. Your Buyer/Seller profiles will not be available for other agents to see and you will not be able to communicate with other agents.
+          </ion-label>
+        </div>
+      </ion-list-header>
+
+      <ion-item
+        lines="none"
+        disabled>
+        <ion-label>Free - Limited Features</ion-label>
+        <ion-radio
+          slot="start"
+          value="free"
+          mode="md"
+          checked>
+        </ion-radio>
+      </ion-item>
+
+      <ion-list-header class="mt-20">
+        <div class="flex-column">
+          <!-- title -->
+          <ion-label
+            class="lb-title"
+            text-center>
+            Automatic Renewal
+          </ion-label>
+
+          <ion-label class="lb-desc">
+            Enjoy 3 MONTHS FREE of our full features by signing up for automatic payment renewals
+          </ion-label>
+        </div>
+      </ion-list-header>
+
+      <ion-item
+        lines="none">
+        <ion-label>
+          Charged Monthly Automatically <br />
+          ($24.00 + 13% HST)
+        </ion-label>
+        <ion-radio
+          slot="start"
+          value="monthly"
+          mode="md"
+          checked>
+        </ion-radio>
+      </ion-item>
+      <ion-item
+        lines="none">
+        <ion-label>
+          Charged Yearly Automatically <br />
+          ($250 + 13% HST)
+        </ion-label>
+        <ion-radio
+          slot="start"
+          value="anually"
+          mode="md"
+          checked>
+        </ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,18 @@
+
+.container {
+  justify-content: space-between;
+
+  .lb-title {
+    font-weight: bold;
+  }
+  .lb-item {
+    margin-left: 12px;
+  }
+  .lb-desc {
+    line-height: 18px;
+  }
+
+  .dv-but-wrapper {
+    margin: 0 16px 26px 16px;
+  }
+}
