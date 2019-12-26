@@ -129,7 +129,13 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
     // add newly added property when appear
     if (this.properties && this.auth.user) {
-      this.filterData(this.auth.user.propAll);
+      if (this.auth.user.propAll.length <= 0) {
+        // init prop all with current values
+        this.auth.user.propAll = this.properties;
+      }
+      else {
+        this.filterData(this.auth.user.propAll);
+      }
     }
   }
 

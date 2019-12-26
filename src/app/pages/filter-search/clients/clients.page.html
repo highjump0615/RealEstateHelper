@@ -28,6 +28,11 @@
         <div class="flex-row full-width">
           <!-- info -->
           <div class="flex-column dv-info">
+            <!-- heading -->
+            <span
+              class="sp-name"
+              *ngIf="item.propRequest.title"
+            >{{item.propRequest.title}}</span>
             <!-- name -->
             <span
               class="sp-name"
@@ -70,6 +75,11 @@
 
           <!-- info -->
           <div class="flex-column dv-info">
+            <!-- heading -->
+            <span
+              class="sp-name"
+              *ngIf="item.property.title"
+            >{{item.property.title}}</span>
             <!-- name -->
             <span
               class="sp-name"

@@ -30,9 +30,22 @@
       class="dv-property flex-column"
       *ngIf="data?.isBuyer()"
       padding>
+
+      <div class="flex-row dv-title">
+        <!-- title -->
+        <span
+          class="sp-prop-title"
+        >{{data?.propRequest.title}}</span>
+
+        <!-- date -->
+        <span
+          class="sp-date"
+        >{{data?.createdAtStr()}}</span>
+      </div>
+
       <!-- description -->
       <div
-        class="dv-desc-with-title">
+        class="dv-desc-with-title mt-8">
         <span
           class="sp-title"
         >Buyers wants and needs</span>

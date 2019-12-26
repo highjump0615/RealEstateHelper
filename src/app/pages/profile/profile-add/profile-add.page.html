@@ -103,8 +103,22 @@
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
 
+        <!-- buyer heading -->
+        <div class="dv-input-with-title">
+          <!-- title -->
+          <ion-label>Buyer Heading</ion-label>
+
+          <div class="dv-profile-input flex-row">
+            <ion-input
+              name="title"
+              placeholder="Enter Buyer Heading"
+              [(ngModel)]="title"
+            ></ion-input>
+          </div>
+        </div>
+
         <!-- budget -->
-        <div class="flex-row dv-budget">
+        <div class="flex-row dv-budget mt-14">
           <div class="dv-profile-input flex-c-row">
             <!-- icon -->
             <ion-icon name="cash"></ion-icon>
@@ -258,7 +272,7 @@
         <!-- separator -->
         <div class="dv-separator mb-14"></div>
 
-        <!-- property description -->
+        <!-- property heading -->
         <div class="dv-input-with-title">
           <!-- title -->
           <ion-label>Property Heading</ion-label>

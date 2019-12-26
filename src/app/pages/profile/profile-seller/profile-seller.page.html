@@ -39,7 +39,12 @@
       </div>
       <img
         class="img-shadow"
-        src="../../../../assets/imgs/profile_shadow_bg.png">
+        src="../../../../assets/imgs/profile_shadow_bg.png" />
+
+      <!-- client code -->
+      <span class="sp-code">
+        {{data.getCodeWithDesc()}}
+      </span>
 
       <!-- info -->
       <div class="flex-column dv-info nm-center-items">
@@ -49,20 +54,25 @@
         >{{data.name}}</span>
 
         <!-- email -->
-        <div class="flex-c-row dv-email">
+        <div
+          class="flex-c-row dv-email"
+          *ngIf="data.email">
           <ion-icon name="mail"></ion-icon>
           <span>{{data.email}}</span>
         </div>
 
         <!-- phone -->
-        <div class="flex-c-row">
+        <div
+          class="flex-c-row"
+          *ngIf="data.getPhone()">
           <ion-icon name="call"></ion-icon>
           <span>{{data.getPhone()}}</span>
         </div>
 
         <!-- price -->
-        <div class="flex-c-row"
-             [hidden]="!data.property">
+        <div
+          class="flex-c-row"
+          [hidden]="!data.property">
           <ion-icon name="cash"></ion-icon>
           <span>${{data.property?.priceStr()}}</span>
         </div>

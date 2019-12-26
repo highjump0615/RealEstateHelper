@@ -23,6 +23,14 @@ ion-toolbar {
     height: 100%;
   }
 
+  .sp-code {
+    right: 12px;
+    top: 8px;
+    color: var(--ion-color-primary-contrast);
+    z-index: 1;
+    position: absolute;
+  }
+
   .dv-info {
     padding: 36px;
     z-index: 1;

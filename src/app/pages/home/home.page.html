@@ -15,7 +15,9 @@
     <ion-title>R.E.CONNECT</ion-title>
 
     <!-- settings -->
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="auth.user">
       <ion-button
         color="light"
         [routerLink]="['/settings']">

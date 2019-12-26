@@ -476,4 +476,21 @@ export class Client extends BaseModel implements Deserializable {
       return this.property.location;
     }
   }
+
+  //
+  // UI related
+  //
+  getNameWithId() {
+    if (this.name) {
+      return `${this.name}, ${this.getCodeWithDesc()}`;
+    }
+    else {
+      return this.getCodeWithDesc();
+    }
+  }
+
+  getCodeWithDesc() {
+    let typeDesc = this.type === Client.CLIENT_TYPE_BUYER ? 'Buyer Code' : 'Seller Code';
+    return `${typeDesc}: ${this.getIdReadable()}`;
+  }
 }
