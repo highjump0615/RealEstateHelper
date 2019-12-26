@@ -1,6 +1,7 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {GeoFire} from 'geofire';
+import {User} from "./user";
 
 export class Property extends BaseModel implements Deserializable {
 
@@ -123,6 +124,7 @@ export class Property extends BaseModel implements Deserializable {
   // logical
   //
   distance: number;
+  agent: User;
 
   static getCodeReadable(idOrigin) {
     if (!idOrigin) {

@@ -65,7 +65,7 @@
         lines="none">
         <ion-label>
           Charged Monthly Automatically <br />
-          ($24.00 + 13% HST)
+          $23.99
         </ion-label>
         <ion-radio
           slot="start"
@@ -78,7 +78,7 @@
         lines="none">
         <ion-label>
           Charged Yearly Automatically <br />
-          ($250 + 13% HST)
+          $249.99
         </ion-label>
         <ion-radio
           slot="start"
@@ -88,6 +88,30 @@
         </ion-radio>
       </ion-item>
     </ion-radio-group>
+
+    <div class="flex-column dv-footer mt-40">
+      <a href="#"
+         onclick="return false;"
+         (click)="onButTerms($event)"
+      >Terms and Policies</a>
+      <br />
+      <ion-label>
+        The subscription will automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. You can go to your iTunes Account settings to manage your subscription and turn off auto-renew. Your iTunes Account will be charged when the purchase is confirmed.
+      </ion-label>
+
+      <!-- operation -->
+      <div class="dv-operation mt-10">
+        <ion-button
+          fill="clear"
+          size="small"
+          (click)="onRestore()">
+          Restore Purchases
+        </ion-button>
+      </div>
+    </div>
   </ion-list>
 
 </ion-content>
+
+<ion-footer>
+</ion-footer>

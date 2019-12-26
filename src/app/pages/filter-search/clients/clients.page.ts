@@ -57,6 +57,9 @@ export class ClientsPage extends BasePage implements OnInit {
   private async loadData() {
     this.clientAll = [];
 
+    const proms = [];
+    const that = this;
+
     try {
       // load data
       if (this.filterClient.type === this.TYPE_BUYER) {
@@ -64,13 +67,25 @@ export class ClientsPage extends BasePage implements OnInit {
 
         for (const buyer of buyersAll) {
           if (this.isClientMatching(buyer) > 0) {
-            this.clientAll.push(buyer);
+            const prom = this.api.getUserWithId(buyer.agentId)
+              .then((user) => {
+                // only consider subscribed users' clients
+                if (!user.purchase.isPremium()) {
+                  return;
+                }
+                buyer.agent = user;
+
+                this.clientAll.push(buyer);
+              });
+
+            proms.push(prom);
           }
         }
 
+        await Promise.all(proms);
+
       } else {
         const propsAll = await this.api.getAllProperties();
-        const proms = [];
 
         for (const prop of propsAll) {
           if (this.isPropertyMatching(prop) > 0) {
@@ -99,30 +114,39 @@ export class ClientsPage extends BasePage implements OnInit {
   private async filterData() {
     try {
       const clientsTemp = [];
-      const proms = [];
+      // const proms = [];
+      //
+      // for (let i = this.clients.length; i < this.clientAll.length; i++) {
+      //   const c = this.clientAll[i];
+      //
+      //   if (this.filterClient.type === this.TYPE_SELLER) {
+      //     if (c.property) {
+      //       continue;
+      //     }
+      //
+      //     // fetch property
+      //     const prom = this.api.getUserWithId(c.agentId)
+      //       .then((u) => {
+      //         c.agent = u;
+      //       });
+      //     proms.push(prom);
+      //   }
+      //
+      //   clientsTemp.push(c);
+      //
+      //   if (clientsTemp.length >= ClientsPage.PAGE_COUNT) {
+      //     break;
+      //   }
+      // }
+      //
+      // if (this.filterClient.type === this.TYPE_SELLER) {
+      //   await Promise.all(proms);
+      // }
+      // console.log(clientsTemp);
+      //
+      // this.clients = this.clients.concat(clientsTemp);
 
-      for (const c of this.clientAll) {
-        if (c.agent) {
-          continue;
-        }
-
-        // fetch agent
-        const prom = this.api.getUserWithId(c.agentId)
-            .then((u) => {
-              c.agent = u;
-            });
-        proms.push(prom);
-        clientsTemp.push(c);
-
-        if (clientsTemp.length >= ClientsPage.PAGE_COUNT) {
-          break;
-        }
-      }
-
-      await Promise.all(proms);
-      console.log(clientsTemp);
-
-      this.clients = this.clients.concat(clientsTemp);
+      this.clients = this.clientAll;
     }
     finally {
       // hide loading mask

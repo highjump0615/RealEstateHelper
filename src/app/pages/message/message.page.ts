@@ -23,6 +23,7 @@ export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
 
   userTo: User;
   messages: Array<Message> = [];
+  chat = null;
 
   message = '';
   unreadCount = 0;
@@ -82,6 +83,7 @@ export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
     this.fetchChatRef = this.api.fetchLatestChat(
       this.userTo,
       (msg) => {
+        this.chat = msg;
         this.unreadCount = msg.unreadCount;
 
         console.log('Unread count', msg.unreadCount);
@@ -104,6 +106,11 @@ export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
   }
 
   clearUnreadCount() {
+    // no chat between users
+    if (!this.chat) {
+      return;
+    }
+
     this.api.saveToDatabaseRaw(
       0,
       `${Message.TABLE_NAME_CHAT}/${this.auth.user.id}/${this.userTo.id}/${Message.FIELD_UNREAD_COUNT}`

@@ -15,4 +15,12 @@ export class PurchasePage implements OnInit {
   onButSave() {
 
   }
+
+  onButTerms(event) {
+    
+  }
+
+  onRestore() {
+
+  }
 }

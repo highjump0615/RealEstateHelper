@@ -56,6 +56,12 @@ export class ProfilePage implements OnInit {
       return;
     }
 
+    // check premium status
+    if (!this.auth.user.purchase.isPremium()) {
+      this.router.navigate(['/purchase']);
+      return;
+    }
+
     this.nav.push('message', {
       data: this.user
     });

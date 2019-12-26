@@ -6,6 +6,8 @@ import {TabsPage} from '../tabs/tabs.page';
 import {TabService} from '../../services/tab.service';
 import {AlertController} from '@ionic/angular';
 import {ChatService} from '../../services/chat/chat.service';
+import {AuthService} from "../../services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -23,6 +25,8 @@ export class ChatPage implements OnInit {
     private tab: TabService,
     public api: ApiService,
     private chat: ChatService,
+    public auth: AuthService,
+    public router: Router,
   ) { }
 
   ngOnInit() {
@@ -62,6 +66,12 @@ export class ChatPage implements OnInit {
   onItemClick(msg) {
     // available when user is fetched only
     if (!msg.toUser) {
+      return;
+    }
+
+    // check premium status
+    if (!this.auth.user.purchase.isPremium()) {
+      this.router.navigate(['/purchase']);
       return;
     }
 

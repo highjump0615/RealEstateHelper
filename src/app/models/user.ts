@@ -3,6 +3,7 @@ import DataSnapshot = firebase.database.DataSnapshot;
 import {Property} from './property';
 import {Client} from './client';
 import {Utils} from '../helpers/utils';
+import {Purchase} from "./purchase";
 
 export class User extends BaseModel implements Deserializable {
 
@@ -19,6 +20,9 @@ export class User extends BaseModel implements Deserializable {
   static FIELD_ADDR_BKG = 'addressBkg';
   static FIELD_TYPE = 'type';
   static FIELD_TOKEN = 'fcmToken';
+
+  static FIELD_PURCHASE_PRODUCT = 'purchaseProductId';
+  static FIELD_PURCHASE_EXPIRE = 'purchaseExpireAt';
 
   static USER_TYPE_NORMAL = 'normal';
   static USER_TYPE_ADMIN = 'admin';
@@ -53,6 +57,8 @@ export class User extends BaseModel implements Deserializable {
   lat: number;
   lng: number;
 
+  purchase = new Purchase();
+
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);
 
@@ -76,6 +82,16 @@ export class User extends BaseModel implements Deserializable {
       if (User.FIELD_TOKEN in info) {
         this.fcmToken = info[User.FIELD_TOKEN];
       }
+
+      //
+      // purchase
+      //
+      if (User.FIELD_PURCHASE_PRODUCT in info) {
+        this.purchase.productId = info[User.FIELD_PURCHASE_PRODUCT];
+      }
+      if (User.FIELD_PURCHASE_EXPIRE in info) {
+        this.purchase.expireAt = info[User.FIELD_PURCHASE_EXPIRE];
+      }
     }
 
     if (withId) {
@@ -97,6 +113,9 @@ export class User extends BaseModel implements Deserializable {
     this.buyers = null;
     this.sellers = null;
 
+    // purchase data
+    this.purchase = new Purchase().deserialize(input.purchase);
+
     return this;
   }
 
@@ -114,6 +133,10 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_PHONE_BKG] = this.phoneBkg;
     dict[User.FIELD_ADDR_BKG] = this.addressBkg;
     dict[User.FIELD_TOKEN] = this.fcmToken;
+
+    // purchase data
+    dict[User.FIELD_PURCHASE_PRODUCT] = this.purchase.productId;
+    dict[User.FIELD_PURCHASE_EXPIRE] = this.purchase.expireAt;
 
     return dict;
   }

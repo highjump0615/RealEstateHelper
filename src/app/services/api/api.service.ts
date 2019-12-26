@@ -140,21 +140,46 @@ export class ApiService {
       });
   }
 
-  getAllProperties(): Promise<Array<Property>> {
+  async getAllProperties(withUser = true): Promise<Array<Property>> {
     const properties = [];
 
     const dbRef = FirebaseManager.ref().child(Property.TABLE_NAME);
+    const that = this;
 
-    return dbRef.once('value')
-      .then((snapshot) => {
-        snapshot.forEach(function(child) {
-          const p = new Property(child);
+    const snapshot = await dbRef.once('value');
 
-          properties.push(p);
-        });
+    // clear data
+    const proms = [];
 
-        return Promise.resolve(properties);
-      });
+    snapshot.forEach(function (child) {
+      const p = new Property(child);
+
+      if (withUser) {
+        // get agent data
+        const prom = that.getUserWithId(p.agentId)
+          .then((u) => {
+            // only consider subscribed users' properties
+            if (!u.purchase.isPremium()) {
+              return;
+            }
+
+            p.agent = u;
+
+            properties.push(p);
+          });
+
+        proms.push(prom);
+      }
+      else {
+        properties.push(p);
+      }
+    });
+
+    if (withUser) {
+      await Promise.all(proms);
+    }
+
+    return Promise.resolve(properties);
   }
 
   getAllBuyers(): Promise<Array<Client>> {
