@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
     return this.gotoNext(needUser);
   }
 
-  gotoNext(needUser): Promise<boolean> | boolean {
+  async gotoNext(needUser): Promise<boolean> | boolean {
 
     if (this.auth.user && this.auth.user.saved) {
       //
@@ -65,36 +65,33 @@ export class AuthGuard implements CanActivate {
 
       // user is existing, redirect to main page
       this.router.navigate(['/tabs/home']);
-      return false;
+      return Promise.resolve(false);
+
     } else {
+      //
+      // check onboard shown status
+      //
+      let shownOnboard = false;
+      try {
+        shownOnboard = await this.storage.get(OnboardPage.KEY_SHOWN);
+      }
+      catch (e) {
+        console.log(e);
+      }
+
+      if (!shownOnboard) {
+        // user is not existing, redirect to sign up page
+        this.router.navigate(['onboard']);
+        return Promise.resolve(false);
+      }
+
       if (!needUser) {
         return Promise.resolve(true);
       }
 
       // user is not existing, redirect to sign up page
-      return this.showOnboard();
+      this.router.navigate(['signup-email']);
+      return Promise.resolve(false);
     }
-  }
-
-  showOnboard() {
-    //
-    // check onboard shown status
-    //
-    return this.storage.get(OnboardPage.KEY_SHOWN)
-      .then((shown) => {
-        if (shown) {
-          this.router.navigate(['signup-email']);
-        } else {
-          this.router.navigate(['onboard']);
-        }
-
-        return Promise.resolve(false);
-      })
-      .catch((err) => {
-        console.log(err);
-
-        this.router.navigate(['onboard']);
-        return Promise.resolve(false);
-      });
   }
 }

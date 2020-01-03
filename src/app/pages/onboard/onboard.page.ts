@@ -53,6 +53,6 @@ export class OnboardPage implements OnInit {
     // set onboard flag
     this.storage.set(OnboardPage.KEY_SHOWN, true);
 
-    this.navCtrl.navigateRoot(['signup-email']);
+    this.navCtrl.navigateRoot(['']);
   }
 }

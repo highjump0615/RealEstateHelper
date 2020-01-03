@@ -1,6 +1,6 @@
 import {BaseModel, Deserializable} from "./base-model";
 import {config} from "../helpers/config";
-import moment, {Moment} from 'moment';
+import * as moment from 'moment';
 
 export class Purchase extends BaseModel implements Deserializable {
 
@@ -15,8 +15,10 @@ export class Purchase extends BaseModel implements Deserializable {
       return false;
     }
 
+    const tsNow = moment().valueOf();
+
     // check expire date second
-    if (this.expireAt >= moment()) {
+    if (this.expireAt <= tsNow) {
       return false;
     }
 
