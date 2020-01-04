@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
     return this.gotoNext(needUser);
   }
 
-  async gotoNext(needUser): Promise<boolean> | boolean {
+  async gotoNext(needUser): Promise<boolean> {
 
     if (this.auth.user && this.auth.user.saved) {
       //

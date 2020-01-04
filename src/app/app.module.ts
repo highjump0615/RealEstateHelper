@@ -23,8 +23,7 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {ImagePicker} from '@ionic-native/image-picker/ngx';
 import {ImageViewerComponent} from './components/image-viewer/image-viewer.component';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import {AgmCoreModule} from '@agm/core';
-import {config} from './helpers/config';
+
 
 @NgModule({
   declarations: [
