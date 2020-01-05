@@ -34,25 +34,25 @@ export class AuthGuard implements CanActivate {
             // current user existing
             this.auth.user = new User().deserialize(val);
 
-            return this.gotoNext(needUser);
+            return this.gotoNext(needUser, state);
           }
 
           // no user
-          return this.gotoNext(needUser);
+          return this.gotoNext(needUser, state);
         })
         .catch((err) => {
           console.log(err);
 
           // no user
-          return this.gotoNext(needUser);
+          return this.gotoNext(needUser, state);
         });
     }
 
     // user existing
-    return this.gotoNext(needUser);
+    return this.gotoNext(needUser, state);
   }
 
-  async gotoNext(needUser): Promise<boolean> {
+  async gotoNext(needUser, state): Promise<boolean> {
 
     if (this.auth.user && this.auth.user.saved) {
       //
@@ -90,7 +90,10 @@ export class AuthGuard implements CanActivate {
       }
 
       // user is not existing, redirect to sign up page
-      this.router.navigate(['signup-email']);
+      this.router.navigate(['signup-email'], {
+        queryParams: { returnUrl: state.url }
+      });
+
       return Promise.resolve(false);
     }
   }

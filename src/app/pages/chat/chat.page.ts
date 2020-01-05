@@ -32,11 +32,10 @@ export class ChatPage implements OnInit {
   ngOnInit() {
     // set tab data
     this.tab.setCurrentTab(TabsPage.TAB_CHAT, this);
-
-    this.chat.addFetchChat((msgs) => this.updateList(msgs));
   }
 
   async ionViewDidEnter() {
+    this.chat.addFetchChat((msgs) => this.updateList(msgs));
   }
 
   async updateList(messages) {

@@ -83,7 +83,11 @@ export class BaseModel {
     this.getDatabaseRef(null, parentID);
   }
 
-  public equalTo(data: BaseModel) {
+  public equalTo(data?: BaseModel) {
+    if (!data) {
+      return false;
+    }
+
     return this.id === data.id;
   }
 

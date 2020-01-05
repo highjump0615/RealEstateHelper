@@ -45,6 +45,10 @@ export class FavouritesPage extends BaseSegmentPage implements OnInit {
   }
 
   async fetchData() {
+    if (!this.auth.user) {
+      return;
+    }
+
     const isBuyer = this.currentPage === this.PAGE_BUYER;
 
     try {

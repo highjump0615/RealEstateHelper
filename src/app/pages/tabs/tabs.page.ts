@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TabService} from '../../services/tab.service';
 import {ChatService} from '../../services/chat/chat.service';
 import {ApiService} from '../../services/api/api.service';
+import {AuthService} from "../../services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tabs',
@@ -11,6 +13,7 @@ import {ApiService} from '../../services/api/api.service';
 export class TabsPage implements OnInit, OnDestroy {
 
   public static TAB_HOME = 'home';
+  public static TAB_MATCH = 'matches';
   public static TAB_CHAT = 'chat';
   public static TAB_FAVOURITE = 'favourites';
   public static TAB_NOTIFICATION = 'notifications';
@@ -21,6 +24,8 @@ export class TabsPage implements OnInit, OnDestroy {
     private tab: TabService,
     private chat: ChatService,
     public api: ApiService,
+    public auth: AuthService,
+    public router: Router,
   ) {
   }
 
@@ -35,8 +40,25 @@ export class TabsPage implements OnInit, OnDestroy {
     }
   }
 
-  onTabWillChange(event) {
-    this.tab.currentTab = event.tab;
+  async onTabWillChange(event) {
+    const tabTo = event.tab;
+
+    // check the user login status except the home tab
+    if (tabTo === TabsPage.TAB_MATCH
+      || tabTo === TabsPage.TAB_FAVOURITE
+      || tabTo === TabsPage.TAB_CHAT
+      || tabTo === TabsPage.TAB_NOTIFICATION) {
+
+      if (!this.auth.user) {
+        await this.router.navigate(['tabs', this.tab.currentTab]);
+
+        // go to sign up page
+        this.router.navigate(['signup-email']);
+        return;
+      }
+    }
+
+    this.tab.currentTab = tabTo;
   }
 
   ngOnDestroy() {

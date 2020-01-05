@@ -7,6 +7,8 @@ import {Client} from '../../../models/client';
 import {GeoFire} from 'geofire';
 import {Utils} from '../../../helpers/utils';
 import {NavService} from '../../../services/nav.service';
+import {TabsPage} from "../../tabs/tabs.page";
+import {TabService} from "../../../services/tab.service";
 
 @Component({
   selector: 'app-matches',
@@ -29,12 +31,21 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     private auth: AuthService,
     public api: ApiService,
     public nav: NavService,
+    private tab: TabService,
   ) {
     super(null, null);
   }
 
   ngOnInit() {
+    // set tab data
+    this.tab.setCurrentTab(TabsPage.TAB_MATCH, this);
+
     // get data
+    this.getData();
+  }
+
+  ionViewDidEnter() {
+    // open this tab without logging in already inits, so call this again
     this.getData();
   }
 
@@ -198,6 +209,10 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
   }
 
   async getData(isRefresh = false) {
+    if (!this.auth.user) {
+      return;
+    }
+
     const isBuyer = this.currentPage === this.PAGE_BUYER;
 
     try {
