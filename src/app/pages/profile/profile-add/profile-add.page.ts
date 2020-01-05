@@ -171,6 +171,11 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     if (!this.addressOld && addressNew) {
       this.addressOld = addressNew;
 
+      // consider seller case only
+      if (this.currentPage === this.PAGE_BUYER) {
+        return;
+      }
+
       // show popup
       this.presentAddressVisibleConfirm();
     }
@@ -345,7 +350,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         clientNew.propRequest = propNew;
       }
 
-      this.doSaveClient(clientNew, propNew);
+      await this.doSaveClient(clientNew, propNew);
 
       // back to prev page
       this.navCtrl.pop();
@@ -354,7 +359,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       console.log(err);
 
       this.presentAlert(
-          'Faild to save data',
+          'Failed to save data',
           err.message
       );
     }
@@ -401,6 +406,8 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
         }
       }
     }
+
+    return Promise.resolve(true);
   }
 
   async doSaveProperty(prop) {

@@ -37,7 +37,7 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   ionViewDidEnter() {
     // refresh data
-    // this.setData();
+    this.fetchData();
   }
 
 

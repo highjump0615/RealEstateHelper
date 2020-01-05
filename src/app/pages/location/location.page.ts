@@ -116,7 +116,7 @@ export class LocationPage implements OnInit, AfterViewInit {
     if (this.lat && this.lng) {
       this.mapLat = this.lat;
       this.mapLng = this.lng;
-    } else if (this.auth.user.lat && this.auth.user.lng) {
+    } else if (this.auth.user && this.auth.user.lat && this.auth.user.lng) {
       // Get the location of you
       this.mapLat = this.auth.user.lat;
       this.mapLng = this.auth.user.lng;

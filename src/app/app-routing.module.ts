@@ -101,7 +101,6 @@ const routes: Routes = [
   {
     path: 'location',
     loadChildren: './pages/location/location.module#LocationPageModule',
-    data: {needUser: true},
     canActivate: [AuthGuard]
   },
   {

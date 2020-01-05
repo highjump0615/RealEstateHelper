@@ -10,7 +10,7 @@ import * as firebase from 'firebase/app';
 })
 export class AuthService {
 
-  static KEY_USER = 'current_user';
+  static KEY_USER = 'reconnect_current_user';
 
   user: User;
 
