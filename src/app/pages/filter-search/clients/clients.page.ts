@@ -70,7 +70,8 @@ export class ClientsPage extends BasePage implements OnInit {
             const prom = this.api.getUserWithId(buyer.agentId)
               .then((user) => {
                 // only consider subscribed users' clients
-                if (!user.purchase.isPremium()) {
+                // except the current user itself
+                if (!user.purchase.isPremium() && !user.equalTo(that.auth.user)) {
                   return;
                 }
                 buyer.agent = user;

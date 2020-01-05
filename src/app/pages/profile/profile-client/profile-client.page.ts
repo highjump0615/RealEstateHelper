@@ -14,7 +14,7 @@ import {Client} from '../../../models/client';
 })
 export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
-  static PAGE_COUNT = 14;
+  static PAGE_COUNT = 20;
 
   showLoading = false;
 
@@ -51,8 +51,6 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
   async fetchData() {
     const isBuyer = this.currentPage === this.PAGE_BUYER;
-
-    this.sellers = [];
 
     if (isBuyer) {
       if (this.auth.user.buyers) {

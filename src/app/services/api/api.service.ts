@@ -159,7 +159,8 @@ export class ApiService {
         const prom = that.getUserWithId(p.agentId)
           .then((u) => {
             // only consider subscribed users' properties
-            if (!u.purchase.isPremium()) {
+            // except the current user itself
+            if (!u.purchase.isPremium() && !u.equalTo(that.auth.user)) {
               return;
             }
 
