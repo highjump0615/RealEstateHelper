@@ -39,7 +39,7 @@ ion-tab-button[tab="home"] {
   }
 }
 
-ion-tab-button[tab="matches"] {
+ion-tab-button.tab-match {
   .dv-icon {
     background-image: url('../../../assets/imgs/tab_matches.png');
   }
@@ -51,19 +51,7 @@ ion-tab-button[tab="matches"] {
   }
 }
 
-ion-tab-button[tab="favourites"] {
-  .dv-icon {
-    background-image: url('../../../assets/imgs/tab_favourites.png');
-  }
-
-  &[aria-selected=true] {
-    .dv-icon {
-      background-image: url('../../../assets/imgs/tab_favourites_selected.png');
-    }
-  }
-}
-
-ion-tab-button[tab="chat"] {
+ion-tab-button.tab-chat {
   .dv-icon {
     background-image: url('../../../assets/imgs/tab_chat.png');
   }
@@ -75,7 +63,7 @@ ion-tab-button[tab="chat"] {
   }
 }
 
-ion-tab-button[tab="notifications"] {
+ion-tab-button.tab-notification {
   .dv-icon {
     background-image: url('../../../assets/imgs/tab_notifications.png');
   }

@@ -44,11 +44,6 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     this.getData();
   }
 
-  ionViewDidEnter() {
-    // open this tab without logging in already inits, so call this again
-    this.getData();
-  }
-
   isBuyerMatching(buyer: Client, prop: Property) {
     let nMatch = 0;
     let nMatchMax = 0;

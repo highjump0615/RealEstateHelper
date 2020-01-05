@@ -6,15 +6,23 @@
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="matches">
+    <ion-tab-button
+      class="tab-match"
+      (click)="onButTab(tabMatch)"
+      [selected]="tab.currentTab == tabMatch">
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="favourites">
+    <ion-tab-button
+      (click)="onButTab(tabFavourite)"
+      [selected]="tab.currentTab == tabFavourite">
       <ion-icon name="heart"></ion-icon>
     </ion-tab-button>
 
-    <ion-tab-button tab="chat">
+    <ion-tab-button
+      class="tab-chat"
+      (click)="onButTab(tabChat)"
+      [selected]="tab.currentTab == tabChat">
       <ion-badge
         color="danger"
         *ngIf="unreadMsgCount > 0"
@@ -22,7 +30,10 @@
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="notifications">
+    <ion-tab-button
+      class="tab-notification"
+      (click)="onButTab(tabNotification)"
+      [selected]="tab.currentTab == tabNotification">
       <div class="dv-icon"></div>
     </ion-tab-button>
   </ion-tab-bar>

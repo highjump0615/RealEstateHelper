@@ -13,7 +13,6 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule',
-    canActivate: [AuthGuard],
   },
   {
     path: 'onboard',

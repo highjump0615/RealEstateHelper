@@ -47,15 +47,6 @@ export class NotificationsPage implements OnInit {
     this.fetchData();
   }
 
-  ionViewDidEnter() {
-    if (this.notifications.length > 0) {
-      return;
-    }
-
-    this.showLoading = true;
-    this.fetchData();
-  }
-
   async fetchData() {
     if (!this.auth.user) {
       return;

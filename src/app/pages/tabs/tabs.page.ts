@@ -18,10 +18,16 @@ export class TabsPage implements OnInit, OnDestroy {
   public static TAB_FAVOURITE = 'favourites';
   public static TAB_NOTIFICATION = 'notifications';
 
+  tabHome = TabsPage.TAB_HOME;
+  tabMatch = TabsPage.TAB_MATCH;
+  tabChat = TabsPage.TAB_CHAT;
+  tabFavourite = TabsPage.TAB_FAVOURITE;
+  tabNotification = TabsPage.TAB_NOTIFICATION;
+
   unreadMsgCount = 0;
 
   constructor(
-    private tab: TabService,
+    public tab: TabService,
     private chat: ChatService,
     public api: ApiService,
     public auth: AuthService,
@@ -75,5 +81,17 @@ export class TabsPage implements OnInit, OnDestroy {
     }
 
     this.unreadMsgCount = nCount;
+  }
+
+  onButTab(tabPage) {
+    // check logged in status
+    if (!this.auth.user) {
+      // go to login page
+      this.router.navigate(['signup-email']);
+      return;
+    }
+
+    // go to tab page
+    this.router.navigate(['tabs', tabPage])
   }
 }
