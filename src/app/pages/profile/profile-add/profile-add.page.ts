@@ -248,8 +248,6 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
 
     await this.showLoadingView();
 
-    const user = this.auth.user;
-
     //
     // save data for client
     //
@@ -421,8 +419,20 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
     // save data for property
     await this.api.saveToDatabase(prop);
 
+    // replace the existing property
+    let i = 0;
+    for (i = 0; i < this.auth.user.propAll.length; i++) {
+      let p = this.auth.user.propAll[i];
+      if (p.equalTo(prop)) {
+        this.auth.user.propAll[i] = prop;
+        break;
+      }
+    }
+
     // add to user property list
-    this.auth.user.propAll.push(prop);
+    if (i >= this.auth.user.propAll.length) {
+      this.auth.user.propAll.push(prop);
+    }
   }
 
   //

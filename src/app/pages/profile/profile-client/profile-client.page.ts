@@ -150,6 +150,17 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
 
     } else {
       // for seller
+
+      // remove property from property list
+      let i = 0;
+      for (i = 0; i < this.auth.user.propAll.length; i++) {
+        let p = this.auth.user.propAll[i];
+        if (p.equalTo(this.auth.user.sellers[index].property)) {
+          this.auth.user.propAll.splice(i, 1);
+          break;
+        }
+      }
+
       this.api.deleteClient(this.auth.user.sellers[index]);
 
       this.auth.user.sellers.splice(index, 1);
