@@ -46,14 +46,14 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
   async ngOnInit() {
 
-    this.splashScreen.hide();
-
     console.log('on init');
 
     // set tab data
     this.tab.setCurrentTab(TabsPage.TAB_HOME, this);
 
     await this.platform.ready();
+
+    this.splashScreen.hide();
 
     //
     // get location
