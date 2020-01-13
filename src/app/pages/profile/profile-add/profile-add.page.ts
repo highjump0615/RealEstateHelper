@@ -99,7 +99,7 @@ export class ProfileAddPage extends BaseClientAddPage implements OnInit {
       this.description = this.client.desc;
 
       if (this.client.propRequest) {
-        this.title = this.client.property.title;
+        this.title = this.client.propRequest.title;
 
         this.styles = this.client.propRequest.style;
         this.types = this.client.propRequest.type;

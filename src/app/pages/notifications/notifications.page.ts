@@ -165,7 +165,7 @@ export class NotificationsPage implements OnInit {
 
   getTimeFormatted(noti) {
     const time = moment(noti.createdAt);
-    return time.format('MMM dd | hh:mm A');
+    return time.format('MMM DD | hh:mm A');
   }
 
   async loadMoreData(event) {

@@ -67,7 +67,7 @@ export class ApiService {
     return dbRef.once('value')
       .then((snapshot) => {
         if (!snapshot.exists()) {
-          const err = new Error('Client not found');
+          const err = new Error(`Client not found: ${id}`);
           err.name = 'notfound';
 
           return Promise.reject(err);
@@ -230,7 +230,10 @@ export class ApiService {
       });
   }
 
-  deleteClient(client: Client) {
+  async deleteClient(client: Client) {
+
+    client.id = '-Ly8e4UehEY6YQhuDb6W';
+
     // fetch products
     const dbRef = FirebaseManager.ref();
 
@@ -243,7 +246,7 @@ export class ApiService {
       queryProp.remove();
     }
 
-    const queryClient = dbRef
+    let queryClient = dbRef
       .child(client.type === Client.CLIENT_TYPE_BUYER ?
         Client.TABLE_NAME_BUYER_AGENT :
         Client.TABLE_NAME_SELLER_AGENT)
@@ -251,6 +254,52 @@ export class ApiService {
       .child(client.id);
 
     queryClient.remove();
+
+    try {
+      if (client.type === Client.CLIENT_TYPE_BUYER) {
+        // remove favourite properties of the buyer
+
+        //
+        // fetch property ids
+        //
+        const query = dbRef.child(Favourite.TN_FAVOURITE_BUYER)
+          .child(client.id);
+
+        const snapshot = await query.once('value');
+        snapshot.forEach(function (child) {
+          dbRef.child(Favourite.TN_FAVOURITE_PROPERTY)
+            .child(child.key)
+            .child(client.id)
+            .remove();
+        });
+
+        // remove favourite buyers
+        query.remove();
+
+        //
+        // remove buyers of favourite sellers, when querying favourite sellers
+        //
+      }
+      else if (client.type === Client.CLIENT_TYPE_SELLER) {
+        // remove favourite buyers of the seller
+        dbRef.child(Favourite.TN_FAVOURITE_SELLER)
+          .child(client.id)
+          .remove();
+      }
+
+      // remove client from db
+      queryClient = dbRef
+        .child(client.type === Client.CLIENT_TYPE_BUYER ?
+          Client.TABLE_NAME_BUYER :
+          Client.TABLE_NAME_SELLER)
+        .child(client.id);
+
+      queryClient.remove();
+    }
+    catch (e) {
+      console.log(e);
+    }
+
   }
 
   /**
@@ -564,7 +613,25 @@ export class ApiService {
       proms.push(data);
     }
 
-    return Promise.all(proms);
+    const buyers = await Promise.all(proms.map(
+      (p, index) => p.catch(e => {
+        console.log(e);
+
+        if (e.name === 'notfound') {
+          // deleted buyer, remove from db
+          query.child(buyerIds[index]).remove();
+        }
+      })
+    ));
+
+    // remove unavaliable buyers
+    for (let i = buyers.length - 1; i >= 0; i--) {
+      if (!buyers[i]) {
+        buyers.splice(i, 1);
+      }
+    }
+
+    return Promise.resolve(buyers);
   }
 
   getAllNotifications() {
