@@ -38,6 +38,10 @@ export class Utils {
     return str.match(/[a-z]/i);
   }
 
+  static isEmptyOrSpaces(str){
+    return str === null || str.match(/^ *$/) !== null;
+  }
+
 
   static toStringAgo(timestamp) {
     const time = moment(timestamp);

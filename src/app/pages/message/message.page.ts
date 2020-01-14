@@ -11,6 +11,7 @@ import {KeyboardService} from '../../services/keyboard/keyboard.service';
 import {Platform} from '@ionic/angular';
 import {BaseKeyboardPage} from '../base-keyboard.page';
 import {ActivatedRoute} from '@angular/router';
+import {Utils} from "../../helpers/utils";
 
 @Component({
   selector: 'app-message',
@@ -87,11 +88,11 @@ export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
         this.unreadCount = msg.unreadCount;
 
         console.log('Unread count', msg.unreadCount);
+
+        // clear my unread count
+        this.clearUnreadCount();
       }
     );
-
-    // clear unread count
-    this.clearUnreadCount();
   }
 
   ngOnDestroy() {
@@ -119,7 +120,7 @@ export class MessagePage extends BaseKeyboardPage implements OnInit, OnDestroy {
 
   onButSend() {
     // not entered anyting, return
-    if (!this.message) {
+    if (Utils.isEmptyOrSpaces(this.message)) {
       return;
     }
 
