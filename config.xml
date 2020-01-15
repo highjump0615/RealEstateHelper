@@ -83,7 +83,10 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>We use your location for searching properties nearby from you.</string>
+            <string>We use your location for searching properties and clients nearby from you.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
+            <string>We use your location for searching properties and clients nearby from you.</string>
         </edit-config>
         <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
             <string>We use Photo library for uploading profile and property photos</string>
