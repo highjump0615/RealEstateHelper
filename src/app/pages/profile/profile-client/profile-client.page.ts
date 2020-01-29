@@ -199,7 +199,11 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
       console.log(clientsTemp);
 
       this.sellers = this.sellers.concat(clientsTemp);
-    } finally {
+    }
+    catch (e) {
+      console.log(e);
+    }
+    finally {
       // hide loading mask
       this.showLoading = false;
     }

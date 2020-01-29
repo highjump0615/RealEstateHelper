@@ -41,7 +41,7 @@ export class TabsPage implements OnInit, OnDestroy {
 
   ionViewDidEnter() {
     const pageCurrent = this.tab.getCurrentTab();
-    if (pageCurrent) {
+    if (pageCurrent && pageCurrent.ionViewDidEnter) {
       pageCurrent.ionViewDidEnter();
     }
   }
