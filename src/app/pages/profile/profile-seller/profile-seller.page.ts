@@ -5,6 +5,7 @@ import {ApiService} from '../../../services/api/api.service';
 import {Property} from '../../../models/property';
 import {ModalService} from '../../../services/modal/modal.service';
 import {Router} from '@angular/router';
+import {NavController, ToastController} from "@ionic/angular";
 
 @Component({
   selector: 'app-profile-seller',
@@ -20,11 +21,13 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     public api: ApiService,
     public modalService: ModalService,
     public router: Router,
+    public navCtrl: NavController,
+    public toastController: ToastController,
   ) {
     super(nav, router);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.data) {
       return;
     }
@@ -35,12 +38,24 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     }
 
     // fetch property
-    this.api.fetchPropertyWithId(this.data.propertyId)
-      .then((p) => {
-        console.log(p);
+    try {
+      this.data.property = await this.api.fetchPropertyWithId(this.data.propertyId);
+    }
+    catch (e) {
+      if (e.name === 'notfound') {
+        // show notice
+        const toast = await
+          this.toastController.create({
+            color: 'dark',
+            message: 'The property has been deleted',
+            duration: 2000
+          });
+        toast.present();
 
-        this.data.property = p;
-      });
+        // go back
+        this.navCtrl.pop();
+      }
+    }
   }
 
   onClickPhoto(img: any) {

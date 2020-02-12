@@ -184,6 +184,9 @@ export class ProfileClientPage extends BaseSegmentPage implements OnInit {
           const prom = this.api.fetchPropertyWithId(c.propertyId)
             .then((p) => {
               c.property = p;
+            })
+            .catch((e) => {
+              console.log(e);
             });
           proms.push(prom);
         }

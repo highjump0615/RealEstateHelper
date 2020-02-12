@@ -582,7 +582,10 @@ export class ApiService {
 
     for (const pId of propIds) {
       // check if the seller has favourite properties
-      const data = this.fetchPropertyWithId(pId);
+      const data = this.fetchPropertyWithId(pId)
+        .catch((e) => {
+          console.log(e);
+        });
       proms.push(data);
     }
 
