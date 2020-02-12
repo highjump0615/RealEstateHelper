@@ -232,8 +232,6 @@ export class ApiService {
 
   async deleteClient(client: Client) {
 
-    client.id = '-Ly8e4UehEY6YQhuDb6W';
-
     // fetch products
     const dbRef = FirebaseManager.ref();
 
