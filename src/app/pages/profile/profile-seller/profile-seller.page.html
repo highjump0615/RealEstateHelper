@@ -97,6 +97,14 @@
       class="dv-property flex-column"
       padding
       *ngIf="data.property">
+      <!-- id -->
+      <div
+        class="dv-item"
+        style="margin: 0 0 10px 0;">
+        <span>Property Code</span>
+        <span>{{data.property?.getIdReadable()}}</span>
+      </div>
+
       <!-- description -->
       <div class="dv-desc-with-title">
         <span
