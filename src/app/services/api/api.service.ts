@@ -235,13 +235,20 @@ export class ApiService {
     // fetch products
     const dbRef = FirebaseManager.ref();
 
+    //
     // remove property if it is seller
+    //
     if (client.type === Client.CLIENT_TYPE_SELLER && client.propertyId) {
       const queryProp = dbRef
         .child(Property.TABLE_NAME)
         .child(client.propertyId);
 
       queryProp.remove();
+
+      // remove from prop location
+      dbRef.child(Property.TABLE_NAME_LOCATION)
+        .child(client.propertyId)
+        .remove();
     }
 
     let queryClient = dbRef
