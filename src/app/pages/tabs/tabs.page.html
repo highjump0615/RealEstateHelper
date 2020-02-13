@@ -10,6 +10,9 @@
       class="tab-match"
       (click)="onButTab(tabMatch)"
       [selected]="tab.currentTab == tabMatch">
+      <ion-badge
+        color="danger badge-empty"
+      ></ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
 
@@ -34,6 +37,9 @@
       class="tab-notification"
       (click)="onButTab(tabNotification)"
       [selected]="tab.currentTab == tabNotification">
+      <ion-badge
+        color="danger"
+      >5</ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
   </ion-tab-bar>

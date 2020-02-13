@@ -25,6 +25,14 @@ ion-tab-button {
       color: var(--ion-color-primary);
     }
   }
+
+  ion-badge.badge-empty {
+    width: 10px;
+    height: 10px;
+    display: flex;
+    top: 8px;
+    padding: 0;
+  }
 }
 
 ion-tab-button[tab="home"] {
