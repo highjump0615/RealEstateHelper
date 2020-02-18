@@ -146,10 +146,10 @@ export class NotificationsPage implements OnInit {
     }
 
     if (noti.type === Notification.NOTIFICATION_MATCH_BUYER) {
-      strDesc = `New Property has matched to your buyer ${clientName}`;
+      strDesc = `New Property ${propCode} has matched to your buyer ${clientName}`;
     }
     else if (noti.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
-      strDesc = `New buyer ${clientName} has matched to your property`;
+      strDesc = `New buyer ${clientName} has matched to your property ${propCode}`;
     }
     else if (noti.type === Notification.NOTIFICATION_EXPIRE_PROPERTY) {
       strDesc = `Your property ${propCode} has been listed for 90 days. If you don’t reply the listing will be deleted in 5 days.`;
