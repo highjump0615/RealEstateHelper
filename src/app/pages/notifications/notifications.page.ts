@@ -76,10 +76,13 @@ export class NotificationsPage implements OnInit {
       const notiTemp = [];
       const proms = [];
 
-      for (const n of this.notiAll) {
-        if (n.isFetched()) {
-          continue;
-        }
+      let idxStart = 0;
+      if (continued) {
+        idxStart = this.notifications.length;
+      }
+
+      for (let i = idxStart; i < this.notiAll.length; i++) {
+        const n = this.notiAll[i];
 
         if (n.type === Notification.NOTIFICATION_MATCH_BUYER ||
           n.type === Notification.NOTIFICATION_MATCH_PROPERTY ||
@@ -225,14 +228,18 @@ export class NotificationsPage implements OnInit {
       //
       // update unread notification count of the user
       //
-      this.auth.user.decreaseUnreadNotification();
-      this.auth.updateCurrentUser();
-      this.api.saveToDatabaseWithField(
-        this.auth.user,
-        User.FIELD_UNREAD_NOTIFICATION,
-        this.auth.user.unreadNotificationCount
-      );
+      this.decreaseUnreadNotification();
     }
+  }
+
+  decreaseUnreadNotification() {
+    this.auth.user.decreaseUnreadNotification();
+    this.auth.updateCurrentUser();
+    this.api.saveToDatabaseWithField(
+      this.auth.user,
+      User.FIELD_UNREAD_NOTIFICATION,
+      this.auth.user.unreadNotificationCount
+    );
   }
 
   async onButContinue(nt: Notification, slidingItem) {
@@ -371,5 +378,45 @@ export class NotificationsPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  async onButDelete(index, slidingItem) {
+    const alert = await this.alertController.create({
+      header: 'Are you sure remove this notification?',
+      message: '',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'OK',
+          handler: () => {
+            this.doDeleteNotification(index, slidingItem);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  doDeleteNotification(index, slidingItem) {
+    const n = this.notifications[index];
+    if (!n.isRead) {
+      // not read, decrease unread notification
+      this.decreaseUnreadNotification();
+    }
+
+    const query = n.getDatabaseRef(null, this.auth.user.id);
+    query.remove();
+
+    // remove item from list
+    this.notifications.splice(index, 1);
+    this.notiAll.splice(index, 1);
+
+    slidingItem.close();
   }
 }

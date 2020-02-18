@@ -27,7 +27,7 @@
   <ion-list>
     <ion-card
       class="ca-buyer"
-      *ngFor="let nt of notifications">
+      *ngFor="let nt of notifications; let i = index">
       <ion-item-sliding #slidingItem>
         <ion-item
           class="no-padding"
@@ -68,27 +68,36 @@
         </ion-item>
 
         <!-- options -->
-        <ion-item-options
-          *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER || nt.type == NOTIFICATION_EXPIRE_PROPERTY">
-          <!-- continue button -->
-          <ion-item-option
-            [disabled]="nt.updatedAt"
-            (click)="onButContinue(nt, slidingItem)"
-          >Continue<br/>with listing</ion-item-option>
+        <ion-item-options>
+          <!-- expire -->
+          <ng-container
+            *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER || nt.type == NOTIFICATION_EXPIRE_PROPERTY">
+            <!-- continue button -->
+            <ion-item-option
+              [disabled]="nt.updatedAt"
+              (click)="onButContinue(nt, slidingItem)"
+            >Continue<br/>with listing</ion-item-option>
 
-          <!-- remove button -->
+            <!-- remove button -->
+            <ion-item-option
+              color="danger"
+              [disabled]="nt.updatedAt"
+              *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER"
+              (click)="onButDeleteBuyer(nt, slidingItem)"
+            >Delete<br/>Buyer</ion-item-option>
+            <ion-item-option
+              color="danger"
+              [disabled]="nt.updatedAt"
+              *ngIf="nt.type == NOTIFICATION_EXPIRE_PROPERTY"
+              (click)="onButDeleteProp(nt, slidingItem)"
+            >Delete<br/>Property</ion-item-option>
+          </ng-container>
+
+          <!-- delete -->
           <ion-item-option
             color="danger"
-            [disabled]="nt.updatedAt"
-            *ngIf="nt.type == NOTIFICATION_EXPIRE_BUYER"
-            (click)="onButDeleteBuyer(nt, slidingItem)"
-          >Delete<br/>Buyer</ion-item-option>
-          <ion-item-option
-            color="danger"
-            [disabled]="nt.updatedAt"
-            *ngIf="nt.type == NOTIFICATION_EXPIRE_PROPERTY"
-            (click)="onButDeleteProp(nt, slidingItem)"
-          >Delete<br/>Property</ion-item-option>
+            (click)="onButDelete(i, slidingItem)"
+          >Delete</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
 
