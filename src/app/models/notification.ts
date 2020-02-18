@@ -10,6 +10,7 @@ export class Notification extends BaseModel {
   static FIELD_CLIENT_ID = 'clientId';
   static FIELD_PROPERTY_ID = 'propertyId';
   static FIELD_TYPE = 'type';
+  static FIELD_IS_READ = 'isRead';
 
   static NOTIFICATION_MATCH_BUYER = 'match_buyer';        // new property matched to buyer
   static NOTIFICATION_MATCH_PROPERTY = 'match_property';  // new buyer matched to property
@@ -26,6 +27,7 @@ export class Notification extends BaseModel {
   type = Notification.NOTIFICATION_MATCH_BUYER;
   clientId = '';
   propertyId = '';
+  isRead = false;
 
   // logical
   client: Client;
@@ -39,6 +41,10 @@ export class Notification extends BaseModel {
       this.type = info[Notification.FIELD_TYPE];
       this.clientId = info[Notification.FIELD_CLIENT_ID];
       this.propertyId = info[Notification.FIELD_PROPERTY_ID];
+
+      if (Notification.FIELD_IS_READ in info) {
+        this.isRead = info[Notification.FIELD_IS_READ];
+      }
     }
   }
 
@@ -56,6 +62,8 @@ export class Notification extends BaseModel {
     dict[Notification.FIELD_TYPE] = this.type;
     dict[Notification.FIELD_CLIENT_ID] = this.clientId;
     dict[Notification.FIELD_PROPERTY_ID] = this.propertyId;
+
+    dict[Notification.FIELD_IS_READ] = this.isRead;
 
     return dict;
   }

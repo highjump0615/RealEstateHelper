@@ -24,6 +24,10 @@ export class User extends BaseModel implements Deserializable {
   static FIELD_PURCHASE_PRODUCT = 'purchaseProductId';
   static FIELD_PURCHASE_EXPIRE = 'purchaseExpireAt';
 
+  static FIELD_UNREAD_NOTIFICATION = 'unreadNotification';
+  static FIELD_NEW_MATCH_BUYER = 'newMatchBuyer';
+  static FIELD_NEW_MATCH_SELLER = 'newMatchSeller';
+
   static USER_TYPE_NORMAL = 'normal';
   static USER_TYPE_ADMIN = 'admin';
 
@@ -44,6 +48,10 @@ export class User extends BaseModel implements Deserializable {
 
   type = User.USER_TYPE_NORMAL;
   fcmToken = '';
+
+  unreadNotificationCount = 0;
+  newMatchBuyer = false;
+  newMatchSeller = false;
 
   //
   // logical
@@ -91,6 +99,17 @@ export class User extends BaseModel implements Deserializable {
       }
       if (User.FIELD_PURCHASE_EXPIRE in info) {
         this.purchase.expireAt = info[User.FIELD_PURCHASE_EXPIRE];
+      }
+
+      // badges
+      if (User.FIELD_UNREAD_NOTIFICATION in info) {
+        this.unreadNotificationCount = info[User.FIELD_UNREAD_NOTIFICATION];
+      }
+      if (User.FIELD_NEW_MATCH_BUYER in info) {
+        this.newMatchBuyer = info[User.FIELD_NEW_MATCH_BUYER];
+      }
+      if (User.FIELD_NEW_MATCH_SELLER in info) {
+        this.newMatchSeller = info[User.FIELD_NEW_MATCH_SELLER];
       }
     }
 
@@ -146,5 +165,13 @@ export class User extends BaseModel implements Deserializable {
   }
   getPhoneBkg() {
     return Utils.getPhoneStr(this.phoneBkg);
+  }
+
+  decreaseUnreadNotification() {
+    // decrease
+    this.unreadNotificationCount = Math.max(
+      this.unreadNotificationCount - 1,
+      0
+    );
   }
 }

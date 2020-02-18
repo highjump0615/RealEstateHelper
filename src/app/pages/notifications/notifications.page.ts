@@ -11,6 +11,7 @@ import {AlertController, ToastController} from '@ionic/angular';
 import {FirebaseManager} from '../../helpers/firebase-manager';
 import {Property} from '../../models/property';
 import {Message} from '../../models/message';
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-notifications',
@@ -204,6 +205,33 @@ export class NotificationsPage implements OnInit {
           data: nt.client
         });
       }
+    }
+
+    if (!nt.isRead) {
+      //
+      // set read status of notification
+      //
+      nt.isRead = true;
+
+      // save to db
+      this.api.saveToDatabaseWithField(
+        nt,
+        Notification.FIELD_IS_READ,
+        true,
+        null,
+        this.auth.user.id
+      );
+
+      //
+      // update unread notification count of the user
+      //
+      this.auth.user.decreaseUnreadNotification();
+      this.auth.updateCurrentUser();
+      this.api.saveToDatabaseWithField(
+        this.auth.user,
+        User.FIELD_UNREAD_NOTIFICATION,
+        this.auth.user.unreadNotificationCount
+      );
     }
   }
 

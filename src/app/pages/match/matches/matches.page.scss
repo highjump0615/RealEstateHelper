@@ -1,4 +1,22 @@
+ion-header {
+  .dv-but-content {
+    position: relative;
+  }
+
+  ion-badge.badge-empty {
+    position: absolute;
+    min-width: 0;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    display: block;
+    right: -14px;
+    left: inherit;
+  }
+}
+
 ion-content {
+
   ion-item {
     --padding-start: 14px;
     --padding-end: 14px;

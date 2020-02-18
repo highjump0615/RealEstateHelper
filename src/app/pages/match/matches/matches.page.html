@@ -12,7 +12,13 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_BUYER)">
-      My Buyers
+      <div class="flex-row dv-but-content">
+        My Buyers
+        <ion-badge
+          class="badge-empty"
+          color="danger"
+        ></ion-badge>
+      </div>
     </ion-button>
     <ion-button
       [fill]="currentPage == PAGE_SELLER ? 'solid' : 'outline'"
@@ -20,7 +26,13 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_SELLER)">
-      My Sellers
+      <div class="flex-row dv-but-content">
+        My Sellers
+        <ion-badge
+          class="badge-empty"
+          color="danger"
+        ></ion-badge>
+      </div>
     </ion-button>
   </div>
 </ion-header>

@@ -11,7 +11,8 @@
       (click)="onButTab(tabMatch)"
       [selected]="tab.currentTab == tabMatch">
       <ion-badge
-        color="danger badge-empty"
+        color="danger"
+        class="badge-empty"
       ></ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
@@ -39,7 +40,8 @@
       [selected]="tab.currentTab == tabNotification">
       <ion-badge
         color="danger"
-      >5</ion-badge>
+        *ngIf="auth.user?.unreadNotificationCount > 0"
+      >{{auth.user?.unreadNotificationCount}}</ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
   </ion-tab-bar>

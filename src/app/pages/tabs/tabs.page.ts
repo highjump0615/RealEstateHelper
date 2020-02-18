@@ -36,7 +36,23 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    console.log('ngOnInit TabsPage');
+
     this.chat.addFetchChat((msgs) => this.updateBadge(msgs));
+
+    //
+    // fetch user info again to prevent local and live are not matching
+    //
+    if (!this.auth.user) {
+      return;
+    }
+
+    try {
+      this.auth.user = await this.api.getUserWithId(this.auth.user.id);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
 
   ionViewDidEnter() {
