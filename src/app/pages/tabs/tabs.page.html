@@ -13,6 +13,7 @@
       <ion-badge
         color="danger"
         class="badge-empty"
+        *ngIf="auth.user?.hasNewMatch()"
       ></ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>

@@ -157,6 +157,11 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_PURCHASE_PRODUCT] = this.purchase.productId;
     dict[User.FIELD_PURCHASE_EXPIRE] = this.purchase.expireAt;
 
+    // badge related
+    dict[User.FIELD_UNREAD_NOTIFICATION] = this.unreadNotificationCount;
+    dict[User.FIELD_NEW_MATCH_BUYER] = this.newMatchBuyer;
+    dict[User.FIELD_NEW_MATCH_SELLER] = this.newMatchSeller;
+
     return dict;
   }
 
@@ -173,5 +178,9 @@ export class User extends BaseModel implements Deserializable {
       this.unreadNotificationCount - 1,
       0
     );
+  }
+
+  hasNewMatch() {
+    return this.newMatchSeller || this.newMatchBuyer;
   }
 }

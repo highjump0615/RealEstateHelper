@@ -17,6 +17,7 @@
         <ion-badge
           class="badge-empty"
           color="danger"
+          *ngIf="auth.user?.newMatchBuyer"
         ></ion-badge>
       </div>
     </ion-button>
@@ -31,6 +32,7 @@
         <ion-badge
           class="badge-empty"
           color="danger"
+          *ngIf="auth.user?.newMatchSeller"
         ></ion-badge>
       </div>
     </ion-button>

@@ -9,6 +9,7 @@ import {Utils} from '../../../helpers/utils';
 import {NavService} from '../../../services/nav.service';
 import {TabsPage} from "../../tabs/tabs.page";
 import {TabService} from "../../../services/tab.service";
+import {User} from "../../../models/user";
 
 @Component({
   selector: 'app-matches',
@@ -265,6 +266,16 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
             this.matchedBuyers.push(buyer);
           }
         }
+
+        // update new buyer match flag
+        this.auth.user.newMatchBuyer = false;
+        this.auth.updateCurrentUser();
+        this.api.saveToDatabaseWithField(
+          this.auth.user,
+          User.FIELD_NEW_MATCH_BUYER,
+          false
+        );
+
       } else {
         //
         // My sellers
@@ -306,12 +317,23 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
             this.matchedSellers.push(seller);
           }
         }
+
+        // update new buyer match flag
+        this.auth.user.newMatchSeller = false;
+        this.auth.updateCurrentUser();
+        this.api.saveToDatabaseWithField(
+          this.auth.user,
+          User.FIELD_NEW_MATCH_SELLER,
+          false
+        );
       }
-    } finally {
-      // close loading
-      this.showLoading = false;
+    }
+    catch (e) {
+      console.log(e);
     }
 
+    // close loading
+    this.showLoading = false;
   }
 
   onPageChanged(page: number) {
