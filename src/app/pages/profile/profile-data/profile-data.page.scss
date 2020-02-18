@@ -62,3 +62,14 @@ ion-slides {
   margin-top: 4px;
   margin-bottom: 8px;
 }
+
+.dv-favourite {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+
+  ion-icon {
+    font-size: 1.8em;
+  }
+}

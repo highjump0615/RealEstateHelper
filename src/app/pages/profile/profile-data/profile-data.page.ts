@@ -73,4 +73,9 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
     this.propHelper.shareProperty(this.data.propertyId, this.auth.user);
   }
 
+  onButFavourite() {
+    this.nav.push('select-buyer', {
+      data: this.data.property
+    });
+  }
 }

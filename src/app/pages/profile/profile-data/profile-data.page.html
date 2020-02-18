@@ -178,6 +178,22 @@
         </ion-slides>
       </div>
 
+      <!-- favourite button -->
+      <div
+        class="dv-favourite"
+        *ngIf="data && auth.user">
+        <ion-button
+          color="danger"
+          fill="clear"
+          size="small"
+          (click)="onButFavourite()">
+          <ion-icon
+            slot="icon-only"
+            name="heart">
+          </ion-icon>
+        </ion-button>
+      </div>
+
       <div
         class="flex-column"
         padding>
