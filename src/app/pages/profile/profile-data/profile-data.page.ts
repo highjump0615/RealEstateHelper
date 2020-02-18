@@ -9,6 +9,8 @@ import {CallNumber} from '@ionic-native/call-number/ngx';
 import {EmailComposer} from '@ionic-native/email-composer/ngx';
 import {Client} from '../../../models/client';
 import {Property} from '../../../models/property';
+import {PropertyHelper} from "../../../helpers/property-helper";
+import {SocialSharing} from "@ionic-native/social-sharing/ngx";
 
 @Component({
   selector: 'app-profile-data',
@@ -17,6 +19,7 @@ import {Property} from '../../../models/property';
 })
 export class ProfileDataPage extends ProfilePage implements OnInit {
   data: Client;
+  propHelper: PropertyHelper;
 
   constructor(
     public alertController: AlertController,
@@ -27,7 +30,8 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
     public nav: NavService,
     public auth: AuthService,
     public callNumber: CallNumber,
-    public emailComposer: EmailComposer
+    public emailComposer: EmailComposer,
+    private socialSharing: SocialSharing,
   ) {
     super(alertController,
       toastController,
@@ -44,6 +48,8 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
 
     // init user
     this.user = this.data.agent;
+
+    this.propHelper = new PropertyHelper().init(socialSharing);
   }
 
   async ngOnInit() {
@@ -61,6 +67,10 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
 
       this.user = this.data.agent;
     }
+  }
+
+  onButShare() {
+    this.propHelper.shareProperty(this.data.propertyId, this.auth.user);
   }
 
 }

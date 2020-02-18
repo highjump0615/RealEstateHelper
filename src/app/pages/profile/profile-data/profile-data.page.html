@@ -8,6 +8,16 @@
     <ion-title>{{data.isBuyer() ? 'BUYER' : 'SELLER'}} PROFILE</ion-title>
 
     <ion-buttons slot="end">
+      <!-- share -->
+      <ion-button
+        (click)="onButShare()"
+        *ngIf="!data.isBuyer()"
+        color="light">
+        <ion-icon
+          slot="icon-only"
+          name="md-open">
+        </ion-icon>
+      </ion-button>
 
       <!-- report -->
       <ion-button

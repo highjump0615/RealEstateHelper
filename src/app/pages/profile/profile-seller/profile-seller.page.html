@@ -10,7 +10,7 @@
     <!-- edit -->
     <ion-buttons slot="end">
       <ion-button
-        [routerLink]="['/share', data.propertyId]"
+        (click)="onButShare()"
         color="light">
         <ion-icon
           slot="icon-only"

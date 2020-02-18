@@ -5,6 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
 import {NavController, ToastController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
+import {ImageHelper} from "../../helpers/image-helper";
+import {PropertyHelper} from "../../helpers/property-helper";
+import {SocialSharing} from "@ionic-native/social-sharing/ngx";
 
 @Component({
   selector: 'app-property',
@@ -15,6 +18,8 @@ export class PropertyPage implements OnInit {
 
   data: Property;
 
+  propHelper: PropertyHelper;
+
   constructor(
     public nav: NavService,
     public navCtrl: NavController,
@@ -23,7 +28,9 @@ export class PropertyPage implements OnInit {
     public api: ApiService,
     public toastController: ToastController,
     public auth: AuthService,
+    private socialSharing: SocialSharing,
   ) {
+    this.propHelper = new PropertyHelper().init(socialSharing);
   }
 
   async ngOnInit() {
@@ -69,5 +76,9 @@ export class PropertyPage implements OnInit {
 
     event.stopPropagation();
     return false;
+  }
+
+  onButShare() {
+    this.propHelper.shareProperty(this.data.id, this.auth.user);
   }
 }

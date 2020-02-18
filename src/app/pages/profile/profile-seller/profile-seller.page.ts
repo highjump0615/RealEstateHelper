@@ -6,6 +6,9 @@ import {Property} from '../../../models/property';
 import {ModalService} from '../../../services/modal/modal.service';
 import {Router} from '@angular/router';
 import {NavController, ToastController} from "@ionic/angular";
+import {PropertyHelper} from "../../../helpers/property-helper";
+import {SocialSharing} from "@ionic-native/social-sharing/ngx";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-profile-seller',
@@ -15,6 +18,7 @@ import {NavController, ToastController} from "@ionic/angular";
 export class ProfileSellerPage extends BaseClientPage implements OnInit {
 
   property: Property = null;
+  propHelper: PropertyHelper;
 
   constructor(
     public nav: NavService,
@@ -23,8 +27,12 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     public router: Router,
     public navCtrl: NavController,
     public toastController: ToastController,
+    private socialSharing: SocialSharing,
+    public auth: AuthService,
   ) {
     super(nav, router);
+
+    this.propHelper = new PropertyHelper().init(socialSharing);
   }
 
   async ngOnInit() {
@@ -62,5 +70,9 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
     this.modalService.viewImage(
       img
     );
+  }
+
+  onButShare() {
+    this.propHelper.shareProperty(this.data.propertyId, this.auth.user);
   }
 }

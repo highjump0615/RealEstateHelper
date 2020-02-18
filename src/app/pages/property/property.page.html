@@ -12,7 +12,7 @@
       slot="end"
       *ngIf="data && auth.user">
       <ion-button
-        [routerLink]="['/share', data?.id]"
+        (click)="onButShare()"
         color="light">
         <ion-icon
           slot="icon-only"
