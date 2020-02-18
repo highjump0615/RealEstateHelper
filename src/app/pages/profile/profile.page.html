@@ -41,7 +41,9 @@
       class="dv-agent flex-c-row">
 
       <!-- background image -->
-      <div class="dv-bg">
+      <div
+        class="dv-bg"
+        [style.background-image]="'url(' + (user?.photoUrl ? user?.photoUrl : '../../../assets/imgs/default_user.png') + ')'">
       </div>
       <img
         class="img-shadow"

@@ -14,7 +14,8 @@ ion-buttons[slot="end"] {
   justify-content: center;
 
   .dv-bg {
-    background-image: url('../../../assets/imgs/default_img.png');
+    background-size: cover;
+    background-position: center;
     filter: blur(5px);
   }
 
