@@ -27,6 +27,20 @@ ion-slides {
   }
 }
 
+.dv-photos {
+  margin: 4px 12px;
+
+  .dv-img {
+    img {
+      width: 300px;
+      height: 180px;
+      margin: 4px;
+
+      background: var(--ion-color-light);
+    }
+  }
+}
+
 .dv-favourite {
   position: absolute;
   top: 0;

@@ -26,45 +26,63 @@
 <ion-content>
 
   <div class="flex-column">
-    <div class="dv-slide">
-      <ion-slides
-        pager
-        #slides>
-        <ng-container
-          *ngIf="data?.imageUrls.length > 0; else imgDefault">
-          <ion-slide
-            *ngFor="let img of data?.imageUrls">
-            <img
-              [src]="img"
-              class="img-logo" />
-          </ion-slide>
-        </ng-container>
-
-        <ng-template #imgDefault>
-          <ion-slide>
-            <img
-              src="assets/imgs/default_img.png"
-              class="img-logo" />
-          </ion-slide>
-        </ng-template>
-      </ion-slides>
-    </div>
-
-    <!-- favourite button -->
+    <!-- photos -->
     <div
-      class="dv-favourite"
-      *ngIf="data && auth.user">
-      <ion-button
-        color="danger"
-        fill="clear"
-        size="small"
-        (click)="onButFavourite()">
-        <ion-icon
-          slot="icon-only"
-          name="heart">
-        </ion-icon>
-      </ion-button>
+      *ngIf="platform.is('desktop') && platform.width() > 600; else slide"
+      class="dv-photos flex-row">
+      <div
+        class="dv-photo"
+        *ngFor="let img of data?.imageUrls">
+        <!-- linke to full image -->
+        <a [href]="img" target="_blank">
+          <div class="dv-img">
+            <img [src]="img" />
+          </div>
+        </a>
+      </div>
     </div>
+
+    <ng-template #slide>
+      <div class="dv-slide">
+        <ion-slides
+          pager
+          #slides>
+          <ng-container
+            *ngIf="data?.imageUrls.length > 0; else imgDefault">
+            <ion-slide
+              *ngFor="let img of data?.imageUrls">
+              <img
+                [src]="img"
+                class="img-logo" />
+            </ion-slide>
+          </ng-container>
+
+          <ng-template #imgDefault>
+            <ion-slide>
+              <img
+                src="assets/imgs/default_img.png"
+                class="img-logo" />
+            </ion-slide>
+          </ng-template>
+        </ion-slides>
+      </div>
+
+      <!-- favourite button -->
+      <div
+        class="dv-favourite"
+        *ngIf="data && auth.user">
+        <ion-button
+          color="danger"
+          fill="clear"
+          size="small"
+          (click)="onButFavourite()">
+          <ion-icon
+            slot="icon-only"
+            name="heart">
+          </ion-icon>
+        </ion-button>
+      </div>
+    </ng-template>
 
     <div
       class="flex-column"

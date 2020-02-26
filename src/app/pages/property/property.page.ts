@@ -3,11 +3,12 @@ import {NavService} from '../../services/nav.service';
 import {Property} from '../../models/property';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../services/api/api.service';
-import {NavController, ToastController} from '@ionic/angular';
+import {NavController, Platform, ToastController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
 import {ImageHelper} from "../../helpers/image-helper";
 import {PropertyHelper} from "../../helpers/property-helper";
 import {SocialSharing} from "@ionic-native/social-sharing/ngx";
+import {ModalService} from "../../services/modal/modal.service";
 
 @Component({
   selector: 'app-property',
@@ -29,6 +30,8 @@ export class PropertyPage implements OnInit {
     public toastController: ToastController,
     public auth: AuthService,
     private socialSharing: SocialSharing,
+    public platform: Platform,
+    public modalService: ModalService,
   ) {
     this.propHelper = new PropertyHelper().init(socialSharing);
   }
@@ -80,5 +83,11 @@ export class PropertyPage implements OnInit {
 
   onButShare() {
     this.propHelper.shareProperty(this.data.id, this.auth.user);
+  }
+
+  onClickPhoto(img: any) {
+    this.modalService.viewImage(
+      img
+    );
   }
 }
