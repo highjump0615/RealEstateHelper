@@ -26,6 +26,9 @@ export class AuthGuard implements CanActivate {
 
     const needUser = next.data['needUser'];
 
+    // default is require onboard
+    const needOnboard = next.data['needOnboard'];
+
     // check authentication state
     if (!this.auth.user) {
       return this.storage.get(AuthService.KEY_USER)
@@ -34,25 +37,25 @@ export class AuthGuard implements CanActivate {
             // current user existing
             this.auth.user = new User().deserialize(val);
 
-            return this.gotoNext(needUser, state);
+            return this.gotoNext(needOnboard, needUser, state);
           }
 
           // no user
-          return this.gotoNext(needUser, state);
+          return this.gotoNext(needOnboard, needUser, state);
         })
         .catch((err) => {
           console.log(err);
 
           // no user
-          return this.gotoNext(needUser, state);
+          return this.gotoNext(needOnboard, needUser, state);
         });
     }
 
     // user existing
-    return this.gotoNext(needUser, state);
+    return this.gotoNext(needOnboard, needUser, state);
   }
 
-  async gotoNext(needUser, state): Promise<boolean> {
+  async gotoNext(needOnboard, needUser, state): Promise<boolean> {
 
     if (this.auth.user && this.auth.user.saved) {
       //
@@ -79,10 +82,12 @@ export class AuthGuard implements CanActivate {
         console.log(e);
       }
 
-      if (!shownOnboard) {
-        // user is not existing, redirect to sign up page
-        this.router.navigate(['onboard']);
-        return Promise.resolve(false);
+      if (needOnboard == undefined || needUser == true) {
+        if (!shownOnboard) {
+          // user is not existing, redirect to sign up page
+          this.router.navigate(['onboard']);
+          return Promise.resolve(false);
+        }
       }
 
       if (!needUser) {
