@@ -32,6 +32,9 @@ export class Notification extends BaseModel {
   // logical
   client: Client;
 
+  // ui-related
+  selected = false;
+
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
 

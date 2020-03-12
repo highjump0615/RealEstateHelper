@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Notification} from '../../models/notification';
 import {ApiService} from '../../services/api/api.service';
 import * as moment from 'moment';
@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {NavService} from '../../services/nav.service';
 import {BaseModel} from '../../models/base-model';
 import {AuthService} from '../../services/auth/auth.service';
-import {AlertController, ToastController} from '@ionic/angular';
+import {AlertController, Platform, ToastController} from '@ionic/angular';
 import {FirebaseManager} from '../../helpers/firebase-manager';
 import {Property} from '../../models/property';
 import {Message} from '../../models/message';
@@ -18,7 +18,7 @@ import {User} from "../../models/user";
   templateUrl: './notifications.page.html',
   styleUrls: ['./notifications.page.scss'],
 })
-export class NotificationsPage implements OnInit {
+export class NotificationsPage implements OnInit, AfterViewInit {
   static PAGE_COUNT = 16;
 
   showLoading = true;
@@ -33,6 +33,10 @@ export class NotificationsPage implements OnInit {
   NOTIFICATION_REMOVE_PROPERTY = Notification.NOTIFICATION_REMOVE_PROPERTY;
   NOTIFICATION_REMOVE_BUYER = Notification.NOTIFICATION_REMOVE_BUYER;
 
+  isEdit = false;
+  itemWidth = 0;
+
+  isSelectAll = false;
 
   constructor(
     public api: ApiService,
@@ -41,11 +45,18 @@ export class NotificationsPage implements OnInit {
     private auth: AuthService,
     public toastController: ToastController,
     public alertController: AlertController,
+    public platform: Platform,
   ) {
   }
 
   ngOnInit() {
     this.fetchData();
+  }
+
+  ngAfterViewInit() {
+    this.platform.ready().then(() => {
+      this.itemWidth = this.platform.width() - 14 - 14;
+    });
   }
 
   async fetchData() {
@@ -418,5 +429,20 @@ export class NotificationsPage implements OnInit {
     this.notiAll.splice(index, 1);
 
     slidingItem.close();
+  }
+
+  onItemLongPress() {
+    this.isEdit = true;
+  }
+
+  onButCancel() {
+    this.isEdit = false;
+  }
+
+  onSelectAll() {
+    // select / deselect all
+    for (let n of this.notifications) {
+      n.selected = this.isSelectAll;
+    }
   }
 }

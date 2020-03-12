@@ -1,7 +1,18 @@
-<ion-header>
+<ion-header xmlns="http://www.w3.org/1999/html">
   <ion-toolbar
     color="primary">
     <ion-title>NOTIFICATIONS</ion-title>
+
+    <!-- settings -->
+    <ion-buttons
+      slot="end">
+      <ion-button
+        *ngIf="isEdit"
+        (click)="onButCancel()"
+        color="light">
+        Cancel
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,6 +23,39 @@
     (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <div
+    class="dv-header flex-c-row">
+    <div
+      *ngIf="isEdit; else headerNormal"
+      class="flex-c-row flex-fill dv-header-edit">
+      <ion-item lines="none">
+        <ion-checkbox
+          [(ngModel)]="isSelectAll"
+          (ionChange)="onSelectAll()">
+        </ion-checkbox>
+        <ion-label>Select All</ion-label>
+      </ion-item>
+
+      <ion-button
+        class="but-delete"
+        fill="clear"
+        color="medium">
+        <ion-icon
+          slot="icon-only"
+          name="trash">
+        </ion-icon>
+      </ion-button>
+    </div>
+
+    <ng-template #headerNormal>
+      <div class="ion-padding-horizontal">
+        <span *ngIf="notifications.length > 0">
+          {{notifications.length}} notifications in total
+        </span>
+      </div>
+    </ng-template>
+  </div>
 
   <!-- showLoading -->
   <ion-spinner
@@ -24,9 +68,63 @@
     <span>No notifications yet</span>
   </div>
 
-  <ion-list>
+  <!-- switch list using hidden, to prevent flickering -->
+  <ion-list
+    class="list-edit"
+    [hidden]="!isEdit">
+    <ion-item
+      *ngFor="let nt of notifications; let i = index"
+      [ngClass]="nt.isRead ? '' : 'item-no-read'"
+      detail="false"
+      lines="none">
+
+      <ion-checkbox
+        color="primary"
+        [(ngModel)]="nt.selected"
+        slot="start">
+      </ion-checkbox>
+
+      <div class="dv-card-wrapper">
+        <ion-card [style.width]="itemWidth + 'px'">
+          <ion-card-content
+            class="full-width">
+            <div class="flex-c-row">
+              <!-- image -->
+              <div class="dv-icon">
+                <img
+                  *ngIf="nt.type == NOTIFICATION_MATCH_BUYER || nt.type == NOTIFICATION_MATCH_PROPERTY"
+                  src="../../../assets/imgs/tab_matches_selected.png" />
+                <ion-icon
+                  *ngIf="nt.type == NOTIFICATION_EXPIRE_PROPERTY || nt.type == NOTIFICATION_EXPIRE_BUYER"
+                  name="md-time">
+                </ion-icon>
+                <ion-icon
+                  *ngIf="nt.type == NOTIFICATION_REMOVE_PROPERTY || nt.type == NOTIFICATION_REMOVE_BUYER"
+                  name="trash">
+                </ion-icon>
+              </div>
+
+              <!-- message -->
+              <span
+                class="sp-msg"
+              >{{getNotificationDesc(nt)}}</span>
+
+              <!-- time -->
+              <span
+                class="sp-time"
+              >{{getTimeFormatted(nt)}}</span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <!-- switch list using hidden, to prevent flickering -->
+  <ion-list
+    [hidden]="isEdit"
+    class="list-normal">
     <ion-card
-      class="ca-buyer"
       *ngFor="let nt of notifications; let i = index">
       <ion-item-sliding #slidingItem>
         <ion-item
@@ -35,7 +133,9 @@
           button
           detail="false"
           lines="none"
-          (click)="onItemClick(nt)">
+          (click)="onItemClick(nt)"
+          appLongPress
+          (longPressed)="onItemLongPress()">
           <ion-card-content
             class="full-width">
             <div class="flex-c-row">
