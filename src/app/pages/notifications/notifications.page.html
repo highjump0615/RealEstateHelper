@@ -19,6 +19,7 @@
 <ion-content>
   <!-- pull to refresh -->
   <ion-refresher
+    *ngIf="!isEdit"
     slot="fixed"
     (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -40,7 +41,8 @@
       <ion-button
         class="but-delete"
         fill="clear"
-        color="medium">
+        color="medium"
+        (click)="onButDeleteAll()">
         <ion-icon
           slot="icon-only"
           name="trash">

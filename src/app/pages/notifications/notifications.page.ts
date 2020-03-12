@@ -436,6 +436,17 @@ export class NotificationsPage implements OnInit, AfterViewInit {
   }
 
   onButCancel() {
+    //
+    // deselect all
+    //
+    for (const nt of this.notiAll) {
+      nt.selected = false;
+    }
+    for (const nt of this.notifications) {
+      nt.selected = false;
+    }
+    this.isSelectAll = false;
+
     this.isEdit = false;
   }
 
@@ -443,6 +454,49 @@ export class NotificationsPage implements OnInit, AfterViewInit {
     // select / deselect all
     for (let n of this.notifications) {
       n.selected = this.isSelectAll;
+    }
+  }
+
+  async onButDeleteAll() {
+    for (let n of this.notifications) {
+      if (n.selected) {
+        const alert = await this.alertController.create({
+          header: 'Are you sure you want to delete these notifications?',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: (blah) => {
+              }
+            }, {
+              text: 'OK',
+              handler: () => {
+                this.doDeleteNotifications();
+              }
+            }
+          ]
+        });
+
+        await alert.present();
+
+        break;
+      }
+    }
+  }
+
+  private doDeleteNotifications() {
+    for (let i = this.notifications.length - 1; i >= 0; i--) {
+      const nt = this.notifications[i];
+
+      if (nt.selected) {
+        const query = nt.getDatabaseRef(null, this.auth.user.id);
+        query.remove();
+
+        // remove item from list
+        this.notifications.splice(i, 1);
+        this.notiAll.splice(i, 1);
+      }
     }
   }
 }
