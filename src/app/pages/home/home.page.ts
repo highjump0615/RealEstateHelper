@@ -27,8 +27,10 @@ export class HomePage extends BasePropertiesPage implements OnInit {
 
   properties: Array<Property>;
 
+  // temporary data
   latitude = 0;
   longitude = 0;
+  fcmToken = '';
 
   constructor(
     private router: Router,
@@ -68,33 +70,11 @@ export class HomePage extends BasePropertiesPage implements OnInit {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
 
-      if (this.auth.user) {
-        this.auth.user.lat = this.latitude;
-        this.auth.user.lng = this.longitude;
-      }
-
     } catch (e) {
       console.log(e);
     }
 
     this.fetchData();
-
-    // push notification related
-    if (this.auth.user) {
-      try {
-        console.log('init for push notification');
-
-        const perm = await this.firebase.grantPermission();
-        console.log('grantPermission', perm);
-
-        const token = await this.firebase.getToken();
-        console.log(`The token is ${token}`);
-
-        this.saveToken(token);
-      } catch (e) {
-        console.log(e);
-      }
-    }
 
     this.firebase.onMessageReceived()
       .subscribe(data => {
@@ -120,12 +100,45 @@ export class HomePage extends BasePropertiesPage implements OnInit {
       .subscribe((token: string) => {
         console.log(`Got a new token ${token}`);
 
+        if (!this.auth.user) {
+          return;
+        }
+
         this.saveToken(token);
       });
   }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     console.log('ionViewDidEnter');
+
+    if (this.auth.user) {
+      if (this.auth.user) {
+        this.auth.user.lat = this.latitude;
+        this.auth.user.lng = this.longitude;
+      }
+
+      // already got fcm token
+      if (this.fcmToken) {
+        return;
+      }
+
+      // push notification related
+      try {
+        console.log('init for push notification');
+
+        const perm = await this.firebase.grantPermission();
+        console.log('grantPermission', perm);
+
+        const token = await this.firebase.getToken();
+        console.log(`The token is ${token}`);
+
+        this.fcmToken = token;
+
+        this.saveToken(token);
+      } catch (e) {
+        console.log(e);
+      }
+    }
 
     // add newly added property when appear
     if (this.properties && this.auth.user) {
