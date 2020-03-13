@@ -82,7 +82,7 @@ export class PropertyPage implements OnInit {
   }
 
   onButShare() {
-    this.propHelper.shareProperty(this.data.id, this.auth.user);
+    this.propHelper.shareProperty(this.data.id, this.auth.user, this.toastController);
   }
 
   onClickPhoto(img: any) {

@@ -73,6 +73,6 @@ export class ProfileSellerPage extends BaseClientPage implements OnInit {
   }
 
   onButShare() {
-    this.propHelper.shareProperty(this.data.propertyId, this.auth.user);
+    this.propHelper.shareProperty(this.data.propertyId, this.auth.user, this.toastController);
   }
 }

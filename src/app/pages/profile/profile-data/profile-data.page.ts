@@ -70,7 +70,7 @@ export class ProfileDataPage extends ProfilePage implements OnInit {
   }
 
   onButShare() {
-    this.propHelper.shareProperty(this.data.propertyId, this.auth.user);
+    this.propHelper.shareProperty(this.data.propertyId, this.auth.user, this.toastController);
   }
 
   onButFavourite() {
