@@ -30,7 +30,6 @@ export class ClientsPage extends BasePage implements OnInit {
   clients: Array<Client> = [];
 
   filterClient: Client;
-  matchCount = 0;
 
   constructor(
     public loadingCtrl: LoadingController,

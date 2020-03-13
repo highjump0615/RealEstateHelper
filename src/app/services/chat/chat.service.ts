@@ -39,4 +39,13 @@ export class ChatService {
       listener(chats);
     }
   }
+
+  clearData() {
+    this.api.detachLatestChatList();
+
+    // clear data listener
+    this.chats = [];
+    this.chatListeners = [];
+    this.fetchChatRef = null;
+  }
 }

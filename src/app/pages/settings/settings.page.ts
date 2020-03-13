@@ -7,6 +7,7 @@ import {AppRate} from '@ionic-native/app-rate/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {User} from "../../models/user";
 import {ApiService} from "../../services/api/api.service";
+import {ChatService} from "../../services/chat/chat.service";
 
 @Component({
   selector: 'app-settings',
@@ -28,6 +29,7 @@ export class SettingsPage implements OnInit {
     private socialSharing: SocialSharing,
     public toastController: ToastController,
     public api: ApiService,
+    private chat: ChatService,
   ) { }
 
   ngOnInit() {
@@ -66,7 +68,7 @@ export class SettingsPage implements OnInit {
     this.api.saveToDatabaseWithField(this.auth.user, User.FIELD_TOKEN, null);
 
     // clear db listener events
-    this.api.detachLatestChatList();
+    this.chat.clearData();
 
     // sign out
     this.auth.signOut();

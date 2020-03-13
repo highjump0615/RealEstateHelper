@@ -86,7 +86,7 @@ export class TabsPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     // unload
     console.log('ionViewWillUnload tab');
-    this.api.detachLatestChatList();
+    this.chat.clearData();
   }
 
   updateBadge(messages) {
