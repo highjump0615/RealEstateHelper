@@ -70,9 +70,9 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     // price
     //
     if (buyer.priceMin || buyer.priceMax) {
-      nMatchMax++;
-
       if (prop.price) {
+        nMatchMax++;
+
         if (buyer.priceMin && buyer.priceMax) {
           if (buyer.priceMin <= prop.price && prop.price <= buyer.priceMax) {
             nMatch++;
@@ -95,9 +95,9 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     // size
     //
     if (buyer.sizeMin || buyer.sizeMax) {
-      nMatchMax++;
-
       if (prop.size) {
+        nMatchMax++;
+
         if (buyer.sizeMin && buyer.sizeMax) {
           if (buyer.sizeMin <= prop.size && prop.size <= buyer.sizeMax) {
             nMatch++;
@@ -117,7 +117,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // style
-    if (propReq.style.length > 0) {
+    if (propReq.style.length > 0 && prop.style.length > 0) {
       nMatchMax++;
 
       if (Utils.containsArray(prop.style, propReq.style)) {
@@ -126,7 +126,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // type
-    if (propReq.type.length > 0) {
+    if (propReq.type.length > 0 && prop.type.length > 0) {
       nMatchMax++;
 
       if (Utils.containsArray(prop.type, propReq.type)) {
@@ -135,25 +135,25 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // bedrooms
-    if (propReq.bedroom) {
+    if (propReq.bedroom && prop.bedroom) {
       nMatchMax++;
 
-      if (prop.bedroom && prop.bedroom >= propReq.bedroom) {
+      if (prop.bedroom >= propReq.bedroom) {
         nMatch++;
       }
     }
 
     // bathrooms
-    if (propReq.bathroom) {
+    if (propReq.bathroom && prop.bathroom) {
       nMatchMax++;
 
-      if (prop.bathroom && prop.bathroom >= propReq.bathroom) {
+      if (prop.bathroom >= propReq.bathroom) {
         nMatch++;
       }
     }
 
     // garage
-    if (propReq.garage.length > 0) {
+    if (propReq.garage.length > 0 && prop.garage.length > 0) {
       nMatchMax++;
 
       if (Utils.containsArray(prop.garage, propReq.garage)) {
@@ -162,7 +162,7 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // basement
-    if (propReq.basement.length > 0) {
+    if (propReq.basement.length > 0 && prop.basement.length > 0) {
       nMatchMax++;
 
       if (Utils.containsArray(prop.basement, propReq.basement)) {
@@ -171,25 +171,25 @@ export class MatchesPage extends BaseSegmentPage implements OnInit {
     }
 
     // lot
-    if (propReq.lotFrontage) {
+    if (propReq.lotFrontage && prop.lotFrontage) {
       nMatchMax++;
 
-      if (prop.lotFrontage && prop.lotFrontage >= propReq.lotFrontage) {
+      if (prop.lotFrontage >= propReq.lotFrontage) {
         nMatch++;
       }
     }
 
     // depth
-    if (propReq.lotDepth) {
+    if (propReq.lotDepth && prop.lotDepth) {
       nMatchMax++;
 
-      if (prop.lotDepth && prop.lotDepth >= propReq.lotDepth) {
+      if (prop.lotDepth >= propReq.lotDepth) {
         nMatch++;
       }
     }
 
     // status
-    if (propReq.status.length > 0) {
+    if (propReq.status.length > 0 && prop.status.length > 0) {
       nMatchMax++;
 
       if (Utils.containsArray(prop.status, propReq.status)) {
