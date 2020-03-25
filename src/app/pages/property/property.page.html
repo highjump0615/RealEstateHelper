@@ -26,14 +26,14 @@
 <ion-content>
 
   <div class="flex-column">
-    <!-- photos -->
+    <!-- photos in desktop platform -->
     <div
       *ngIf="platform.is('desktop') && platform.width() > 600; else slide"
       class="dv-photos flex-row">
       <div
         class="dv-photo"
         *ngFor="let img of data?.imageUrls">
-        <!-- linke to full image -->
+        <!-- link to full image -->
         <a [href]="img" target="_blank">
           <div class="dv-img">
             <img [src]="img" />
@@ -42,6 +42,7 @@
       </div>
     </div>
 
+    <!-- photos in mobile platform -->
     <ng-template #slide>
       <div class="dv-slide">
         <ion-slides

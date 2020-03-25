@@ -37,7 +37,8 @@
         <div class="flex-row">
           <!-- image -->
           <ion-thumbnail>
-            <ion-img [src]="data.imageUrls[0]"></ion-img>
+            <ion-img [src]="data.imageUrls.length > 0 ? data.imageUrls[0] : 'assets/imgs/default_img.png'">
+            </ion-img>
           </ion-thumbnail>
 
           <div class="dv-info">
