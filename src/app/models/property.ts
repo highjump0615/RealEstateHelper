@@ -41,10 +41,10 @@ export class Property extends BaseModel implements Deserializable {
   static FIELD_DATE_EXPIRED = 'expiredAt';
 
   static STYLES = [
-    'Two-Storey',
+    'Two-Story',
     'Bungalow',
     'Sidesplit',
-    '3-storey',
+    '3-story',
     'Other',
   ];
 
