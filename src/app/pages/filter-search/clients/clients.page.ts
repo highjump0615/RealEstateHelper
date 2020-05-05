@@ -339,10 +339,10 @@ export class ClientsPage extends BasePage implements OnInit {
     }
 
     // code
-    if (this.filterClient.propRequest.id) {
+    if (this.filterClient.propRequest.sellerId) {
       nMatchMax++;
 
-      if (prop.getIdReadable() === this.filterClient.propRequest.id) {
+      if (prop.getSellerIdReadable() === this.filterClient.propRequest.sellerId) {
         nMatch++;
       }
     }

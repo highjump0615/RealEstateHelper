@@ -9,6 +9,7 @@ export class Notification extends BaseModel {
   static TABLE_NAME = 'notifications';
   static FIELD_CLIENT_ID = 'clientId';
   static FIELD_PROPERTY_ID = 'propertyId';
+  static FIELD_SELLER_ID = 'sellerId';
   static FIELD_TYPE = 'type';
   static FIELD_IS_READ = 'isRead';
 
@@ -27,6 +28,7 @@ export class Notification extends BaseModel {
   type = Notification.NOTIFICATION_MATCH_BUYER;
   clientId = '';
   propertyId = '';
+  sellerId = '';
   isRead = false;
 
   // logical
@@ -44,6 +46,7 @@ export class Notification extends BaseModel {
       this.type = info[Notification.FIELD_TYPE];
       this.clientId = info[Notification.FIELD_CLIENT_ID];
       this.propertyId = info[Notification.FIELD_PROPERTY_ID];
+      this.sellerId = info[Notification.FIELD_SELLER_ID];
 
       if (Notification.FIELD_IS_READ in info) {
         this.isRead = info[Notification.FIELD_IS_READ];
@@ -65,6 +68,7 @@ export class Notification extends BaseModel {
     dict[Notification.FIELD_TYPE] = this.type;
     dict[Notification.FIELD_CLIENT_ID] = this.clientId;
     dict[Notification.FIELD_PROPERTY_ID] = this.propertyId;
+    dict[Notification.FIELD_SELLER_ID] = this.sellerId;
 
     dict[Notification.FIELD_IS_READ] = this.isRead;
 

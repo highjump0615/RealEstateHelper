@@ -148,6 +148,7 @@ export class NotificationsPage implements OnInit, AfterViewInit {
     let clientName = '';
     const clientCode = Client.getCodeReadable(noti.clientId);
     const propCode = Property.getCodeReadable(noti.propertyId);
+    const sellerCode = `S${Client.getCodeReadable(noti.sellerId)}`;
 
     if (noti.client) {
       clientName = `${noti.client.name} (B${clientCode})`;
@@ -157,19 +158,31 @@ export class NotificationsPage implements OnInit, AfterViewInit {
     }
 
     if (noti.type === Notification.NOTIFICATION_MATCH_BUYER) {
-      strDesc = `New Property ${propCode} has matched to your buyer ${clientName}`;
+      strDesc = `New property ${propCode} has matched to your buyer ${clientName}`;
+      if (sellerCode) {
+        strDesc = `New seller ${sellerCode} has matched to your buyer ${clientName}`;
+      }
     }
     else if (noti.type === Notification.NOTIFICATION_MATCH_PROPERTY) {
       strDesc = `New buyer ${clientName} has matched to your property ${propCode}`;
+      if (sellerCode) {
+        strDesc = `New buyer ${clientName} has matched to your seller ${sellerCode}`;
+      }
     }
     else if (noti.type === Notification.NOTIFICATION_EXPIRE_PROPERTY) {
       strDesc = `Your property ${propCode} has been listed for 90 days. If you don’t reply the listing will be deleted in 5 days.`;
+      if (sellerCode) {
+        strDesc = `Your seller ${sellerCode} has been listed for 90 days. If you don’t reply the listing will be deleted in 5 days.`;
+      }
     }
     else if (noti.type === Notification.NOTIFICATION_EXPIRE_BUYER) {
       strDesc = `Your buyer ${clientName} has been listed for 90 days. If you don’t reply the listing will be deleted in 5 days.`;
     }
     else if (noti.type === Notification.NOTIFICATION_REMOVE_PROPERTY) {
       strDesc = `Your property ${propCode} has been deleted automatically`;
+      if (sellerCode) {
+        strDesc = `Your seller ${sellerCode} has been deleted automatically`;
+      }
     }
     else if (noti.type === Notification.NOTIFICATION_REMOVE_BUYER) {
       strDesc = `Your buyer ${clientName} has been deleted automatically`;

@@ -2,6 +2,7 @@ import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
 import {GeoFire} from 'geofire';
 import {User} from "./user";
+import {Client} from "./client";
 
 export class Property extends BaseModel implements Deserializable {
 
@@ -292,6 +293,10 @@ export class Property extends BaseModel implements Deserializable {
 
   getIdReadable() {
     return Property.getCodeReadable(this.id);
+  }
+
+  getSellerIdReadable() {
+    return `S${Client.getCodeReadable(this.sellerId)}`;
   }
 
   getPhotoUrl() {
