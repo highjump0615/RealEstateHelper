@@ -347,7 +347,7 @@ export class BaseClientAddPage extends BaseSegmentPage {
     const opts: PickerOptions = {
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Clear',
           handler: (value: any): void => {
             this.bathroom = null;
           },
