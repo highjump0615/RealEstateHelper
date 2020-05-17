@@ -8,12 +8,16 @@ import {ApiService} from '../services/api/api.service';
 import {config} from '../helpers/config';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Router} from '@angular/router';
+import {first} from "rxjs/operators";
+
+declare var SignInWithApple: any;
 
 export class BaseSigninPage extends BasePage {
 
   SIGNIN_EMAIL = 0;
   SIGNIN_FACEBOOK = 1;
   SIGNIN_GOOGLE = 2;
+  SIGNIN_APPLE = 3;
 
   signinMethod = this.SIGNIN_EMAIL;
 
@@ -92,7 +96,43 @@ export class BaseSigninPage extends BasePage {
   }
 
   async onButApple() {
+    this.signinMethod = this.SIGNIN_APPLE;
 
+    await this.showLoadingView();
+
+    try {
+      const appleCredential = await SignInWithApple.request({
+        requestedScopes: [
+          SignInWithApple.Scope.Email,
+          SignInWithApple.Scope.FullName
+        ]
+      });
+
+      //
+      // authorizationCode: "cf9703d22291647a0b5bba29b5f890f26.0.nsv.rQQdfuKdnrwhUE8KdMv81A"
+      // authorizedScopes: [] (0)
+      // email: "3xenia8u3h@privaterelay.appleid.com"
+      // fullName: {givenName: "Ying", familyName: "L", ...}
+      // identityToken: "eyJraWQiOiI4NkQ4OEtmIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiY29tLmJyYWlueWFwcHMucmVjb25uZWN0IiwiZXhwI…"
+      // realUserStatus: 2
+      // state: null
+      // user: "000025.5d91f5d416d540adb9cb5607fc19c630.0936"
+      //
+      console.log(appleCredential);
+
+      const credential =  new firebase.auth
+        .OAuthProvider('apple.com')
+        .credential(appleCredential.identityToken);
+      console.log(credential);
+
+      this.continueSocialSignIn(
+        credential,
+        appleCredential.fullName.givenName,
+        appleCredential.fullName.familyName);
+    }
+    catch (err) {
+      this.onSocialError(err);
+    }
   }
 
   setUser(u) {
@@ -111,9 +151,16 @@ export class BaseSigninPage extends BasePage {
     if (this.signinMethod === this.SIGNIN_FACEBOOK) {
       strTitle = 'Facebook Login Failed';
     }
+    else if (this.signinMethod === this.SIGNIN_APPLE) {
+      strTitle = 'Apple Login Failed';
+    }
 
     if (this.signinMethod === this.SIGNIN_FACEBOOK &&
       err.errorCode === '4201') {
+      // canceled
+    }
+    else if (this.signinMethod === this.SIGNIN_APPLE &&
+      (err.code === 1000 || err.code === 1001)) {
       // canceled
     }
     else {
@@ -138,7 +185,7 @@ export class BaseSigninPage extends BasePage {
     this.presentAlert('Login Failed', err.message);
   }
 
-  private async continueSocialSignIn(credential, firstName, lastName, photoUrl) {
+  private async continueSocialSignIn(credential, firstName, lastName, photoUrl = null) {
     let userRes = null;
 
     try {
@@ -169,7 +216,10 @@ export class BaseSigninPage extends BasePage {
         const newUser = new User(userRes.uid);
 
         newUser.email = userRes.email;
-        newUser.name = `${firstName} ${lastName}`;
+
+        if (firstName || lastName) {
+          newUser.name = `${firstName} ${lastName}`;
+        }
         newUser.photoUrl = photoUrl;
         newUser.saved = false;
 
