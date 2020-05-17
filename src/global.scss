@@ -10,6 +10,8 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+@import "theme/colors";
+
 :root {
   --font-size-label: 10pt;
   --font-size-button: 10pt;
@@ -272,4 +274,17 @@ ion-thumbnail {
 ion-app {
   /*animation of native keyboard show*/
   transition: margin 300ms;
+}
+
+.but-apple {
+  width: 60px;
+  height: 60px;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+
+  ion-icon {
+    font-size: 28pt;
+    margin-bottom: 4px;
+  }
 }

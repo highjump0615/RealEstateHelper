@@ -91,6 +91,10 @@ export class BaseSigninPage extends BasePage {
 
   }
 
+  async onButApple() {
+
+  }
+
   setUser(u) {
     this.auth.user = u;
     this.auth.updateCurrentUser();

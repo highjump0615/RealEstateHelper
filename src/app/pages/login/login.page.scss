@@ -27,13 +27,11 @@
 
 .dv-social {
   flex: 1;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 18px;
+
   img {
     width: 60px;
     height: 60px;
-
-    &:not(:first-child) {
-      margin-left: 40px;
-    }
   }
 }
