@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.brainyapps.reconnect" ios-CFBundleVersion="9" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.brainyapps.reconnect" ios-CFBundleVersion="18" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Reconnect</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -48,6 +48,7 @@
         </edit-config>
     </platform>
     <platform name="ios">
+        <preference name="WKWebViewOnly" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -88,12 +89,12 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
             <string>We use your location for searching properties and clients nearby from you.</string>
         </edit-config>
-        <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
             <string>We use Photo library for uploading profile and property photos</string>
-        </config-file>
-        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
             <string>We use Camera for uploading profile and property photos</string>
-        </config-file>
+        </edit-config>
         <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
         <icon height="40" src="resources/ios/icon/icon-20@2x.png" width="40" />
         <icon height="60" src="resources/ios/icon/icon-20@3x.png" width="60" />
@@ -116,12 +117,6 @@
     <plugin name="cordova-plugin-email-composer" spec="0.9.2">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1+" />
     </plugin>
-    <plugin name="cordova-plugin-apprate" spec="^1.4.0" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.6.0">
-        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1+" />
-        <variable name="PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="This app requires photo library access to function properly." />
-    </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-camera" spec="^4.1.0">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.1.1+" />
@@ -129,16 +124,4 @@
     <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.3.3">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-facebook4" spec="6.0.0">
-        <variable name="APP_ID" value="377684863179767" />
-        <variable name="APP_NAME" value="Reconnect" />
-        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
-        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="5.2.0" />
-    </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="8.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.154808025696-00avfp3kqf3dpv8vjqlt5udkuo9793tl" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="154808025696-2ujdgboonlee35sffo1c9it3pnj0o5ne.apps.googleusercontent.com" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
-    </plugin>
-    <engine name="browser" spec="^5.0.4" />
 </widget>
