@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar
     color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
     <ion-title>SIGN UP</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,9 +22,21 @@
         <!--social buttons-->
         <div class="dv-social">
           <img
-            src="../../../../assets/imgs/but_fb.png" />
+            src="../../../../assets/imgs/but_fb.png"
+            (click)="onButFacebook()"/>
           <img
-            src="../../../../assets/imgs/but_google.png" />
+            src="../../../../assets/imgs/but_google.png"
+            (click)="onButGoogle()"/>
+
+          <ion-button
+            (click)="onButApple()"
+            class="but-apple round"
+            color="dark">
+            <ion-icon
+              slot="icon-only"
+              name="logo-apple">
+            </ion-icon>
+          </ion-button>
         </div>
 
         <span

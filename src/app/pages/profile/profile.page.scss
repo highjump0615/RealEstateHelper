@@ -14,7 +14,8 @@ ion-buttons[slot="end"] {
   justify-content: center;
 
   .dv-bg {
-    background-image: url('../../../assets/imgs/default_img.png');
+    background-size: cover;
+    background-position: center;
     filter: blur(5px);
   }
 
@@ -35,9 +36,13 @@ ion-buttons[slot="end"] {
       height: 114px;
     }
 
-    .sp-name {
+    .dv-name {
       margin-top: 20px;
       margin-bottom: 14px;
+
+      ion-icon {
+        margin-left: 8px;
+      }
     }
   }
 }

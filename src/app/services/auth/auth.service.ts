@@ -3,13 +3,14 @@ import {User} from '../../models/user';
 import {FirebaseManager} from '../../helpers/firebase-manager';
 import {User as FUser} from 'firebase';
 import {Storage} from '@ionic/storage';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  static KEY_USER = 'current_user';
+  static KEY_USER = 'reconnect_current_user';
 
   user: User;
 
@@ -49,6 +50,18 @@ export class AuthService {
     });
   }
 
+  socialSignIn(credential) {
+    return FirebaseManager.auth().signInAndRetrieveDataWithCredential(credential)
+      .then((res) => {
+        if (!res.user) {
+          const err = new Error('User not available');
+          return Promise.reject(new Error('User not available'));
+        }
+
+        return Promise.resolve(res.user);
+      });
+  }
+
   resetPassword(email) {
     // do login
     return FirebaseManager.auth().sendPasswordResetEmail(email);
@@ -57,6 +70,19 @@ export class AuthService {
   updateCurrentUser() {
     // save user to session storage
     this.storage.set(AuthService.KEY_USER, this.user);
+  }
+
+  async changePassword(oldPwd, newPwd) {
+    const cred = firebase.auth.EmailAuthProvider.credential(
+      this.user.email,
+      oldPwd,
+    );
+
+    // check old password
+    await FirebaseManager.auth().currentUser.reauthenticateWithCredential(cred);
+
+    // update password
+    await FirebaseManager.auth().currentUser.updatePassword(newPwd);
   }
 
   signOut() {

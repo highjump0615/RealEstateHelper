@@ -5,33 +5,33 @@ import {AlertController, LoadingController, NavController} from '@ionic/angular'
 import {AuthService} from '../../services/auth/auth.service';
 import {Utils} from '../../helpers/utils';
 import {User} from '../../models/user';
-import {ApiService} from '../../sercices/api/api.service';
+import {ApiService} from '../../services/api/api.service';
+import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {config} from '../../helpers/config';
+import {BaseSigninPage} from '../base-signin.page';
+import {Facebook} from '@ionic-native/facebook/ngx';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage extends BasePage implements OnInit {
+export class LoginPage extends BaseSigninPage implements OnInit {
 
   email = '';
   password = '';
 
-  SIGNIN_EMAIL = 0;
-  SIGNIN_FACEBOOK = 1;
-  SIGNIN_GOOGLE = 2;
-
-  signinMethod = this.SIGNIN_EMAIL;
-
   constructor(
-    private router: Router,
+    public router: Router,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
-    private auth: AuthService,
-    public api: ApiService
+    public auth: AuthService,
+    public api: ApiService,
+    public fb: Facebook,
+    public googlePlus: GooglePlus,
   ) {
-    super(loadingCtrl, alertCtrl);
+    super(fb, googlePlus, auth, api, router, navCtrl, loadingCtrl, alertCtrl);
   }
 
   ngOnInit() {
@@ -79,23 +79,5 @@ export class LoginPage extends BasePage implements OnInit {
 
       this.onError(err);
     });
-  }
-
-  setUser(u) {
-    this.auth.user = u;
-    this.auth.updateCurrentUser();
-
-    // go to main page
-    this.navCtrl.navigateRoot(['/tabs/home']);
-    this.showLoadingView(false);
-  }
-
-  onError(err) {
-    console.log(JSON.stringify(err));
-
-    this.showLoadingView(false);
-
-    // show error alert
-    this.presentAlert('Login Failed', err.message);
   }
 }

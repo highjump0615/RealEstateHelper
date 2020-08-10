@@ -9,185 +9,297 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="flex-column">
+<ion-content class="ion-padding">
+  <div
+    class="flex-column"
+    [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
     <!-- search for-->
     <div class="dv-input-with-title flex-column">
       <ion-label>Search For:</ion-label>
 
       <ion-radio-group
         class="flex-c-row"
-        [(ngModel)]="target">
+        (ionChange)="onChangeType($event)">
         <!-- checkbox -->
         <ion-item
           lines="none"
           class="it-checkbox">
-          <ion-label>Buyer</ion-label>
+          <ion-label>Buyers</ion-label>
           <ion-radio
             slot="start"
             mode="md"
             color="secondary"
-            [value]="TARGET_BUYER"
+            checked
+            [value]="PAGE_BUYER"
           ></ion-radio>
         </ion-item>
         <ion-item
           lines="none"
           class="it-checkbox">
-          <ion-label>Seller</ion-label>
+          <ion-label>Sellers</ion-label>
           <ion-radio
             slot="start"
             mode="md"
             color="secondary"
-            [value]="TARGET_SELLER"
+            [value]="PAGE_SELLER"
           ></ion-radio>
         </ion-item>
       </ion-radio-group>
     </div>
 
-    <!-- location -->
-    <div class="dv-filter-input flex-c-row mt-10">
-      <!-- icon -->
-      <ion-icon name="search"></ion-icon>
-      <ion-input
-        placeholder="Enter Location"
-        readonly
-        (ionFocus)="onFocusLocation()"
-      ></ion-input>
-    </div>
-
-    <!-- distance -->
-    <ion-range
-      min="0"
-      max="20"
-      pin
-      mode="md"
-      color="secondary"
-      [(ngModel)]="distance">
-      <ion-label slot="start">0</ion-label>
-      <ion-label slot="end">20 km</ion-label>
-    </ion-range>
-
-    <!-- price range -->
-    <div class="dv-input-with-title flex-column">
-      <ion-label>Price Range</ion-label>
-
-      <!-- minimum -->
-      <div class="dv-filter-input flex-c-row mb-6">
+    <form>
+      <!-- location -->
+      <div class="dv-filter-input flex-c-row mt-10">
         <!-- icon -->
         <ion-icon name="search"></ion-icon>
         <ion-input
-          placeholder="Minimum Price"
-          type="number"
-        ></ion-input>
-      </div>
-
-      <!-- maximum -->
-      <div class="dv-filter-input flex-c-row">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Maximum Price"
-          type="number"
-        ></ion-input>
-      </div>
-    </div>
-
-    <!-- house size -->
-    <div class="dv-input-with-title flex-column mt-14">
-      <ion-label>House Size</ion-label>
-
-      <!-- minimum -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Minimum House Size (in square feet)"
-          type="number"
-        ></ion-input>
-      </div>
-
-      <!-- maximum -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Maximum House Size (in square feet)"
-          type="number"
-        ></ion-input>
-      </div>
-    </div>
-
-    <!-- bedrooms -->
-    <div class="dv-input-with-title flex-column mt-14">
-      <ion-label>Bedrooms</ion-label>
-
-      <!-- minimum -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Minimum number of Bedrooms"
-          type="number"
-        ></ion-input>
-      </div>
-    </div>
-
-    <!-- bathrooms -->
-    <div class="dv-input-with-title flex-column mt-14">
-      <ion-label>Bathrooms</ion-label>
-
-      <!-- minimum -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Minimum number of Bathrooms"
-          type="number"
-        ></ion-input>
-      </div>
-    </div>
-
-    <!-- lot size -->
-    <div class="dv-input-with-title flex-column mt-14">
-      <ion-label>Lot Size</ion-label>
-
-      <!-- frontage -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Lot frontage in feet"
-          type="number"
+          name="location"
+          placeholder="Enter Location"
           readonly
-          (ionFocus)="onFocusLot()"
+          (ionFocus)="onFocusLocation()"
+          [value]="propService.address"
         ></ion-input>
       </div>
-      <!-- depth -->
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="search"></ion-icon>
-        <ion-input
-          placeholder="Lot depth in feet"
-          type="number"
-          readonly
-          (ionFocus)="onFocusLot()"
-        ></ion-input>
-      </div>
-    </div>
 
-    <!-- date -->
-    <div class="dv-input-with-title flex-column mt-14">
-      <ion-label>Date Posted</ion-label>
+      <!-- distance -->
+      <ion-range
+        name="distance"
+        min="0"
+        max="20"
+        pin
+        mode="md"
+        color="secondary"
+        [(ngModel)]="distance">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">20 km</ion-label>
+      </ion-range>
 
-      <div class="dv-filter-input flex-c-row mb-6">
-        <!-- icon -->
-        <ion-icon name="calendar"></ion-icon>
-        <ion-input
-          placeholder="Date Posted"
-          type="date"
-        ></ion-input>
+      <!-- price range -->
+      <div class="dv-input-with-title flex-column">
+        <ion-label>Price Range</ion-label>
+
+        <!-- minimum -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <input
+            name="priceMin"
+            placeholder="Minimum Price"
+            [(ngModel)]="priceMin"
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskCurrency}"
+          />
+        </div>
+
+        <!-- maximum -->
+        <div class="dv-filter-input flex-c-row">
+          <!-- icon -->
+          <ion-icon name="cash"></ion-icon>
+          <input
+            name="priceMax"
+            placeholder="Maximum Price"
+            [(ngModel)]="priceMax"
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskCurrency}"
+          />
+        </div>
       </div>
-    </div>
+
+      <!-- house size -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>House Size</ion-label>
+
+        <!-- minimum -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <input
+            name="sizeMin"
+            placeholder="Minimum House Size (in square feet)"
+            [(ngModel)]="sizeMin"
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskSize}"
+          />
+        </div>
+
+        <!-- maximum -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <input
+            name="sizeMax"
+            placeholder="Maximum House Size (in square feet)"
+            [(ngModel)]="sizeMax"
+            class="ip-item"
+            type="tel"
+            [textMask]="{mask: maskSize}"
+          />
+        </div>
+      </div>
+
+      <!-- style -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Styles</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="ios-home"></ion-icon>
+          <ion-input
+            placeholder="Styles"
+            readonly
+            (ionFocus)="onFocusStyle()"
+            [value]="getStyles()"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- type -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Types</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="business"></ion-icon>
+          <ion-input
+            placeholder="Types"
+            readonly
+            (ionFocus)="onFocusType()"
+            [value]="getTypes()"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- bedrooms -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Bedrooms</ion-label>
+
+        <!-- minimum -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="bed"></ion-icon>
+          <ion-input
+            name="bedroom"
+            placeholder="Minimum number of Bedrooms"
+            type="number"
+            readonly
+            (ionFocus)="onFocusBedroom()"
+            [(ngModel)]="bedroom"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- bathrooms -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Bathrooms</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="ios-water"></ion-icon>
+          <ion-input
+            name="bathroom"
+            placeholder="Minimum number of Bathrooms"
+            type="number"
+            readonly
+            (ionFocus)="onFocusBathroom()"
+            [(ngModel)]="bathroom"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- garage -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Garage</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="car"></ion-icon>
+          <ion-input
+            placeholder="Garage"
+            readonly
+            (ionFocus)="onFocusGarage()"
+            [value]="getGarages()"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- basement -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Basement</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="construct"></ion-icon>
+          <ion-input
+            placeholder="Basement"
+            readonly
+            (ionFocus)="onFocusBasement()"
+            [value]="getBasements()"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- lot size -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Lot Size</ion-label>
+
+        <!-- frontage -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <ion-input
+            name="frontage"
+            placeholder="Lot frontage in feet"
+            type="number"
+            [(ngModel)]="frontage"
+          ></ion-input>
+        </div>
+        <!-- depth -->
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <ion-input
+            name="depth"
+            placeholder="Lot depth in feet"
+            type="number"
+            [(ngModel)]="depth"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- status -->
+      <div class="dv-input-with-title flex-column mt-14">
+        <ion-label>Construction Status</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <!-- icon -->
+          <ion-icon name="construct"></ion-icon>
+          <ion-input
+            placeholder="Construction Status"
+            readonly
+            (ionFocus)="onFocusStatus()"
+            [value]="constStatus"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- code (for seller only) -->
+      <div
+        class="dv-input-with-title flex-column mt-14"
+        *ngIf="target === 1">
+        <ion-label>Seller Code</ion-label>
+
+        <div class="dv-filter-input flex-c-row mb-6">
+          <ion-input
+            name="propertyCode"
+            placeholder="Seller Code to Search"
+            [(ngModel)]="sellerCode"
+          ></ion-input>
+        </div>
+      </div>
+    </form>
 
   </div>
 
@@ -198,5 +310,6 @@
     class="m-0 with-shadow"
     expand="block"
     square
+    (click)="onButSearch()"
   >Search</ion-button>
 </ion-footer>

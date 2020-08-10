@@ -5,7 +5,7 @@
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>{{auth.user ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
+    <ion-title>{{isEdit ? 'EDIT PROFILE' : 'SIGN UP'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,10 +13,10 @@
   <form
     (ngSubmit)="signinForm()"
     class="width-100 height-100"
-    ngNativeValidate>
+    ngNativeValidate
+    [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
     <div
-      class="container"
-      [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
+      class="container">
       <!-- upload image -->
       <div class="dv-profile-photo flex-column half-full nm-center">
         <app-image-uploader
@@ -51,6 +51,7 @@
             placeholder="Agent Email Address"
             type="email"
             name="email"
+            readonly
             [(ngModel)]="email"
             required
           ></ion-input>
@@ -80,11 +81,11 @@
           <ion-button
             expand="full"
             type="submit"
-          >{{auth.user ? 'Save' : 'Next'}}</ion-button>
+          >{{isEdit ? 'Save' : 'Create Account'}}</ion-button>
 
           <!-- go back, show in sign up only -->
           <ion-button
-            *ngIf="!auth.user"
+            *ngIf="!isEdit"
             class="but-signin"
             fill="clear"
             (click)="onButBack()">

@@ -10,6 +10,8 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+@import "theme/colors";
+
 :root {
   --font-size-label: 10pt;
   --font-size-button: 10pt;
@@ -26,7 +28,7 @@
 // background
 //
 .blue-bg {
-  --background: url('assets/imgs/bg.png') 100% 100%;
+  --background: linear-gradient(#003366, #002243) !important;
   background-size: cover;
 }
 
@@ -147,14 +149,32 @@ ion-button {
 .mb-14 {
   margin-bottom: 14px;
 }
+.mb-18 {
+  margin-bottom: 18px;
+}
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mt-4 {
+  margin-top: 4px;
+}
 .mt-6 {
   margin-top: 6px;
+}
+.mt-8 {
+  margin-top: 8px;
 }
 .mt-10 {
   margin-top: 10px;
 }
 .mt-14 {
   margin-top: 14px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-40 {
+  margin-top: 40px;
 }
 
 //
@@ -199,6 +219,11 @@ ion-item.no-padding {
 
   span:first-child {
     color: var(--color-gray-dark);
+    margin-right: 16px;
+  }
+
+  span:last-child {
+    text-align: right;
   }
 }
 
@@ -206,4 +231,60 @@ ion-item.no-padding {
 // user photo
 .img-user {
   background: #cccccc;
+}
+
+.dv-no-list-item {
+  padding: 48px;
+  justify-content: center;
+  color: gray;
+}
+.dv-no-list-item-small {
+  padding: 24px;
+  justify-content: center;
+  color: gray;
+}
+
+.spn-loading {
+  display: block;
+  margin: 40px auto;
+  width: 20px;
+  height: 20px;
+}
+
+ion-thumbnail {
+  background: var(--ion-color-light);
+}
+
+//
+// input
+//
+.ip-item {
+  background: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+
+  padding: 10px;
+}
+
+.grayed {
+  color : var(--color-gray);
+}
+
+ion-app {
+  /*animation of native keyboard show*/
+  transition: margin 300ms;
+}
+
+.but-apple {
+  width: 60px;
+  height: 60px;
+  --padding-start: 0;
+  --padding-end: 0;
+  margin: 0;
+
+  ion-icon {
+    font-size: 28pt;
+    margin-bottom: 4px;
+  }
 }

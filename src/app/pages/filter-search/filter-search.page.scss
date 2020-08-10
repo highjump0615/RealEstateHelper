@@ -7,8 +7,11 @@
 }
 
 ion-radio-group {
-  width: 60%;
   align-self: center;
+
+  ion-item {
+    width: 130px;
+  }
 }
 
 .it-checkbox {
@@ -45,4 +48,8 @@ ion-radio-group {
 ion-range {
   padding: 10px 0;
   color: var(--color-gray-text);
+}
+
+.ip-date {
+  min-height: 37px;
 }

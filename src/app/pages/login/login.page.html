@@ -48,9 +48,21 @@
       <!--social buttons-->
       <div class="dv-social flex-c-row">
         <img
-          src="../../../assets/imgs/but_fb.png" />
+          src="../../../assets/imgs/but_fb.png"
+          (click)="onButFacebook()"/>
         <img
-          src="../../../assets/imgs/but_google.png" />
+          src="../../../assets/imgs/but_google.png"
+          (click)="onButGoogle()" />
+
+        <ion-button
+          (click)="onButApple()"
+          class="but-apple round"
+          color="black">
+          <ion-icon
+            slot="icon-only"
+            name="logo-apple">
+          </ion-icon>
+        </ion-button>
       </div>
 
     </div>

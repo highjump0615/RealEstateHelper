@@ -7,6 +7,16 @@
 
     <ion-title>BUYER PROFILE</ion-title>
 
+    <!-- edit -->
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="onButEdit();">
+        <img
+          src="../../../../assets/imgs/profile_edit.png"
+          slot="icon-only" />
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -21,36 +31,42 @@
       </div>
       <img
         class="img-shadow"
-        src="../../../../assets/imgs/profile_shadow_bg.png">
+        src="../../../../assets/imgs/profile_shadow_bg.png" />
+
+      <!-- client code -->
+      <span class="sp-code">
+        {{data.getCodeWithDesc()}}
+      </span>
 
       <!-- info -->
       <div class="flex-column dv-info nm-center-items">
-        <!-- photo -->
-        <ion-avatar>
-          <img src="../../../../assets/imgs/default_user.png">
-        </ion-avatar>
-
         <!-- name -->
         <span
           class="sp-name"
-        >John Hill</span>
+        >{{data.name}}</span>
 
         <!-- email -->
-        <div class="flex-c-row dv-email">
+        <div
+          *ngIf="data.email"
+          class="flex-c-row dv-email">
           <ion-icon name="mail"></ion-icon>
-          <span>johnH@gmail.com</span>
+          <span>{{data.email}}</span>
         </div>
 
         <!-- phone -->
-        <div class="flex-c-row">
+        <div
+          class="flex-c-row"
+          *ngIf="data.getPhone()">
           <ion-icon name="call"></ion-icon>
-          <span>613-222-0124</span>
+          <span>{{data.getPhone()}}</span>
         </div>
 
         <!-- price -->
-        <div class="flex-c-row">
+        <div
+          class="flex-c-row"
+          *ngIf="data.priceMin || data.priceMax">
           <ion-icon name="cash"></ion-icon>
-          <span>$399,000.00</span>
+          <span>${{data.priceMin}} - ${{data.priceMax}}</span>
         </div>
       </div>
 
@@ -62,84 +78,104 @@
       <div class="dv-desc-with-title">
         <span
           class="sp-title"
-        >Property Description</span>
-        <p>
-          A one level duplex house plan that has a traditional exterior
-          with gable roofs. The exterior must accented with shake siding
-          in the front gable along with stone based columns at the entry
-          porch.
-        </p>
+        >Buyers wants and needs</span>
+        <div
+          class="dv-no-list-item-small flex-c-row"
+          *ngIf="!data.desc; else desc">
+          <span>No description of needs</span>
+        </div>
+        <ng-template #desc>
+          <p>{{data.desc}}</p>
+        </ng-template>
       </div>
 
       <!-- location -->
-      <div class="dv-desc-with-title mt-14">
+      <div
+        class="dv-desc-with-title mt-14"
+        (click)="goToLocation(data, $event)"
+        *ngIf="data.address">
         <span
           class="sp-title"
         >Desired Location</span>
-        <p>Holly Street Rome, Canada</p>
+        <p>{{data.address}}</p>
       </div>
 
+      <!-- favourite properties -->
+      <ion-button
+        class="mt-10"
+        fill="clear"
+        [routerLink]="['/favourites/properties', data.id]">
+        <ion-icon slot="start" name="heart"></ion-icon>
+        Show favourite properties
+      </ion-button>
+
       <!-- separator -->
-      <div class="dv-separator mt-14"></div>
+      <div class="dv-separator mt-6"></div>
 
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>Two-Storey</span>
+        <span>{{data.propRequest?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>Duplex</span>
+        <span>{{data.propRequest?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>650 Sq.ft</span>
+        <span
+          *ngIf="data.sizeMin || data.sizeMax"
+        >{{data.sizeMin}} ~ {{data.sizeMax}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>5</span>
+        <span>{{data.propRequest?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>5</span>
+        <span>{{data.propRequest?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>Single</span>
+        <span>{{data.propRequest?.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>Yes, Unfinished</span>
+        <span>{{data.propRequest?.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
-        <span>Lot Size</span>
-        <span>10000 Sq.ft</span>
+        <span>Lot Depth</span>
+        <span
+          *ngIf="data.propRequest?.lotDepth"
+        >{{data.propRequest?.lotDepth}} feet</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>Two-Storey</span>
+        <span
+          *ngIf="data.propRequest?.lotFrontage"
+        >{{data.propRequest?.lotFrontage}} feet</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>New</span>
+        <span>{{data.propRequest?.getStatusStr()}}</span>
       </div>
     </div>
   </div>
@@ -150,9 +186,9 @@
 <ion-footer>
   <!-- client profile button -->
   <ion-button
-    [routerLink]="['/note-add']"
     class="m-0 with-shadow"
     expand="block"
     square
+    (click)="onAddNote()"
   >Add Notes</ion-button>
 </ion-footer>

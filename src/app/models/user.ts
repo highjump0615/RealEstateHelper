@@ -1,5 +1,9 @@
 import {BaseModel, Deserializable} from './base-model';
 import DataSnapshot = firebase.database.DataSnapshot;
+import {Property} from './property';
+import {Client} from './client';
+import {Utils} from '../helpers/utils';
+import {Purchase} from "./purchase";
 
 export class User extends BaseModel implements Deserializable {
 
@@ -11,12 +15,18 @@ export class User extends BaseModel implements Deserializable {
   static FIELD_NAME = 'name';
   static FIELD_PHOTO = 'photoUrl';
   static FIELD_PHONE = 'phone';
-
   static FIELD_NAME_BKG = 'nameBkg';
   static FIELD_PHONE_BKG = 'phoneBkg';
   static FIELD_ADDR_BKG = 'addressBkg';
-
   static FIELD_TYPE = 'type';
+  static FIELD_TOKEN = 'fcmToken';
+
+  static FIELD_PURCHASE_PRODUCT = 'purchaseProductId';
+  static FIELD_PURCHASE_EXPIRE = 'purchaseExpireAt';
+
+  static FIELD_UNREAD_NOTIFICATION = 'unreadNotification';
+  static FIELD_NEW_MATCH_BUYER = 'newMatchBuyer';
+  static FIELD_NEW_MATCH_SELLER = 'newMatchSeller';
 
   static USER_TYPE_NORMAL = 'normal';
   static USER_TYPE_ADMIN = 'admin';
@@ -37,6 +47,25 @@ export class User extends BaseModel implements Deserializable {
   addressBkg = '';
 
   type = User.USER_TYPE_NORMAL;
+  fcmToken = '';
+
+  unreadNotificationCount = 0;
+  newMatchBuyer = false;
+  newMatchSeller = false;
+
+  //
+  // logical
+  //
+  saved = true;
+  propAll: Array<Property> = [];
+
+  buyers: Array<Client>;
+  sellers: Array<Client>;
+
+  lat: number;
+  lng: number;
+
+  purchase = new Purchase();
 
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);
@@ -58,6 +87,30 @@ export class User extends BaseModel implements Deserializable {
       if (User.FIELD_PHOTO in info) {
         this.photoUrl = info[User.FIELD_PHOTO];
       }
+      if (User.FIELD_TOKEN in info) {
+        this.fcmToken = info[User.FIELD_TOKEN];
+      }
+
+      //
+      // purchase
+      //
+      if (User.FIELD_PURCHASE_PRODUCT in info) {
+        this.purchase.productId = info[User.FIELD_PURCHASE_PRODUCT];
+      }
+      if (User.FIELD_PURCHASE_EXPIRE in info) {
+        this.purchase.expireAt = info[User.FIELD_PURCHASE_EXPIRE];
+      }
+
+      // badges
+      if (User.FIELD_UNREAD_NOTIFICATION in info) {
+        this.unreadNotificationCount = info[User.FIELD_UNREAD_NOTIFICATION];
+      }
+      if (User.FIELD_NEW_MATCH_BUYER in info) {
+        this.newMatchBuyer = info[User.FIELD_NEW_MATCH_BUYER];
+      }
+      if (User.FIELD_NEW_MATCH_SELLER in info) {
+        this.newMatchSeller = info[User.FIELD_NEW_MATCH_SELLER];
+      }
     }
 
     if (withId) {
@@ -67,6 +120,22 @@ export class User extends BaseModel implements Deserializable {
 
   tableName() {
     return User.TABLE_NAME;
+  }
+
+  deserialize(input: any): this {
+    super.deserialize(input);
+
+    //
+    // initialize data
+    //
+    this.propAll = null;
+    this.buyers = null;
+    this.sellers = null;
+
+    // purchase data
+    this.purchase = new Purchase().deserialize(input.purchase);
+
+    return this;
   }
 
   toDictionary() {
@@ -82,7 +151,36 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_NAME_BKG] = this.nameBkg;
     dict[User.FIELD_PHONE_BKG] = this.phoneBkg;
     dict[User.FIELD_ADDR_BKG] = this.addressBkg;
+    dict[User.FIELD_TOKEN] = this.fcmToken;
+
+    // purchase data
+    dict[User.FIELD_PURCHASE_PRODUCT] = this.purchase.productId;
+    dict[User.FIELD_PURCHASE_EXPIRE] = this.purchase.expireAt;
+
+    // badge related
+    dict[User.FIELD_UNREAD_NOTIFICATION] = this.unreadNotificationCount;
+    dict[User.FIELD_NEW_MATCH_BUYER] = this.newMatchBuyer;
+    dict[User.FIELD_NEW_MATCH_SELLER] = this.newMatchSeller;
 
     return dict;
+  }
+
+  getPhone() {
+    return Utils.getPhoneStr(this.phone);
+  }
+  getPhoneBkg() {
+    return Utils.getPhoneStr(this.phoneBkg);
+  }
+
+  decreaseUnreadNotification() {
+    // decrease
+    this.unreadNotificationCount = Math.max(
+      this.unreadNotificationCount - 1,
+      0
+    );
+  }
+
+  hasNewMatch() {
+    return this.newMatchSeller || this.newMatchBuyer;
   }
 }

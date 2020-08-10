@@ -15,6 +15,7 @@
     <ion-textarea
       placeholder="Add Text here"
       rows="5"
+      [(ngModel)]="note"
     ></ion-textarea>
   </div>
 
@@ -25,6 +26,8 @@
     class="m-0 with-shadow"
     expand="block"
     square
+    [disabled]="!this.note"
+    (click)="onButSave()"
   >Save</ion-button>
 </ion-footer>
 

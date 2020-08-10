@@ -1,4 +1,37 @@
-div {
-  width: 100%;
+.container {
+  position: relative;
+}
+
+.dv-wrapper {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+
+  ion-icon {
+    color: red;
+    font-size: 34px;
+
+    position: absolute;
+    bottom: 50%;
+    left: calc(50% - 17px);
+  }
+
+  .dv-address {
+    padding: 8px;
+    background: #ffffffa0;
+  }
+}
+
+#map_canvas {
+  flex: 1;
+}
+
+agm-map {
   height: 100%;
+}
+
+ion-searchbar {
+  position: absolute;
+  background: #ffffffa0;
+  z-index: 1;
 }

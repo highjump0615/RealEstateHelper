@@ -19,13 +19,15 @@
       <ion-input
         placeholder="Enter Email Address"
         type="email"
+        [(ngModel)]="email"
       ></ion-input>
     </div>
   </div>
 
 </ion-content>
 
-<ion-footer>
+<ion-footer
+  [style.margin-bottom] = "getMarginBottom()">
   <ion-button
     class="m-0 with-shadow"
     expand="block"

@@ -7,6 +7,24 @@
 
     <ion-title>SELLER PROFILE</ion-title>
 
+    <!-- edit -->
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="onButShare()"
+        color="light">
+        <ion-icon
+          slot="icon-only"
+          name="md-open">
+        </ion-icon>
+      </ion-button>
+      <ion-button
+        (click)="onButEdit();">
+        <img
+          src="../../../../assets/imgs/profile_edit.png"
+          slot="icon-only" />
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
@@ -21,126 +39,175 @@
       </div>
       <img
         class="img-shadow"
-        src="../../../../assets/imgs/profile_shadow_bg.png">
+        src="../../../../assets/imgs/profile_shadow_bg.png" />
 
       <!-- info -->
       <div class="flex-column dv-info nm-center-items">
-        <!-- photo -->
-        <ion-avatar>
-          <img src="../../../../assets/imgs/default_user.png">
-        </ion-avatar>
-
         <!-- name -->
         <span
           class="sp-name"
-        >John Hill</span>
+        >{{data.name}}</span>
 
         <!-- email -->
-        <div class="flex-c-row dv-email">
+        <div
+          class="flex-c-row dv-email"
+          *ngIf="data.email">
           <ion-icon name="mail"></ion-icon>
-          <span>johnH@gmail.com</span>
+          <span>{{data.email}}</span>
         </div>
 
         <!-- phone -->
-        <div class="flex-c-row">
+        <div
+          class="flex-c-row"
+          *ngIf="data.getPhone()">
           <ion-icon name="call"></ion-icon>
-          <span>613-222-0124</span>
+          <span>{{data.getPhone()}}</span>
         </div>
 
         <!-- price -->
-        <div class="flex-c-row">
+        <div
+          class="flex-c-row"
+          [hidden]="!data.property">
           <ion-icon name="cash"></ion-icon>
-          <span>$399,000.00</span>
+          <span>${{data.property?.priceStr()}}</span>
         </div>
 
         <!-- location -->
-        <div class="flex-column dv-location nm-center-items">
+        <div
+          class="flex-column dv-location nm-center-items"
+          *ngIf="data.property?.address"
+          (click)="goToLocation(data, $event)">
           <div class="flex-c-row">
             <ion-icon name="pin"></ion-icon>
             <span>Location</span>
           </div>
-          <span>Holly Street Rome, Canada</span>
+          <span>{{data.property?.address}}</span>
         </div>
       </div>
 
     </div>
 
     <!-- property info -->
-    <div class="dv-property flex-column" padding>
+    <div
+      class="dv-property flex-column"
+      padding
+      *ngIf="data.property">
+      <!-- id -->
+      <div
+        class="dv-item"
+        style="margin: 0 0 10px 0;">
+        <span>Seller Code</span>
+        <span>{{data.property?.getSellerIdReadable()}}</span>
+      </div>
+
       <!-- description -->
       <div class="dv-desc-with-title">
         <span
           class="sp-title"
         >Property Description</span>
-        <p>
-          A one level duplex house plan that has a traditional exterior
-          with gable roofs. The exterior must accented with shake siding
-          in the front gable along with stone based columns at the entry
-          porch.
-        </p>
+        <div
+          class="dv-no-list-item-small flex-c-row"
+          *ngIf="!data.property.desc; else desc">
+          <span>No property description</span>
+        </div>
+        <ng-template #desc>
+          <p>{{data.property.desc}}</p>
+        </ng-template>
       </div>
 
+      <!-- favourite buyers -->
+      <ion-button
+        class="mt-10"
+        fill="clear"
+        [routerLink]="['/favourites/buyers', data.id]">
+        <ion-icon slot="start" name="heart"></ion-icon>
+        Show favourite buyers
+      </ion-button>
+
       <!-- separator -->
-      <div class="dv-separator mt-14"></div>
+      <div class="dv-separator mt-6"></div>
 
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>Two-Storey</span>
+        <span>{{data.property?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>Duplex</span>
+        <span>{{data.property?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>650 Sq.ft</span>
+        <span
+          *ngIf="data.property?.size"
+        >{{data.property?.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>5</span>
+        <span>{{data.property?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>5</span>
+        <span>{{data.property?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>Single</span>
+        <span>{{data.property?.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>Yes, Unfinished</span>
+        <span>{{data.property?.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
-        <span>Lot Size</span>
-        <span>10000 Sq.ft</span>
+        <span>Lot Depth</span>
+        <span
+          *ngIf="data.property?.lotDepth"
+        >{{data.property?.lotDepth}} feet</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>Two-Storey</span>
+        <span
+          *ngIf="data.property?.lotFrontage"
+        >{{data.property?.lotFrontage}} feet</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>New</span>
+        <span>{{data.property?.getStatusStr()}}</span>
+      </div>
+
+      <!-- property images -->
+      <div class="dv-photos flex-column">
+        <!-- title -->
+        <span>Property Photos</span>
+
+        <div
+          class="dv-img-container flex-row">
+          <div
+            class="dv-photo"
+            *ngFor="let img of data.property.imageUrls">
+            <div class="dv-img" (click)="onClickPhoto(img)">
+              <img [src]="img" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -150,9 +217,9 @@
 
 <ion-footer>
   <ion-button
-    [routerLink]="['/note-add']"
     class="m-0 with-shadow"
     expand="block"
     square
+    (click)="onAddNote()"
   >Add Notes</ion-button>
 </ion-footer>

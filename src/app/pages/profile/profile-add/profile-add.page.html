@@ -4,11 +4,12 @@
     <ion-buttons slot="start">
       <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title>ADD PROFILE</ion-title>
+    <ion-title>{{client ? 'EDIT' : 'ADD'}} PROFILE</ion-title>
 
     <ion-buttons slot="end">
       <ion-button
         color="light"
+        (click)="onButDone()"
       >DONE</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,24 +20,6 @@
   <div
     class="flex-column"
     [style.margin-bottom] = "kbService.keyboardHeight + 'px'">
-    <!-- photo area -->
-    <div
-      class="dv-photo-wrapper flex-c-row">
-      <!-- background blur -->
-      <div class="dv-bg">
-      </div>
-
-      <app-image-uploader
-        #imageProfile>
-        <div class="container flex-c-row nm-center">
-          <ion-icon
-            class="nm-center"
-            name="camera"></ion-icon>
-        </div>
-      </app-image-uploader>
-
-    </div>
-
     <!-- segment -->
     <div class="dv-segment-wrapper">
       <div class="flex-row dv-segment">
@@ -61,15 +44,31 @@
 
     <form
       padding
-      ngNativeValidate
-      (ngSubmit)="signinForm()">
+      (ngSubmit)="onSubmit()"
+      #mainForm="ngForm">
+
+      <!-- notice -->
+      <div
+        text-center
+        class="sp-notice mb-6"
+        *ngIf="currentPage == PAGE_BUYER"
+      >Buyer's contact information will not be shared with other agents
+      </div>
+      <div
+        text-center
+        class="sp-notice mb-6"
+        *ngIf="currentPage == PAGE_SELLER"
+      >Seller's contact information will not be shared with other agents
+      </div>
 
       <!-- name -->
       <div class="dv-profile-input flex-c-row mb-6">
         <!-- icon -->
         <ion-icon name="person"></ion-icon>
         <ion-input
+          name="name"
           placeholder="Enter Name"
+          [(ngModel)]="name"
         ></ion-input>
       </div>
 
@@ -78,97 +77,183 @@
         <!-- icon -->
         <ion-icon name="mail"></ion-icon>
         <ion-input
+          name="email"
           placeholder="Enter Email Address"
           type="email"
+          [(ngModel)]="email"
         ></ion-input>
       </div>
 
       <!-- phone -->
-      <div class="dv-profile-input flex-c-row mb-6">
+      <div class="dv-profile-input flex-c-row mb-14">
         <!-- icon -->
         <ion-icon name="call"></ion-icon>
-        <ion-input
+        <input
+          name="phone"
+          class="ip-item"
           placeholder="Enter Phone Number"
           type="tel"
-        ></ion-input>
+          [(ngModel)]="phone"
+          [textMask]="{mask: maskPhone}" />
       </div>
+
+      <!-- separator -->
+      <div class="dv-separator mb-14"></div>
 
       <!-- buyer content -->
       <ng-container *ngIf="currentPage == PAGE_BUYER">
 
-        <!-- budget -->
-        <div class="flex-row dv-budget">
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
+        <!-- buyer heading -->
+        <div class="dv-input-with-title">
+          <!-- title -->
+          <ion-label>Buyer Heading</ion-label>
+
+          <div class="dv-profile-input flex-row">
             <ion-input
-              placeholder="Minimum Budget"
-              type="number"
-            ></ion-input>
-          </div>
-          <div class="dv-profile-input flex-c-row">
-            <!-- icon -->
-            <ion-icon name="cash"></ion-icon>
-            <ion-input
-              placeholder="Maximum Budget"
-              type="number"
+              name="title"
+              placeholder="Enter Buyer Heading"
+              [(ngModel)]="title"
             ></ion-input>
           </div>
         </div>
 
-        <!-- property description -->
-        <div class="dv-input-with-title mt-14">
-          <!-- title -->
-          <ion-label>Property Description</ion-label>
-
-          <div class="dv-profile-input dv-profile-input-text flex-row">
+        <!-- budget -->
+        <div class="flex-row dv-budget mt-14">
+          <div class="dv-profile-input flex-c-row">
             <!-- icon -->
-            <ion-icon name="create"></ion-icon>
-            <ion-textarea
-              placeholder="Enter Description (max 200 characters)"
-              rows="5"
-            ></ion-textarea>
+            <ion-icon name="cash"></ion-icon>
+            <input
+              name="priceMin"
+              placeholder="Minimum Price"
+              [(ngModel)]="priceMin"
+              class="ip-item"
+              type="tel"
+              [textMask]="{mask: maskCurrency}"
+            />
+          </div>
+          <div class="dv-profile-input flex-c-row">
+            <!-- icon -->
+            <ion-icon name="cash"></ion-icon>
+            <input
+              name="priceMax"
+              placeholder="Maximum Price"
+              [(ngModel)]="priceMax"
+              class="ip-item"
+              type="tel"
+              [textMask]="{mask: maskCurrency}"
+            />
           </div>
         </div>
 
         <!-- location -->
-        <div class="dv-input-with-title mt-14">
-          <!-- title -->
-          <ion-label>Desired Location</ion-label>
+        <div class="flex-row mt-14">
+          <div class="dv-input-with-title flex-fill">
+            <!-- title -->
+            <ion-label>Desired Location</ion-label>
 
-          <div class="dv-profile-input dv-profile-input-text flex-row">
-            <!-- icon -->
-            <ion-icon name="pin"></ion-icon>
-            <ion-input
-              placeholder="Desired Location"
-              readonly
-              (ionFocus)="onFocusLocation()"
-            ></ion-input>
+            <div class="dv-profile-input dv-profile-input-text flex-row">
+              <!-- icon -->
+              <ion-icon name="pin"></ion-icon>
+              <ion-input
+                name="location"
+                placeholder="Desired Location"
+                readonly
+                (ionFocus)="onFocusLocation()"
+                [value]="propService.address"
+              ></ion-input>
+            </div>
+          </div>
+
+          <!-- radius -->
+          <div class="dv-input-with-title dv-radius">
+            <!-- title -->
+            <ion-label>Radius</ion-label>
+
+            <div class="dv-profile-input flex-row">
+              <ion-input
+                text-right
+                name="radius"
+                type="number"
+                [(ngModel)]="radius"
+              ></ion-input>
+              km
+            </div>
+          </div>
+        </div>
+
+        <!-- house size -->
+        <div class="dv-input-with-title mt-6">
+          <ion-label>House Size</ion-label>
+
+          <div class="flex-row dv-budget">
+            <div class="dv-profile-input flex-c-row">
+              <!-- icon -->
+              <ion-icon name="calculator"></ion-icon>
+              <input
+                name="sizeMin"
+                placeholder="Minimum Size"
+                [(ngModel)]="sizeMin"
+                class="ip-item"
+                type="tel"
+                [textMask]="{mask: maskSize}"
+              />
+            </div>
+            <div class="dv-profile-input flex-c-row">
+              <!-- icon -->
+              <ion-icon name="calculator"></ion-icon>
+              <input
+                name="sizeMax"
+                placeholder="Maximum Size"
+                [(ngModel)]="sizeMax"
+                class="ip-item"
+                type="tel"
+                [textMask]="{mask: maskSize}"
+              />
+            </div>
           </div>
         </div>
       </ng-container>
 
       <!-- seller content -->
       <ng-container *ngIf="currentPage == PAGE_SELLER">
-
         <!-- price -->
-        <div class="dv-profile-input flex-c-row mb-14">
+        <div class="dv-profile-input flex-c-row">
           <!-- icon -->
           <ion-icon name="cash"></ion-icon>
-          <ion-input
-            placeholder="Enter Price"
-            type="number"
-          ></ion-input>
+          <input
+            name="price"
+            class="ip-item"
+            placeholder="Price"
+            type="tel"
+            [(ngModel)]="price"
+            [textMask]="{mask: maskCurrency}" />
         </div>
 
-        <!-- separator -->
-        <div class="dv-separator mb-14"></div>
+        <!-- location -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Location</ion-label>
 
-        <!-- address -->
-        <div class="dv-profile-input flex-c-row">
-          <ion-input
-            placeholder="Enter Address"
-          ></ion-input>
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="pin"></ion-icon>
+            <ion-input
+              name="location"
+              [value]="propService.getLocationFormatted()"
+              placeholder="Location"
+              readonly
+              (ionFocus)="onFocusLocation()"
+            ></ion-input>
+          </div>
+
+          <!-- address -->
+          <div class="dv-profile-input flex-c-row mt-14">
+            <ion-input
+              name="address"
+              [(ngModel)]="propService.address"
+              placeholder="Enter Address"
+            ></ion-input>
+          </div>
         </div>
 
         <!-- checkbox -->
@@ -180,7 +265,6 @@
             slot="start"
             mode="md"
             name="addressVisible"
-            (ionChange)="onAddressChecked($event)"
             [(ngModel)]="isAddressVisible"
           ></ion-checkbox>
         </ion-item>
@@ -188,16 +272,32 @@
         <!-- separator -->
         <div class="dv-separator mb-14"></div>
 
-        <!-- property description -->
+        <!-- property heading -->
         <div class="dv-input-with-title">
           <!-- title -->
-          <ion-label>Title</ion-label>
+          <ion-label>Property Heading</ion-label>
 
           <div class="dv-profile-input flex-row">
             <ion-input
-              placeholder="Enter Title"
+              name="title"
+              placeholder="Enter Property Heading"
+              [(ngModel)]="title"
             ></ion-input>
           </div>
+        </div>
+
+        <!-- size -->
+        <div class="dv-profile-input dv-profile-input-text flex-row mt-6">
+          <!-- icon -->
+          <ion-icon name="calculator"></ion-icon>
+          <input
+            name="size"
+            class="ip-item"
+            placeholder="Enter House Size"
+            type="tel"
+            [(ngModel)]="sizeMin"
+            [textMask]="{mask: maskSize}"
+          />
         </div>
       </ng-container>
 
@@ -209,6 +309,7 @@
           placeholder="Style"
           readonly
           (ionFocus)="onFocusStyle()"
+          [value]="getStyles()"
         ></ion-input>
       </div>
 
@@ -220,16 +321,7 @@
           placeholder="Type"
           readonly
           (ionFocus)="onFocusType()"
-        ></ion-input>
-      </div>
-
-      <!-- size -->
-      <div class="dv-profile-input dv-profile-input-text flex-row mt-6">
-        <!-- icon -->
-        <ion-icon name="calculator"></ion-icon>
-        <ion-input
-          placeholder="Enter House Size"
-          type="number"
+          [value]="getTypes()"
         ></ion-input>
       </div>
 
@@ -238,8 +330,12 @@
         <!-- icon -->
         <ion-icon name="bed"></ion-icon>
         <ion-input
+          name="bedroom"
+          readonly
           placeholder="Bedrooms"
           type="number"
+          (ionFocus)="onFocusBedroom()"
+          [(ngModel)]="bedroom"
         ></ion-input>
       </div>
 
@@ -248,8 +344,12 @@
         <!-- icon -->
         <ion-icon name="ios-water"></ion-icon>
         <ion-input
+          name="bathroom"
           placeholder="Bathrooms"
           type="number"
+          readonly
+          (ionFocus)="onFocusBathroom()"
+          [(ngModel)]="bathroom"
         ></ion-input>
       </div>
 
@@ -259,7 +359,9 @@
         <ion-icon name="car"></ion-icon>
         <ion-input
           placeholder="Garage"
-          type="number"
+          readonly
+          (ionFocus)="onFocusGarage()"
+          [value]="getGarages()"
         ></ion-input>
       </div>
 
@@ -268,7 +370,10 @@
         <!-- icon -->
         <ion-icon name="construct"></ion-icon>
         <ion-input
+          readonly
+          (ionFocus)="onFocusBasement()"
           placeholder="Basement"
+          [value]="getBasements()"
         ></ion-input>
       </div>
 
@@ -282,8 +387,10 @@
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
           <ion-input
+            name="frontage"
             placeholder="Lot Frontage"
             type="number"
+            [(ngModel)]="frontage"
           ></ion-input>
         </div>
         <!-- depth -->
@@ -291,8 +398,10 @@
           <!-- icon -->
           <ion-icon name="calculator"></ion-icon>
           <ion-input
+            name="depth"
             placeholder="Lot Depth"
             type="number"
+            [(ngModel)]="depth"
           ></ion-input>
         </div>
       </div>
@@ -305,8 +414,91 @@
           placeholder="Construction Status"
           readonly
           (ionFocus)="onFocusStatus()"
+          [value]="getConstStatus()"
         ></ion-input>
       </div>
+
+
+      <!-- buyer content -->
+      <ng-container *ngIf="currentPage == PAGE_BUYER">
+        <!-- property description -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Buyers wants and needs</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="create"></ion-icon>
+            <ion-textarea
+              name="desc"
+              placeholder="Enter Description (max 200 characters)"
+              rows="5"
+              [(ngModel)]="description"
+            ></ion-textarea>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- seller content -->
+      <ng-container *ngIf="currentPage == PAGE_SELLER">
+        <!-- commission payout -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Cooperating Agent's Commision</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-c-row">
+            <!-- icon -->
+            <ion-icon
+              class="mt-0"
+              name="cash"></ion-icon>
+            <ion-input
+              name="commission"
+              placeholder="Enter Cooperating Agent's Commision (%)"
+              type="number"
+              min="0"
+              max="100"
+              [(ngModel)]="commission"
+            ></ion-input>
+            <span class="sp-suffix">%</span>
+          </div>
+        </div>
+
+        <!-- property description -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Description</ion-label>
+
+          <div class="dv-profile-input dv-profile-input-text flex-row">
+            <!-- icon -->
+            <ion-icon name="create"></ion-icon>
+            <ion-textarea
+              name="desc"
+              placeholder="Enter Description (max 200 characters)"
+              rows="5"
+              [(ngModel)]="descProp"
+            ></ion-textarea>
+          </div>
+        </div>
+
+        <!-- property images -->
+        <div class="dv-input-with-title mt-14">
+          <!-- title -->
+          <ion-label>Photos</ion-label>
+
+          <div class="dv-img-container flex-row">
+            <app-property-image-uploader
+              class="iu-property"
+              *ngFor="let p of getArrayPhotos(); let i = index"
+              [imgUrl]="images[i]"
+              (imageSelected)="onImageSelected(i, $event)"
+              (removeImage)="onImageRemoved(i)"
+              [preservePicture]="false">
+            </app-property-image-uploader>
+          </div>
+        </div>
+
+
+      </ng-container>
     </form>
   </div>
 

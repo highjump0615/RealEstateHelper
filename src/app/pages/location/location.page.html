@@ -7,14 +7,50 @@
 
     <ion-title>LOCATION</ion-title>
 
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="!readOnly">
       <ion-button
         color="light"
+        (click)="onButDone()"
+        [disabled]="!placeAddress"
       >DONE</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div id="map_canvas"></div>
+  <div class="container">
+    <ion-searchbar
+      #searchPlace
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      placeholder="Search your place"
+    >
+    </ion-searchbar>
+
+    <!-- this creates a google map on the page with the given lat/lng from -->
+    <!-- the component as the initial center of the map: -->
+    <agm-map
+      [latitude]="mapLat"
+      [longitude]="mapLng"
+      [zoom]="zoom"
+      (mapClick)="onClickMap($event)">
+      <agm-marker
+        *ngIf="lat && lng"
+        [latitude]="lat"
+        [longitude]="lng"
+      >
+        <agm-info-window
+          *ngIf="placeAddress && !clickedPlace"
+          [disableAutoPan]="true"
+          [isOpen]="true"
+          [latitude]="lat"
+          [longitude]="lng">
+          {{placeAddress}}
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
 </ion-content>

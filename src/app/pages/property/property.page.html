@@ -8,9 +8,11 @@
     <ion-title>PROPERTY DETAILS</ion-title>
 
     <!-- settings -->
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="data && auth.user">
       <ion-button
-        [routerLink]="['/share']"
+        (click)="onButShare()"
         color="light">
         <ion-icon
           slot="icon-only"
@@ -24,43 +26,105 @@
 <ion-content>
 
   <div class="flex-column">
-    <div class="dv-slide">
-      <ion-slides
-        pager
-        #slides>
-        <ion-slide
-          *ngFor="let i of [1,2,3]">
-          <img
-            src="../../../assets/imgs/default_img.png"
-            class="img-logo" />
-        </ion-slide>
-      </ion-slides>
+    <!-- photos in desktop platform -->
+    <div
+      *ngIf="platform.is('desktop') && platform.width() > 600; else slide"
+      class="dv-photos flex-row">
+      <div
+        class="dv-photo"
+        *ngFor="let img of data?.imageUrls">
+        <!-- link to full image -->
+        <a [href]="img" target="_blank">
+          <div class="dv-img">
+            <img [src]="img" />
+          </div>
+        </a>
+      </div>
     </div>
+
+    <!-- photos in mobile platform -->
+    <ng-template #slide>
+      <div class="dv-slide">
+        <ion-slides
+          pager
+          #slides>
+          <ng-container
+            *ngIf="data?.imageUrls.length > 0; else imgDefault">
+            <ion-slide
+              *ngFor="let img of data?.imageUrls">
+              <img
+                [src]="img"
+                class="img-logo" />
+            </ion-slide>
+          </ng-container>
+
+          <ng-template #imgDefault>
+            <ion-slide>
+              <img
+                src="assets/imgs/default_img.png"
+                class="img-logo" />
+            </ion-slide>
+          </ng-template>
+        </ion-slides>
+      </div>
+
+      <!-- favourite button -->
+      <div
+        class="dv-favourite"
+        *ngIf="data && auth.user">
+        <ion-button
+          color="danger"
+          fill="clear"
+          size="small"
+          (click)="onButFavourite()">
+          <ion-icon
+            slot="icon-only"
+            name="heart">
+          </ion-icon>
+        </ion-button>
+      </div>
+    </ng-template>
 
     <div
       class="flex-column"
       padding>
+      <!-- id -->
+      <div
+        class="dv-item"
+        style="margin: 0 0 10px 0;">
+        <span>Seller Code</span>
+        <span>{{data?.getSellerIdReadable()}}</span>
+      </div>
+
       <div class="flex-row dv-title">
         <!-- title -->
-        <span class="sp-title"
-        >New three bedroom, one level duplex home</span>
+        <span
+          class="sp-title"
+        >{{data?.title}}</span>
 
         <!-- date -->
-        <span class="sp-date"
-        >July, 25, 2018</span>
+        <span
+          class="sp-date"
+        >{{data?.createdAtStr()}}</span>
       </div>
 
       <!-- price -->
-      <span class="sp-price"
-      >$399,000.00</span>
+      <span
+        class="sp-price"
+      >${{data?.priceStr()}}</span>
 
       <!-- address -->
-      <span class="sp-address"
-      >83 Iskoot Crescent, Whitehorse, Canada</span>
+      <span
+        class="sp-address"
+        (click)="goToLocation(data, $event)"
+        *ngIf="data?.showAddress"
+      >{{data?.address}}</span>
 
       <!-- description -->
-      <span class="sp-desc"
-      >This one level duplex house plan has a traditional exterior with gable roofs. The exterior is accented with shake siding in the front gable along with stone based columns at the entry porch.</span>
+      <span
+        class="sp-desc"
+        *ngIf="data?.desc"
+      >{{data?.desc}}</span>
 
       <!-- separator -->
       <div class="dv-separator mt-14"></div>
@@ -68,61 +132,75 @@
       <!-- style -->
       <div class="dv-item">
         <span>Style</span>
-        <span>Two-Storey</span>
+        <span>{{data?.getStyleStr()}}</span>
       </div>
 
       <!-- type -->
       <div class="dv-item">
         <span>Type</span>
-        <span>Duplex</span>
+        <span>{{data?.getTypeStr()}}</span>
       </div>
 
       <!-- size -->
       <div class="dv-item">
         <span>House Size</span>
-        <span>650 Sq.ft</span>
+        <span
+          *ngIf="data?.size"
+        >{{data?.size}} Sq.ft</span>
       </div>
 
       <!-- bedrooms -->
       <div class="dv-item">
         <span>Number of Bedrooms</span>
-        <span>5</span>
+        <span>{{data?.bedroom}}</span>
       </div>
 
       <!-- bathrooms -->
       <div class="dv-item">
         <span>Number of Bathrooms</span>
-        <span>5</span>
+        <span>{{data?.bathroom}}</span>
       </div>
 
       <!-- garage -->
       <div class="dv-item">
         <span>Garage Type</span>
-        <span>Single</span>
+        <span>{{data?.getGarageStr()}}</span>
       </div>
 
       <!-- basement -->
       <div class="dv-item">
         <span>Basement</span>
-        <span>Yes, Unfinished</span>
+        <span>{{data?.getBasementStr()}}</span>
       </div>
 
       <!-- lot -->
       <div class="dv-item">
-        <span>Lot Size</span>
-        <span>10000 Sq.ft</span>
+        <span>Lot Depth</span>
+        <span
+          *ngIf="data?.lotDepth"
+        >{{data?.lotDepth}} feet</span>
       </div>
 
       <!-- frontage -->
       <div class="dv-item">
         <span>Lot Frontage</span>
-        <span>Two-Storey</span>
+        <span
+          *ngIf="data?.lotFrontage"
+        >{{data?.lotFrontage}} feet</span>
       </div>
 
       <!-- status -->
       <div class="dv-item">
         <span>Construction Status</span>
-        <span>New</span>
+        <span>{{data?.getStatusStr()}}</span>
+      </div>
+
+      <!-- commission -->
+      <div class="dv-item">
+        <span>Cooperating Agent's Commision</span>
+        <span
+          *ngIf="data?.commission"
+        >{{data?.commission}}%</span>
       </div>
     </div>
 
@@ -130,9 +208,10 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer
+  *ngIf="data?.agentId && auth.user">
   <ion-button
-    [routerLink]="['/profile/aa']"
+    [routerLink]="['/profile/' + data?.agentId]"
     class="m-0 with-shadow"
     expand="block"
     square

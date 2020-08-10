@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { NotificationsPage } from './notifications.page';
+import {LongPressDirective} from "../../directives/long-press.directive";
 
 const routes: Routes = [
   {
@@ -19,8 +20,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [NotificationsPage]
+  declarations: [
+    NotificationsPage,
+    LongPressDirective
+  ]
 })
 export class NotificationsPageModule {}

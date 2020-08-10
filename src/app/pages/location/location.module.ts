@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LocationPage } from './location.page';
+import {AgmCoreModule} from '@agm/core';
+import {config} from '../../helpers/config';
 
 const routes: Routes = [
   {
@@ -19,7 +21,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AgmCoreModule.forRoot({
+      apiKey: config.googleMapApiKey,
+      libraries: ['geometry', 'places']
+    })
   ],
   declarations: [LocationPage]
 })

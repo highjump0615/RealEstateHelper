@@ -1,4 +1,22 @@
+ion-header {
+  .dv-but-content {
+    position: relative;
+  }
+
+  ion-badge.badge-empty {
+    position: absolute;
+    min-width: 0;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    display: block;
+    right: -14px;
+    left: inherit;
+  }
+}
+
 ion-content {
+
   ion-item {
     --padding-start: 14px;
     --padding-end: 14px;
@@ -14,12 +32,11 @@ ion-content {
 
     > div {
       width: 100%;
-      height: 120px;
       background-image: url('../../../../assets/imgs/bg_match_item.png');
       background-size: 100% 100%;
       align-items: center;
       border-radius: 6px;
-      padding: 6px;
+      padding: 12px 6px;
     }
 
     .dv-buyer {
@@ -35,7 +52,6 @@ ion-content {
     .sp-username {
       font-size: 9pt;
       font-weight: 600;
-      margin-top: 8px;
     }
 
     .sp-address {

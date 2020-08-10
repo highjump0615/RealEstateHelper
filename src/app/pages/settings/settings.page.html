@@ -12,7 +12,7 @@
 <ion-content padding>
 
   <!-- Renew my Profiles -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail>
@@ -24,20 +24,20 @@
   </ion-card>
 
   <!-- Subscribe -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail
-      [routerLink]="['/subscribe']">
+      [routerLink]="['/subscribe-detail']">
       <ion-icon
         name="ios-checkmark-circle"
         slot="start"></ion-icon>
-      <ion-label>Subscribe</ion-label>
+      <ion-label>Manage Subscriptions</ion-label>
     </ion-item>
   </ion-card>
 
   <!-- Notification Settings -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail>
@@ -48,11 +48,26 @@
     </ion-item>
   </ion-card>
 
-  <!-- Share App -->
+  <!-- Change password -->
   <ion-card>
     <ion-item
       lines="none"
-      detail>
+      detail
+      [routerLink]="['change-password']">
+      <ion-icon
+        name="construct"
+        slot="start"></ion-icon>
+      <ion-label>Change Password</ion-label>
+    </ion-item>
+  </ion-card>
+
+  <!-- Share App -->
+  <ion-card>
+    <ion-item
+      button
+      lines="none"
+      detail
+      (click)="onShare()">
       <ion-icon
         name="md-share"
         slot="start"></ion-icon>
@@ -76,8 +91,10 @@
   <!-- Rate App -->
   <ion-card>
     <ion-item
+      button
       lines="none"
-      detail>
+      detail
+      (click)="onRateApp()">
       <ion-icon
         name="star"
         slot="start"></ion-icon>
@@ -99,7 +116,7 @@
   </ion-card>
 
   <!-- Security Settings -->
-  <ion-card>
+  <ion-card hidden>
     <ion-item
       lines="none"
       detail>

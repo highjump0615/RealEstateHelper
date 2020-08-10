@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Favourite Properties</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && props.length == 0">
+    <span>No favourite properties</span>
+  </div>
+
+  <ion-card
+    class="ca-buyer"
+    *ngFor="let data of props; let i = index">
+    <ion-item
+      class="no-padding"
+      button
+      lines="none"
+      detail="false"
+      (click)="onPropertyItem(data)">
+      <ion-card-content class="full-width">
+        <div class="flex-row">
+          <!-- image -->
+          <ion-thumbnail>
+            <ion-img [src]="data.imageUrls.length > 0 ? data.imageUrls[0] : 'assets/imgs/default_img.png'">
+            </ion-img>
+          </ion-thumbnail>
+
+          <div class="dv-info">
+            <div class="flex-column dv-info-content">
+              <!-- title -->
+              <span
+                class="sp-title"
+              >{{data.title}}</span>
+
+              <!-- address -->
+              <span
+                class="sp-address"
+                *ngIf="data.showAddress"
+              >{{data.address}}</span>
+
+              <!-- distance -->
+              <span
+                class="sp-distance"
+                *ngIf="data.distanceToMile() > 0"
+              >{{data.distanceToMile()}} miles away</span>
+            </div>
+
+            <!-- delete button -->
+            <ion-button
+              class="bt-delete"
+              fill="clear"
+              color="danger"
+              (click)="onButDelete(i, $event)">
+              <ion-icon
+                slot="icon-only"
+                name="trash">
+              </ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

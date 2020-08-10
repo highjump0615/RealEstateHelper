@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseSegmentPage} from '../base-segment.page';
 import {AlertController} from '@ionic/angular';
+import {ApiService} from '../../services/api/api.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {Client} from '../../models/client';
+import {TabsPage} from '../tabs/tabs.page';
+import {TabService} from '../../services/tab.service';
 
 @Component({
   selector: 'app-favourites',
@@ -9,13 +14,67 @@ import {AlertController} from '@ionic/angular';
 })
 export class FavouritesPage extends BaseSegmentPage implements OnInit {
 
+  showLoading = false;
+  buyers: Array<Client>;
+  sellers: Array<Client>;
+
   constructor(
-    public alertController: AlertController
+    public alertController: AlertController,
+    private auth: AuthService,
+    private tab: TabService,
+    public api: ApiService,
   ) {
     super();
   }
 
   ngOnInit() {
+    // set tab data
+    this.tab.setCurrentTab(TabsPage.TAB_FAVOURITE, this);
+  }
+
+  ionViewDidEnter() {
+    this.fetchData();
+  }
+
+  onPageChanged(page: number) {
+    console.log('onPageChanged');
+
+    super.onPageChanged(page);
+
+    this.fetchData();
+  }
+
+  async fetchData() {
+    if (!this.auth.user) {
+      return;
+    }
+
+    const isBuyer = this.currentPage === this.PAGE_BUYER;
+
+    try {
+      if (isBuyer) {
+        if (!this.buyers) {
+          this.showLoading = true;
+        }
+
+        this.buyers = await this.api.fetchFavouriteBuyers();
+      } else {
+        if (!this.sellers) {
+          this.showLoading = true;
+        }
+
+        this.sellers = await this.api.fetchFavouriteSellers();
+      }
+
+      this.showLoading = false;
+
+      console.log(this.buyers);
+
+    } catch (err) {
+      console.log(err);
+
+      this.showLoading = false;
+    }
   }
 
   onButDelete(event) {
@@ -47,5 +106,9 @@ export class FavouritesPage extends BaseSegmentPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  itemHeightFn(item, index) {
+    return 69;
   }
 }

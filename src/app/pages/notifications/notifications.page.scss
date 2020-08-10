@@ -1,5 +1,5 @@
-ion-card {
-  margin: 6px 14px 0 14px;
+.dv-noti-item {
+  display: flex;
 
   &:first-child {
     margin-top: 14px;
@@ -10,7 +10,44 @@ ion-card {
   }
 }
 
+ion-card {
+}
+
+ion-list {
+  padding-bottom: 10px;
+}
+
+.list-normal {
+  ion-card {
+    margin: 2px 14px 6px 14px;
+    box-shadow: 0 0 16px rgba(0,0,0,.22);
+  }
+
+  ion-item {
+    --inner-padding-end: 0;
+  }
+}
+
+.list-edit {
+  ion-item {
+    --inner-padding-end: 0;
+    --inner-box-shadow: 0 0 16px rgba(0,0,0,.22);
+
+    ion-checkbox {
+      --size: 14pt;
+    }
+
+    .dv-card-wrapper {
+      ion-card {
+        margin: 2px 0 4px 0;
+        box-shadow: 0 0 16px rgba(0,0,0,.22);
+      }
+    }
+  }
+}
+
 .dv-icon {
+  opacity: 60%;
   width: 22px;
 
   ion-icon {
@@ -25,7 +62,6 @@ ion-card-content {
   font-size: 10pt;
 
   .sp-msg {
-    font-weight: bold;
     flex: 1;
     margin: 0 10px;
     font-size: 9pt;
@@ -34,5 +70,38 @@ ion-card-content {
   .sp-time {
     color: var(--color-gray-dark);
     font-size: 8pt;
+  }
+}
+
+.item-no-read {
+  font-weight: bold;
+
+  .dv-icon {
+    opacity: 100%;
+  }
+}
+
+ion-item-option {
+  text-align: center;
+}
+
+.dv-header {
+  color: #989aa2;
+  height: 48px;
+
+  ion-checkbox {
+    --size: 14pt;
+  }
+
+  ion-label {
+    font-size: 11pt;
+  }
+
+  .dv-header-edit {
+    justify-content: space-between;
+
+    .but-delete {
+      font-size: 9pt;
+    }
   }
 }

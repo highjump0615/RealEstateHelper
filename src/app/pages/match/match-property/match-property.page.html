@@ -17,8 +17,8 @@
     <div class="flex-column">
       <ion-label
         class="lb-name"
-      >Andrew Smith</ion-label>
-      <ion-label>Holly Street Rome, Canada</ion-label>
+      >{{buyer.name}}</ion-label>
+      <ion-label>{{buyer.address}}</ion-label>
     </div>
   </div>
 
@@ -26,17 +26,18 @@
     <!-- count -->
     <span
       class="sp-title nm-center"
-    >9 Matched Properties</span>
+    >{{buyer.matchedProperties?.length}} Matched Properties</span>
 
     <!-- property item -->
     <ion-card
       class="ca-buyer"
-      *ngFor="let data of [1,2,3,4,5,6]; let i = index">
+      *ngFor="let data of buyer.matchedProperties; let i = index">
       <ion-item
         class="no-padding"
         button
+        lines="none"
         detail="false"
-        [routerLink]="['/profile/asdf']">
+        [routerLink]="['/profile', data.agentId]">
         <ion-card-content class="full-width">
           <div class="flex-column">
             <!-- index -->
@@ -50,9 +51,9 @@
               <!-- image -->
               <div
                 class="dv-image"
-                (click)="onProperty($event)">
+                (click)="onProperty(data, $event)">
                 <ion-thumbnail>
-                  <img src="../../../../assets/imgs/default_img.png">
+                  <ion-img [src]="getPropertyImage(data)"></ion-img>
                 </ion-thumbnail>
               </div>
 
@@ -60,19 +61,20 @@
                 <!-- username -->
                 <span
                   class="sp-name"
-                >Anna Clay</span>
+                >{{data.title}}</span>
 
                 <!-- address -->
                 <span
                   class="sp-address"
-                  (click)="goToLocation($event)"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
+                  (click)="goToLocation(data, $event)"
+                  *ngIf="data.showAddress"
+                >{{data.address}}</span>
 
                 <!-- distance -->
                 <span
                   class="sp-distance"
-                  (click)="goToLocation($event)"
-                >0.3 miles away</span>
+                  *ngIf="data.distanceToMile() > 0"
+                >{{data.distanceToMile()}} miles away</span>
               </div>
             </div>
 
@@ -80,6 +82,7 @@
             <ion-button
               class="bt-delete"
               fill="clear"
+              hidden
               (click)="onButDelete($event)">
               <ion-img
                 slot="icon-only"

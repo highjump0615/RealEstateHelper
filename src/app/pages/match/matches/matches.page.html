@@ -12,7 +12,14 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_BUYER)">
-      My Buyers
+      <div class="flex-row dv-but-content">
+        My Buyers
+        <ion-badge
+          class="badge-empty"
+          color="danger"
+          *ngIf="auth.user?.newMatchBuyer"
+        ></ion-badge>
+      </div>
     </ion-button>
     <ion-button
       [fill]="currentPage == PAGE_SELLER ? 'solid' : 'outline'"
@@ -20,36 +27,73 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_SELLER)">
-      My Sellers
+      <div class="flex-row dv-but-content">
+        My Sellers
+        <ion-badge
+          class="badge-empty"
+          color="danger"
+          *ngIf="auth.user?.newMatchSeller"
+        ></ion-badge>
+      </div>
     </ion-button>
   </div>
 </ion-header>
 
 <ion-content>
 
+  <ion-searchbar
+    mode="ios"
+    placeholder="Search client name or property address..."
+    *ngIf="currentPage == PAGE_BUYER"
+    [(ngModel)]="keywordBuyer"
+    (ionChange)="onSearch()"
+  ></ion-searchbar>
+  <ion-searchbar
+    mode="ios"
+    placeholder="Search client name"
+    *ngIf="currentPage == PAGE_SELLER"
+    [(ngModel)]="keywordSeller"
+    (ionChange)="onSearch()"
+  ></ion-searchbar>
+
+  <!-- pull to refresh -->
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
   <ion-list
     *ngIf="currentPage == PAGE_BUYER">
-    <ion-searchbar
-      mode="ios"
-      placeholder="Search client name or property address..."
-    ></ion-searchbar>
+
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="getNotice(PAGE_BUYER)">
+      <span>{{getNotice(PAGE_BUYER)}}</span>
+    </div>
 
     <ion-item
-      *ngFor="let i of [1,2,3,4,5,6]"
+      *ngFor="let item of getMatchedBuyers()"
       lines="none">
       <div
         class="flex-row"
-        [routerLink]="['/match-buyer']">
+        (click)="onItemBuyer(item)">
         <div class="dv-buyer flex-column nm-center">
-          <ion-thumbnail
-            class="round">
-            <img src="../../../../assets/imgs/default_img.png">
-          </ion-thumbnail>
+          <!-- name -->
+          <span
+            class="sp-username"
+          >{{item.name}}</span>
 
           <!-- address -->
           <span
-            class="sp-address-buyer"
-          >1263 Derek Drive Akron, Canada</span>
+            class="sp-address"
+          >{{item.address}}</span>
         </div>
 
         <div
@@ -66,12 +110,12 @@
           <!-- number -->
           <span
             class="sp-number"
-          >9</span>
+          >{{item.matchedProperties?.length}}</span>
 
           <!-- label -->
           <span
             class="sp-label"
-          >Matched Buyers</span>
+          >Matched Properties</span>
         </div>
       </div>
     </ion-item>
@@ -80,31 +124,30 @@
 
   <ion-list
     *ngIf="currentPage == PAGE_SELLER">
-    <ion-searchbar
-      mode="ios"
-      placeholder="Search client name"
-    ></ion-searchbar>
+
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="getNotice(PAGE_SELLER)">
+      <span>{{getNotice(PAGE_SELLER)}}</span>
+    </div>
 
     <ion-item
-      *ngFor="let i of [1,2,3,4,5,6]"
+      *ngFor="let item of getMatchedSellers()"
       lines="none">
       <div
         class="flex-row"
-        [routerLink]="['/match-property']">
+        (click)="onItemSeller(item)">
+
         <div class="dv-buyer flex-column nm-center">
-          <ion-thumbnail
-            class="round">
-            <img src="../../../../assets/imgs/default_user.png">
-          </ion-thumbnail>
           <!-- name -->
           <span
             class="sp-username"
-          >Andrew Smith</span>
+          >{{item.name}}</span>
 
           <!-- address -->
           <span
             class="sp-address"
-          >Holly Street Rome, Canada</span>
+          >{{item.address}}</span>
         </div>
 
         <div
@@ -121,12 +164,12 @@
           <!-- number -->
           <span
             class="sp-number"
-          >9</span>
+          >{{item.matchedBuyers?.length}}</span>
 
           <!-- label -->
           <span
             class="sp-label"
-          >Matched Properties</span>
+          >Matched Buyers</span>
         </div>
       </div>
     </ion-item>

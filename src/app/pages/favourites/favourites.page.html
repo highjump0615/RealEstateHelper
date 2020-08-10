@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar
     color="primary">
-    <ion-title>FAVORITES</ion-title>
+    <ion-title>FAVOURITES</ion-title>
   </ion-toolbar>
 
   <!-- segments -->
@@ -12,7 +12,7 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_BUYER)">
-      Buyer’s Favorites
+      Buyer’s Favourites
     </ion-button>
     <ion-button
       [fill]="currentPage == PAGE_SELLER ? 'solid' : 'outline'"
@@ -20,112 +20,100 @@
       no-border
       color="secondary"
       (click)="onPageChanged(PAGE_SELLER)">
-      Seller’s Favorites
+      Seller’s Favourites
     </ion-button>
   </div>
 </ion-header>
 
 <ion-content>
 
-  <div
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <ng-container
     *ngIf="currentPage == PAGE_BUYER">
-    <ion-card
-      class="ca-buyer"
-      *ngFor="let i of [1,2,3,4,5,6]">
+
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && buyers?.length == 0">
+      <span>No buyers has favourite properties yet</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="buyers"
+      approxItemHeight="69">
+
       <ion-item
-        class="no-padding"
         button
         detail="false"
-        [routerLink]="['/property']">
-        <ion-card-content class="full-width">
-          <div class="flex-row">
-            <!-- image -->
-            <ion-thumbnail>
-              <img src="../../../assets/imgs/default_img.png">
-            </ion-thumbnail>
+        *virtualItem="let item"
+        [routerLink]="['/favourites/properties', item.id]">
 
-            <div class="dv-info">
-              <div class="flex-column dv-info-content">
-                <!-- title -->
-                <span
-                  class="sp-title"
-                >New three bedroom, one level duplex home</span>
-
-                <!-- address -->
-                <span
-                  class="sp-address"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
-
-                <!-- distance -->
-                <span
-                  class="sp-distance"
-                >0.3 miles away</span>
-              </div>
-
-              <!-- delete button -->
-              <ion-button
-                class="bt-delete"
-                fill="clear"
-                color="danger"
-                (click)="onButDelete($event)">
-                <ion-icon
-                  slot="icon-only"
-                  name="trash">
-                </ion-icon>
-              </ion-button>
-            </div>
+        <div class="flex-row full-width">
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+            >{{item.address}}</span>
           </div>
-        </ion-card-content>
-      </ion-item>
-    </ion-card>
-  </div>
 
-  <div
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
+
+  <ng-container
     *ngIf="currentPage == PAGE_SELLER">
-    <ion-card
-      class="ca-seller"
-      *ngFor="let i of [1,2,3,4,5,6]">
+
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && sellers?.length == 0">
+      <span>No sellers has favourite buyers yet</span>
+    </div>
+
+    <ion-virtual-scroll
+      [items]="sellers"
+      [itemHeight]="itemHeightFn">
+
       <ion-item
-        class="no-padding"
         button
         detail="false"
-        [routerLink]="['/profile/asdf']">
-        <ion-card-content class="full-width">
-          <div class="flex-row">
-            <div class="dv-info">
-              <div class="flex-column dv-info-content">
-                <!-- title -->
-                <span
-                  class="sp-title"
-                >Andrew Smith</span>
+        [routerLink]="['/favourites/buyers', item.id]"
+        *virtualItem="let item">
+        <div class="flex-row full-width">
 
-                <!-- address -->
-                <span
-                  class="sp-address"
-                >83 Iskoot Crescent, Whitehorse, Canada</span>
-
-                <!-- distance -->
-                <span
-                  class="sp-distance"
-                >0.3 miles away</span>
-              </div>
-            </div>
-
-            <!-- delete button -->
-            <ion-button
-              class="bt-delete"
-              fill="clear"
-              color="danger"
-              (click)="onButDelete($event)">
-              <ion-icon
-                slot="icon-only"
-                name="trash">
-              </ion-icon>
-            </ion-button>
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- name -->
+            <span
+              class="sp-name"
+            >{{item.name}}</span>
+            <span
+              class="sp-address"
+              hidden
+            >2896 Holly Street Rome, Canada</span>
           </div>
-        </ion-card-content>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
       </ion-item>
-    </ion-card>
-  </div>
+    </ion-virtual-scroll>
+  </ng-container>
 
 </ion-content>

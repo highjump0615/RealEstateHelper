@@ -5,6 +5,8 @@
 }
 
 .dv-input {
+  width: 70%;
+
   span {
     font-size: 12pt;
     font-weight: bold;
@@ -14,13 +16,11 @@
 .dv-social {
   display: flex;
   margin-top: 30px;
+  justify-content: space-between;
+
   img {
     width: 60px;
     height: 60px;
-
-    &:not(:first-child) {
-      margin-left: 40px;
-    }
   }
 }
 

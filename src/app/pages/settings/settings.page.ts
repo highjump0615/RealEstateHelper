@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
-import {AlertController, NavController} from '@ionic/angular';
+import {ActionSheetController, AlertController, NavController, ToastController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
+import {config} from '../../helpers/config';
+import {AppRate} from '@ionic-native/app-rate/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import {User} from "../../models/user";
+import {ApiService} from "../../services/api/api.service";
+import {ChatService} from "../../services/chat/chat.service";
 
 @Component({
   selector: 'app-settings',
@@ -10,11 +16,20 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class SettingsPage implements OnInit {
 
+  static SHARE_FACEBOOK = 0;
+  static SHARE_TWITTER = 1;
+
   constructor(
     private router: Router,
     public alertCtrl: AlertController,
     public navCtrl: NavController,
-    private auth: AuthService
+    private auth: AuthService,
+    private appRate: AppRate,
+    public actionSheetController: ActionSheetController,
+    private socialSharing: SocialSharing,
+    public toastController: ToastController,
+    public api: ApiService,
+    private chat: ChatService,
   ) { }
 
   ngOnInit() {
@@ -49,9 +64,86 @@ export class SettingsPage implements OnInit {
   }
 
   private doLogout() {
+    // clear fcm token
+    this.api.saveToDatabaseWithField(this.auth.user, User.FIELD_TOKEN, null);
+
+    // clear db listener events
+    this.chat.clearData();
+
     // sign out
     this.auth.signOut();
 
     this.navCtrl.navigateRoot('/login');
+  }
+
+  onRateApp() {
+    // set certain preferences
+    this.appRate.preferences.storeAppURL = {
+      ios: config.appleId,
+      android: `market://details?id=${config.packageName}`,
+    };
+
+    this.appRate.promptForRating(true);
+  }
+
+  async shareApp(type) {
+    const shareText = 'Check out this great App!';
+    const shareUrl = 'https://ionicacademy.com';
+
+    try {
+      if (type === SettingsPage.SHARE_FACEBOOK) {
+        await this.socialSharing.shareViaFacebook(
+          shareText,
+          null,
+          shareUrl
+        );
+      }
+      else {
+        await this.socialSharing.shareViaTwitter(
+          shareText,
+          null,
+          shareUrl
+        );
+      }
+
+      // show notice
+      const toast = await this.toastController.create({
+        color: 'dark',
+        message: 'App has been shared successfully.',
+        duration: 2000
+      });
+      toast.present();
+
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [{
+        text: 'Facebook',
+        handler: () => {
+          this.shareApp(SettingsPage.SHARE_FACEBOOK);
+        }
+      }, {
+        text: 'Twitter',
+        handler: () => {
+          this.shareApp(SettingsPage.SHARE_TWITTER);
+        }
+      }, {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  onShare() {
+    this.presentActionSheet();
   }
 }

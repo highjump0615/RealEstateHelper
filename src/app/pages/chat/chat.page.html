@@ -7,25 +7,59 @@
 
 <ion-content>
 
-  <ion-list>
-    <ion-item
-      button
-      detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]"
-      (click)="onItemClick()"
-      [routerLink]="['/message']">
-      <div class="flex-row full-width">
-        <!-- user photo -->
-        <ion-thumbnail>
-          <img src="../../../assets/imgs/default_user.png">
-        </ion-thumbnail>
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && messages.length == 0">
+    <span>No chat with users yet</span>
+  </div>
 
-        <div class="dv-content">
-          <!-- message -->
-          <span>I recently sold a property down lorem ipsum lorem lorem lorem</span>
+  <ion-virtual-scroll
+    [items]="messages"
+    [itemHeight]="itemHeightFn">
+    <ion-item-sliding
+      #slidingItem
+      *virtualItem="let item; let i = index">
+      <ion-item
+        button
+        detail="false"
+        (click)="onItemClick(item)">
+        <div class="flex-row full-width">
+          <!-- user photo -->
+          <ion-thumbnail>
+            <ion-img
+              [src]="item.toUser?.photoUrl ? item.toUser?.photoUrl : '../../../assets/imgs/default_user.png'">
+            </ion-img>
+          </ion-thumbnail>
+
+          <div class="dv-content">
+            <!-- name -->
+            <span class="sp-name">{{item.toUser?.name}}</span>
+            <!-- message -->
+            <span>{{item.message}}</span>
+          </div>
+
+          <ion-badge
+            color="danger"
+            *ngIf="item.unreadCount > 0">
+            {{item.unreadCount}}
+          </ion-badge>
+
         </div>
-      </div>
-    </ion-item>
-  </ion-list>
+      </ion-item>
+
+      <!-- delete button -->
+      <ion-item-options>
+        <ion-item-option
+          color="danger"
+          (click)="onButDelete(i, slidingItem)"
+        >Delete</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-virtual-scroll>
 
 </ion-content>

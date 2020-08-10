@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Utils} from '../../helpers/utils';
-import {ApiService} from '../../sercices/api/api.service';
+import {ApiService} from '../../services/api/api.service';
 import {AlertController, LoadingController, NavController} from '@ionic/angular';
 import {AuthService} from '../../services/auth/auth.service';
 import {BasePage} from '../base.page';

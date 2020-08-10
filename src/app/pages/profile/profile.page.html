@@ -12,7 +12,8 @@
       <!-- report -->
       <ion-button
         color="light"
-        *ngIf="userId; else butEdit">
+        *ngIf="userId; else butEdit"
+        (click)="onButReport();">
         <ion-icon
           slot="icon-only"
           name="flag">
@@ -40,7 +41,9 @@
       class="dv-agent flex-c-row">
 
       <!-- background image -->
-      <div class="dv-bg">
+      <div
+        class="dv-bg"
+        [style.background-image]="'url(' + (user?.photoUrl ? user?.photoUrl : '../../../assets/imgs/default_user.png') + ')'">
       </div>
       <img
         class="img-shadow"
@@ -56,24 +59,37 @@
         </ion-thumbnail>
 
         <!-- name -->
-        <span
-          class="sp-name"
-        >{{user?.name}}</span>
+        <div
+          class="flex-c-row dv-name"
+          (click)="onButChat()">
+          <span
+            class="sp-name"
+          >{{user ? user.name : '&nbsp;'}}</span>
+          <!-- show chat icon for other user -->
+          <ion-icon
+            *ngIf="user && userId"
+            name="chatbubbles">
+          </ion-icon>
+        </div>
 
         <!-- email -->
         <div
           class="flex-c-row dv-email"
-          *ngIf="user">
-          <ion-icon name="mail"></ion-icon>
-          <span>{{user.email}}</span>
+          (click)="onButEmail(user?.email)">
+          <ion-icon
+            name="mail"
+            *ngIf="user">
+          </ion-icon>
+          <span>{{user ? user.email : '&nbsp;'}}</span>
         </div>
 
         <!-- phone -->
         <div
           class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phone)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>{{user.phone}}</span>
+          <span>{{user ? user.getPhone() : '&nbsp;'}}</span>
         </div>
       </div>
 
@@ -86,22 +102,23 @@
         <!-- title -->
         <span
           class="sp-name"
-        >{{user?.nameBkg}}</span>
+        >{{user ? user.nameBkg : '&nbsp;'}}</span>
 
         <!-- address -->
         <div
           class="flex-c-row dv-address"
           *ngIf="user">
           <ion-icon name="pin"></ion-icon>
-          <span>{{user.addressBkg}}</span>
+          <span>{{user ? user.addressBkg : '&nbsp;'}}</span>
         </div>
 
         <!-- phone -->
         <div
           class="flex-c-row dv-phone"
+          (click)="onButPhone(user?.phoneBkg)"
           *ngIf="user">
           <ion-icon name="call"></ion-icon>
-          <span>{{user.phoneBkg}}</span>
+          <span>{{user ? user.getPhoneBkg() : '&nbsp;'}}</span>
         </div>
       </div>
     </div>

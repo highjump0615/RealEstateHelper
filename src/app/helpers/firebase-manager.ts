@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
+import 'firebase/functions';
 import {config} from './config';
 
 export class FirebaseManager {
@@ -37,32 +38,27 @@ export class FirebaseManager {
       .credential(token);
   }
 
-  uploadImageTo(path, imgData, completion: (string?, error?) => void) {
+  uploadImageTo(path, imgData) {
     const storageRef = firebase.storage().ref();
     const imageRef = storageRef.child(path);
 
-    imageRef.putString(imgData, 'data_url')
+    return imageRef.putString(imgData, 'data_url')
       .then((snapshot) => {
         // get download url
-        imageRef.getDownloadURL().then((url) => {
+        return imageRef.getDownloadURL().then((url) => {
           console.log('url: ' + url);
 
-          completion(url);
-        }).catch((err) => {
-          console.log(err);
-
-          completion(null, err);
+          return url;
         });
-      })
-      .catch((err) => {
-        console.log(err);
-
-        completion(null, err);
       });
   }
 
   init() {
     firebase.initializeApp(config.firebase);
+
+    // local test
+    // firebase.functions().useFunctionsEmulator('http://localhost:5001')
+
     this.initServerTime();
   }
 
@@ -86,6 +82,10 @@ export class FirebaseManager {
   signOut() {
     // Log out
     FirebaseManager.auth().signOut();
+  }
+
+  getCloudFunction(functionName) {
+    return firebase.functions().httpsCallable(functionName);
   }
 
 }

@@ -2,7 +2,9 @@
   <ion-toolbar
     color="primary">
     <!-- user photo -->
-    <ion-buttons slot="start">
+    <ion-buttons
+      slot="start"
+      *ngIf="auth.user">
       <a [routerLink]="['/profile']">
         <img
           class="img-user"
@@ -13,7 +15,9 @@
     <ion-title>R.E.CONNECT</ion-title>
 
     <!-- settings -->
-    <ion-buttons slot="end">
+    <ion-buttons
+      slot="end"
+      *ngIf="auth.user">
       <ion-button
         color="light"
         [routerLink]="['/settings']">
@@ -44,12 +48,13 @@
       fill="clear"
       color="secondary"
       [routerLink]="['/profile-client']">
-      My Profiles
+      My Clients Profiles
     </ion-button>
     <ion-button
       fill="clear"
       color="secondary"
-      [routerLink]="['/profile-add']">
+      (click)="onButAddProfile()">
+      <ion-icon slot="start" name="add"></ion-icon>
       Add Profile
     </ion-button>
   </div>
@@ -57,38 +62,59 @@
 </ion-header>
 
 <ion-content>
+  <!-- pull to refresh -->
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && (properties?.length == 0 || !properties)">
+    <span>No properties available yet</span>
+  </div>
+
   <ion-list>
     <ion-item
       button
       detail="false"
-      *ngFor="let i of [1,2,3,4,5,6]"
-      (click)="onProperyItem()">
-      <div class="flex-row">
+      *ngFor="let item of properties; let i = index"
+      (click)="onPropertyItem(item)">
+
+      <div class="flex-row width-100">
         <!-- image -->
         <ion-thumbnail>
-          <img src="../../../assets/imgs/default_img.png">
+          <ion-img [src]="getPropertyImage(item)"></ion-img>
         </ion-thumbnail>
 
         <div class="flex-column dv-info">
           <!-- title -->
           <span
             class="sp-title"
-          >New three bedroom, one level duplex home</span>
+          >{{item.title}}</span>
 
           <!-- price -->
           <span
             class="sp-price"
-          >$399,000.00</span>
+          >${{item.priceStr()}}</span>
 
           <!-- address -->
           <span
             class="sp-address"
-          >83 Iskoot Crescent, Whitehorse, Canada</span>
+            *ngIf="item.showAddress"
+          >{{item.address}}</span>
 
           <!-- distance -->
           <span
             class="sp-distance"
-          >0.3 miles away</span>
+            *ngIf="item.distanceToMile() > 0"
+          >{{item.distanceToMile()}} miles away</span>
         </div>
       </div>
     </ion-item>

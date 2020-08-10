@@ -1,23 +1,48 @@
-<ion-tabs>
+<ion-tabs
+  (ionTabsWillChange)="onTabWillChange($event)">
 
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="home">
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="matches">
+    <ion-tab-button
+      class="tab-match"
+      (click)="onButTab(tabMatch)"
+      [selected]="tab.currentTab == tabMatch">
+      <ion-badge
+        color="danger"
+        class="badge-empty"
+        *ngIf="auth.user?.hasNewMatch()"
+      ></ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="favourites">
+    <ion-tab-button
+      (click)="onButTab(tabFavourite)"
+      [selected]="tab.currentTab == tabFavourite">
+      <ion-icon name="heart"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button
+      class="tab-chat"
+      (click)="onButTab(tabChat)"
+      [selected]="tab.currentTab == tabChat">
+      <ion-badge
+        color="danger"
+        *ngIf="unreadMsgCount > 0"
+      >{{unreadMsgCount}}</ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
 
-    <ion-tab-button tab="chat">
-      <div class="dv-icon"></div>
-    </ion-tab-button>
-
-    <ion-tab-button tab="notifications">
+    <ion-tab-button
+      class="tab-notification"
+      (click)="onButTab(tabNotification)"
+      [selected]="tab.currentTab == tabNotification">
+      <ion-badge
+        color="danger"
+        *ngIf="auth.user?.unreadNotificationCount > 0"
+      >{{auth.user?.unreadNotificationCount}}</ion-badge>
       <div class="dv-icon"></div>
     </ion-tab-button>
   </ion-tab-bar>

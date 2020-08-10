@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Select Buyers</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- showLoading -->
+  <ion-spinner
+    class="spn-loading"
+    *ngIf="showLoading">
+  </ion-spinner>
+
+  <div
+    class="dv-no-list-item flex-c-row"
+    *ngIf="!showLoading && auth.user.buyers?.length == 0">
+    <span>No buyers added yet</span>
+  </div>
+
+  <ion-virtual-scroll
+    [items]="auth.user.buyers"
+    approxItemHeight="49">
+
+    <ion-item
+      button
+      detail="false"
+      *virtualItem="let item; let i = index">
+      <div class="flex-row full-width">
+        <ion-label>{{item.name}}</ion-label>
+      </div>
+
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="item.selected">
+      </ion-checkbox>
+    </ion-item>
+
+  </ion-virtual-scroll>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    class="m-0 with-shadow"
+    expand="block"
+    square
+    (click)="onButNext()"
+  >Next</ion-button>
+</ion-footer>

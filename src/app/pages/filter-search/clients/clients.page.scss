@@ -1,0 +1,38 @@
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+
+  --inner-padding-start: 14px;
+  --inner-padding-end: 14px;
+  --inner-padding-top: 14px;
+  --inner-padding-bottom: 14px;
+
+  > div {
+    align-items: center;
+  }
+
+  ion-thumbnail {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dv-info {
+    margin: 0 8px;
+    flex: 1;
+
+    .sp-name {
+      font-size: 10pt;
+      font-weight: 500;
+    }
+    .sp-address {
+      font-size: 9pt;
+      color: #777777;
+    }
+  }
+
+  .sp-distance {
+    color: var(--color-gray-dark);
+  }
+}

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertController, PopoverController} from "@ionic/angular";
-import {RemoveButtonComponent} from "../../../components/remove-button/remove-button.component";
+import {AlertController, PopoverController} from '@ionic/angular';
+import {RemoveButtonComponent} from '../../../components/remove-button/remove-button.component';
+import {NavService} from '../../../services/nav.service';
+import {Client} from '../../../models/client';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-match-buyer',
@@ -8,11 +11,17 @@ import {RemoveButtonComponent} from "../../../components/remove-button/remove-bu
   styleUrls: ['./match-buyer.page.scss'],
 })
 export class MatchBuyerPage implements OnInit {
+  seller: Client;
 
   constructor(
+    public nav: NavService,
     public popoverCtrl: PopoverController,
-    public alertController: AlertController
-  ) { }
+    public alertController: AlertController,
+    public auth: AuthService,
+  ) {
+    // get parameter
+    this.seller = this.nav.get('data');
+  }
 
   ngOnInit() {
   }
@@ -30,7 +39,7 @@ export class MatchBuyerPage implements OnInit {
       componentProps: {
         parent: this
       },
-      event: event,
+      event: ev,
       translucent: true,
       cssClass: 'po-remove'
     });
@@ -66,5 +75,20 @@ export class MatchBuyerPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  onItemDetail(item: Client) {
+    this.nav.push('profile-data', {
+      data: item
+    });
+  }
+
+  getBuyerName(data) {
+    if (data.agentId === this.auth.user.id) {
+      // this buyer is mine
+      return data.name;
+    }
+
+    return `Buyer Code: ${data.getIdReadable()}`;
   }
 }

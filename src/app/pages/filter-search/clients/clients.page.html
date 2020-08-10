@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Searched {{filterClient.type == TYPE_SELLER ? 'Sellers' : 'Buyers'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container
+    *ngIf="filterClient.type == TYPE_BUYER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && clients?.length == 0">
+      <span>Buyers not found</span>
+    </div>
+
+    <ion-list>
+      <ion-item
+        button
+        detail="false"
+        *ngFor="let item of clients; let i = index"
+        (click)="onItemDetail(item)">
+        <div class="flex-row full-width">
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- heading -->
+            <span
+              class="sp-name"
+              *ngIf="item.propRequest.title"
+            >{{item.propRequest.title}}</span>
+            <!-- name -->
+            <span
+              class="sp-name"
+            >Buyer Code: {{item.getIdReadable()}}</span>
+            <span
+              class="sp-address mt-8"
+            >Agent: {{item.agent?.name}}</span>
+          </div>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container
+    *ngIf="filterClient.type == TYPE_SELLER">
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && clients?.length == 0">
+      <span>Sellers not found</span>
+    </div>
+
+    <ion-list>
+      <ion-item
+        button
+        detail="false"
+        *ngFor="let item of clients; let i = index"
+        (click)="onItemDetail(item)">
+
+        <div class="flex-row full-width">
+          <!-- photo -->
+          <ion-thumbnail>
+            <img src="{{getPropertyImage(item)}}">
+          </ion-thumbnail>
+
+          <!-- info -->
+          <div class="flex-column dv-info">
+            <!-- heading -->
+            <span
+              class="sp-name"
+              *ngIf="item.property.title"
+            >{{item.property.title}}</span>
+            <!-- name -->
+            <span
+              class="sp-name"
+            >Seller Code: {{item.getIdReadable()}}</span>
+            <span
+              class="sp-address mt-4"
+              *ngIf="item.property.showAddress"
+            >{{item.property.address}}</span>
+          </div>
+
+          <!-- distance -->
+          <span
+            class="sp-distance"
+            hidden
+          >0.2 km away</span>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

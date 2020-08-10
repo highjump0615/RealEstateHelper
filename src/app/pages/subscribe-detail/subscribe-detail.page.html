@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text=""
+        color="light">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>My Current Subscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="container">
+    <div class="flex-column ">
+      <!-- subscription type -->
+      <ion-label
+        class="lb-title">
+        Subscription Type
+      </ion-label>
+      <ion-label
+        class="lb-item mt-6">
+        Free - Limited Features
+      </ion-label>
+
+      <!-- subscription type -->
+      <ion-label
+        class="lb-title mt-14">
+        Subscription Expires
+      </ion-label>
+      <ion-label
+        class="lb-item mt-6">
+        Never
+      </ion-label>
+
+      <ion-label
+        class="mt-40 lb-desc">
+        You are currently enjoying the Free version of Reconnect. You will be able to browse other agent's listings and create your own buyer/seller profiles. Your Buyer/Seller profiles will not be available for other agents to see and you will not be able to communicate with other agents. Please select one of our various piad subscription options to enjoy Reconnects full features.
+      </ion-label>
+
+    </div>
+
+    <!-- buttons -->
+    <div class="dv-but-wrapper">
+      <ion-button
+        expand="block"
+        [routerLink]="['/purchase']"
+      >Change Subscription</ion-button>
+    </div>
+  </div>
+
+</ion-content>

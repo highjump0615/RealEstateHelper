@@ -13,8 +13,6 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     loadChildren: './pages/tabs/tabs.module#TabsPageModule',
-    data: {needUser: true},
-    canActivate: [AuthGuard]
   },
   {
     path: 'onboard',
@@ -47,8 +45,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule',
-    data: {needUser: false},
-    canActivate: [AuthGuard]
   },
   {
     path: 'forget',
@@ -69,36 +65,60 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile-data',
+    loadChildren: './pages/profile/profile-data/profile-data.module#ProfileDataPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'profile-client',
-    loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule'
+    loadChildren: './pages/profile/profile-client/profile-client.module#ProfileClientPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry1',
-    loadChildren: './pages/expiry/expiry1/expiry1.module#Expiry1PageModule'
+    loadChildren: './pages/expiry/expiry1/expiry1.module#Expiry1PageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry2',
-    loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule'
+    loadChildren: './pages/expiry/expiry2/expiry2.module#Expiry2PageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-add',
-    loadChildren: './pages/profile/profile-add/profile-add.module#ProfileAddPageModule'
+    loadChildren: './pages/profile/profile-add/profile-add.module#ProfileAddPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'filter-search',
-    loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule'
+    loadChildren: './pages/filter-search/filter-search.module#FilterSearchPageModule',
   },
   {
     path: 'location',
-    loadChildren: './pages/location/location.module#LocationPageModule'
+    loadChildren: './pages/location/location.module#LocationPageModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'property',
-    loadChildren: './pages/property/property.module#PropertyPageModule'
+    loadChildren: './pages/property/property.module#PropertyPageModule',
+    canActivate: [AuthGuard],
   },
   {
-    path: 'share',
-    loadChildren: './pages/share/share.module#SharePageModule'
+    path: 'property/:id',
+    loadChildren: './pages/property/property.module#PropertyPageModule',
+    data: {needOnboard: false},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'share/:propId',
+    loadChildren: './pages/share/share.module#SharePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'settings',
@@ -128,7 +148,15 @@ const routes: Routes = [
   },
   {
     path: 'message',
-    loadChildren: './pages/message/message.module#MessagePageModule'
+    loadChildren: './pages/message/message.module#MessagePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'message/:id',
+    loadChildren: './pages/message/message.module#MessagePageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'expiry-profile',
@@ -136,16 +164,57 @@ const routes: Routes = [
   },
   {
     path: 'profile-buyer',
-    loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule'
+    loadChildren: './pages/profile/profile-buyer/profile-buyer.module#ProfileBuyerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile-seller',
-    loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule'
+    loadChildren: './pages/profile/profile-seller/profile-seller.module#ProfileSellerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
   },
   {
     path: 'note-add',
-    loadChildren: './pages/note-add/note-add.module#NoteAddPageModule'
-  }
+    loadChildren: './pages/note-add/note-add.module#NoteAddPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'select-buyer',
+    loadChildren: './pages/property/select-buyer/select-buyer.module#SelectBuyerPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'favourites/properties/:buyerId',
+    loadChildren: './pages/favourites/properties/properties.module#PropertiesPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'favourites/buyers/:sellerId',
+    loadChildren: './pages/favourites/buyers/buyers.module#BuyersPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'filter-search/clients',
+    loadChildren: './pages/filter-search/clients/clients.module#ClientsPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings/change-password',
+    loadChildren: './pages/settings/change-password/change-password.module#ChangePasswordPageModule',
+    data: {needUser: true},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'subscribe-detail',
+    loadChildren: './pages/subscribe-detail/subscribe-detail.module#SubscribeDetailPageModule'
+  },
+  { path: 'purchase', loadChildren: './pages/purchase/purchase.module#PurchasePageModule' },
 ];
 @NgModule({
   imports: [
